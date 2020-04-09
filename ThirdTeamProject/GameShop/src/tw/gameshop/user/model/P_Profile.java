@@ -21,11 +21,17 @@ public class P_Profile {
 	@Column(name = "userPwd")
 	private String userPwd;
 	
+	@Column(name = "userToken")
+	private String userToken;
+	
+	@Column(name = "nickname")
+	private String nickname;
+	
 	@Column(name = "mail")
 	private String mail;
 	
 	@Column(name = "gender")
-	private char gender;
+	private Character gender;
 	
 	@Column(name = "userImg")
 	private byte[] userImg;
@@ -35,37 +41,13 @@ public class P_Profile {
 	
 	public P_Profile() {}
 	
-	public P_Profile(String userId, String userName, String userPwd, 
+	public P_Profile(String userId, String userName, String userPwd, String nickname,
 			String mail) {
 		this.userId = userId;
 		this.userName = userName;
 		this.userPwd = userPwd;
+		this.nickname = nickname;
 		this.mail = mail;
-	}
-	public P_Profile(String userId, String userName, String userPwd, 
-			String mail, char gender) {
-		this.userId = userId;
-		this.userName = userName;
-		this.userPwd = userPwd;
-		this.mail = mail;
-		this.gender = gender;
-	}
-	public P_Profile(String userId, String userName, String userPwd, 
-			String mail, byte[] userImg) {
-		this.userId = userId;
-		this.userName = userName;
-		this.userPwd = userPwd;
-		this.mail = mail;
-		this.userImg = userImg;
-	}
-	public P_Profile(String userId, String userName, String userPwd, 
-			String mail, char gender, byte[] userImg) {
-		this.userId = userId;
-		this.userName = userName;
-		this.userPwd = userPwd;
-		this.mail = mail;
-		this.gender = gender;
-		this.userImg = userImg;
 	}
 
 	public String getUserId() {
@@ -123,5 +105,27 @@ public class P_Profile {
 	public void setProfileDetail(PD_ProfileDetail profileDetail) {
 		this.profileDetail = profileDetail;
 	}
+
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
+	}
+
+	public String getnickname() {
+		return nickname;
+	}
+
+	public void setnickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public void setGender(Character gender) {
+		this.gender = gender;
+	}
+	
+	
 
 }
