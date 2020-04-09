@@ -1,6 +1,6 @@
-====
+===================================================================================================
 About Branch Update:
------
+---------------------------------------------------------------------------------------------------
 Apr. 9
 1. Add chatroom function
 2. Add json to maven repository
@@ -8,8 +8,9 @@ Apr. 9
 http://serverName:port/GameShop/DEBUG.jsp to set up/destroy session (simulating logged in users)
 http://serverName:port/GameShop/Chatroom to join chatroom
 
------
-====
+---------------------------------------------------------------------------------------------------
+===================================================================================================
+
 JAVA檔案:ThirdTeamProject
 
 
