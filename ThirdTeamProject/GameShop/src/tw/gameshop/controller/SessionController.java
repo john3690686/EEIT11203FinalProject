@@ -19,7 +19,7 @@ import tw.gameshop.user.model.P_Profile;
 import tw.gameshop.user.model.P_ProfileService;
 
 @Controller
-@SessionAttributes(names = {"userAccount","userName","nickname"})
+@SessionAttributes(names = {"userAccount","userName","nickName"})
 public class SessionController {
 	
 	private P_ProfileService pservice;
@@ -92,7 +92,7 @@ public class SessionController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userAccount", profile.getUserAccount());
 			session.setAttribute("userName", profile.getUserName());
-			session.setAttribute("nickname", profile.getNickname());
+			session.setAttribute("nickName", profile.getNickname());
 			System.out.println("Login Successfully");
 		}
 		return "redirect:/index.html";

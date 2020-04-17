@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zn-TW">
+<html lang="zh-TW">
 
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>index.html</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
     <style>
         footer {
@@ -47,7 +46,7 @@
             <li><a href="#">SHOP</a>
             <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
             <li><a href="#">CHAT</a>
-                <a href="#"><input type="button" class="loginz" value="${login_btn}"/></a>
+                <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
         </ul>
     </nav>
 
@@ -66,42 +65,52 @@
 
         <!-- login form -->
         <div class="loginDiv">
-        <div class="loginForm">
-            <fieldset>
-                <legend>Login Form</legend>
-                <form action="processLogin" method="POST">
-                    <label for="userAccount">User Account:</label><input type="text" name="userAccount"><br />
-                    <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
-                    <button id="loginconfirm">confirm</button><input type="button" class="cancel_btn" value="Cancel">
-                </form>
-                
-            </fieldset>
+            <div class="loginForm">
+                <fieldset>
+                    <legend>Login Form</legend>
+                    <form action="processLogin" method="POST">
+                        <label for="userAccount">User Account:</label><input type="text" name="userAccount"><br />
+                        <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
+                        <button id="loginconfirm">confirm</button><input type="button" class="cancel_btn"
+                            value="Cancel">
+                    </form>
+
+                </fieldset>
+            </div>
         </div>
-    </div>
         <!-- register form -->
         <div class="registerDiv">
 
             <div class="registerForm">Cancel
                 <fieldset>
                     <legend>Register Form</legend>
-                    <form action="processProfile" method="POST">
+                    <form action="processProfile" method="POST" enctype="multipart/form-data">
                         <label>Required</label><br />
-                        <label for="userAccount">Account:</label><input type="text" id="userAccount" name="userAccount"><br />
+                        <a class="aImg" href="#"><img src="img/coda.jpg" alt="" width="200px" height="200px"></a><input
+                            class="userImg" type="file" name="userImg" hidden="hidden"><br />
+                        <label for="userAccount">Account:</label><input type="text" id="userAccount"
+                            name="userAccount"><br />
                         <label for="userName">Name:</label><input type="text" id="userName" name="userName"><br />
                         <label for="nickName">Nick Name:</label><input type="text" id="nickName" name="nickName"><br />
                         <label for="userPwd">Password:</label><input type="password" id="userPwd" name="userPwd"><br />
-                        <label for="checkPwd">Password:</label><input type="password" id="checkPwd" name="checkPwd" placeholder="Re-enter Password"><br />
+                        <label for="checkPwd">Password:</label><input type="password" id="checkPwd" name="checkPwd"
+                            placeholder="Re-enter Password"><br />
                         <label for="mail">E-mail:</label><input type="text" id="mail" name="mail"><br />
                         <hr>
                         <label>Detail</label><br />
                         <label>Gender:</label>
-                        <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">male</label>
+                        <input type="radio" class="gender" name="gender" value="m" checked="checked"><label
+                            class="gender">male</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">female</label>
-                        <input type="radio" class="gender" name="gender" value="o"><label class="gender">other</label><br />
+                        <input type="radio" class="gender" name="gender" value="o"><label
+                            class="gender">other</label><br />
                         <label for="birthday">Birthday:</label><input type="text" id="birthday" name="birthday"><br />
                         <label for="address">Address:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">Phone:</label><input type="text" id="phone" name="phone"><br />
-                        <button id="registerconfirm">Confirm</button><input class="cancel_btn" type="button" value="Cancel">
+
+                        <button id="registerconfirm">Confirm</button><input class="cancel_btn" type="button"
+                            value="Cancel">
+
                     </form>
                     <button class="fill">fill</button>
                 </fieldset>
@@ -241,7 +250,6 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script>
         // èæ¯åççé§ææ
         (function () {
@@ -367,42 +375,54 @@
         }
 
         //Login & Register Form
-        
-        
+
+        $(".aImg").click(function () {
+            $(".userImg").click();
+        });
+        $(".userImg").change(function () {
+            console.log($(".userImg").val());
+            $(".aImg img").attr("src", $(".userImg").val());
+        })
         $(".loginbutton").click(function () {
             $(".loginDiv").css({
                 "position": "absolute",
                 "display": "flex",
                 "z-index": "99999",
-                "top":$(document).scrollTop()+"px",
+                "top": $(document).scrollTop() + "px",
                 "height": "100vh",
-                "width":"100vw",
+                "width": "100vw",
                 "align-items": "center"
             });
-            $("html").css("overflow","hidden");
+            $("html").css("overflow", "hidden");
         })
-        
+
         $(".registerbutton").click(function () {
             $(".registerDiv").css({
                 "position": "absolute",
                 "display": "flex",
                 "z-index": "99999",
-                "top":$(document).scrollTop()+"px",
+                "top": $(document).scrollTop() + "px",
                 "height": "100vh",
-                "width":"100vw",
+                "width": "100vw",
                 "align-items": "center"
             });
-            $("html").css("overflow","hidden");
+            $("html").css("overflow", "hidden");
         })
 
-        var cancelbtn = function(){
-            $(".loginDiv").css("display","none");
-            $(".registerDiv").css("display","none");
-            $("html").css("overflow","initial");
+        var cancelbtn = function () {
+            $(".loginDiv").css("display", "none");
+            $(".registerDiv").css("display", "none");
+            $("html").css("overflow", "initial");
         }
         $(".cancel_btn").click(cancelbtn);
-        
-        $(".fill").click(function(){
+        $(".loginDiv").click(function(e){
+            console.log($(".loginForm").is(e.target));
+            if(!$(".loginForm").is(e.target)){
+                $(".loginDiv").css("display", "hidden");
+            }
+        })
+
+        $(".fill").click(function () {
             $("#userId").val("uid");
             $("#userAccount").val("account");
             $("#userName").val("unm");
@@ -416,28 +436,28 @@
 
         })
 
-		$(document).ready(function(){
-            
-			if($(".loginz").val() == "Logout" ){
-	            $(".loginz").parent().attr("href","http://localhost:8080/GameShop/logout/");
-	        }else{
-	        	$(".loginz").parent().attr("href","#");
-	        	$(".loginz").click(function () {
-		            $(".loginDiv").css({
-		                "position": "absolute",
-		                "display": "flex",
-		                "z-index": "99999",
-		                "top":$(document).scrollTop()+"px",
-		                "height": "100vh",
-		                "width":"100vw",
-		                "align-items": "center"
-		            })
-                    $("html").css("overflow","hidden");
+        $(document).ready(function () {
+
+            if ($(".loginz").val() == "Logout") {
+                $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
+            } else {
+                $(".loginz").parent().attr("href", "#");
+                $(".loginz").click(function () {
+                    $(".loginDiv").css({
+                        "position": "absolute",
+                        "display": "flex",
+                        "z-index": "99999",
+                        "top": $(document).scrollTop() + "px",
+                        "height": "100vh",
+                        "width": "100vw",
+                        "align-items": "center"
+                    })
+                    $("html").css("overflow", "hidden");
                 })
             }
-		})
-        
-        
+        })
+
+
 
     </script>
 

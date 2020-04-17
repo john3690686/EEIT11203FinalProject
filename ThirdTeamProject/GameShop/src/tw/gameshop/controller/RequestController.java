@@ -17,11 +17,9 @@ public class RequestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String processLogout(HttpServletRequest request,HttpServletResponse response, SessionStatus status) {
 		System.out.println("logout");
-		System.out.println(request.getContextPath());
 		status.setComplete();
 		HttpSession session = request.getSession();
 		session.invalidate();
-		System.out.println(session);
 		return "redirect:/index.html";
 	}
 }

@@ -345,6 +345,7 @@ fieldset{
 .loginDiv,
 .registerDiv{
     background-color: rgba(105, 95, 95, 0.6);
+    overflow:auto;
 }
 
 .loginForm,

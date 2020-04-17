@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Account:${userAccount }</h1>
+<h1>Account:${userAccount}</h1>
 <h1>User Name:${userName}</h1>
 <h1>Nickname:${nickname}</h1>
 </body>
