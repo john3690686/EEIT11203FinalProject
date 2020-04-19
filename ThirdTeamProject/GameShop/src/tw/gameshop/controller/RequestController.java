@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@RequestMapping("/logout")
 public class RequestController {
 
-	//登出
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String processLogout(HttpServletRequest request,HttpServletResponse response, SessionStatus status) {
+	// �擐��
+	@RequestMapping("/index.html")
+	public String toHome() {
+		return "home";
+	}
+
+	// ��
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String processLogout(HttpServletRequest request, HttpServletResponse response, SessionStatus status) {
 		System.out.println("logout");
 		status.setComplete();
 		HttpSession session = request.getSession();

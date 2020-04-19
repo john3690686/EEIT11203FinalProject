@@ -104,11 +104,11 @@ public class P_Profile {
 		this.mail = mail;
 	}
 
-	public char getGender() {
+	public Character getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(Character gender) {
 		this.gender = gender;
 	}
 
@@ -134,9 +134,5 @@ public class P_Profile {
 
 	public void setUserToken(String userToken) {
 		this.userToken = userToken;
-	}
-
-	public void setGender(Character gender) {
-		this.gender = gender;
 	}
 }

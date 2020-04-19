@@ -340,7 +340,9 @@ fieldset{
 .commentarea a{
     text-decoration: none;
 }
-/*==========*/
+/*Login==========*/
+
+
 
 .loginDiv,
 .registerDiv{
@@ -356,6 +358,8 @@ fieldset{
     background-color: white;
     width: 800px;
     margin: auto;
+    position: relative;
+    z-index: 99;
 }
 
 .loginForm label,
@@ -364,16 +368,25 @@ fieldset{
     text-align: right;
     display: inline-block;
     width: 150px;
+
 }
 
 .loginForm input,
 .registerForm input,
-#registerconfirm{
+.loginForm button,
+.registerForm button{
     font-size: 20px;
     width:200px;
 }
+
+
 
 .registerForm .gender{
     width:auto;
 }
 
+.imgUserPhoto{
+    position: relative;
+    z-index: 9999;
+    cursor: pointer;
+}

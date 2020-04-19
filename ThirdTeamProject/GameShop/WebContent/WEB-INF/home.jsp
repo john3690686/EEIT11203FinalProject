@@ -71,7 +71,7 @@
                     <form action="processLogin" method="POST">
                         <label for="userAccount">User Account:</label><input type="text" name="userAccount"><br />
                         <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
-                        <button id="loginconfirm">confirm</button><input type="button" class="cancel_btn"
+                        <button class="loginconfirm">Confirm</button><input type="button" class="cancel_btn"
                             value="Cancel">
                     </form>
 
@@ -81,20 +81,15 @@
         <!-- register form -->
         <div class="registerDiv">
 
-            <div class="registerForm">Cancel
+            <div class="registerForm">
                 <fieldset>
                     <legend>Register Form</legend>
                     <form action="processProfile" method="POST" enctype="multipart/form-data">
+                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px"><input
+                            class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
                         <label>Required</label><br />
-<<<<<<< HEAD
-                        <a class="aImg" href="#"><img src="img/coda.jpg" alt="" width="200px" height="200px"></a><input
-                            class="userImg" type="file" name="userImg" hidden="hidden"><br />
                         <label for="userAccount">Account:</label><input type="text" id="userAccount"
                             name="userAccount"><br />
-=======
-                        <a class="aImg" href="#"><img src="img/coda.jpg" alt="" width="200px" height="200px"></a><input class="userImg" type="file" name="userImg" hidden="hidden"><br/>
-                        <label for="userAccount">Account:</label><input type="text" id="userAccount" name="userAccount"><br />
->>>>>>> f2a93cd569c01fa77ef4fe31c1a3686ca7bc175f
                         <label for="userName">Name:</label><input type="text" id="userName" name="userName"><br />
                         <label for="nickName">Nick Name:</label><input type="text" id="nickName" name="nickName"><br />
                         <label for="userPwd">Password:</label><input type="password" id="userPwd" name="userPwd"><br />
@@ -112,16 +107,8 @@
                         <label for="birthday">Birthday:</label><input type="text" id="birthday" name="birthday"><br />
                         <label for="address">Address:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">Phone:</label><input type="text" id="phone" name="phone"><br />
-<<<<<<< HEAD
-
-                        <button id="registerconfirm">Confirm</button><input class="cancel_btn" type="button"
+                        <button class="registerconfirm">Confirm</button><input class="cancel_btn" type="button"
                             value="Cancel">
-
-=======
-                        
-                        <button id="registerconfirm">Confirm</button><input class="cancel_btn" type="button" value="Cancel">
-                        
->>>>>>> f2a93cd569c01fa77ef4fe31c1a3686ca7bc175f
                     </form>
                     <button class="fill">fill</button>
                 </fieldset>
@@ -386,24 +373,23 @@
         }
 
         //Login & Register Form
-<<<<<<< HEAD
 
-        $(".aImg").click(function () {
-            $(".userImg").click();
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(".imgUserPhoto").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(".inputUserPhoto").change(function () {
+            readURL(this);
         });
-        $(".userImg").change(function () {
-            console.log($(".userImg").val());
-            $(".aImg img").attr("src", $(".userImg").val());
-=======
-        
-        $(".aImg").click(function(){
-			$(".userImg").click();
+        $(".imgUserPhoto").click(function(){
+            $(".inputUserPhoto").click();
         });
-        $(".userImg").change(function(){
-            console.log($(".userImg").val());
-            $(".aImg img").attr("src",$(".userImg").val());
->>>>>>> f2a93cd569c01fa77ef4fe31c1a3686ca7bc175f
-        })
+
         $(".loginbutton").click(function () {
             $(".loginDiv").css({
                 "position": "absolute",
@@ -436,9 +422,9 @@
             $("html").css("overflow", "initial");
         }
         $(".cancel_btn").click(cancelbtn);
-        $(".loginDiv").click(function(e){
+        $(".loginDiv").click(function (e) {
             console.log($(".loginForm").is(e.target));
-            if(!$(".loginForm").is(e.target)){
+            if (!$(".loginForm").is(e.target)) {
                 $(".loginDiv").css("display", "hidden");
             }
         })
