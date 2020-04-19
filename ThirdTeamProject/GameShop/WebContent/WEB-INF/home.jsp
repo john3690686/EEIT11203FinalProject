@@ -42,10 +42,10 @@
     <nav>
         <ul class="ul1">
             <li><a href="http://localhost:8080/GameShop/index.html">HOME</a>
-            <li><a href="test">NEWS</a>
+            <li><a href="profile.detail">TEST</a>
             <li><a href="#">SHOP</a>
             <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-            <li><a href="#">CHAT</a>
+            <li><a href="Chatroom">CHAT</a>
                 <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
         </ul>
     </nav>

@@ -100,12 +100,11 @@ public class SessionController {
 
 	@ResponseBody
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	@JsonInclude(content = Include.NON_NULL)
-	public P_Profile modifyProfile(Model model) {
+	public void modifyProfile(Model model) {
 		System.out.println("Modify Profile");
 		P_Profile profile = null;
 		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
 		System.out.println(profile.getUserName());
-		return profile;
+//		return profile;
 	}
 }
