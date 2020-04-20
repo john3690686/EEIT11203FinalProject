@@ -51,9 +51,11 @@ public class P_ProfileDao {
 		try {
 			Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:account",P_Profile.class);
 			qProfile.setParameter("account", userAccount);
-			List<P_Profile> profilelist = qProfile.list();
-			System.out.println(profilelist.get(0).getUserName());
-			return profilelist.get(0);
+//			List<P_Profile> profilelist = qProfile.list();
+//			System.out.println(profilelist.get(0).getUserName());
+//			return profilelist.get(0);
+			result = qProfile.getSingleResult();
+			return result;
 		}catch(Exception e) {
 			System.out.println("Error:ProfileDao");
 //			e.printStackTrace();

@@ -37,8 +37,8 @@ public class P_Profile implements Serializable{
 	@Column(name = "userToken")
 	private String userToken;
 	
-	@Column(name = "nickname")
-	private String nickname;
+	@Column(name = "nickName")
+	private String nickName;
 	
 	@Column(name = "mail")
 	private String mail;
@@ -55,12 +55,12 @@ public class P_Profile implements Serializable{
 	
 	public P_Profile() {}
 	
-	public P_Profile(String userAccount, String userName, String userPwd, String nickname,
+	public P_Profile(String userAccount, String userName, String userPwd, String nickName,
 			String mail) {
 		this.userAccount = userAccount;
 		this.userName = userName;
 		this.userPwd = userPwd;
-		this.nickname = nickname;
+		this.nickName = nickName;
 		this.mail = mail;
 	}
 
@@ -80,12 +80,12 @@ public class P_Profile implements Serializable{
 		this.userAccount = userAccount;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getUserName() {

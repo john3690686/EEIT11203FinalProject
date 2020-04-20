@@ -82,7 +82,7 @@ public class SessionController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userAccount", profile.getUserAccount());
 			session.setAttribute("userName", profile.getUserName());
-			session.setAttribute("nickName", profile.getNickname());
+			session.setAttribute("nickName", profile.getNickName());
 			System.out.println("Login Successfully");
 			return "redirect:/index.html";
 		}
@@ -106,11 +106,7 @@ public class SessionController {
 	public P_Profile modifyProfile(Model model) {
 		System.out.println("Modify Profile");
 		P_Profile profile = null;
-		String acc = "account";
-//		System.out.println((String) model.getAttribute("userAccount"));
-//		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
-		profile = pservice.queryProfile(acc);
-//		profile = new P_Profile("acco", "uname", "upwd", "nnm",	"mail");
+		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
 		System.out.println(profile.getUserName());
 		return profile;
 	}

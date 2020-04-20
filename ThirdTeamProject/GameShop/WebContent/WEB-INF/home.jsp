@@ -46,8 +46,8 @@
             <li><a href="#">SHOP</a>
             <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
             <li><a href="Chatroom">CHAT</a>
-                <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
         </ul>
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
     </nav>
 
     <!--Wishlist & Shopping cart-->
@@ -443,11 +443,14 @@
 
         })
 
+        //Rightup Login Button
         $(document).ready(function () {
 
             if ($(".loginz").val() == "Logout") {
                 $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
+                $(".login").hide();
             } else {
+                $(".login").show();
                 $(".loginz").parent().attr("href", "#");
                 $(".loginz").click(function () {
                     $(".loginDiv").css({
