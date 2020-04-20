@@ -58,13 +58,13 @@ public class SessionController {
 				PD_ProfileDetail pd = new PD_ProfileDetail("add4", "2020-03-03", "0900123456");
 				pservice.createProfile(p, pd);
 				System.out.println("process end");
-				return "Success";
+				return "home";
 			}
 		} catch (Exception e) {
 			System.out.println("Error!!");
 			e.printStackTrace();
 		}
-		return "home";
+		return "ErrorPage";
 	}
 
 	// ��
@@ -76,14 +76,17 @@ public class SessionController {
 //		if(regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches()) {
 		profile = pservice.processLogin(userAccount, userPwd);
 //		}
-		if (profile != null) {
+		if (profile == null) {
+			return "redirect:/error";
+		}else {
 			HttpSession session = request.getSession();
 			session.setAttribute("userAccount", profile.getUserAccount());
 			session.setAttribute("userName", profile.getUserName());
 			session.setAttribute("nickName", profile.getNickname());
 			System.out.println("Login Successfully");
+			return "redirect:/index.html";
 		}
-		return "redirect:/index.html";
+		
 	}
 
 	// 瑼Ｘsession
@@ -99,12 +102,16 @@ public class SessionController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public void modifyProfile(Model model) {
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public P_Profile modifyProfile(Model model) {
 		System.out.println("Modify Profile");
 		P_Profile profile = null;
-		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
+		String acc = "account";
+//		System.out.println((String) model.getAttribute("userAccount"));
+//		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
+		profile = pservice.queryProfile(acc);
+//		profile = new P_Profile("acco", "uname", "upwd", "nnm",	"mail");
 		System.out.println(profile.getUserName());
-//		return profile;
+		return profile;
 	}
 }

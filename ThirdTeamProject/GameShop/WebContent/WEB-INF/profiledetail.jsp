@@ -47,11 +47,11 @@
         $(".getdata").click(function(){
             $.ajax({
                 url:"http://localhost:8080/GameShop/modify",
-                type:"POST",
+                type:"GeT",
                 dataType:"json",
                 success:function(data){
                     console.log(data);
-                    $(".message").append(data);
+                    //$(".message").append(data);
                 }
             })
         })

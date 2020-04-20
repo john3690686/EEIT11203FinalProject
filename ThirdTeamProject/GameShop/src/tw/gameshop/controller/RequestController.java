@@ -17,6 +17,11 @@ public class RequestController {
 	public String toHome() {
 		return "home";
 	}
+	
+	@RequestMapping("error")
+	public String errorPage() {
+		return "ErrorPage";
+	}
 
 	// ��
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

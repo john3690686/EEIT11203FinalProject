@@ -21,6 +21,7 @@ public class P_ProfileService {
 	}
 	
 	public P_Profile queryProfile(String userAccount) {
+		System.out.println("Service");
 		return profileDao.queryProfile(userAccount);
 	}
 	

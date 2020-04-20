@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class P_ProfileDao {
 
 	private SessionFactory sessionFactory;
-
+	
 	public P_ProfileDao(){}
 	
 	@Autowired
@@ -46,14 +46,17 @@ public class P_ProfileDao {
 	
 	public P_Profile queryProfile(String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
+		System.out.println("userAccount=="+userAccount);
 		P_Profile result = null;
 		try {
 			Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:account",P_Profile.class);
 			qProfile.setParameter("account", userAccount);
-			result = qProfile.getSingleResult();
+			List<P_Profile> profilelist = qProfile.list();
+			System.out.println(profilelist.get(0).getUserName());
+			return profilelist.get(0);
 		}catch(Exception e) {
 			System.out.println("Error:ProfileDao");
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return result;
 	}

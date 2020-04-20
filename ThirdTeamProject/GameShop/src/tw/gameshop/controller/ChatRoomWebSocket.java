@@ -1,11 +1,19 @@
-package tw.gameshop.controller;
+﻿package tw.gameshop.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.Set;
-import javax.websocket.*;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import org.json.JSONArray;
@@ -13,7 +21,9 @@ import org.json.JSONObject;
 
 @ServerEndpoint("/websocket")
 public class ChatRoomWebSocket {
-
+	private static final String SQL_USER_NAME = "SA";
+	private static final String SQL_USER_PWD = "P@ssW0rd";
+	
 	// Store users to Map
 	private static HashMap<String, ChatRoomWebSocket> webSocketMap = new HashMap<String, ChatRoomWebSocket>();
 
@@ -63,6 +73,7 @@ public class ChatRoomWebSocket {
 	}
 
 	// Process received message
+	@SuppressWarnings("unused")
 	@OnMessage
 	public void onMessage(String message, Session session) {
 		String messageUser = null;
@@ -73,10 +84,14 @@ public class ChatRoomWebSocket {
 			e1.printStackTrace();
 		}
 
+		String fromIP = message.substring(message.indexOf("[ip::")+5, message.indexOf("]"));
+		message = message.substring(0, message.indexOf("[ip::")) + message.substring(message.indexOf("]")+1);
+		String toUser = "Everyone";
+		
 		Set<String> keys = webSocketMap.keySet();
 		// Global Message
 		// Empty String is for waking WebSocket 
-		if (!message.startsWith("[ToUser::") && !message.equals("")) {
+		if (!message.contains("[ToUser::") && !message.equals("")) {
 			for (String key : keys) {
 				if (!key.equals(messageUser)) {
 					try {
@@ -91,7 +106,7 @@ public class ChatRoomWebSocket {
 		
 		// Private message, which starts with "[ToUser::xxx]"
 		else if(!message.equals("") && !messageUser.contains("訪客")){
-			String toUser = message.substring(9, message.indexOf("]"));
+			toUser = message.substring(9, message.indexOf("]"));
 			for (String key : keys) {
 				if (key.equals(toUser) && !key.equals(messageUser)) {
 					try {
@@ -104,8 +119,14 @@ public class ChatRoomWebSocket {
 				}
 			}
 		}
-	}
-
+		
+		// Write message to SQL server(JDBC)(CAUTION:: Logs can be huge if lots of pics!!!)
+//		if(!message.equals("")&&!message.isEmpty()) {
+//			writeToSQL(fromIP, messageUser, toUser, message);
+//		}
+		
+	}	
+		
 	@OnError
 	public void onError(Session session, Throwable error) {
 		error.printStackTrace();
@@ -119,6 +140,25 @@ public class ChatRoomWebSocket {
 	public static synchronized Set<String> getUser() {
 		return webSocketMap.keySet();
 		
+	}
+	
+	// Write to SQL server(JDBC)
+	public void writeToSQL(String sendIP, String send, String target, String message) {
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			String connUrl = "jdbc:sqlserver://localhost:1433;databaseName=GameShop";
+			Connection conn = DriverManager.getConnection(connUrl, SQL_USER_NAME, SQL_USER_PWD);
+			String qryStmt = "Insert chatRecord(send, sendIP, target, message) values(?,?,?,?)";
+			PreparedStatement stmt = conn.prepareStatement(qryStmt);
+			stmt.setString(1, send);
+			stmt.setString(2, sendIP);
+			stmt.setString(3, target);
+			stmt.setString(4, message);
+			stmt.execute();
+			conn.close();
+		}catch (Exception e) {
+			System.out.println("SQL write error!!");
+		}	
 	}
 
 }

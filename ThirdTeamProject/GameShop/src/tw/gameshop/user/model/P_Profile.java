@@ -1,5 +1,7 @@
 package tw.gameshop.user.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "profile")
-public class P_Profile {
+public class P_Profile implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name = "userId")
@@ -43,6 +50,7 @@ public class P_Profile {
 	private byte[] userImg;
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "profile", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private PD_ProfileDetail profileDetail;
 	
 	public P_Profile() {}
