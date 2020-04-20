@@ -15,16 +15,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ReplyMessageDAO {
+
 	private SessionFactory sessionFactory;
 
 	public ReplyMessageDAO() {
 	}
-	
+
 	@Autowired
 	public ReplyMessageDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	public ReplyMessage addReply(int messageID, String messageContent) {
 		Session session = sessionFactory.getCurrentSession();
 		Date date = new Date();
@@ -33,17 +34,18 @@ public class ReplyMessageDAO {
 		rm.setMessageID(messageID);
 		rm.setMessageContent(messageContent);
 		rm.setPostDatetime(ft.format(date));
-		
-		if(rm != null) {
+
+		if (rm != null) {
 			session.save(rm);
 		}
-		
+
 		return rm;
 	}
-	
+
 	public String queryReplyById(int messageID) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<ReplyMessage> query = session.createQuery("From ReplyMessage where messageID = :messageID", ReplyMessage.class);
+		Query<ReplyMessage> query = session.createQuery("From ReplyMessage where messageID = :messageID",
+				ReplyMessage.class);
 		query.setParameter("messageID", messageID);
 		List<ReplyMessage> list = query.list();
 
@@ -55,37 +57,14 @@ public class ReplyMessageDAO {
 			json.put("messageID", li.getMessageID());
 			json.put("messageContent", li.getMessageContent());
 			json.put("postDatetime", li.getPostDatetime());
-			
+
 			jsonAr.put(json);
 		}
 
 		String jsonstr = jsonAr.toString();
 		String json = jsonstr.replaceAll(":null,", ":\"null\",");
-		
-		
+
 		return json;
 	}
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

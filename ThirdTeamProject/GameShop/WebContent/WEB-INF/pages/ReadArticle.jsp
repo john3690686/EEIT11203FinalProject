@@ -83,10 +83,11 @@
 
 	<script>
 
-		function addtext(i){
+		function addtext(i , mid){
 			var a ="textarea_"+i
-			var messageTextaera = "<form action=''>" ;
-				messageTextaera += "<textarea name='message'></textarea>";
+			var messageTextaera = "<form action='<c:url value='/addReplyMessage'/>' method='post' >" ;
+				messageTextaera += "<textarea name='messageContent'></textarea>";
+				messageTextaera += "<input type='hidden' name='messageID' value='" + mid + "'>";
 				messageTextaera += "<input type='submit' value='送出' style='right'>";
 				messageTextaera += "</form>";
 			document.getElementById(a).innerHTML = messageTextaera;
@@ -125,7 +126,7 @@
 					txt1 += "<div class = 'article'>";
 					txt1 += "<div class='title'>"+books1[i].respUserId+"</div>";
 					txt1 += "<div>" + books1[i].messageContent + "</div></div>";
-					txt1 += "<div class='messageResponse'><a href='javascript:void(0)' onclick='addtext("+i+")'>回應</a>";
+					txt1 += "<div class='messageResponse'><a href='javascript:void(0)' onclick='addtext("+i+","+ books1[i].messageID +")'>回應</a>";
 					txt1 += "<span style='float:right;'>"+ books1[i].postDatetime +"</span>"
 					txt1 += "</div>";
 					txt1 += "<div id='textarea_"+i+"'></div>";

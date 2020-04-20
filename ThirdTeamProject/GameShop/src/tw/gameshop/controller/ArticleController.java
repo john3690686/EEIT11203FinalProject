@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
+import tw.gameshop.user.model.ReplyMessageDAO;
+import tw.gameshop.user.model.ReplyMessageService;
 
 @Controller
 public class ArticleController {
@@ -19,15 +21,17 @@ public class ArticleController {
 	@Autowired 
 	HttpServletRequest request;
 
-	private ArticleMessageService artMesDao;
+	private ArticleMessageService artMesService;
+	private ReplyMessageService rmService;
 	
 	public ArticleController() {
 	}
 	
 	@Autowired
-	public ArticleController(ArticleService aService, ArticleMessageService artMesDao) {
+	public ArticleController(ArticleService aService, ArticleMessageService artMesService, ReplyMessageService rmService) {
 		this.aService = aService;
-		this.artMesDao = artMesDao;
+		this.artMesService = artMesService;
+		this.rmService = rmService;
 	}
 
 	
@@ -53,7 +57,8 @@ public class ArticleController {
 		
         String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
         String articleAbstract;
-        if(articleContent.length()>100) {
+        
+        if(str.length()>100) {
         	articleAbstract = str.substring(0, 99);
         }else {
         	articleAbstract = str;
@@ -76,7 +81,7 @@ public class ArticleController {
 	@RequestMapping(path = "/processReadArticle" , method = RequestMethod.GET)
 	public String processReadArticle(@RequestParam("articleID") int articleid) {
 		String readByArticleId = aService.queryArticle(articleid);
-		String message = artMesDao.queryArticleMessage(articleid);
+		String message = artMesService.queryArticleMessage(articleid);
 		request.setAttribute("readByArticleId", readByArticleId);
 		request.setAttribute("message", message);
 		return "ReadArticle";
@@ -87,14 +92,25 @@ public class ArticleController {
 			@RequestParam("requestArticleId") int articleId,
 			@RequestParam("message") String messageContent) {
 		int respUserId = 2;
-		artMesDao.addArticleMessage(articleId, respUserId, messageContent);
+		artMesService.addArticleMessage(articleId, respUserId, messageContent);
 		String readByArticleId = aService.queryArticle(articleId);
-		String message = artMesDao.queryArticleMessage(articleId);
+		String message = artMesService.queryArticleMessage(articleId);
 		request.setAttribute("readByArticleId", readByArticleId);
 		request.setAttribute("message", message);
 		return "ReadArticle";
 	}
 	
+	@RequestMapping(path = "/addReplyMessage" , method = RequestMethod.POST)
+	public String addReplyMessage(
+			@RequestParam("messageID") int messageID,
+			@RequestParam("messageContent") String messageContent) {
+		
+		System.out.println("messageID: "+messageID);
+		System.out.println("messageContent: "+messageContent);
+		rmService.addReply(messageID, messageContent);
+		
+		return "ReadArticle";
+	}
 }
 
 
