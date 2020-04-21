@@ -42,11 +42,13 @@
     <nav>
         <ul class="ul1">
             <li><a href="http://localhost:8080/GameShop/index.html">HOME</a>
-            <li><a href="profile.detail">TEST</a>
+            <li><a href="myProfile">TEST</a>
             <li><a href="#">SHOP</a>
             <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
             <li><a href="Chatroom">CHAT</a>
+            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
         </ul>
+        
         <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
     </nav>
 
@@ -416,19 +418,6 @@
             $("html").css("overflow", "hidden");
         })
 
-        var cancelbtn = function () {
-            $(".loginDiv").css("display", "none");
-            $(".registerDiv").css("display", "none");
-            $("html").css("overflow", "initial");
-        }
-        $(".cancel_btn").click(cancelbtn);
-        $(".loginDiv").click(function (e) {
-            console.log($(".loginForm").is(e.target));
-            if (!$(".loginForm").is(e.target)) {
-                $(".loginDiv").css("display", "hidden");
-            }
-        })
-
         $(".fill").click(function () {
             $("#userId").val("uid");
             $("#userAccount").val("account");
@@ -448,10 +437,10 @@
 
             if ($(".loginz").val() == "Logout") {
                 $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
-                $(".login").hide();
+                $(".login").css("visibility","hidden")
             } else {
-                $(".login").show();
-                $(".loginz").parent().attr("href", "#");
+                $(".login").css("visibility","visible")
+                $(".loginz").parent().removeAttr("href");
                 $(".loginz").click(function () {
                     $(".loginDiv").css({
                         "position": "absolute",
@@ -468,6 +457,23 @@
         })
 
 
+        //cancel form
+        var cancelbtn = function () {
+            $(".loginDiv").css("display", "none");
+            $(".registerDiv").css("display", "none");
+            $("html").css("overflow", "initial");
+        }
+        $(".cancel_btn").click(cancelbtn);
+
+        var loginMousePosition = false;
+        $(".loginDiv, .registerDiv").mouseover(function(e){
+            loginMousePosition = $(".loginDiv, .registerDiv").is(e.target);
+        })
+        $(".loginDiv, .registerDiv").click(function (e) {
+            if (loginMousePosition) {
+                cancelbtn();
+            }
+        })
 
     </script>
 

@@ -28,9 +28,7 @@ public class P_ProfileDao {
 		try {
 			Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:account",P_Profile.class);
 			qProfile.setParameter("account", profile.getUserAccount());
-			System.out.println("1:");
 			List<P_Profile> result = qProfile.getResultList();
-			System.out.println("2:");
 			if(result.isEmpty()) {
 				profileDetail.setProfile(profile);
 				profile.setProfileDetail(profileDetail);
@@ -46,19 +44,14 @@ public class P_ProfileDao {
 	
 	public P_Profile queryProfile(String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("userAccount=="+userAccount);
 		P_Profile result = null;
 		try {
 			Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:account",P_Profile.class);
 			qProfile.setParameter("account", userAccount);
-//			List<P_Profile> profilelist = qProfile.list();
-//			System.out.println(profilelist.get(0).getUserName());
-//			return profilelist.get(0);
 			result = qProfile.getSingleResult();
-			return result;
 		}catch(Exception e) {
 			System.out.println("Error:ProfileDao");
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -72,9 +65,12 @@ public class P_ProfileDao {
 			P_Profile result = qProfile.getSingleResult();
 			if(result!=null) {
 				result.setUserName(profile.getUserName());
+				result.setNickName(profile.getNickName());
 				result.setUserPwd(profile.getUserPwd());
 				result.setGender(profile.getGender());
 				result.setUserImg(profile.getUserImg());
+				result.setMail(profile.getMail());
+				
 				return true;
 			}
 		}catch(Exception e) {
@@ -87,13 +83,19 @@ public class P_ProfileDao {
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			P_Profile qProfile = session.get(P_Profile.class, profile.getUserId());
-			if(qProfile!=null) {
-				qProfile.setUserName(profile.getUserName());
-				qProfile.setUserPwd(profile.getUserPwd());
-				qProfile.setGender(profile.getGender());
-				qProfile.setUserImg(profile.getUserImg());
-				qProfile.setProfileDetail(profileDetail);
+			Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:account",P_Profile.class);
+			qProfile.setParameter("account", profile.getUserAccount());
+			P_Profile result = qProfile.getSingleResult();
+			if(result!=null) {
+				result.setUserName(profile.getUserName());
+				result.setNickName(profile.getNickName());
+				result.setUserPwd(profile.getUserPwd());
+				result.setGender(profile.getGender());
+				result.setUserImg(profile.getUserImg());
+				result.setMail(profile.getMail());
+				result.getProfileDetail().setAddress(profileDetail.getAddress());
+				result.getProfileDetail().setBirthday(profileDetail.getBirthday());
+				result.getProfileDetail().setPhone(profileDetail.getPhone());
 				return true;
 			}
 		}catch(Exception e) {

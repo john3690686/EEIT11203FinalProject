@@ -1,5 +1,6 @@
 package tw.gameshop.controller;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,7 @@ public class SessionController {
 			session.setAttribute("userAccount", profile.getUserAccount());
 			session.setAttribute("userName", profile.getUserName());
 			session.setAttribute("nickName", profile.getNickName());
+			session.setAttribute("userImg", profile.getUserImg());
 			System.out.println("Login Successfully");
 			return "redirect:/index.html";
 		}
@@ -95,19 +97,44 @@ public class SessionController {
 		return "testsession";
 	}
 
-	@RequestMapping(value = "/profile.detail", method = RequestMethod.GET)
+	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)
 	public String showProfileDetail() {
 
 		return "profiledetail";
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public P_Profile modifyProfile(Model model) {
-		System.out.println("Modify Profile");
+	@RequestMapping(value = "/serchProfile", method = RequestMethod.POST)
+	public P_Profile queryProfile(Model model) {
+		System.out.println("myProfile");
 		P_Profile profile = null;
 		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
-		System.out.println(profile.getUserName());
+		return profile;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/modifyProfile", method = RequestMethod.POST)
+	public P_Profile modifyProfile(@RequestParam("userAccount") String userAccount,
+			@RequestParam("userName") String userName, @RequestParam("userPwd") String userPwd,
+			@RequestParam("nickName") String nickName, @RequestParam("mail") String mail,
+			@RequestParam("gender") Character gender,
+			@RequestParam("userImg") MultipartFile userImg,
+			@RequestParam("birthday") String birthday,@RequestParam("address")String address,
+			@RequestParam("phone")String phone) throws IOException {
+		
+		P_Profile profile = new P_Profile();
+		PD_ProfileDetail proDetail = new PD_ProfileDetail();
+		profile.setUserAccount(userAccount);
+		profile.setUserName(userName);
+		profile.setNickName(nickName);
+		profile.setUserPwd(userPwd);
+		profile.setUserImg(userImg.getBytes());
+		profile.setMail(mail);
+		profile.setGender(gender);
+		proDetail.setAddress(address);
+		proDetail.setBirthday(birthday);
+		proDetail.setPhone(phone);
+		pservice.updateProfile(profile,proDetail);
 		return profile;
 	}
 }
