@@ -48,7 +48,7 @@
 			<td>
 				<c:choose>
 					<c:when test="${product!=null}"><img id="Preview" src="productImageView/${product.productId}"></c:when>
-					<c:otherwise><img id="Preview" src="defaultImg.jpg"></c:otherwise>
+					<c:otherwise><img id="Preview" src="img/defaultImg.jpg"></c:otherwise>
 				</c:choose>
 	<!-- 			<img id="Preview"> -->
 			    <input id="file" type="file" name="file" hidden="true">
