@@ -29,7 +29,7 @@ public class ArticleMessageDAO {
 	public ArticleMessage addArticleMessage(int articleID, int respUserId, String messageContent) {
 		Session session = sessionFactory.getCurrentSession();
 		Date date = new Date();
-		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss");
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
 		ArticleMessage artMessage = new ArticleMessage();
 		artMessage.setArticleID(articleID);
 		artMessage.setRespUserId(respUserId);
@@ -52,7 +52,7 @@ public class ArticleMessageDAO {
 
 		for (ArticleMessage li : list) {
 			JSONObject json = new JSONObject();
-			json.put("messageID", li.getArticleID());
+			json.put("messageID", li.getMessageID());
 			json.put("articleID", li.getArticleID());
 			json.put("respUserId", li.getRespUserId());
 			json.put("messageContent", li.getMessageContent());

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
-import tw.gameshop.user.model.ReplyMessageDAO;
 import tw.gameshop.user.model.ReplyMessageService;
 
 @Controller
@@ -82,8 +81,10 @@ public class ArticleController {
 	public String processReadArticle(@RequestParam("articleID") int articleid) {
 		String readByArticleId = aService.queryArticle(articleid);
 		String message = artMesService.queryArticleMessage(articleid);
+		String remess = rmService.queryAllReply(articleid);
 		request.setAttribute("readByArticleId", readByArticleId);
 		request.setAttribute("message", message);
+		request.setAttribute("remess", remess);
 		return "ReadArticle";
 	}
 	
@@ -95,22 +96,25 @@ public class ArticleController {
 		artMesService.addArticleMessage(articleId, respUserId, messageContent);
 		String readByArticleId = aService.queryArticle(articleId);
 		String message = artMesService.queryArticleMessage(articleId);
+		String remess = rmService.queryAllReply(articleId);
 		request.setAttribute("readByArticleId", readByArticleId);
 		request.setAttribute("message", message);
+		request.setAttribute("remess", remess);
 		return "ReadArticle";
 	}
 	
 	@RequestMapping(path = "/addReplyMessage" , method = RequestMethod.POST)
 	public String addReplyMessage(
-			@RequestParam("messageID") int messageID,
-			@RequestParam("messageContent") String messageContent) {
+			@RequestParam("aID") int articleID,
+			@RequestParam("mID") int messageID,
+			@RequestParam("mContent") String messageContent) {
 		
-		System.out.println("messageID: "+messageID);
-		System.out.println("messageContent: "+messageContent);
-		rmService.addReply(messageID, messageContent);
+		rmService.addReply(articleID, messageID, messageContent);
+		processReadArticle(articleID);
 		
 		return "ReadArticle";
 	}
+	
 }
 
 

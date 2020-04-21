@@ -12,6 +12,7 @@ import javax.persistence.Table;
 public class ReplyMessage {
 
 	private int replyMessageID;
+	private int articleID;
 	private int messageID;
 	private String messageContent;
 	private String postDatetime;
@@ -25,6 +26,15 @@ public class ReplyMessage {
 
 	public void setReplyMessageID(int replyMessageID) {
 		this.replyMessageID = replyMessageID;
+	}
+	
+	@Column(name = "articleID")
+	public int getArticleID() {
+		return articleID;
+	}
+
+	public void setArticleID(int articleID) {
+		this.articleID = articleID;
 	}
 
 	@Column(name = "messageID")

@@ -16,11 +16,11 @@ public class ReplyMessageService {
 		this.reMessage = reMessage;
 	}
 	
-	public ReplyMessage addReply(int messageID, String messageContent) {
-		return reMessage.addReply(messageID, messageContent);
+	public ReplyMessage addReply(int articleID, int messageID, String messageContent) {
+		return reMessage.addReply(articleID, messageID, messageContent);
 	}
 	
-	public String queryReplyById(int messageID) {
-		return reMessage.queryReplyById(messageID);
+	public String queryAllReply(int articleID) {
+		return reMessage.queryAllReply(articleID);
 	}
 }
