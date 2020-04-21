@@ -1,5 +1,7 @@
 package tw.gameshop.user.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,8 @@ public class P_ProfileService {
 		return profileDao.createProfile(profile, profileDetail);
 	}
 	
-	public P_Profile queryProfile(String userId) {
-		return profileDao.queryProfile(userId);
+	public P_Profile queryProfile(String userAccount) {
+		return profileDao.queryProfile(userAccount);
 	}
 	
 	public boolean updateProfile(P_Profile profile) {
@@ -30,6 +32,14 @@ public class P_ProfileService {
 	
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
 		return profileDao.updateProfile(profile, profileDetail);
+	}
+	
+	public P_Profile processLogin(String userAccount, String userPwd) {
+		return profileDao.processLogin(userAccount, userPwd);
+	}
+	
+	public List<P_Profile> queryProfilesAll() {
+		return profileDao.queryProfilesAll();
 	}
 
 }
