@@ -25,8 +25,7 @@
 
 	<bean id="SQLserverJndiDataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName"
-			value="java:comp/env/connectSqlServerJdbc/GameShop"></property>
+		<property name="jndiName" value="java:comp/env/connectSqlServerJdbc/GameShop"></property>
 	</bean>
 	<bean id="sessionFactory" destroy-method="destroy" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="SQLserverJndiDataSource" />

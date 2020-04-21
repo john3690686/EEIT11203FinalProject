@@ -39,12 +39,12 @@ h1 {
 	text-align: center;
 }
 
-#BmsProductListPage>table {
-	cellpadding: 10px;
+#BmsProductListPage table {
 }
 
-#BmsProductListPage>td {
+#BmsProductListPage td {
 	width: 200px;
+	cellpadding: 8px;
 }
 
 #BmsProductListPage>.pImg {
