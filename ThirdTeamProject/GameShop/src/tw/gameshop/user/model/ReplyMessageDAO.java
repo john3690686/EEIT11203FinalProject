@@ -45,7 +45,7 @@ public class ReplyMessageDAO {
 
 	public String queryAllReply(int articleID) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<ReplyMessage> query = session.createQuery("From ReplyMessage where articleID = :articleID", ReplyMessage.class);
+		Query<ReplyMessage> query = session.createQuery("From ReplyMessage where articleID = :articleID order by postDatetime", ReplyMessage.class);
 		query.setParameter("articleID", articleID);
 		List<ReplyMessage> list = query.list();
 

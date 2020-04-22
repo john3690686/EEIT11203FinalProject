@@ -44,7 +44,7 @@ public class ArticleMessageDAO {
 	
 	public String queryArticleMessage(int articleID) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<ArticleMessage> query = session.createQuery("From ArticleMessage where articleID = :articleID", ArticleMessage.class);
+		Query<ArticleMessage> query = session.createQuery("From ArticleMessage where articleID = :articleID order by postDatetime", ArticleMessage.class);
 		query.setParameter("articleID", articleID);
 		List<ArticleMessage> list = query.list();
 

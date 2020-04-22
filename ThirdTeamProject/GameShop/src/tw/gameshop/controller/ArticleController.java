@@ -37,7 +37,6 @@ public class ArticleController {
 		this.artMesService = artMesService;
 		this.rmService = rmService;
 	}
-
 	
 	@RequestMapping(path = "/processArticle", method = RequestMethod.GET)
 	public String showArticle() {
@@ -58,7 +57,7 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/myArticle", method = RequestMethod.GET)
 	public String myArticle() {
-		String aJson = aService.queryMyArticle(2);
+		String aJson = aService.queryMyArticle(userId);
 		request.setAttribute("aJson", aJson);
 		return "MyArticle";
 	}
@@ -84,12 +83,15 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/postArticle" , method = RequestMethod.GET)
 	public String postArticle() {
+		request.setAttribute("checkout_1", 99847);
+		request.setAttribute("readByArticleId", 0);
 		return "PostArticle";
 	}
 	
 	@RequestMapping(path = "/processQuery" , method = RequestMethod.POST)
 	public String processQuery() {
 		 String aJson = aService.queryAllData();
+		 
 		return aJson;
 	}
 	
@@ -130,6 +132,38 @@ public class ArticleController {
 			@RequestParam("mContent") String messageContent) {
 		
 		rmService.addReply(articleID, messageID, messageContent);
+		processReadArticle(articleID);
+		
+		return "ReadArticle";
+	}
+	
+	@RequestMapping(path = "/gotoUpdataPage" , method = RequestMethod.POST)
+	public String gotoUpdataPage(@RequestParam("aID") int articleID) {
+
+		String readByArticleId = aService.queryArticle(articleID);
+		request.setAttribute("readByArticleId", readByArticleId);
+		request.setAttribute("checkout_2", 19487);
+		
+		return "PostArticle";
+	}
+	
+	@RequestMapping(path = "/updataArticle" , method = RequestMethod.POST)
+	public String updataArticle(
+			@RequestParam("articleID") int articleID,
+			@RequestParam("articleTitle") String articleTitle,
+			@RequestParam("articleContent") String articleContent			
+			) {
+		
+        String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
+        String articleAbstract;
+        
+        if(str.length()>100) {
+        	articleAbstract = str.substring(0, 99);
+        }else {
+        	articleAbstract = str;
+        }
+		
+		aService.updataArticle(articleID, articleTitle, articleAbstract, articleContent);
 		processReadArticle(articleID);
 		
 		return "ReadArticle";

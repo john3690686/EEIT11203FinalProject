@@ -15,10 +15,7 @@
 	.article{
 		margin-top: 15px;
 		margin-left:20px;
-		width: 80%; 
 		border-width: 1px;
-		border-style: solid;
-		border-color: #ADADAD;
 	}
 	
 	.authoranddate{
@@ -43,7 +40,6 @@
 	
 	.message{
 		margin-left: 20px;
-		border-top-style: solid; 
 		width: 80%;
 		border-width: 1px;
 		border-color: #ADADAD;
@@ -59,11 +55,10 @@
 	.remess{
 		font-size:13px;
  		margin-top:10px; 
-		margin-left:20px;
+		margin-left:50px;
 		padding:5px;
-		border-style: solid;
-		border-color: #ADADAD;
-		
+		background-color:#FFEEDD;
+		width: 75%;
 	}
 	
 	.timeremess{
@@ -72,10 +67,17 @@
 		text-align: right;
 	}
 	
+	hr{
+		height:1px;
+		border:none;
+		border-top:1px solid #BEBEBE;
+	}
+	
 	</style>
 
 </head>
 <body>
+	<div id="select"></div>
 	<div class="articlePage">
 		<div id="demo1" class="articleRegion"></div>
 
@@ -116,12 +118,29 @@
 			var txt = " ";
 			var books = ${ readByArticleId };
 			var a = 1;
+
+			var select = "<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>"
+			select += "<option value='#'>想去哪裡</option>";
+			select += "<option value='/GameShop/processArticle'>創造の壁</option>";
+			select += "<option value='/GameShop/myArticle'>我的創作</option>";
+			select += "<option value='/GameShop/postArticle'>發表文章</option>";
+			select += "</select>";
+			document.getElementById("select").innerHTML = select;
 			
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				
+// 				txt += "<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>";
+// 				txt += "<option value='#'>會員空間</option>";
+// 				txt += "<option value='/GameShop/myArticle'>我的創作</option>";
+// 				txt += "<option value='/GameShop/postArticle'>發表文章</option>";
+				
+				txt += "</select>";
 
 				for (let i = 0; i < books.length; i++) {
 					txt += "<div class = 'article'>";
-					txt += "<div class='title'>"+books[i].articleTitle+"</div>";
+					txt += "<div class='title'>"+books[i].articleTitle;
+					txt += "<form id='editorArticle' action='gotoUpdataPage' method='POST' style='float:right;'></form>";					
+					txt += "</div>";
 					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
 					txt += "<div class='articleContent'>"+books[i].articleContent+"</div>";
 					txt += "</div>";
@@ -130,43 +149,48 @@
 				txt += "</br>"
 				document.getElementById("requestArticleId").setAttribute("value", books[0].articleID);
 				document.getElementById("demo1").innerHTML = txt;
+
+				var id = books[0].userId;
+				var loginid = ${sessionScope.userId};
+				var inputeditor = "<input type='submit' value='編輯文章' style='right'>";
+				inputeditor += "<input type='hidden' name='aID' value='" + books[0].articleID + "'>";
+				if(id == loginid){				
+					document.getElementById("editorArticle").innerHTML = inputeditor;
+				}
 			}
 
-			var txt1 = "回應";
+			var txt1 = "<hr>回應";
 			var books1 = ${ message };
 			var messageID;
 			if(books1[0] === undefined){
 				document.getElementById("messageRegion").innerHTML = txt1;
 			}else{
-				
+				var a = 0;
 	 			for (let i = 0; i < books1.length; i++) {		 			
 	 				messageID = books1[i].messageID
+	 				a++;
 					txt1 += "<div class = 'article'>";
-					txt1 += "<div class='title'>"+books1[i].respUserId+"</div>";
+					txt1 += "<div class='title'>"+books1[i].respUserId+":</div>";
 					txt1 += "<div>" + books1[i].messageContent + "</div></div>";
 // 					txt1 += "<div style='float:right;'>"+ books1[i].postDatetime +"</div>"
-					txt1 += "<div class = 'timeremess'>"+ books1[i].postDatetime +"</div>"
+					txt1 += "<div class = 'timeremess'>" + "#" +a + ", " + books1[i].postDatetime + "</div>"
 // 					txt1 += "<div class = 'remess' id='replymessage_"+books1[i].messageID+"'>"
 
 					
 					var remess = ${remess};
 					for(let j = 0; j < remess.length; j++){
 						if(remess[j].messageID == books1[i].messageID){
-							txt1 += "<div class='remess'>" + remess[j].messageContent+"</div></div>"
-						}else{
-							console.log("沒有回應")
-						}			
+							books[0].userId
+							txt1 += "<div class='remess'>" + books[0].userId + ":</br>" + remess[j].messageContent+"</div></div>"
+						}		
 					}
 
 					txt1 += "<div class='messageResponse'><a href='javascript:void(0)' onclick='addtext("+ i +","+ messageID +", "+ books[0].articleID +")'>回應</a>";
 
 					txt1 += "</div>";
-					txt1 += "<div id='textarea_"+i+"'></div>";
+					txt1 += "<div id='textarea_"+i+"'></div><hr>";
 					
 				}
-
-				txt1 += "</br>"
-
 				document.getElementById("messageRegion").innerHTML = txt1;
 			};
 

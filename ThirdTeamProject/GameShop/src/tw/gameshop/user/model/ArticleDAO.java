@@ -47,7 +47,8 @@ public class ArticleDAO {
 
 	public String queryAllData() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Article> query = session.createQuery("From Article", Article.class);
+//		Query<Article> query = session.createQuery("From Article", Article.class);
+		Query<Article> query = session.createQuery("From Article order by postDatetime", Article.class);
 		List<Article> list = query.list();
 
 		JSONArray jsonAr = new JSONArray();
@@ -71,7 +72,7 @@ public class ArticleDAO {
 	
 	public String queryMyArticle(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Article> query = session.createQuery("From Article where userId = :userId", Article.class);
+		Query<Article> query = session.createQuery("From Article where userId = :userId order by postDatetime", Article.class);
 		query.setParameter("userId", userId);
 		List<Article> list = query.list();
 
@@ -114,6 +115,26 @@ public class ArticleDAO {
 		String jsonstr = jsonAr.toString();
 		String json = jsonstr.replaceAll(":null,", ":\"null\",");
 		return json;
+	}
+	
+	
+	public Article updataArticle(int articleID, String articleTitle, String articleAbstract, String articleContent) {
+		Session session = sessionFactory.getCurrentSession();
+		Article queryArt = session.get(Article.class, articleID);
+		
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+
+		queryArt.setArticleTitle(articleTitle);
+		queryArt.setArticleAbstract(articleAbstract);
+		queryArt.setArticleContent(articleContent);
+		queryArt.setUpdateDatetime((ft.format(date)));
+
+		if (queryArt != null) {
+			session.update(queryArt);
+		}
+		
+		return queryArt;
 	}
 
 }

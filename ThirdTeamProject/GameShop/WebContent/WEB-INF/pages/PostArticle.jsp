@@ -20,47 +20,45 @@
 </head>
 
 <body>
+	<div>
+		<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>
+			<option value='#'>想去哪裡</option>
+			<option value='/GameShop/processArticle'>創造の壁</option>
+			<option value='/GameShop/myArticle'>我的創作</option>
+			<option value='/GameShop/postArticle'>發表文章</option>
+		</select>	
+	</div>
+	
 	<div class="page">
 
-		<form action="<c:url value='/processAction'></c:url>" method="post">
+		<form action="<c:url value='/processAction'></c:url>" id="form" method="post">
 
-			標題:<input type="text" name="articleTitle"><br />
+			標題:<input type="text" id="title" name="articleTitle" ><br />
 			文章:
-<!-- 			<textarea class="textarea" name="articleContent" id="editor"></textarea> -->
 			<textarea class="textarea" name="articleContent" id="editor"></textarea>
+			<input type="hidden" id="artid" name="articleID">
 			<input type="submit" value="送出">
 		</form>
 
 	</div>
 
-<!-- 	123 -->
-<!-- 	<form name='form' action='#' method='post'> -->
-<!-- 		<textarea name="content"  id="content" rows="10" cols="80"></textarea> -->
-<!-- 		<input type='button' value='送出' onclick='processData()'> -->
-
-<!-- 	</form> -->
-
-	<!-- 	<script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script> -->
 	<script src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 	<script>
-		// 		ClassicEditor.create(document.querySelector(
-		// 				'#editor'), {
-		// 				toolbar: ['bold', 'italic', 'link',
-		// 					'bulletedList',
-		// 					'numberedList',
-		// 					'|', 'outdent', 'indent']
-		// 			})
-		// 			.then(editor => {
-		// 				console.log(editor);
-		// 			})
-		// 			.catch(error => {
-		// 				console.error(error);
-		// 			});
-
+	
 		CKEDITOR.replace('articleContent', {});
-// 		CKEDITOR.replace('content', {});
-
-
+			
+		var checkout = ${checkout_1}+0;
+		checkout += ${checkout_2}+0;
+// 		console.log("checkout: "+checkout);
+		if(checkout === 19487){
+// 			console.log("可以編輯");
+			var book = ${readByArticleId};
+// 			console.log(book);
+			document.getElementById("title").value = book[0].articleTitle;
+			document.getElementById("editor").innerHTML = book[0].articleContent;
+			document.getElementById("artid").value = book[0].articleID;
+			document.getElementById("form").action = "<c:url value='/updataArticle'/>";
+		}
 
 	</script>
 
