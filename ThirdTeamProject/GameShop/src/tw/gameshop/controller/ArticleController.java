@@ -1,6 +1,7 @@
 package tw.gameshop.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,16 @@ public class ArticleController {
 	
 	private ArticleService aService;
 
+	private ArticleMessageService artMesService;
+	private ReplyMessageService rmService;
+
+	private HttpSession session;
+
 	@Autowired 
 	HttpServletRequest request;
 
-	private ArticleMessageService artMesService;
-	private ReplyMessageService rmService;
-	
+	private int userId;
+
 	public ArticleController() {
 	}
 	
@@ -36,6 +41,16 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/processArticle", method = RequestMethod.GET)
 	public String showArticle() {
+		
+//		===============測試用偽裝userID====================
+		session = request.getSession();
+		session.setAttribute("userId", 1);
+		userId = Integer.parseInt(session.getAttribute("userId").toString());
+        System.out.println("===================>userid by session:"+session.getAttribute("userId"));
+        System.out.println("===================>userid by userId:"+userId);
+        
+//		===================================
+		
 		String aJson = aService.queryAllData();
 		request.setAttribute("aJson", aJson);
 		return "Article";
@@ -50,7 +65,7 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/processAction" , method = RequestMethod.POST)
 	public String processAction(
-			@RequestParam("userID") int userId,
+//			@RequestParam("userID") int userId,
 			@RequestParam("articleTitle") String articleTitle,
 			@RequestParam("articleContent") String articleContent) {
 		
@@ -62,6 +77,7 @@ public class ArticleController {
         }else {
         	articleAbstract = str;
         }
+                
 		aService.addArticle(userId, articleTitle, articleAbstract, articleContent);
 		return  "redirect:/processArticle";
 	}
@@ -92,7 +108,11 @@ public class ArticleController {
 	public String processAddMessage(
 			@RequestParam("requestArticleId") int articleId,
 			@RequestParam("message") String messageContent) {
-		int respUserId = 2;
+		
+//		===========USERID設定===============
+		int respUserId = userId;
+//		==========================
+		
 		artMesService.addArticleMessage(articleId, respUserId, messageContent);
 		String readByArticleId = aService.queryArticle(articleId);
 		String message = artMesService.queryArticleMessage(articleId);

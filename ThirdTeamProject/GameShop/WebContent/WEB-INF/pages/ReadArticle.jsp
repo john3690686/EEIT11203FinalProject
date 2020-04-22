@@ -58,10 +58,18 @@
 	
 	.remess{
 		font-size:13px;
-		margin-top:10px;
+ 		margin-top:10px; 
 		margin-left:20px;
+		padding:5px;
 		border-style: solid;
 		border-color: #ADADAD;
+		
+	}
+	
+	.timeremess{
+		margin-left:20px;
+		padding-bottom:0px;
+		text-align: right;
 	}
 	
 	</style>
@@ -136,7 +144,10 @@
 					txt1 += "<div class = 'article'>";
 					txt1 += "<div class='title'>"+books1[i].respUserId+"</div>";
 					txt1 += "<div>" + books1[i].messageContent + "</div></div>";
-					txt1 += "<div id='replymessage_"+books1[i].messageID+"'>"
+// 					txt1 += "<div style='float:right;'>"+ books1[i].postDatetime +"</div>"
+					txt1 += "<div class = 'timeremess'>"+ books1[i].postDatetime +"</div>"
+// 					txt1 += "<div class = 'remess' id='replymessage_"+books1[i].messageID+"'>"
+
 					
 					var remess = ${remess};
 					for(let j = 0; j < remess.length; j++){
@@ -148,7 +159,7 @@
 					}
 
 					txt1 += "<div class='messageResponse'><a href='javascript:void(0)' onclick='addtext("+ i +","+ messageID +", "+ books[0].articleID +")'>回應</a>";
-					txt1 += "<span style='float:right;'>"+ books1[i].postDatetime +"</span>"
+
 					txt1 += "</div>";
 					txt1 += "<div id='textarea_"+i+"'></div>";
 					
