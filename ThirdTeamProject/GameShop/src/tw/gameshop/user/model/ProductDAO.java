@@ -2,54 +2,86 @@ package tw.gameshop.user.model;
 
 import java.util.List;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("productDao")
 public class ProductDAO {
-	
+
 	private SessionFactory sessionFactory;
 
+	public ProductDAO() {
+		super();
+	}
+
 	@Autowired
-	public ProductDAO(@Qualifier(value="sessionFactory") SessionFactory sessionFactory) {
+	public ProductDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
+		System.out.println("SessionFactory: " + sessionFactory);//TODO Delete This line
 		this.sessionFactory = sessionFactory;
 	}
+
+	public List<Product> queryAll() {
+		return sessionFactory.getCurrentSession().createQuery("From Product", Product.class).list();
+	}
 	
-	public Product queryByName(String gameName) { 	// ï¿½Hï¿½Cï¿½ï¿½ï¿½Wï¿½Ù§ï¿½Cï¿½ï¿½ï¿½ï¿½Æ­ï¿½ï¿½ï¿½
+	public List<Product> queryCatalogue() {
+		return sessionFactory.getCurrentSession().createQuery("From Product p Where Getdate() Between p.uploadTime and downloadTime", Product.class).list();
+	}
+	
+	public Product queryByName(String gameName) { 	// ¥H¹CÀ¸¦WºÙ§ä¹CÀ¸¸ê®Æ­¶­±
 
 		try {
-			Session session = sessionFactory.getCurrentSession();
-			Query<Product> query = session.createQuery("from Product where productName =?0", Product.class);
-			query.setParameter(0, gameName);
+			Query<Product> query = sessionFactory.getCurrentSession().createQuery("from Product where productName =?0", Product.class).setParameter(0, gameName);
 
 			List<Product> list = query.list();
-			String result = list.get(0).getProductName();
 
-			if (gameName.equalsIgnoreCase(result)) {
+			if (gameName.equalsIgnoreCase(list.get(0).getProductName())) {
 				return list.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
 		return null;
 	}
 	
-	public List<Product> queryAll() {
-		Session session = sessionFactory.getCurrentSession();
-		Query<Product> query = session.createQuery("from Product", Product.class);
-		List<Product> list = query.list();
-		return list;
+	public Product queryById(int id) {
+		return sessionFactory.getCurrentSession().get(Product.class, id);
 	}
 	
-	public Product queryById(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Product myProduct = session.get(Product.class, id);
-		return myProduct;
+	public Product insertProduct(Product p) {
+		if(p != null) {
+			sessionFactory.getCurrentSession().save(p);
+		}
+		return p;
+	}
+	
+	public boolean updateById(int id, Product p) {
+		Product myBean = sessionFactory.getCurrentSession().get(Product.class, id);
+		if(myBean!=null) {
+			myBean.setProductName(p.getProductName());
+			myBean.setTag(p.getTag());
+			myBean.setIntro(p.getIntro());
+			myBean.setPrice(p.getPrice());
+			if(p.getProductImage()!=null) {
+				myBean.setProductImage(p.getProductImage());
+			}
+			myBean.setUploadTime(p.getUploadTime());
+			myBean.setDownloadTime(p.getDownloadTime());
+			return true;
+		}
+		return false;
+	}
+
+	public boolean deleteById(int id) {
+		Product myBean = sessionFactory.getCurrentSession().get(Product.class, id);
+		if( myBean!=null ) {
+			sessionFactory.getCurrentSession().delete(myBean);
+			return true;
+		}
+		return false;
 	}
 
 }

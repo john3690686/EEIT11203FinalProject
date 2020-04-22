@@ -45,7 +45,7 @@ public class ShowShopController {
 	public String shopIndex(Model model) {
 		model.addAttribute("searchGo", new Product());
 		
-		List<Product> product = pService.queryAll(); 				// ��ܸ�Ʈw�Ҧ��C��
+		List<Product> product = pService.queryCatalogue(); 				// ��ܸ�Ʈw�Ҧ��C��
 		model.addAttribute("products", product);
 
 		return "Shop";

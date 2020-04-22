@@ -8,33 +8,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="product")
 public class Product {
 	
-	@Id @Column(name="productId")			// ²£«~id(¬y¤ô¸¹)
+	@Id @Column(name="productId")			// ï¿½ï¿½ï¿½~id(ï¿½yï¿½ï¿½ï¿½ï¿½)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer ProductId;
 	
-	@Column(name="productName")				// ²£«~¦WºÙ
+	@Column(name="productName")				// ï¿½ï¿½ï¿½~ï¿½Wï¿½ï¿½
 	private String productName;
 	
-	@Column(name="intro")					// ²£«~Â²¤¶
+	@Column(name="intro")					// ï¿½ï¿½ï¿½~Â²ï¿½ï¿½
 	private String intro;
 	
-	@Column(name="price")					// ²£«~»ù®æ
+	@Column(name="price")					// ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½ï¿½
 	private Integer price;
 	
-	@Column(name="tag")						// ²£«~¼ÐÅÒ
+	@Column(name="tag")						// ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½ï¿½
 	private String tag;
 	
-	@Column(name="productImage")			// ²£«~¹Ï¤ù
+	@Column(name="productImage")			// ï¿½ï¿½ï¿½~ï¿½Ï¤ï¿½
 	private byte[] productImage;
 	
-	@Column(name="uploadTime")				// ¤W¬[®É¶¡(«á¥x±±¨î)
+	@JsonFormat(pattern = "yyyy-MM-DD hh:mm:ss")
+	@Column(name="uploadTime")				// ï¿½Wï¿½[ï¿½É¶ï¿½(ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½)
 	private Date uploadTime;
 	
-	@Column(name="downloadTime")			// ¤U¬[®É¶¡(«á¥x±±¨î)
+	@JsonFormat(pattern = "yyyy-MM-DD hh:mm:ss")
+	@Column(name="downloadTime")			// ï¿½Uï¿½[ï¿½É¶ï¿½(ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½)
 	private Date downloadTime;
 
 	public Integer getProductId() {

@@ -7,24 +7,41 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
+	private ProductDAO pDao;
 
-	private ProductDAO productsDao;
-
+	public ProductService() {
+	}
+	
 	@Autowired
-	public ProductService(ProductDAO productsDao) {
-		this.productsDao = productsDao;
+	public ProductService(ProductDAO pDao) {
+		this.pDao = pDao;
 	}
 	
 	public Product queryByName(String gameName) {
-		return productsDao.queryByName(gameName);
-	}
-	
-	public List<Product> queryAll(){
-		return productsDao.queryAll();
+		return pDao.queryByName(gameName);
 	}
 	
 	public Product queryById(int id) {
-		return productsDao.queryById(id);
+		return pDao.queryById(id);
 	}
-
+	
+	public List<Product> queryCatalogue() {
+		return pDao.queryCatalogue();
+	}
+	
+	public List<Product> queryAll() {
+		return pDao.queryAll();		
+	}
+	
+	public Product addProduct(Product p) {
+		return pDao.insertProduct(p);
+	}
+	
+	public boolean updateById(int id, Product p) {
+		return pDao.updateById(id, p);
+	}
+	
+	public boolean deleteById(int id) {
+		return pDao.deleteById(id);
+	}
 }
