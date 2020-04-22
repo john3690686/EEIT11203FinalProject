@@ -10,6 +10,7 @@
 		*{
 			margin: 0;
 			padding: 0;
+			font-size: 20px;
 		}
 		#profileForm{
 			width: 600px;
@@ -19,6 +20,21 @@
 			border-radius: 10px;
 			text-align: center;
 			
+		}
+		.message{
+			font-size: 20px;
+			font-weight: bold;
+			margin: auto;
+			text-align: center;
+		}
+		label{
+			display: inline-block;
+			line-height: 30px;
+			width: 90px;
+			text-align: right;
+		}
+		.gender{
+			width: auto;
 		}
 	</style>
 </head>
@@ -70,7 +86,7 @@
 		});
 
 		//get data
-		$(document).ready(function () {
+		function queryProfile(){
 			$.ajax({
 				url: "http://localhost:8080/GameShop/serchProfile",
 				type: "POST",
@@ -80,6 +96,9 @@
 					$("#userName").val(data.userName);
 					$("#nickName").val(data.nickName);
 					$("#mail").val(data.mail);
+					$("#birthday").val(data.birthday);
+					$("#address").val(data.address);
+					$("#phone").val(data.phone);
 					if (data.userImg == null || data.userImg == 0) {  
 						$(".imgUserPhoto").attr("src", "img/coda.jpg");
 					} else {
@@ -88,6 +107,10 @@
 
 				}
 			})
+		}
+
+		$(document).ready(function () {
+			queryProfile();
 		})
 
 
@@ -103,13 +126,13 @@
 				cache: false,
 				processData: false,
 				success: function (data) {
-					$("#userAccount").val(data.userAccount);
-					$("#userName").val(data.userName);
-					$("#nickName").val(data.nickName);
-					$("#mail").val(data.mail);
-					$(".message").text("修改成功")
-				}, error: function (data) {
-					$(".message").text("修改失敗")
+					$(".message").text("修改成功").css("color","green")
+				}
+				, done: function(data){
+					queryProfile();
+				}
+				, error: function (data) {
+					$(".message").text("修改失敗").css("color","red")
 					console.log('無法送出');
 				}
 

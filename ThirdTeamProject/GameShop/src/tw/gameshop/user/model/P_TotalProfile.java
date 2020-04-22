@@ -1,6 +1,6 @@
 package tw.gameshop.user.model;
 
-public class P_ModifyProfile {
+public class P_TotalProfile {
 
 	private String userAccount;
 	
@@ -12,6 +12,8 @@ public class P_ModifyProfile {
 	
 	private String mail;
 	
+	private boolean mailStatus;
+	
 	private Character gender;
 	
 	private byte[] userImg;
@@ -22,9 +24,9 @@ public class P_ModifyProfile {
 	
 	private String phone;
 
-	public P_ModifyProfile() {}
+	public P_TotalProfile() {}
 	
-	public P_ModifyProfile(P_Profile profile, PD_ProfileDetail proDetail) {
+	public P_TotalProfile(P_Profile profile, PD_ProfileDetail proDetail) {
 		this.userAccount = profile.getUserAccount();
 		this.userName = profile.getUserName();
 		this.userPwd = profile.getUserPwd();
@@ -35,6 +37,7 @@ public class P_ModifyProfile {
 		this.address = profile.getProfileDetail().getAddress();
 		this.birthday = profile.getProfileDetail().getBirthday();
 		this.phone = profile.getProfileDetail().getPhone();
+		this.mailStatus = profile.isMailState();
 	}
 
 	public String getUserAccount() {
@@ -115,6 +118,14 @@ public class P_ModifyProfile {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public boolean isMailStatus() {
+		return mailStatus;
+	}
+
+	public void setMailStatus(boolean mailStatus) {
+		this.mailStatus = mailStatus;
 	}
 	
 }

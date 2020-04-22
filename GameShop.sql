@@ -16,11 +16,12 @@ CREATE TABLE Profile(
   userAccount VARCHAR(50) NOT NULL UNIQUE,
   userName NVARCHAR(50) NOT NULL,
   userPwd VARCHAR(50) NOT NULL,
-  userToken VARCHAR(100),
+  userToken VARCHAR(MAX),
   nickname NVARCHAR(50) NOT NULL UNIQUE,
   mail VARCHAR(100) NOT NULL UNIQUE,
   gender VARCHAR(1) ,
-  userImg VARBINARY(MAX)
+  userImg VARBINARY(MAX),
+  mailState BIT DEFAULT 0
 )
 GO
 
@@ -28,7 +29,9 @@ CREATE TABLE ProfileDetail(
   userId INT NOT NULL FOREIGN KEY REFERENCES Profile(userId),
   address NVARCHAR(MAX),
   birthday DATE,
-  phone VARCHAR(100)
+  phone VARCHAR(100),
+  mailCode VARCHAR(255) NOT NULL,
+  codeStartingDate DATE NOT NULL
 )
 GO
 
@@ -37,8 +40,3 @@ GO
 --DELETE FROM ProfileDetail 
 --DELETE FROM Profile
 
-INSERT INTO Profile(userId,userName,nickName,userPwd,mail)
-VALUES('uid1','unm1','nn1','upd1','u1@')
-
-INSERT INTO ProfileDetail(userId)
-VALUES('uid1')

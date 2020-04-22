@@ -12,18 +12,18 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 public class RequestController {
 
-	// �擐��
+	//首頁
 	@RequestMapping("/index.html")
 	public String toHome() {
 		return "home";
 	}
 	
-	@RequestMapping("error")
+	@RequestMapping("/error")
 	public String errorPage() {
 		return "ErrorPage";
 	}
 
-	// ��
+	//登出
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String processLogout(HttpServletRequest request, HttpServletResponse response, SessionStatus status) {
 		System.out.println("logout");
@@ -32,4 +32,6 @@ public class RequestController {
 		session.invalidate();
 		return "redirect:/index.html";
 	}
+
+	
 }

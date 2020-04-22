@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -38,6 +39,7 @@
 </head>
 
 <body>
+	<c:if test="${titleMessage.length()>0}"><div id="titleMessage">${titleMessage}</div></c:if>
     <!--Navigator-->
     <nav>
         <ul class="ul1">
@@ -86,7 +88,7 @@
             <div class="registerForm">
                 <fieldset>
                     <legend>Register Form</legend>
-                    <form action="processProfile" method="POST" enctype="multipart/form-data">
+                    <form action="register" method="POST" enctype="multipart/form-data">
                         <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px"><input
                             class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
                         <label>Required</label><br />
@@ -376,6 +378,7 @@
 
         //Login & Register Form
 
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -434,7 +437,7 @@
 
         //Rightup Login Button
         $(document).ready(function () {
-
+            $("#titleMessage").animate({opacity:"0"},4000,function(){location="index.html"});
             if ($(".loginz").val() == "Logout") {
                 $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
                 $(".login").css("visibility","hidden")

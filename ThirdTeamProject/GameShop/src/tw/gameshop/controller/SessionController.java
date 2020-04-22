@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,14 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
-
 import tw.gameshop.user.model.PD_ProfileDetail;
 import tw.gameshop.user.model.P_Profile;
 import tw.gameshop.user.model.P_ProfileService;
+import tw.gameshop.user.model.P_TotalProfile;
 
 @Controller
 @SessionAttributes(names = { "userAccount", "userName", "nickName" })
@@ -42,23 +39,22 @@ public class SessionController {
 		this.pservice = pservice;
 	}
 
-	// 閮餃��
-	@RequestMapping(path = "/processProfile", method = RequestMethod.POST)
+	//註冊
+	@RequestMapping(path = "/register", method = RequestMethod.POST)
 	public String processAction(@RequestParam("userAccount") String userAccount,
 			@RequestParam("userName") String userName, @RequestParam("userPwd") String userPwd,
 			@RequestParam("nickName") String nickName, @RequestParam("mail") String mail,
 			@RequestParam("gender") Character gender,
-			@RequestParam("userImg") MultipartFile userImg) {
+			@RequestParam("userImg") MultipartFile userImg,
+			@RequestParam("birthday") String birthday,@RequestParam("address")String address,
+			@RequestParam("phone")String phone,Model model) {
 
-		System.out.println("Controller start");
 		try {
 			if (pservice.queryProfile(userAccount) == null) {
-				P_Profile p = new P_Profile(userAccount, userName, userPwd, nickName, mail);
-				p.setUserImg(userImg.getBytes());
-				p.setGender(gender);
-				PD_ProfileDetail pd = new PD_ProfileDetail("add4", "2020-03-03", "0900123456");
+				P_Profile p = new P_Profile(userAccount, userName, userPwd, nickName, mail,gender,userImg.getBytes());
+				PD_ProfileDetail pd = new PD_ProfileDetail(address, birthday, phone);
 				pservice.createProfile(p, pd);
-				System.out.println("process end");
+				model.addAttribute("titleMessage", "註冊成功");
 				return "home";
 			}
 		} catch (Exception e) {
@@ -68,7 +64,7 @@ public class SessionController {
 		return "ErrorPage";
 	}
 
-	// ��
+	//登入
 	@RequestMapping(value = "/processLogin", method = RequestMethod.POST)
 	public String processLogin(@RequestParam(name = "userAccount") String userAccount,
 			@RequestParam(name = "userPwd") String userPwd, Model model, HttpServletRequest request) {
@@ -91,7 +87,7 @@ public class SessionController {
 		
 	}
 
-	// 瑼Ｘsession
+	//測試session
 	@RequestMapping(value = "/session.detail", method = RequestMethod.GET)
 	public String processTest() {
 		return "testsession";
@@ -105,9 +101,9 @@ public class SessionController {
 
 	@ResponseBody
 	@RequestMapping(value = "/serchProfile", method = RequestMethod.POST)
-	public P_Profile queryProfile(Model model) {
+	public P_TotalProfile queryProfile(Model model) {
 		System.out.println("myProfile");
-		P_Profile profile = null;
+		P_TotalProfile profile = null;
 		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
 		return profile;
 	}
@@ -136,5 +132,14 @@ public class SessionController {
 		proDetail.setPhone(phone);
 		pservice.updateProfile(profile,proDetail);
 		return profile;
+	}
+	
+	@RequestMapping(value = "/certification/{mailCode}", method = RequestMethod.GET)
+	public String certificationMail(@PathVariable("mailCode") String mailCode) {
+		boolean isPass = pservice.certificationMail(mailCode);
+		if(isPass) {
+			return "CertificationMailSuccess";
+		}
+		return "ErrorPage";
 	}
 }

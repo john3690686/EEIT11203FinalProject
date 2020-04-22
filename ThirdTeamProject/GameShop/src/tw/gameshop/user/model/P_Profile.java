@@ -49,19 +49,24 @@ public class P_Profile implements Serializable{
 	@Column(name = "userImg")
 	private byte[] userImg;
 	
+	@Column(name = "mailState")
+	private boolean mailState;
+	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "profile", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private PD_ProfileDetail profileDetail;
 	
 	public P_Profile() {}
 	
-	public P_Profile(String userAccount, String userName, String userPwd, String nickName,
-			String mail) {
+	public P_Profile(String userAccount, String userName, String userPwd, 
+			String nickName, String mail,Character gender, byte[] userImg) {
 		this.userAccount = userAccount;
 		this.userName = userName;
 		this.userPwd = userPwd;
 		this.nickName = nickName;
 		this.mail = mail;
+		this.gender = gender;
+		this.userImg = userImg;
 	}
 
 	public String getUserId() {
@@ -143,4 +148,13 @@ public class P_Profile implements Serializable{
 	public void setUserToken(String userToken) {
 		this.userToken = userToken;
 	}
+
+	public boolean isMailState() {
+		return mailState;
+	}
+
+	public void setMailState(boolean mailState) {
+		this.mailState = mailState;
+	}
+	
 }
