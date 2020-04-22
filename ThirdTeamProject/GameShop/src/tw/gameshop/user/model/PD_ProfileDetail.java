@@ -20,7 +20,7 @@ public class PD_ProfileDetail {
 				parameters = @Parameter(name="property", value = "profile"))
 	@Id @GeneratedValue(generator = "generator")
 	@Column(name = "userId")
-	private String userId;
+	private int userId;
 	
 	@Column(name = "address")
 	private String address;
@@ -43,11 +43,11 @@ public class PD_ProfileDetail {
 		this.phone = phone;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
