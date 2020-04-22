@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+* { margin: 0px auto; }
+ul,li { padding:0; margin:0; }
+ul { list-style:none; }
+#chat-room { width: 800px; margin-top: 150px; margin-bottom: 100px;}
+#chat-room .lefter { float:left; width:200px; height:600px; border:1px solid #ccc; overflow: hidden; }
+#chat-room .lefter h2 { background:black; color:white; border-bottom:1px solid #eee; font-size:18px; line-height:30px; text-align:center; font-weight: bold;}
+#chat-room .lefter ul { overflow-y:auto; height: 569px; }
+#chat-room .lefter ul li {  padding:10px; font-weight:bold; font-size: 14px;}
+#chat-room .lefter .self{ background-color: lightgray; }
+#chat-room .lefter .users{ background-color: lightpink;}
+.spacer { height:8px; overflow:hidden; }
+#chat-room .righter { float:right;   width:550px; display:inline; margin:5px; }
+#chat-room .righter #chatHistory { height:460px; border:1px solid #ccc; padding:5px; overflow-y:scroll;}
+#chat-room #sysMessage {text-align: left; font-size: 16px; font-weight: bolder; line-height: 26px; color: white;}
+#chat-room .righter .reply .text { border:1px solid #ccc; width:380px; margin-right:5px; padding:4px; vertical-align:middle; font-size: 20px;}
+#chat-room .righter .reply label { vertical-align:middle; font-size: 20px;}
+#chat-room .righter .mySpeaks { clear:both; float : left;}
+#chat-room .righter .mySpeaksMsg { border-radius: 10px; background-color: lightgreen; font-size: 16px; padding: 5px 10px 5px 10px;}
+#chat-room .righter .errorSpeaks { clear:both; float: left;display:inline; border-radius: 10px; background-color: red; color:white; font-size: 16px; padding: 5px 10px 5px 10px; margin-bottom: 10px;}
+#chat-room .righter .otherSpeaks { clear:both; float: left;}
+#chat-room .righter .otherSpeaksMsg { border-radius: 10px; background-color: lightgray; font-size: 16px; padding: 5px 10px 5px 10px;}
+#chat-room .righter .timeStamp { vertical-align: bottom; font-size: 10px; color: gray}
+#sendMsg { background:#8a9cc2; border:1px solid #29447e; font-size: 20px; padding: 3px; color: white; font-weight: bold;}
+#sendImg { background:darkgreen; border:1px solid #29447e; font-size: 16px; padding: 3px; color: white; font-weight: bold;}
+#cancelImg { font-size: 16px;}
+#uploadedImg {font-size: 16px; color:white}
+#imgLabel {color:white}
+#imgError {color: red;　height: 20px;}
+#notes {color:white}
