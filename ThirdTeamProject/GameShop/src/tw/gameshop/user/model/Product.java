@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -31,10 +33,12 @@ public class Product {
 	@Column(name = "productImage")
 	private byte[] productImage;
 	
-	@Column(name = "uploadTime", columnDefinition = "TIMESTAMP")
+	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+	@Column(name = "uploadTime", columnDefinition = "TIMESTAMP") 
 	private Date uploadTime;
 	
-	@Column(name = "downloadTime", columnDefinition = "TIMESTAMP")
+	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
+	@Column(name = "downloadTime", columnDefinition = "TIMESTAMP") 
 	private Date downloadTime;
 	
 	public Product() { super(); }

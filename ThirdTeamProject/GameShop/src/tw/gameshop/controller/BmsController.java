@@ -37,7 +37,7 @@ public class BmsController {
 		this.productDao = pDao;
 	}
 	
-	@RequestMapping(path = {"/", "/bms"}, method = RequestMethod.GET)
+	@RequestMapping(path = {"/bms", "/BmsHome"}, method = RequestMethod.GET)
 	public String GoBmsHomePage() {
 		return "BmsHome";
 	}
@@ -47,14 +47,10 @@ public class BmsController {
 	 */
 	@RequestMapping(path = "/productlist", method = RequestMethod.GET)
 	public String SelectProductAll(ModelMap model) throws SQLException {
-		List<Product> list = productDao.queryCatalogue();
-		model.addAttribute("productlist",list);
+		model.addAttribute("productlist",productDao.queryAll());
 		return "BmsProductListView";
 	}
-		
-	/* Call Url path:'/product.all/json'
-	 * return: Json ( List<Product> )
-	 */
+
 	@ResponseBody
 	@RequestMapping(path = "/productJsonView", method = RequestMethod.GET)
 	public List<Product> SelectProductAllJson() throws SQLException {

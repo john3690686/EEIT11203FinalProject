@@ -7,13 +7,6 @@
 <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 <title>BmsHomePage.jsp</title>
 <style type="text/css">
-/*******將CSS寫在HTML中*/
-/*      body{ */
-/*			width: 900px; */
-/*			color: #FFF; */
-/*			margin:0 auto; */
-/*			font-family: sans-serif, "微軟正黑體"; */
-/*      } */
      
      #header{
 	     background-color: #425660;
@@ -57,7 +50,7 @@
      }
 </style>
 </head>
-<body>
+<body id="BmsHomePage">
 	
 <!-- 	<header id="header"> -->
 <!-- 		<h1>HEADER 標題</h1> -->
