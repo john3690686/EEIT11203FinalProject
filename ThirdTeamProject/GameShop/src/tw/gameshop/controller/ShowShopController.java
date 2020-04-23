@@ -40,47 +40,52 @@ public class ShowShopController {
 		this.cService = cService;
 	}
 	
-	// �ɤJ�ө��D��
+	// 商品主頁
 	@RequestMapping(path="/Shop", method=RequestMethod.GET)
 	public String shopIndex(Model model) {
 		model.addAttribute("searchGo", new Product());
 		
-		List<Product> product = pService.queryAll(); 				// ��ܸ�Ʈw�Ҧ��C��
+		List<Product> product = pService.queryAll(); 		
 		model.addAttribute("products", product);
 
 		return "Shop";
 	}
 	
-	// �H�C���W�٧�C������(��+�C���W�٪����})
+	// 以遊戲名稱搜尋產品
 	@RequestMapping(path="/searchGame{urlname}", method=RequestMethod.GET)
 	public String findGameByName(@ModelAttribute("searchGo")Product myProduct, 
 	@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
 		
 		if(result.hasErrors()) {
-			return "ErrorPage";										// �ɦVweb-inf/pages/ErrorPage.jsp
+			return "Shop";									
 		}
 		
 		String mygame= myProduct.getProductName();
 		Product findResult = pService.queryByName(mygame);
-		urlName = findResult.getProductId().toString();
+		
+		if (findResult!=null) {
+			urlName = findResult.getProductId().toString();
 			
-		model.addAttribute("productName", mygame);
-		model.addAttribute("intro", findResult.getIntro());
-		model.addAttribute("price", findResult.getPrice());
-		model.addAttribute("tag", findResult.getTag());
+			model.addAttribute("productName", mygame);
+			model.addAttribute("intro", findResult.getIntro());
+			model.addAttribute("price", findResult.getPrice());
+			model.addAttribute("tag", findResult.getTag());
 		
-		int nowProductId = findResult.getProductId();
-		model.addAttribute("comments", new Comment());				// �s�W���װ϶�
-		model.addAttribute("productId", nowProductId);
-																	// �j�M�ӹC���Ҧ�����
+			int nowProductId = findResult.getProductId();
+			model.addAttribute("comments", new Comment());				
+			model.addAttribute("productId", nowProductId);
+																	
+			List<Comment> theseComments= cService.QueryAllByProductId(nowProductId);
+			model.addAttribute("",theseComments);
 		
-		List<Comment> theseComments= cService.QueryAllByProductId(nowProductId);
-		model.addAttribute("",theseComments);
-		
-		return "searchResult";	
-	}
+			return "searchResult";
+			
+		}else {	
+			return "Shop";
+		}
+}
 	
-	@RequestMapping(path="/productImage", method=RequestMethod.GET) // Ū���Ϥ�
+	@RequestMapping(path="/productImage", method=RequestMethod.GET) 
 	public void processAction(@RequestParam("gamename") String gamename, HttpServletResponse response, Model model) throws IOException {
 
 		Product myProduct = pService.queryByName(gamename);
@@ -95,11 +100,19 @@ public class ShowShopController {
 		}
 	}
 	
-	//�N�ӫ~����
+	// 搜尋所有商品
 	@ResponseBody
 	@RequestMapping(path = "/JsonProducts.controller", method = RequestMethod.GET)
 	public List<Product> processActionTest() {
 		return pService.queryAll();
 	}
+	
+	// 回傳資料庫內的遊戲名稱(快速完成用)
+	@ResponseBody
+	@RequestMapping(path = "/showProductName", method = RequestMethod.GET)
+	public List<String> showProductName(@RequestParam("jsondata")String key){
+		return pService.queryAllName(key);
+	}
+	
 	
 }

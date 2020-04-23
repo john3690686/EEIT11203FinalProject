@@ -2,6 +2,7 @@ package tw.gameshop.user.model;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,15 @@ public class ProductDAO {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public List<String> queryAllName() {            // 回傳商品名稱的List
-		return sessionFactory.getCurrentSession().createQuery("Select productName from Product").list();
-	}
+	public List<String> queryAllName(String key) {		    // 回傳商品名稱的List
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "Select productName from Product where productName like '%"+key+"%'";
+		Query<String> query = session.createQuery(hql);
+		List<String> list = query.list();
+		
+		return list;
+	}	
 
 	public List<Product> queryAll() {
 		return sessionFactory.getCurrentSession().createQuery("From Product", Product.class).list();

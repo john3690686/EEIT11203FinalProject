@@ -17,8 +17,8 @@ public class ProductService {
 		this.pDao = pDao;
 	}
 	
-	public List<String> queryAllName() {
-		return pDao.queryAllName();
+	public List<String> queryAllName(String key){
+		return pDao.queryAllName(key);	
 	}
 	
 	public Product queryByName(String gameName) {

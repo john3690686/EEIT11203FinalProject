@@ -10,10 +10,16 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
 	rel="stylesheet">
-
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
+<link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
 <title>Shop</title>
 
 <style type="text/css">
+
+.ui-autocomplete{ 
+	z-index: 9999 !important; 
+	text-align:left;
+}
 
 </style>
 
@@ -76,13 +82,11 @@
 				<td></td>
 				<td></td>
 
-				<form:form action="searchGame" method="get"
-					modelAttribute="searchGo">
-					<td><img src="img/searchicon2.png"
-						style="filter: contrast(100%);"> <form:input
-							path="productName" /> <form:button value="Send">Search Games</form:button>
-					</td>
-				</form:form>
+		<form:form action="searchGame" method="get" modelAttribute="searchGo">
+		<td><img src="img/searchicon2.png" style="filter: contrast(100%);"> 
+		<form:input	path="productName" id="queryname"/> 
+		<form:button value="Send">Search Games</form:button></td>
+		</form:form>
 			</tr>
 		</table>
 		
@@ -101,9 +105,11 @@
 		</div>
 	</footer>
 
-	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script>
-		//Sales輪播圖片
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+	
+//Sales輪播圖片
 
 		var nowAD = 0;
 		var maxAD = 5;
@@ -155,8 +161,8 @@
 			} else if (tempAD > nowAD) {
 				backFlag = true;
 			}
-		// 可導向網頁的圖片連結(之後再接網頁內的商品)
-		
+
+// 可導向網頁的圖片連結(之後再接網頁內的商品)
 			var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
 		 	document.getElementById("mainUrl").href = "http://localhost:8080/GameShop/searchGame?productName="+ db[(nowAD-1)];
 
@@ -215,7 +221,7 @@
 			}
 		}
 
-		//鈞太哥的商品分頁
+//鈞太哥的商品分頁
 		$(document).ready(function () {
 			
 	        var itemPerPage = 5;		// 一頁幾個商品
@@ -223,14 +229,12 @@
 	        var totalPage = 0;			// 全部頁數
 	        
 	        $.ajax({
-	            url: "JsonProducts.controller",  //data path
+	            url: "JsonProducts.controller",
 	            type: "GET",
 	            dataType: "json",
 	            success: function (data) {
-		            
-	                //donload data to <table>
+
 	                var txt = ' ';
-	                
 	                for (let i = 0; i < data.length; i++) {
 
 		                txt += '<tr><td>' + "<img src='data:image/jpeg;base64," + data[i].productImage + "' width='230px'>" + 
@@ -278,31 +282,25 @@
 	                        $("#nowPage").text(nowPage);
 	                    }
 	                })
-
 	                //first show
 	                $("#page a").eq(1).click();
-
-	                //add wish
-	                $(".wish").click(function(){
-					console.log("add wish");
-					var id1 = $(this).parent().siblings("td.pName").attr("id");
-					var name1 = $(this).parent().siblings("td.pName").html();
-					console.log("id1="+id1);
-					$.ajax({
-						url:"addWish.controller?id=" + id1,
-						type:"get",
-						success:function(data){
-							console.log("add wish: "+data);
-							if(data=="ok"){
-					        window.alert(name1+"加入願望清單");
-								}else{
-					        window.alert(name1+"已加入願望清單");
-									}
-							}
-						})
-					})
 					
-					//add product to shoppingcart
+// 購物車
+	   $(".wish").click(function(){
+			console.log("add wish");
+			var id1 = $(this).parent().siblings("td.pName").attr("id");
+			var name1 = $(this).parent().siblings("td.pName").html();
+			console.log("id1="+id1);
+			window.alert(name1+"加入願望清單");
+
+			$.ajax({
+					url:"addWish.controller?id=" + id1,
+					type:"get",
+					success:function(data){
+					console.log("add wish: "+data);
+					}
+				})
+			})
 				   $(".cart").click(function(){
 					var id = $(this).parent().siblings("td.pName").attr("id");
 					var name = $(this).parent().siblings("td.pName").html();
@@ -313,17 +311,47 @@
 						type:"get",
 						success:function(data){
 							console.log("add product: "+data);
-							}
+						}
 						})
 					})
-	                
 	            }
 	        })
 	    })
-	    
+	     
+// 自動帶入資料庫關鍵字搜尋  autocomplete
 
+	$("#queryname").autocomplete({		
+		source : function(request, response) {
+	
+	$.ajax({
+		url : "showProductName",
+		type : "GET",
+		matchContains: true,
+		dataType : "JSON",
+		data : {
+ 			jsondata : $("#queryname").val()   // 獲取輸入框內容
+		},
+		success : function(data) {		
+			response(data, function(item) {    // 此處是將返回資料轉換為 JSON物件
+				console.log(item.jsondata);
+				
+			return {
+                    value: item.jsondata,
+           			}
+		})
+		}
+	});
+    },
+			 focus: function (event, ui) {	   // 選到某項目就顯示在搜尋框中
+		         $("#queryname").val(ui.item.value);		            
+		         return false;
+		},
+		      select: function (event, ui) {   // 當使用者選擇某項目後自動將所有的值帶進輸入框中
+			      $("#queryname").val(ui.item.value);
+		          return false;
+		        } 
+});
 
-		
 	</script>
 
 </body>
