@@ -1,5 +1,6 @@
 package tw.gameshop.user.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +31,12 @@ public class PD_ProfileDetail {
 	
 	@Column(name = "phone")
 	private String phone;
+	
+	@Column(name = "mailCode")
+	private String mailCode;
+	
+	@Column(name = "codeStartingDate")
+	private String codeStartingDate;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
@@ -81,6 +88,22 @@ public class PD_ProfileDetail {
 
 	public void setProfile(P_Profile p) {
 		this.profile = p;
+	}
+
+	public String getMailCode() {
+		return mailCode;
+	}
+
+	public void setMailCode(String mailCode) {
+		this.mailCode = mailCode;
+	}
+
+	public String getCodeStartingDate() {
+		return codeStartingDate;
+	}
+
+	public void setCodeStartingDate(String codeStartingDate) {
+		this.codeStartingDate = codeStartingDate;
 	}
 	
 	

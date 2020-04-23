@@ -1,19 +1,32 @@
 package tw.gameshop.user.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "profile")
-public class P_Profile {
+public class P_Profile implements Serializable{
 
-	@Id @Column(name = "userId")
+	private static final long serialVersionUID = 1L;
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@Column(name = "userId")
 	private String userId;
+	
+	@Column(name = "userAccount")
+	private String userAccount;
 	
 	@Column(name = "userName")
 	private String userName;
@@ -24,8 +37,8 @@ public class P_Profile {
 	@Column(name = "userToken")
 	private String userToken;
 	
-	@Column(name = "nickname")
-	private String nickname;
+	@Column(name = "nickName")
+	private String nickName;
 	
 	@Column(name = "mail")
 	private String mail;
@@ -36,18 +49,24 @@ public class P_Profile {
 	@Column(name = "userImg")
 	private byte[] userImg;
 	
+	@Column(name = "mailState")
+	private boolean mailState;
+	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "profile", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private PD_ProfileDetail profileDetail;
 	
 	public P_Profile() {}
 	
-	public P_Profile(String userId, String userName, String userPwd, String nickname,
-			String mail) {
-		this.userId = userId;
+	public P_Profile(String userAccount, String userName, String userPwd, 
+			String nickName, String mail,Character gender, byte[] userImg) {
+		this.userAccount = userAccount;
 		this.userName = userName;
 		this.userPwd = userPwd;
-		this.nickname = nickname;
+		this.nickName = nickName;
 		this.mail = mail;
+		this.gender = gender;
+		this.userImg = userImg;
 	}
 
 	public String getUserId() {
@@ -56,6 +75,22 @@ public class P_Profile {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(String userAccount) {
+		this.userAccount = userAccount;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getUserName() {
@@ -82,11 +117,11 @@ public class P_Profile {
 		this.mail = mail;
 	}
 
-	public char getGender() {
+	public Character getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(Character gender) {
 		this.gender = gender;
 	}
 
@@ -114,18 +149,12 @@ public class P_Profile {
 		this.userToken = userToken;
 	}
 
-	public String getnickname() {
-		return nickname;
+	public boolean isMailState() {
+		return mailState;
 	}
 
-	public void setnickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public void setGender(Character gender) {
-		this.gender = gender;
+	public void setMailState(boolean mailState) {
+		this.mailState = mailState;
 	}
 	
-	
-
 }

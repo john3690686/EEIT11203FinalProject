@@ -41,7 +41,6 @@ public class OpenSessionViewFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
 			sessionFactory.getCurrentSession().beginTransaction();
-			System.out.println("Transaction Begin.");
 			chain.doFilter(request, response);
 			sessionFactory.getCurrentSession().getTransaction().commit();
 		} catch (Exception e) {
@@ -49,8 +48,6 @@ public class OpenSessionViewFilter implements Filter {
 			System.out.println("Transaction RollBack.");
 			e.printStackTrace();
 			chain.doFilter(request, response);
-		} finally {
-			System.out.println("Transaction Closed.");
 		}
 	}
 
