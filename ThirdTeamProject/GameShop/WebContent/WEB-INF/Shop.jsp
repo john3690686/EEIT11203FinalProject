@@ -281,20 +281,28 @@
 
 	                //first show
 	                $("#page a").eq(1).click();
+
+	                //add wish
 	                $(".wish").click(function(){
 					console.log("add wish");
 					var id1 = $(this).parent().siblings("td.pName").attr("id");
 					var name1 = $(this).parent().siblings("td.pName").html();
 					console.log("id1="+id1);
-					window.alert(name1+"加入願望清單");
 					$.ajax({
 						url:"addWish.controller?id=" + id1,
 						type:"get",
 						success:function(data){
 							console.log("add wish: "+data);
+							if(data=="ok"){
+					        window.alert(name1+"加入願望清單");
+								}else{
+					        window.alert(name1+"已加入願望清單");
+									}
 							}
 						})
 					})
+					
+					//add product to shoppingcart
 				   $(".cart").click(function(){
 					var id = $(this).parent().siblings("td.pName").attr("id");
 					var name = $(this).parent().siblings("td.pName").html();

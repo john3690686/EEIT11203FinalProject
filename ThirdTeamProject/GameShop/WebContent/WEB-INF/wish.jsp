@@ -10,8 +10,9 @@
 <body>
 <h3>願望清單</h3>
 <table>
-<c:forEach var="wish" items="${wish}"> 
+<c:forEach var="wish" items="${wish}" varStatus="st"> 
 <tr>
+<td>${st.count}</td>
 <td id="${wish.productId}">${wish.productName}</td>
 <td>
 <input class="delete" type="button" value="delete">
