@@ -21,8 +21,6 @@
 	
 	<mvc:resources location="/WEB-INF/resources/images/" mapping="/images/**"/>
 
-    <mvc:view-controller path="/" view-name="redirect:preLoginAction.controller"/>
-
 	<bean id="SQLserverJndiDataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName"

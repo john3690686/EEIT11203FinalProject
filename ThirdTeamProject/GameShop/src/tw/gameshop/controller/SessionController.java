@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
+
 import tw.gameshop.user.model.PD_ProfileDetail;
 import tw.gameshop.user.model.P_Profile;
 import tw.gameshop.user.model.P_ProfileService;
