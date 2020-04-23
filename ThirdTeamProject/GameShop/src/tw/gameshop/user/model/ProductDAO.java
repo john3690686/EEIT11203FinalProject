@@ -22,6 +22,10 @@ public class ProductDAO {
 		System.out.println("SessionFactory: " + sessionFactory);//TODO Delete This line
 		this.sessionFactory = sessionFactory;
 	}
+	
+	public List<String> queryAllName() {            // å›å‚³å•†å“åç¨±çš„List
+		return sessionFactory.getCurrentSession().createQuery("Select productName from Product").list();
+	}
 
 	public List<Product> queryAll() {
 		return sessionFactory.getCurrentSession().createQuery("From Product", Product.class).list();
@@ -31,7 +35,7 @@ public class ProductDAO {
 		return sessionFactory.getCurrentSession().createQuery("From Product p Where Getdate() Between p.uploadTime and downloadTime", Product.class).list();
 	}
 	
-	public Product queryByName(String gameName) { 	// ¥H¹CÀ¸¦WºÙ§ä¹CÀ¸¸ê®Æ­¶­±
+	public Product queryByName(String gameName) { 	// ï¿½Hï¿½Cï¿½ï¿½ï¿½Wï¿½Ù§ï¿½Cï¿½ï¿½ï¿½ï¿½Æ­ï¿½ï¿½ï¿½
 
 		try {
 			Query<Product> query = sessionFactory.getCurrentSession().createQuery("from Product where productName =?0", Product.class).setParameter(0, gameName);
