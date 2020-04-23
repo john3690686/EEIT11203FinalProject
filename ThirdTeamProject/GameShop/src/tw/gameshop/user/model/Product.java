@@ -1,5 +1,6 @@
 package tw.gameshop.user.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +13,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="product")
-public class Product {
-	
+public class Product implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id @Column(name="productId")			// ���~id(�y����)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer ProductId;
