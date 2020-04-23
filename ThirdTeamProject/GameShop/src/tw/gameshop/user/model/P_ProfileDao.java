@@ -1,6 +1,5 @@
 package tw.gameshop.user.model;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -139,32 +138,38 @@ public class P_ProfileDao {
 	}
 
 	public boolean certificationMail(String mailCode) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session1 = sessionFactory.getCurrentSession();
+		boolean isValid = false;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Query<P_Profile> qProfile = 
-					session.createQuery("from P_Profile p WHERE p.profileDetail.mailCode=:mailCode", P_Profile.class);
-			qProfile.setParameter("mailCode", mailCode);
-			P_Profile result = qProfile.getSingleResult();
-			System.out.println("Date:"+result.getProfileDetail().getCodeStartingDate());
-//			System.out.println("UserID:" + result.getProfileDetail().getUserId());
-//			System.out.println(((P_Profile)Array.get(proDetail, 0)).getUserAccount());
-//			System.out.println(((PD_ProfileDetail)Array.get(proDetail, 1)).getUserId());
-//			P_Profile result;
-			if (result != null) {
-				
-				String startingDate = result.getProfileDetail().getCodeStartingDate();
+			Query<PD_ProfileDetail> findpd = 
+					session1.createQuery("from PD_ProfileDetail WHERE mailCode=:mailCode", PD_ProfileDetail.class);
+			findpd.setParameter("mailCode", mailCode);
+			//PD_ProfileDetail profileDetail = findpd.getSingleResult();
+			List<PD_ProfileDetail> profileDetailList = findpd.list();
+//			profile = profileDetail.getProfile();
+//			System.out.println(profileDetail.getUserId()+ ", "+profileDetail.getCodeStartingDate());
+//			System.out.println(profile.getUserId());
+			PD_ProfileDetail profileDetail = null;
+			for(PD_ProfileDetail p : profileDetailList) {
+				profileDetail = p;
+			}
+
+//			if (profile != null) {
+			if (profileDetail != null) {
+				String startingDate = profileDetail.getCodeStartingDate();
 				Date applyDate = format.parse(startingDate);
-				boolean isValid = applyDate.getTime() + (8 * 24 * 60 * 60 * 1000) > new Date().getTime();
+				isValid = applyDate.getTime() + (8 * 24 * 60 * 60 * 1000) > new Date().getTime();
 				if(isValid) {
-					result.setMailState(true);
-					return true;
+//					profile.setMailState(true);
+					profileDetail.getProfile().setMailState(true);
+					System.out.println("Valid Mail OK");
 				}
 			}
 		} catch (Exception e) {
 			System.out.println("Certification Error!");
 			e.printStackTrace();
 		}
-		return false;
+		return isValid;
 	}
 }

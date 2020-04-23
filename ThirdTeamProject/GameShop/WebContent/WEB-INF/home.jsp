@@ -75,16 +75,13 @@
                     <form action="processLogin" method="POST">
                         <label for="userAccount">User Account:</label><input type="text" name="userAccount"><br />
                         <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
-                        <button class="loginconfirm">Confirm</button><input type="button" class="cancel_btn"
-                            value="Cancel">
+                        <button class="loginconfirm">Confirm</button><input type="button" class="cancel_btn" value="Cancel">
                     </form>
-
                 </fieldset>
             </div>
         </div>
         <!-- register form -->
         <div class="registerDiv">
-
             <div class="registerForm">
                 <fieldset>
                     <legend>Register Form</legend>
@@ -428,20 +425,23 @@
             $("#nickName").val("nnm");
             $("#userPwd").val("pwd");
             $("#checkPwd").val("pwd");
-            $("#mail").val("uid@mail");
+            $("#mail").val("j.t.hung1988@gmail.com");
             $("#birthday").val("2020/03/03");
             $("#address").val("addr");
             $("#phone").val("0987141242");
-
         })
 
         //Rightup Login Button
         $(document).ready(function () {
             $("#titleMessage").animate({opacity:"0"},4000,function(){location="index.html"});
+            //if login
             if ($(".loginz").val() == "Logout") {
                 $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
-                $(".login").css("visibility","hidden")
+                $(".login").css("visibility","hidden");
+                $("#hello").show();
+            //if guest
             } else {
+                $("#hello").hide();
                 $(".login").css("visibility","visible")
                 $(".loginz").parent().removeAttr("href");
                 $(".loginz").click(function () {

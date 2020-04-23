@@ -9,9 +9,9 @@
 <h1>信箱認證成功，3秒回到首頁</h1>
 </body>
 <script>
-    setTimeout(() => {
-        location.replace("index.html");
-    }, 3);
+//     setTimeout(() => {
+//         location.replace("index.html");
+//     }, 3000);
     
 </script>
 </html>
