@@ -36,12 +36,15 @@ public class WishController {
 		int pId = Integer.parseInt(id);
 		//get userId from session
 		int userId = (int)model.getAttribute("userId");
-		boolean add = wDao.queryUniqueWish(userId, pId);
-		if(add) {
+		List<Wish> list = wDao.queryUniqueWish(userId, pId);
+		if(list.size()==0) {
 			wDao.insertWish(userId, pId);
 			return "ok";
+		}else if (list.get(0).getAccomplish()=="w"){
+			list.get(0).setAccomplish("w");
+			return "ok";
 		}
-		else {
+		else{
 			return "repeat";
 		}
 	}
