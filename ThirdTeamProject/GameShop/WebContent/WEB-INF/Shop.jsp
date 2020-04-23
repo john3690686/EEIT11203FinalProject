@@ -10,10 +10,17 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
 	rel="stylesheet">
-
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
+<link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
 <title>Shop</title>
 
 <style type="text/css">
+
+body{
+	font-family:微軟正黑體;
+	background-image:url(img/shopbg.jpg) no-repeat;
+	background-size:cover;
+}
 
 </style>
 
@@ -48,17 +55,12 @@
 			<figure>
 				<!--輪播已修改完畢(接商品頁面)-->
 				<a id="mainUrl" href="">
-					<canvas id="myCanvas" width="460" height="215">  
-                <img id="mainImg1" src="img/sale1.jpg"
-							style="display: none" />
-                <img id="mainImg2" src="img/sale2.jpg"
-							style="display: none" />
-                <img id="mainImg3" src="img/sale3.jpg"
-							style="display: none" />
-                <img id="mainImg4" src="img/sale4.jpg"
-							style="display: none" />
-                <img id="mainImg5" src="img/sale5.jpg"
-							style="display: none" />
+				<canvas id="myCanvas" width="460" height="215">  
+                <img id="mainImg1" src="img/sale1.jpg" style="display: none" alt=""/>
+                <img id="mainImg2" src="img/sale2.jpg" style="display: none" alt=""/>
+                <img id="mainImg3" src="img/sale3.jpg" style="display: none" alt=""/>
+                <img id="mainImg4" src="img/sale4.jpg" style="display: none" alt=""/>
+                <img id="mainImg5" src="img/sale5.jpg" style="display: none" alt=""/>
                 </canvas>
 				</a>
 				<div id="chimg"></div>
@@ -76,18 +78,16 @@
 				<td></td>
 				<td></td>
 
-				<form:form action="searchGame" method="get"
-					modelAttribute="searchGo">
-					<td><img src="img/searchicon2.png"
-						style="filter: contrast(100%);"> <form:input
-							path="productName" /> <form:button value="Send">Search Games</form:button>
-					</td>
-				</form:form>
+			<form:form action="searchGame" method="get" modelAttribute="searchGo">
+				<td><img src="img/searchicon2.png" style="filter: contrast(100%);"> 
+				<form:input	path="productName" id="queryname"/> 
+				<form:button value="Send">搜尋</form:button></td>
+			</form:form>
 			</tr>
 		</table>
 		
 				<!--Show Products & Page-->
-				<table id="content" class="productTable" ></table>
+				<table id="content" class="productTable"></table><br><br>
     			<div id="page" class="pageview"></div>
  
 	</div>
@@ -102,6 +102,7 @@
 	</footer>
 
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script>
 		//Sales輪播圖片
 
@@ -234,8 +235,8 @@
 	                for (let i = 0; i < data.length; i++) {
 
 		                txt += '<tr><td>' + "<img src='data:image/jpeg;base64," + data[i].productImage + "' width='230px'>" + 
-	                    '</td><td class="pName" id="'+data[i].productId +'">' + data[i].productName + '</td><td>' + data[i].tag + '</td><td>' + data[i].price + 
-	                    '</td><td>' + "<a href='searchGame?productName="+data[i].productName+"'><input type='button' value='遊戲資訊'></a>  <input class='wish' type='button' value='加入願望清單'>  <input class='cart' type='button' value='加入購物車'>" +
+	                    '</td><td class="pName" id="'+data[i].productId +'">' + data[i].productName + '</td><td>' + data[i].tag + '</td><td>$' + data[i].price + 
+	                    '</td><td>' + "<a href='searchGame?productName="+data[i].productName+"'><input class='infobutton' type='button' value='遊戲資訊'></a>  <input class='cartbutton' type='button' value='加入購物車'>  <input class='wishbutton' type='button' value='加入願望清單'>" +
 	                    '</td></tr>';
 	                }
 	                txt + ' ';
@@ -279,9 +280,11 @@
 	                    }
 	                })
 
-	                //first show
+					//first show
 	                $("#page a").eq(1).click();
-	                $(".wish").click(function(){
+	                
+ 					// 購物車
+		            $(".wishbutton").click(function(){
 					console.log("add wish");
 					var id1 = $(this).parent().siblings("td.pName").attr("id");
 					var name1 = $(this).parent().siblings("td.pName").html();
@@ -295,7 +298,7 @@
 							}
 						})
 					})
-				   $(".cart").click(function(){
+				   $(".cartbutton").click(function(){
 					var id = $(this).parent().siblings("td.pName").attr("id");
 					var name = $(this).parent().siblings("td.pName").html();
 					console.log("add product");
@@ -313,9 +316,40 @@
 	        })
 	    })
 	    
-
-
-		
+					// 自動帶入資料庫關鍵字搜尋  autocomplete
+				
+					$("#queryname").autocomplete({		
+						source : function(request, response) {
+					
+					$.ajax({
+						url : "showProductName",
+						type : "GET",
+						dataType : "JSON",
+						data : {
+				 			jsondata : $("#queryname").val()   // 獲取輸入框內容
+						},
+						success : function(data) {		
+							response(data, function(item) {    // 此處是將返回資料轉換為 JSON物件
+								console.log(item.jsondata);
+								
+							return {
+				                    value: item.jsondata,
+				           			}
+						})
+						}
+					});
+				    },		
+				    		 minLength: 2,					   // 至少輸入幾個字
+							 focus: function (event, ui) {	   // 選到某項目就顯示在搜尋框中
+						         $("#queryname").val(ui.item.value);		            
+						         return false;
+						},
+						      select: function (event, ui) {   // 當使用者選擇某項目後自動將所有的值帶進輸入框中
+							      $("#queryname").val(ui.item.value);
+						          return false;
+						        } 
+				});
+	
 	</script>
 
 </body>

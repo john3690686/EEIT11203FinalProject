@@ -33,6 +33,10 @@ public class ProductService {
 		return pDao.queryAll();		
 	}
 	
+	public List<String> queryAllName(String key){
+		return pDao.queryAllName(key);	
+	}
+	
 	public Product addProduct(Product p) {
 		return pDao.insertProduct(p);
 	}
@@ -44,4 +48,5 @@ public class ProductService {
 	public boolean deleteById(int id) {
 		return pDao.deleteById(id);
 	}
+
 }

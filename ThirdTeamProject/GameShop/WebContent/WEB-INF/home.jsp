@@ -51,8 +51,9 @@
     </nav>
 
     <!--Wishlist & Shopping cart-->
-    <a href="wishlist.jsp"><input type="button" class="wishlist"></a>
-    <a href="shoppingcart.jsp"><input type="button" class="shoppingcart"></a>
+	<a href="showWish.controller"><input type="button" class="wishlist"></a>
+	<a href="prePay.controller"><input type="button"
+		class="shoppingcart"></a>
 
     <!--Main-->
     <div class="container-fluid">

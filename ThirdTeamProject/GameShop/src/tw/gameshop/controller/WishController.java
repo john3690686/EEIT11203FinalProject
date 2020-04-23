@@ -18,7 +18,7 @@ import tw.gameshop.user.model.Wish;
 import tw.gameshop.user.model.WishDAO;
 
 @Controller
-@SessionAttributes("userId")
+@SessionAttributes({"userId","nickName"})
 public class WishController {
 	
 	private WishDAO wDao;

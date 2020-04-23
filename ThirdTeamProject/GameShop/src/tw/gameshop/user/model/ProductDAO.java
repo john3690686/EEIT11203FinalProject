@@ -2,6 +2,7 @@ package tw.gameshop.user.model;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class ProductDAO {
 		return sessionFactory.getCurrentSession().createQuery("From Product p Where Getdate() Between p.uploadTime and downloadTime", Product.class).list();
 	}
 	
-	public Product queryByName(String gameName) { 	// ¥H¹CÀ¸¦WºÙ§ä¹CÀ¸¸ê®Æ­¶­±
+	public Product queryByName(String gameName) { 	// ï¿½Hï¿½Cï¿½ï¿½ï¿½Wï¿½Ù§ï¿½Cï¿½ï¿½ï¿½ï¿½Æ­ï¿½ï¿½ï¿½
 
 		try {
 			Query<Product> query = sessionFactory.getCurrentSession().createQuery("from Product where productName =?0", Product.class).setParameter(0, gameName);
@@ -83,5 +84,17 @@ public class ProductDAO {
 		}
 		return false;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> queryAllName(String key) {		    // å›å‚³å•†å“åç¨±çš„List
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "Select productName from Product where productName like '%"+key+"%'";
+		Query<String> query = session.createQuery(hql);
+		List<String> list = query.list();
+		
+		return list;
+	}	
+
 
 }
