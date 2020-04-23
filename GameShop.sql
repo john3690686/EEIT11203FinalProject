@@ -2,7 +2,7 @@ CREATE DATABASE GameShop
 ON
 (
   NAME = 'GameShop',
-  FILENAME='C:\GitHub\FinalProject\GameShop.mdf',
+  FILENAME='D:\SQLServerDataBase\GameShop.mdf',
   SIZE = 10MB,
   FILEGROWTH=10%
 )
@@ -12,20 +12,20 @@ USE GameShop
 GO
 
 CREATE TABLE Profile(
-  userId VARCHAR(50) NOT NULL PRIMARY KEY,
+  userId int NOT NULL PRIMARY KEY identity(1,1) ,
   userName NVARCHAR(50) NOT NULL,
-  userPwd VARCHAR(50) NOT NULL,
-  userToken VARCHAR(100),
+  userPwd NVARCHAR(50) NOT NULL,
+  userToken NVARCHAR(100),
   nickname NVARCHAR(50) NOT NULL UNIQUE,
-  mail VARCHAR(100) NOT NULL UNIQUE,
-  gender VARCHAR(1) ,
+  mail NVARCHAR(100) NOT NULL UNIQUE,
+  gender NVARCHAR(1) ,
   userImg VARBINARY(MAX)
 )
 GO
 
 CREATE TABLE ProfileDetail(
-  userId VARCHAR(50) NOT NULL FOREIGN KEY REFERENCES Profile(userId),
-  address VARCHAR(100),
+  userId int NOT NULL FOREIGN KEY REFERENCES Profile(userId),
+  address NVARCHAR(100),
   birthday DATE,
   phone VARCHAR(15)
 )
