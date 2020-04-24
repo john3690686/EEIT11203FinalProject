@@ -37,12 +37,17 @@ public class WishController {
 		//get userId from session
 		int userId = (int)model.getAttribute("userId");
 		List<Wish> list = wDao.queryUniqueWish(userId, pId);
+		System.out.println("list:"+list);
 		if(list.size()==0) {
+			System.out.println("list.size()==0");
 			wDao.insertWish(userId, pId);
 			return "ok";
-		}else if (list.get(0).getAccomplish()=="w"){
+		}else if (list.get(0).getAccomplish().equals("d")){
+			//System.out.println(list.get(0).getAccomplish());
 			list.get(0).setAccomplish("w");
 			return "ok";
+		}else if(list.get(0).getAccomplish().equals("a")){
+			return "a";
 		}
 		else{
 			return "repeat";

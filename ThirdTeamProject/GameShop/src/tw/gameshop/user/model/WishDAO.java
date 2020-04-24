@@ -34,7 +34,7 @@ public class WishDAO {
 	
 	public List<Wish> queryUniqueWish(int userId, int productId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Wish> query = session.createQuery("from Wish where userId=?0 and productId=?1 and accomplish=\'w\'", Wish.class);
+		Query<Wish> query = session.createQuery("from Wish where userId=?0 and productId=?1", Wish.class);
 		query.setParameter(0, userId);
 		query.setParameter(1, productId);
 		List<Wish> list = query.list();

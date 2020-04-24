@@ -204,13 +204,17 @@ window.onload = function(){
 			var id = ${productId};
 			var name = "${productName}";
 			console.log("add product");
-			window.alert(name+"加入購物車");
 			$.ajax({
 				url:"add.controller?id=" + id,
 				type:"get",
 				success:function(data){
 					console.log("add product: "+data);
-					}
+					if(data=="ok"){
+			            window.alert(name+"加入購物車");
+						}else{
+			            window.alert(name+"已加入購物車");
+							}
+				}
 				})
 			
 		})
@@ -220,13 +224,18 @@ window.onload = function(){
 					var id1 = ${productId};
 					var name1 = "${productName}";
 					console.log("id1="+id1);
-					window.alert(name1+"加入願望清單");
 					$.ajax({
 						url:"addWish.controller?id=" + id1,
 						type:"get",
 						success:function(data){
-							console.log("add wish: "+data);
-							}
+							if(data=="ok"){
+				                window.alert(name1+"加入願望清單");
+								}else if(data=="a"){
+								window.alert(name1+"此遊戲已購買");
+								}else{
+			                    window.alert(name1+"已加入願望清單");
+							         }
+				              }
 						})
 					})
 </script>

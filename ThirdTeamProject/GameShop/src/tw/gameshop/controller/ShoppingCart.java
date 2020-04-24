@@ -43,6 +43,7 @@ public class ShoppingCart {
 			LinkedList<Product> ncart = new LinkedList<Product>();
 			ncart.add(myProduct);
 			model.addAttribute("cart",ncart);
+			return "ok";
 		}else {
 			//檢查重複購買的商品
 			boolean check = true;
@@ -54,12 +55,13 @@ public class ShoppingCart {
 			if(check) {
 				cart.add(myProduct);
 				model.addAttribute("cart",cart);
+				return "ok";
 			}else {
 				System.out.println("repeat product");
+				return "repeat";
 			}
 
 		}
-		return "ok";
 	}
 	@ResponseBody
 	@RequestMapping(path="/show.controller", method=RequestMethod.POST)

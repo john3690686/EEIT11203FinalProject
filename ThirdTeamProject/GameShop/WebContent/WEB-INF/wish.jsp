@@ -13,7 +13,7 @@
 <c:forEach var="wish" items="${wish}" varStatus="st"> 
 <tr>
 <td>${st.count}</td>
-<td id="${wish.productId}">${wish.productName}</td>
+<td id="${wish.productId}" class="productNameForDelete">${wish.productName}</td>
 <td>
 <input class="delete" type="button" value="delete">
 </td>
@@ -22,7 +22,7 @@
 </table>
 <script type="text/javascript">
 $(".delete").click(function(){
-	var id = $(this).parent().siblings("td").attr("id");
+	var id = $(this).parent().siblings("td.productNameForDelete").attr("id");
 	console.log("id="+id);
 	$(this).parent().parent().remove();
 	$.get({
