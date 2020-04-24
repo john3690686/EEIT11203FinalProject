@@ -119,4 +119,13 @@ public class P_ProfileDao {
 		List<P_Profile> list = query.list();
 		return list;
 	}
+	
+	// edit from Betty (send email)
+	public P_Profile queryByUserId(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<P_Profile> query = session.createQuery("from Profiles where userId = ?0 ", P_Profile.class);
+		query.setParameter(0, userId);
+		P_Profile result = query.getSingleResult();
+		return result;
+	}
 }
