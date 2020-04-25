@@ -321,7 +321,7 @@
 								}else{
 					            window.alert(name+"已加入購物車");
 									}
-						}
+						       }
 						})
 					})
 	            }

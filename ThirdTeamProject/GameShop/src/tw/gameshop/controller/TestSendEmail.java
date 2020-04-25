@@ -47,16 +47,17 @@ public class TestSendEmail {
 		return "Success";
 	}
 	
-	//not test
+	//寄信給願望清單內的人
 	@RequestMapping(path="/eventSend.action", method = RequestMethod.GET)
 	public String processSendUser() {
-		List<Event> list = eDao.queryAllEvent();
+		List<Event> list = eDao.queryAllEvent(); //查詢推出什麼活動
 		for(Event event:list) {
-			LinkedList<Integer> pIdList = wDao.queryByProductId(event.getProductId());
+			LinkedList<Integer> pIdList = wDao.queryByProductId(event.getProductId()); //用產品ID找出userId
 			for(int i:pIdList) {
 				P_Profile target = pDao.queryByUserId(i);
 				String mail = target.getMail();
-				ed.sendMail("bettylin25@gmail.com", mail, event.getEventName(), event.getContent());
+				System.out.println("event name:"+event.getEventName());
+				ed.sendMail("bettylin25@gmail.com", mail, event.getEventName(), event.getContent()); //寄活動給願望清單內的人
 			}
 		}
 		return "Success";
