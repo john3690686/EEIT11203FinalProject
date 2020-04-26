@@ -31,4 +31,8 @@ public class ArticleService {
 		return artDao.queryArticle(articleID);
 	}
 	
+	public Article updataArticle(int articleID, String articleTitle, String articleAbstract, String articleContent) {
+		return artDao.updataArticle(articleID, articleTitle, articleAbstract, articleContent);
+	}
+	
 }

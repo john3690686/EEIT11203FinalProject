@@ -45,7 +45,7 @@
             <li><a href="#">SHOP</a>
             <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
             <li><a href="#">CHAT</a>
-                <a href="#"><input type="button" class="loginz" value="LOGIN"></a>
+                <input type="button" class="loginz" value="LOGIN">
         </ul>
     </nav>
 
@@ -71,7 +71,7 @@
                     <label for="userId">User ID:</label><input type="text" name="userId"><br />
                     <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
                 </form>
-                <button>Comfirm</button><button>Cancel</button>
+                <button id="loginComfirm">Comfirm</button><button class="cancel_btn">Cancel</button>
             </fieldset>
         </div>
     </div>
@@ -83,24 +83,24 @@
                     <legend>Login Form</legend>
                     <form action="#login" method="POST">
                         <label>Required</label><br />
-                        <label for="userId">ID:</label><input type="text" name="userId"><br />
-                        <label for="userName">Name:</label><input type="text" name="userName"><br />
-                        <label for="nickName">Nick Name:</label><input type="text" name="nickName"><br />
-                        <label for="gender">Gender:</label>
-                        <input type="radio" name="gender" value="m">male
-                        <input type="radio" name="gender" value="f">female
-                        <input type="radio" name="gender" value="o">other<br />
+                        <label for="userId">ID:</label><input type="text" id="userId" name="userId"><br />
+                        <label for="userName">Name:</label><input type="text" id="userName" name="userName"><br />
+                        <label for="nickName">Nick Name:</label><input type="text" id="nickName" name="nickName"><br />
+                        <label>Gender:</label>
+                        <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">male</label>
+                        <input type="radio" class="gender" name="gender" value="f"><label class="gender">female</label>
+                        <input type="radio" class="gender" name="gender" value="o"><label class="gender">other</label><br />
 
-                        <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
-                        <label for="checkPwd">Re-enter Password:</label><input type="password" name="checkPwd"><br />
-                        <label for="mail">E-mail:</label><input type="text" name="mail"><br />
+                        <label for="userPwd">Password:</label><input type="password" id="userPwd" name="userPwd"><br />
+                        <label for="checkPwd">Password:</label><input type="password" id="checkPwd" name="checkPwd" placeholder="Re-enter Password"><br />
+                        <label for="mail">E-mail:</label><input type="text" id="mail" name="mail"><br />
                         <hr>
                         <label>Detail</label><br />
-                        <label for="birthday">Birthday:</label><input type="text" name="birthday"><br />
-                        <label for="address">Address:</label><input type="text" name="address"><br />
-                        <label for="phone">Phone:</label><input type="text" name="phone"><br />
+                        <label for="birthday">Birthday:</label><input type="text" id="birthday" name="birthday"><br />
+                        <label for="address">Address:</label><input type="text" id="address" name="address"><br />
+                        <label for="phone">Phone:</label><input type="text" id="phone" name="phone"><br />
                     </form>
-                    <button>Comfirm</button><button>Cancel</button>
+                    <button id="registerComfirm">Comfirm</button><button class="cancel_btn">Cancel</button><button class="fill">fill</button>
                 </fieldset>
             </div>
         </div>
@@ -364,23 +364,62 @@
         }
 
         //Login & Register Form
-        $(".loginbutton").click(function () {
+        $(".loginz").click(function () {
             $(".loginDiv").css({
                 "position": "absolute",
-                "display": "block",
+                "display": "flex",
                 "z-index": "99999",
                 "top":$(document).scrollTop()+"px",
                 "height": "100vh",
-                "width":"100vw"
-
-            })
+                "width":"100vw",
+                "align-items": "center"
+            });
+            $("html").css("overflow","hidden");
         })
+        $(".loginbutton").click(function () {
+            $(".loginDiv").css({
+                "position": "absolute",
+                "display": "flex",
+                "z-index": "99999",
+                "top":$(document).scrollTop()+"px",
+                "height": "100vh",
+                "width":"100vw",
+                "align-items": "center"
+            });
+            $("html").css("overflow","hidden");
+        })
+        
         $(".registerbutton").click(function () {
             $(".registerDiv").css({
-                "position": "relative",
-                "display": "block",
-                "z-index": "99999"
-            })
+                "position": "absolute",
+                "display": "flex",
+                "z-index": "99999",
+                "top":$(document).scrollTop()+"px",
+                "height": "100vh",
+                "width":"100vw",
+                "align-items": "center"
+            });
+            $("html").css("overflow","hidden");
+        })
+
+        var cancelbtn = function(){
+            $(".loginDiv").css("display","none");
+            $(".registerDiv").css("display","none");
+            $("html").css("overflow","initial");
+        }
+        $(".cancel_btn").click(cancelbtn);
+        
+        $(".fill").click(function(){
+            $("#userId").val("uid");
+            $("#userName").val("unm");
+            $("#nickName").val("nnm");
+            $("#userPwd").val("pwd");
+            $("#checkPwd").val("pwd");
+            $("#mail").val("uid@mail");
+            $("#birthday").val("2020/03/03");
+            $("#address").val("addr");
+            $("#phone").val("0987141242");
+
         })
 
     </script>

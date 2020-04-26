@@ -342,27 +342,36 @@ fieldset{
 }
 /*==========*/
 
-.loginDiv{
+.loginDiv,
+.registerDiv{
     background-color: rgba(105, 95, 95, 0.6);
 }
 
-.loginForm{
+.loginForm,
+.registerForm{
     font-size: 20px;
-    line-height: 30px;
     border:2px solid black;
     border-radius: 10px;
     background-color: white;
-    width: 500px;
+    width: 800px;
     margin: auto;
 }
 
-.loginForm label{
+.loginForm label,
+.registerForm label{
+    line-height: 50px;
     text-align: right;
     display: inline-block;
-    width: 100px;
+    width: 150px;
 }
 
-.loginForm input{
+.loginForm input,
+.registerForm input{
     font-size: 20px;
     width:200px;
 }
+
+.registerForm .gender{
+    width:auto;
+}
+
