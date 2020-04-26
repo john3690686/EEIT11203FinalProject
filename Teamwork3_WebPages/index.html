@@ -1,183 +1,233 @@
 <!DOCTYPE html>
-<html>
+<html lang="zn-TW">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>index.html</title>
-<link rel="stylesheet" href="../css/style.css">
- <!-- Bootstrap CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>index.html</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+    <style>
+        footer {
+            border-radius: 2px 2px 2px 2px;
+            background: -webkit-linear-gradient(#3C3C3C, rgb(19, 18, 18));
+            background-repeat: no-repeat;
+            position: relative;
+            width: 100%;
+            height: 180px;
+            top: 150vh;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            z-index: 6666;
+        }
 
-footer{
-     border-radius: 2px 2px 2px 2px;
-     background: -webkit-linear-gradient( #3C3C3C, rgb(19, 18, 18));
-     background-repeat: no-repeat;
-     position: relative;
-     width: 100%;
-     height: 180px;
-     top: 150vh;
-     left: 0;
-     right: 0;
-     bottom: 0;
-     text-align: center;
-     z-index: 6666;
- }
+        .loginDiv {
+            display: none;
+        }
 
-</style>
+        .registerDiv {
+            display: none;
+        }
+    </style>
 
 </head>
+
 <body>
     <!--Navigator-->
-     <nav>
+    <nav>
         <ul class="ul1">
-        <li><a href="#">HOME</a>
-        <li><a href="#">NEWS</a>
-        <li><a href="#">SHOP</a>
-        <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-        <li><a href="#">CHAT</a>
-        <a href="#"><input type="button" class="loginz" value="LOGIN"></a>
+            <li><a href="#">HOME</a>
+            <li><a href="#">NEWS</a>
+            <li><a href="#">SHOP</a>
+            <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
+            <li><a href="#">CHAT</a>
+                <a href="#"><input type="button" class="loginz" value="LOGIN"></a>
         </ul>
     </nav>
 
     <!--Wishlist & Shopping cart-->
-        <a href="wishlist.jsp"><input type="button" class="wishlist"></a>
-        <a href="shoppingcart.jsp"><input type="button" class="shoppingcart"></a>
+    <a href="wishlist.jsp"><input type="button" class="wishlist"></a>
+    <a href="shoppingcart.jsp"><input type="button" class="shoppingcart"></a>
 
     <!--Main-->
-<div class="container-fluid">
+    <div class="container-fluid">
 
-    <!--Login System #1-->
-    <div class="login">
-        <form action="xxxServlet" method="post">
-        <input type="submit" value="Login"  name="login" class="loginbutton"/>
-        <input type="submit" value="Register" name="register" class="registerbutton"/>
-        </form>
-    </div>
-
-    <!--Trailer & Title-->
-    <div class="video">
-        <p class="subtitle">
-        Enjoy<br>Your<br>GameLife<br>
-        </p> 
-    </div>
-
-    <!--Backgroundimage-->
-    <div class="bg">
-        <div><img src="img/SkyTower2.jpg" style="width: 100%">
-            <video class="bg-video" src="https://cxc421.github.io/draw-lots/static/media/smoke.9c21ff18.mp4" autoplay="autoplay" muted="true" loop="true"></video>
+        <!--Login System #1-->
+        <div class="login">
+            <button class="loginbutton">Login</button>
+            <button class="registerbutton">Register</button>
         </div>
+
+        <!-- login form -->
+        <div class="loginDiv">
+        <div class="loginForm">
+            <fieldset>
+                <legend>Login Form</legend>
+                <form action="#login" method="POST">
+                    <label for="userId">User ID:</label><input type="text" name="userId"><br />
+                    <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
+                </form>
+                <button>Comfirm</button><button>Cancel</button>
+            </fieldset>
+        </div>
+    </div>
+        <!-- register form -->
+        <div class="registerDiv">
+
+            <div class="registerForm">
+                <fieldset>
+                    <legend>Login Form</legend>
+                    <form action="#login" method="POST">
+                        <label>Required</label><br />
+                        <label for="userId">ID:</label><input type="text" name="userId"><br />
+                        <label for="userName">Name:</label><input type="text" name="userName"><br />
+                        <label for="nickName">Nick Name:</label><input type="text" name="nickName"><br />
+                        <label for="gender">Gender:</label>
+                        <input type="radio" name="gender" value="m">male
+                        <input type="radio" name="gender" value="f">female
+                        <input type="radio" name="gender" value="o">other<br />
+
+                        <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
+                        <label for="checkPwd">Re-enter Password:</label><input type="password" name="checkPwd"><br />
+                        <label for="mail">E-mail:</label><input type="text" name="mail"><br />
+                        <hr>
+                        <label>Detail</label><br />
+                        <label for="birthday">Birthday:</label><input type="text" name="birthday"><br />
+                        <label for="address">Address:</label><input type="text" name="address"><br />
+                        <label for="phone">Phone:</label><input type="text" name="phone"><br />
+                    </form>
+                    <button>Comfirm</button><button>Cancel</button>
+                </fieldset>
+            </div>
+        </div>
+
+        <!--Trailer & Title-->
+        <div class="video">
+            <p class="subtitle">
+                Enjoy<br>Your<br>GameLife<br>
+            </p>
+        </div>
+
+        <!--Backgroundimage-->
+        <div class="bg">
+            <div><img src="img/SkyTower2.jpg" style="width: 100%">
+                <video class="bg-video" src="https://cxc421.github.io/draw-lots/static/media/smoke.9c21ff18.mp4"
+                    autoplay="autoplay" muted="true" loop="true"></video>
+            </div>
             <canvas class="bg-canvas"></canvas>
-    </div>
-
-    <!--Top Event Area-->
-    <div class="eventarea"> 
-        <div class="horizon">
-            <img src="img/hr.png">
-            <H1>NEWS & EVENTS</H1>
         </div>
 
-    <div class="event">
-    <table>
-    <tr>
-        <td>2020.04.01</td>
-        <td>New Release Avaliable!</td> 
-    </tr>
-    <tr>
-        <td>2020.04.01</td>
-        <td>New Release Avaliable!</td> 
-    </tr>
-    <tr>
-        <td>2020.04.01</td>
-        <td>New Release Avaliable!</td> 
-    </tr>
-    <tr>
-        <td>2020.04.01</td>
-        <td>New Release Avaliable!</td> 
-    </tr>
-    <tr>
-        <td>2020.04.01</td>
-        <td>New Release Avaliable!</td> 
-    </tr>
-    <tr>
-        <td colspan="2" style="text-align: center;">
-        <a href="#"><input type="submit" value="MORE" name="more" class="morebutton"/></a></td> 
-    </tr>
-    </table>
-    </div>
-    </div>
+        <!--Top Event Area-->
+        <div class="eventarea">
+            <div class="horizon">
+                <img src="img/hr.png">
+                <H1>NEWS & EVENTS</H1>
+            </div>
 
-    <!--Top Sale Area-->
-    <div class="salearea">
-        <div class="horizon">
-            <img src="img/hr.png">
-            <H1>TOP SALES</H1>
+            <div class="event">
+                <table>
+                    <tr>
+                        <td>2020.04.01</td>
+                        <td>New Release Avaliable!</td>
+                    </tr>
+                    <tr>
+                        <td>2020.04.01</td>
+                        <td>New Release Avaliable!</td>
+                    </tr>
+                    <tr>
+                        <td>2020.04.01</td>
+                        <td>New Release Avaliable!</td>
+                    </tr>
+                    <tr>
+                        <td>2020.04.01</td>
+                        <td>New Release Avaliable!</td>
+                    </tr>
+                    <tr>
+                        <td>2020.04.01</td>
+                        <td>New Release Avaliable!</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <a href="#"><input type="submit" value="MORE" name="more" class="morebutton" /></a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <fieldset>
-            <figure>
-                <!--輪播暫時接Steam網址, 之後須修改成商品頁編碼-->
-                <a id="mainUrl" href="https://store.steampowered.com/"> 
-                <canvas id="myCanvas" width="460" height="215">  
-                <img id="mainImg1" src="img/sale1.jpg" style="display: none">
-                <img id="mainImg2" src="img/sale2.jpg" style="display: none">
-                <img id="mainImg3" src="img/sale3.jpg" style="display: none">
-                <img id="mainImg4" src="img/sale4.jpg" style="display: none">
-                <img id="mainImg5" src="img/sale5.jpg" style="display: none">
-                </canvas>
-                </a>
-                <div id="chimg"></div><br>
-            </figure>
-        </fieldset>
-        <a href="#"><input type="submit" value="MORE" name="more" class="morebutton"/></a>
-    </div>
+        <!--Top Sale Area-->
+        <div class="salearea">
+            <div class="horizon">
+                <img src="img/hr.png">
+                <H1>TOP SALES</H1>
+            </div>
 
-    <!--Top Comment-->
-    <div class="commentarea">
-        <div class="horizon">
-            <img src="img/hr.png">
-            <H1>HOT COMMENTS</H1>
+            <fieldset>
+                <figure>
+                    <!--輪播暫時接Steam網址, 之後須修改成商品頁編碼-->
+                    <a id="mainUrl" href="https://store.steampowered.com/">
+                        <canvas id="myCanvas" width="460" height="215">
+                            <img id="mainImg1" src="img/sale1.jpg" style="display: none">
+                            <img id="mainImg2" src="img/sale2.jpg" style="display: none">
+                            <img id="mainImg3" src="img/sale3.jpg" style="display: none">
+                            <img id="mainImg4" src="img/sale4.jpg" style="display: none">
+                            <img id="mainImg5" src="img/sale5.jpg" style="display: none">
+                        </canvas>
+                    </a>
+                    <div id="chimg"></div><br>
+                </figure>
+            </fieldset>
+            <a href="#"><input type="submit" value="MORE" name="more" class="morebutton" /></a>
         </div>
-        <div class="event">
-            <table>
-                <tr>
-                    <td>GameName</td>
-                    <td>GameTitle1</td> 
-                </tr>
-                <tr>
-                    <td>GameName</td>
-                    <td>GameTitle2</td> 
-                </tr>
-                <tr>
-                    <td>GameName</td>
-                    <td>GameTitle3</td> 
-                </tr>
-                <tr>
-                    <td>GameName</td>
-                    <td>GameTitle4</td>
-                </tr>
-                <tr>
-                    <td>GameName</td>
-                    <td>GameTitle5</td> 
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center;">
-                    <a href="#"><input type="submit" value="MORE" name="more" class="morebutton"/></a></td> 
-                </tr>
+
+        <!--Top Comment-->
+        <div class="commentarea">
+            <div class="horizon">
+                <img src="img/hr.png">
+                <H1>HOT COMMENTS</H1>
+            </div>
+            <div class="event">
+                <table>
+                    <tr>
+                        <td>GameName</td>
+                        <td>GameTitle1</td>
+                    </tr>
+                    <tr>
+                        <td>GameName</td>
+                        <td>GameTitle2</td>
+                    </tr>
+                    <tr>
+                        <td>GameName</td>
+                        <td>GameTitle3</td>
+                    </tr>
+                    <tr>
+                        <td>GameName</td>
+                        <td>GameTitle4</td>
+                    </tr>
+                    <tr>
+                        <td>GameName</td>
+                        <td>GameTitle5</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <a href="#"><input type="submit" value="MORE" name="more" class="morebutton" /></a></td>
+                    </tr>
                 </table>
 
             </div>
-    </div>
+        </div>
 
-    <!--background image & footer-->
-    <!-- <div class="bg">
+        <!--background image & footer-->
+        <!-- <div class="bg">
         <div><img src="img/SkyTower2.jpg" style="width: 100%">
             <video class="bg-video" src="https://cxc421.github.io/draw-lots/static/media/smoke.9c21ff18.mp4" autoplay="autoplay" muted="true" loop="true"></video>
         </div>
             <canvas class="bg-canvas"></canvas> -->
 
-</div>
+    </div>
 
     <!--footer-->
     <footer>
@@ -187,28 +237,28 @@ footer{
         </div>
     </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>     
-<script src="js/bootstrap.min.js"></script>
-<script>
-    // 背景圖的煙霧效果
-    (function () {
-        const canvas = document.querySelector('.bg-canvas');
-        const ctx = canvas.getContext('2d');
-        const video = document.querySelector('.bg-video');
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        // 背景圖的煙霧效果
+        (function () {
+            const canvas = document.querySelector('.bg-canvas');
+            const ctx = canvas.getContext('2d');
+            const video = document.querySelector('.bg-video');
 
-    video.addEventListener('play', draw);
-        
-    function draw() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-        if (video.paused || video.ended) return false;
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.addEventListener('play', draw);
 
-        requestAnimationFrame(draw);
-    }
-    })();
+            function draw() {
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                if (video.paused || video.ended) return false;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    //  Sales輪播圖片
+                requestAnimationFrame(draw);
+            }
+        })();
+
+        //  Sales輪播圖片
         var nowAD = 0;
         var maxAD = 5;
         var intervalAD;
@@ -228,7 +278,7 @@ footer{
                 document.getElementById("myCanvas").addEventListener("mouseover", pause);
                 document.getElementById("myCanvas").addEventListener("mouseout", keepgo);
             }
-            
+
             myCanvas = document.getElementById("myCanvas");
             ctx = myCanvas.getContext("2d");
             preImg = document.getElementById("mainImg1");
@@ -290,10 +340,10 @@ footer{
                 }
             }
         }
-        function pause(){
+        function pause() {
             clearInterval(intervalAD);
         }
-        function keepgo(){
+        function keepgo() {
             intervalAD = setInterval(cycleAD, intervalTime);
         }
 
@@ -313,7 +363,28 @@ footer{
             }
         }
 
-</script>
+        //Login & Register Form
+        $(".loginbutton").click(function () {
+            $(".loginDiv").css({
+                "position": "absolute",
+                "display": "block",
+                "z-index": "99999",
+                "top":$(document).scrollTop()+"px",
+                "height": "100vh",
+                "width":"100vw"
+
+            })
+        })
+        $(".registerbutton").click(function () {
+            $(".registerDiv").css({
+                "position": "relative",
+                "display": "block",
+                "z-index": "99999"
+            })
+        })
+
+    </script>
 
 </body>
+
 </html>
