@@ -1,5 +1,7 @@
 package tw.gameshop.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +59,25 @@ public class TestSendEmail {
 				P_Profile target = pDao.queryByUserId(i);
 				String mail = target.getMail();
 				System.out.println("event name:"+event.getEventName());
-				ed.sendMail("bettylin25@gmail.com", mail, event.getEventName(), event.getContent()); //寄活動給願望清單內的人
+				//ed.sendMail("bettylin25@gmail.com", mail, event.getEventName(), event.getContent()); //寄活動給願望清單內的人
+			}
+		}
+		return "Success";
+	}
+	
+	//日期比較測試
+	@RequestMapping(path="/TestDate.action", method = RequestMethod.GET)
+	public String compareDateTest() {
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sdf.format(today);
+		System.out.println("today:"+date);
+		List<Event> list = eDao.queryAllEvent();
+		for(Event event:list) {
+			String date1 = sdf.format(event.getStartDate());
+			System.out.println("event date:"+date1);
+			if(date1.equals(date)) {
+				System.out.println("今天是活動起始日");
 			}
 		}
 		return "Success";
