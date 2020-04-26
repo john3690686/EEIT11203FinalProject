@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	
+	$("#sendAjax").on("click", function(){
+		var files = $("#fl1").prop('files');
+		var formdata1 = $("#form1").serialize();
+		var uplformdata = new FormData();
+		console.log("formdata1");
+		console.log(formdata1)
+		if(files.length>0){
+			uplformdata.append("fl1", files[0])
+		}
+		uplformdata.append("test1", "test1")
+		uplformdata.append("ts1", $("#ts1").val())
+		console.log("ts1: " + $("#ts1").val())
+		for (var pair of uplformdata.entries()) {
+			console.log(pair[0]+ ', ' + pair[1]); 
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "bmstestimageupload",
+			contextType: false,
+			processData: false,
+			data: uplformdata,
+			success: function( cotresponse){
+				console.log("success.")
+				console.log(cotresponse)
+			},
+			error: function(){
+				console.log("fail.")
+			}
+		})
+	})
+	
+})
+</script>
+</head>
+<body>
+
+<form id="form1" action="bmstestimageupload" method="post" enctype="multipart/form-data">
+	<input type="text" id="ts1" name="ts1"><br/>
+	<input type="file" id="fl1" name="fl1"><br/>
+	<input type="submit" value="Send"><br/>
+</form>
+	<button id="sendAjax">Click me</button>
+</body>
+</html>

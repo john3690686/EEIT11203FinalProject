@@ -9,8 +9,8 @@
 <title>Product List</title>
 </head>
 <body id="BmsProductListPage">
-<jsp:include page="BmsMenuPage.jsp"></jsp:include>
-<section id="section">
+<%-- <jsp:include page="BmsMenuPage.jsp"></jsp:include> --%>
+<!-- <section id="section"> -->
 <table>
 	<c:forEach var="product" items="${productlist}" varStatus="varStatus">
 		<c:if test="${varStatus.first}">
@@ -43,11 +43,11 @@
 		<div id="uplmain">
 		</div>
 	</div>
-</section>
+<!-- </section> -->
 <script type="text/javascript">
 	function uplClick(n){
-		$("#uplDiv").toggle()
- 		$("#uplmain").load("product.upl/" + n)
+		$(".infoView").toggle()
+ 		$("#infoContxt").load("product.upl/" + n)
 // 		location.href = "product.upl/" + n;
 	}
 	

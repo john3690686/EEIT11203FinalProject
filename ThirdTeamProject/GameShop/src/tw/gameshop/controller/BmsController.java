@@ -133,4 +133,12 @@ public class BmsController {
 		return "redirect:/productlist";
 	}
 	
+	@ResponseBody
+	@RequestMapping(path = "/bmstestimageupload", method = RequestMethod.POST)
+	public String TestBmsImageUpload(  @RequestParam MultipartFile fl1) throws IOException {
+		//System.out.println(ts1);
+		System.out.println("fl1" + fl1.toString());
+		return "success.";
+	}
+	
 }

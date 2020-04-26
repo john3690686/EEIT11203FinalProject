@@ -1,30 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<c:if test="${message.length()>0}">
-	<script type="text/javascript">alert("Message:" + message)</script>
-</c:if>
-<meta charset="UTF-8">
-<c:if test="${product==null}">
-	<link rel="stylesheet" type="text/css" href="css/Bms.css">
-</c:if>
-<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-<title>Insert title here</title>
-</head>
-<body>
-<c:if test="${product==null}">
-	<jsp:include page="BmsMenuPage.jsp"></jsp:include>
-</c:if>
-	<c:choose>
-		<c:when test="${product!=null}">
-			<section>
-		</c:when>
-		<c:otherwise>
-			<section id="section">
-		</c:otherwise>
-	</c:choose>
+<!-- <!DOCTYPE html> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/Bms.css"> -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script> -->
+<!-- <title>Insert title here</title> -->
+<!-- </head> -->
+<!-- <body> -->
 	<form action="productBean" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="${product.productId}">
 	<table>
@@ -62,7 +46,7 @@
 		    <td colspan="2"><input id="upl_btn" type="submit" value="Upload"> Press here to upload the file!	
 	</table> 
 	</form>
-</section>
+<!-- </section> -->
 <script type="text/javascript">
 	$('#file').change(function() {
 		var file = $('#file')[0].files[0];
@@ -76,5 +60,5 @@
 		$("#file").click();
 	});
 </script>
-</body>
-</html>
+<!-- </body> -->
+<!-- </html> -->
