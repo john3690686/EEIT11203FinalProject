@@ -3,6 +3,9 @@ package tw.gameshop.user.model;
 import java.util.Properties;
 import java.util.UUID;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,6 +15,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,9 @@ import org.springframework.stereotype.Service;
 public class P_ProfileService {
 	
 	private P_ProfileDao profileDao;
+	//密鑰
+	private String key1 = "jyuntai20200426w";
+    private String key2 = "ThisIsASecretKet";
 
 	public P_ProfileService(){
 	}
@@ -41,29 +48,40 @@ public class P_ProfileService {
 				sendMail(profile.getUserName(),profile.getMail(),produceCode);
 			}
 		}).start();
+		
+		//加密
+		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.createProfile(profile, profileDetail);
 	}
 	
 	public P_TotalProfile queryProfile(String userAccount) {
-		
-		return profileDao.queryProfile(userAccount);
+		P_TotalProfile result = profileDao.queryProfile(userAccount);
+		System.out.println("encrypt password : "+result.getUserPwd());
+		System.out.println("decrypt : " + decrypt(result.getUserPwd()));
+		return result;
 	}
 	
 	public boolean updateProfile(P_Profile profile) {
+		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.updateProfile(profile);
 	}
 	
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
+		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.updateProfile(profile, profileDetail);
 	}
 	
 	public P_Profile processLogin(String userAccount, String userPwd) {
-		
-		return profileDao.processLogin(userAccount, userPwd);
+		String encPwd = encrypt(userPwd);
+		return profileDao.processLogin(userAccount, encPwd);
 	}
 	
 	public boolean certificationMail(String mailCode) {
 		return profileDao.certificationMail(mailCode);
+	}
+	
+	public boolean isProfileExist(String userAccount, String mail, String nickName) {
+		return profileDao.isProfileExist(userAccount, mail, nickName);
 	}
 	
 	
@@ -122,5 +140,40 @@ public class P_ProfileService {
 	            throw new RuntimeException(e);
 	      }
 	   }
+	
+	//加密處理
+	private String encrypt(String value) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(key2.getBytes("UTF-8"));
+ 
+            SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes("UTF-8"),"AES");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+            byte[] encrypted = cipher.doFinal(value.getBytes());
+            System.out.println("encrypted string:"+ Base64.encodeBase64String(encrypted));
+            return Base64.encodeBase64String(encrypted);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+	
+	//解密
+	private String decrypt(String encrypted) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(key2.getBytes("UTF-8"));
+
+            SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes("UTF-8"),"AES");
+            
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
+ 
+            return new String(original);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -23,13 +23,13 @@ import tw.gameshop.user.model.P_ProfileService;
 import tw.gameshop.user.model.P_TotalProfile;
 
 @Controller
-@SessionAttributes(names = { "userAccount", "userName", "nickName" })
+@SessionAttributes(names = { "userAccount", "userName", "nickName", "errorMessage" })
 public class SessionController {
 
 	private P_ProfileService pservice;
-	Pattern regUserAccount = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*{6,18}$");
+	Pattern regUserAccount = Pattern.compile("^(?=.*[a-zA-Z0-9]).*{6,18}$");
 	Pattern regUserPwd = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*{6,12}$");
-//	Pattern regUserName = Pattern.compile("^[\u4E00-\u9FFF]{2,}$");
+	Pattern regMail = Pattern.compile("^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$");
 
 	public SessionController() {
 	}
@@ -39,24 +39,30 @@ public class SessionController {
 		this.pservice = pservice;
 	}
 
-	//註冊
+	// 註冊
 	@RequestMapping(path = "/register", method = RequestMethod.POST)
 	public String processAction(@RequestParam("userAccount") String userAccount,
 			@RequestParam("userName") String userName, @RequestParam("userPwd") String userPwd,
 			@RequestParam("nickName") String nickName, @RequestParam("mail") String mail,
-			@RequestParam("gender") Character gender,
-			@RequestParam("userImg") MultipartFile userImg,
-			@RequestParam("birthday") String birthday,@RequestParam("address")String address,
-			@RequestParam("phone")String phone,Model model) {
+			@RequestParam("gender") Character gender, @RequestParam("userImg") MultipartFile userImg,
+			@RequestParam("birthday") String birthday, @RequestParam("address") String address,
+			@RequestParam("phone") String phone, Model model) {
 
 		try {
-			if (pservice.queryProfile(userAccount) == null) {
-				P_Profile p = new P_Profile(userAccount, userName, userPwd, nickName, mail,gender,userImg.getBytes());
-				PD_ProfileDetail pd = new PD_ProfileDetail(address, birthday, phone);
-				pservice.createProfile(p, pd);
-				model.addAttribute("titleMessage", "註冊成功");
-				return "home";
+			boolean ckeckInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches()
+					&& regMail.matcher(mail).matches();
+
+			if (ckeckInput) {
+				if (!pservice.isProfileExist(userAccount, mail, nickName)) {
+					P_Profile profile = new P_Profile(userAccount, userName, userPwd, nickName, mail, gender,
+							userImg.getBytes());
+					PD_ProfileDetail profile2 = new PD_ProfileDetail(address, birthday, phone);
+					pservice.createProfile(profile, profile2);
+					model.addAttribute("titleMessage", "註冊成功");
+					return "home";
+				}
 			}
+
 		} catch (Exception e) {
 			System.out.println("Error!!");
 			e.printStackTrace();
@@ -64,30 +70,35 @@ public class SessionController {
 		return "ErrorPage";
 	}
 
-	//登入
+	// 登入
 	@RequestMapping(value = "/processLogin", method = RequestMethod.POST)
 	public String processLogin(@RequestParam(name = "userAccount") String userAccount,
 			@RequestParam(name = "userPwd") String userPwd, Model model, HttpServletRequest request) {
 		System.out.println("processLogin");
 		P_Profile profile = null;
-//		if(regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches()) {
-		profile = pservice.processLogin(userAccount, userPwd);
-//		}
-		if (profile == null) {
-			return "redirect:/error";
-		}else {
-			HttpSession session = request.getSession();
-			session.setAttribute("userAccount", profile.getUserAccount());
-			session.setAttribute("userName", profile.getUserName());
-			session.setAttribute("nickName", profile.getNickName());
-			session.setAttribute("userImg", profile.getUserImg());
-			System.out.println("Login Successfully");
-			return "redirect:/index.html";
+		boolean ckeckInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches();
+		if (ckeckInput) {
+			profile = pservice.processLogin(userAccount, userPwd);
+			if (profile != null) {
+				if (profile.isMailState()) {
+					HttpSession session = request.getSession();
+					session.setAttribute("userAccount", profile.getUserAccount());
+					session.setAttribute("userName", profile.getUserName());
+					session.setAttribute("nickName", profile.getNickName());
+					session.setAttribute("userImg", profile.getUserImg());
+					System.out.println("Login Successfully");
+					return "redirect:/index.html";
+				}else {
+					model.addAttribute("errorMessage", "尚未進行信箱認證，請至信箱確認");
+					return "redirect:/error";
+				}
+			}
 		}
-		
+		model.addAttribute("errorMessage", "資料不正確");
+		return "redirect:/error";
 	}
 
-	//測試session
+	// 測試session
 	@RequestMapping(value = "/session.detail", method = RequestMethod.GET)
 	public String processTest() {
 		return "testsession";
@@ -107,37 +118,43 @@ public class SessionController {
 		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
 		return profile;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/modifyProfile", method = RequestMethod.POST)
 	public P_Profile modifyProfile(@RequestParam("userAccount") String userAccount,
 			@RequestParam("userName") String userName, @RequestParam("userPwd") String userPwd,
 			@RequestParam("nickName") String nickName, @RequestParam("mail") String mail,
-			@RequestParam("gender") Character gender,
-			@RequestParam("userImg") MultipartFile userImg,
-			@RequestParam("birthday") String birthday,@RequestParam("address")String address,
-			@RequestParam("phone")String phone) throws IOException {
-		
-		P_Profile profile = new P_Profile();
-		PD_ProfileDetail proDetail = new PD_ProfileDetail();
-		profile.setUserAccount(userAccount);
-		profile.setUserName(userName);
-		profile.setNickName(nickName);
-		profile.setUserPwd(userPwd);
-		profile.setUserImg(userImg.getBytes());
-		profile.setMail(mail);
-		profile.setGender(gender);
-		proDetail.setAddress(address);
-		proDetail.setBirthday(birthday);
-		proDetail.setPhone(phone);
-		pservice.updateProfile(profile,proDetail);
+			@RequestParam("gender") Character gender, @RequestParam("userImg") MultipartFile userImg,
+			@RequestParam("birthday") String birthday, @RequestParam("address") String address,
+			@RequestParam("phone") String phone) throws IOException {
+
+		boolean isExist = pservice.isProfileExist(userAccount, mail, nickName);
+		boolean checkInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches()
+				&& regMail.matcher(mail).matches();
+		P_Profile profile = null;
+		if (checkInput && isExist) {
+			profile = new P_Profile();
+			PD_ProfileDetail proDetail = new PD_ProfileDetail();
+			profile.setUserAccount(userAccount);
+			profile.setUserName(userName);
+			profile.setNickName(nickName);
+			profile.setUserPwd(userPwd);
+			profile.setUserImg(userImg.getBytes());
+			profile.setMail(mail);
+			profile.setGender(gender);
+			proDetail.setAddress(address);
+			proDetail.setBirthday(birthday);
+			proDetail.setPhone(phone);
+			pservice.updateProfile(profile, proDetail);
+		}
+
 		return profile;
 	}
-	
+
 	@RequestMapping(value = "/certification/{mailCode}", method = RequestMethod.GET)
 	public String certificationMail(@PathVariable("mailCode") String mailCode) {
 		boolean isPass = pservice.certificationMail(mailCode);
-		if(isPass) {
+		if (isPass) {
 			return "CertificationMailSuccess";
 		}
 		return "ErrorPage";

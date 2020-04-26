@@ -11,11 +11,12 @@ GO
 USE GameShop
 GO
 
+
 CREATE TABLE Profile(
   userId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   userAccount VARCHAR(50) NOT NULL UNIQUE,
   userName NVARCHAR(50) NOT NULL,
-  userPwd VARCHAR(50) NOT NULL,
+  userPwd VARCHAR(MAX) NOT NULL,
   userToken VARCHAR(MAX),
   nickname NVARCHAR(50) NOT NULL UNIQUE,
   mail VARCHAR(100) NOT NULL UNIQUE,
@@ -40,3 +41,4 @@ GO
 --DELETE FROM ProfileDetail 
 --DELETE FROM Profile
 
+--ALTER TABLE Profile ALTER column userPwd varchar(max)

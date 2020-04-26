@@ -42,12 +42,11 @@ public class P_ProfileDao {
 				profileDetail.setCodeStartingDate(getDate());
 				profileDetail.setProfile(profile);
 				profile.setProfileDetail(profileDetail);
-				System.out.println("is nll?:\n" + profile.getUserAccount() + "\n" + profileDetail);
 				session.save(profile);
 			}
 		} catch (Exception e) {
-			System.out.println("Error:ProfileDao");
-			e.printStackTrace();
+			System.out.println("Error:createProfile");
+			return null;
 		}
 		return profile;
 	}
@@ -67,6 +66,26 @@ public class P_ProfileDao {
 			e.printStackTrace();
 		}
 		return totalProfile;
+	}
+	
+	public boolean isProfileExist(String userAccount, String mail, String nickName) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from P_Profile WHERE userAccount=:userAccount or mail=:mail or nickName=:nickName";
+		List<P_Profile> result = null;
+		try {
+			Query<P_Profile> qProfile = session.createQuery(hqlstr,P_Profile.class);
+			qProfile.setParameter("userAccount", userAccount);
+			qProfile.setParameter("mail", mail);
+			qProfile.setParameter("nickName", nickName);
+			result = qProfile.list();
+			if(result.size()>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println("Error:ProfileDao");
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	// need to test
@@ -152,6 +171,7 @@ public class P_ProfileDao {
 //			System.out.println(profile.getUserId());
 			PD_ProfileDetail profileDetail = null;
 			for(PD_ProfileDetail p : profileDetailList) {
+				System.out.println("count");
 				profileDetail = p;
 			}
 

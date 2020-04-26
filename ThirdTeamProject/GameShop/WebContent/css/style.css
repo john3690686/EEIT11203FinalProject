@@ -393,7 +393,7 @@ fieldset{
 .loginForm button,
 .registerForm button{
     font-size: 20px;
-    width:200px;
+    width:250px;
 }
 
 
@@ -406,4 +406,22 @@ fieldset{
     position: relative;
     z-index: 9999;
     cursor: pointer;
+}
+.note{
+    display: inline;
+    font-size: 12px;
+    color: grey;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.check{
+    display: inline-block;
+    visibility: hidden;
+}
+
+.check img{
+    width: 20px;
+    height: 20px;
 }
