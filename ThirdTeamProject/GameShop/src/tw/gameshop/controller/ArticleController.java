@@ -50,6 +50,9 @@ public class ArticleController {
         
 //		===================================
 		
+        //熱門文章排行
+        artMesService.queryAMTimes();
+        
 		String aJson = aService.queryAllData();
 		request.setAttribute("aJson", aJson);
 		return "Article";

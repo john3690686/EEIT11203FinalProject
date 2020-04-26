@@ -22,4 +22,8 @@ public class ArticleMessageService {
 	public String queryArticleMessage(int articleID) {
 		return artMesDao.queryArticleMessage(articleID);
 	}
+	
+	public String queryAMTimes() {
+		return artMesDao.queryAMTimes();
+	}
 }
