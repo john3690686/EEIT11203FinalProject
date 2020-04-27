@@ -1,5 +1,7 @@
 package tw.gameshop.user.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -21,159 +23,180 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class P_ProfileService {
-	
-	private P_ProfileDao profileDao;
-	//密鑰
-	private String key1 = "jyuntai20200426w";
-    private String key2 = "ThisIsASecretKet";
 
-	public P_ProfileService(){
+	private P_ProfileDao profileDao;
+	// 密鑰
+	private String key1 = "jyuntai20200426w";
+	private String key2 = "ThisIsASecretKet";
+
+	public P_ProfileService() {
 	}
-	
+
 	@Autowired
-	public P_ProfileService(P_ProfileDao profileDao){
+	public P_ProfileService(P_ProfileDao profileDao) {
 		this.profileDao = profileDao;
-		
 	}
-	
+
 	public P_Profile createProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
-		//Produce UniqueCode
+		// Produce UniqueCode
 		String produceCode = UUID.randomUUID().toString().replace("-", "");
 		profileDetail.setMailCode(produceCode);
-		
-		//Send Mail
+
+		// Send Mail
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				sendMail(profile.getUserName(),profile.getMail(),produceCode);
+				sendMail(profile.getUserName(), profile.getMail(), produceCode);
 			}
 		}).start();
-		
-		//加密
+
+		// 加密
+
 		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.createProfile(profile, profileDetail);
 	}
-	
+
 	public P_TotalProfile queryProfile(String userAccount) {
 		P_TotalProfile result = profileDao.queryProfile(userAccount);
-		System.out.println("encrypt password : "+result.getUserPwd());
+		System.out.println("encrypt password : " + result.getUserPwd());
 		System.out.println("decrypt : " + decrypt(result.getUserPwd()));
 		return result;
 	}
-	
+
 	public boolean updateProfile(P_Profile profile) {
 		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.updateProfile(profile);
 	}
-	
+
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
 		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.updateProfile(profile, profileDetail);
 	}
-	
+
 	public P_Profile processLogin(String userAccount, String userPwd) {
-		String encPwd = encrypt(userPwd);
-		return profileDao.processLogin(userAccount, encPwd);
+
+		P_Profile profile = profileDao.processLogin(userAccount);
+		if (profile == null) {
+			return null;
+		}
+
+		if (profile.getUserPwd().equals(userPwd)) {
+			return profile;
+		}
+
+		String password = decrypt(profile.getUserPwd()).split("\\+")[0];
+		System.out.println("Login password:" + password);
+		if (password.equals(userPwd)) {
+			return profile;
+		}
+
+		return null;
 	}
-	
+
 	public boolean certificationMail(String mailCode) {
 		return profileDao.certificationMail(mailCode);
 	}
-	
+
 	public boolean isProfileExist(String userAccount, String mail, String nickName) {
 		return profileDao.isProfileExist(userAccount, mail, nickName);
 	}
-	
-	
-	private void sendMail(String userName, String mail, String produceCode){
-	      // Recipient's email ID needs to be mentioned.
-	      String to = mail;//change accordingly
 
-	      // Sender's email ID needs to be mentioned
-	      String from = "j.t.hung1988@gmail.com";//change accordingly
-	      final String username = "j.t.hung1988@gmail.com";//change accordingly
-	      final String password = "uzadfzpqhfgaqgzd";//change accordingly
+	private void sendMail(String userName, String mail, String produceCode) {
+		// Recipient's email ID needs to be mentioned.
+		String to = mail;
 
-	      // Assuming you are sending email through relay.jangosmtp.net
-	      String host = "smtp.gmail.com";
+		// Sender's email ID needs to be mentioned
+		String from = "j.t.hung1988@gmail.com";
+		final String username = "j.t.hung1988@gmail.com";
+		final String password = "uzadfzpqhfgaqgzd";
 
-	      Properties props = new Properties();
-	      props.put("mail.smtp.auth", "true");
-	      props.put("mail.smtp.starttls.enable", "true");
-	      props.put("mail.smtp.host", host);
-	      props.put("mail.smtp.port", "587");
+		// Assuming you are sending email through relay.jangosmtp.net
+		String host = "smtp.gmail.com";
 
-	      // Get the Session object.
-	      Session session = Session.getInstance(props,
-	      new Authenticator() {
-	         protected PasswordAuthentication getPasswordAuthentication() {
-	            return new PasswordAuthentication(username, password);
-	         }
-	      });
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");
 
-	      try {
-	         // Create a default MimeMessage object.
-	         Message message = new MimeMessage(session);
+		// Get the Session object.
+		Session session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
 
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
+		try {
+			// Create a default MimeMessage object.
+			Message message = new MimeMessage(session);
 
-	         // Set To: header field of the header.
-	         message.setRecipients(Message.RecipientType.TO,
-	         InternetAddress.parse(to));
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
 
-	         // Set Subject: header field
-	         message.setSubject("Testing Subject");
+			// Set To: header field of the header.
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-	         // Now set the actual message
-	         message.setContent("<h1>嗨," + userName + 
-	         		"!</h1>感謝您在 GAME SHOP 上註冊了一個新帳號！在開始前，我們必須確定是您本人申請這隻帳號的。"
-	         		+ "請點選底下的連結以驗證您的電子郵件地址："
-	         		+ "<a href='http://localhost:8080/GameShop/certification/" + produceCode + "'>按此驗證電子郵件</a>","text/html;charset=UTF-8");
+			// Set Subject: header field
+			message.setSubject("Testing Subject");
 
-	         // Send message
-	         Transport.send(message);
+			// Now set the actual message
+			message.setContent("<h1>嗨," + userName + "!</h1>感謝您在 GAME SHOP 上註冊了一個新帳號！在開始前，我們必須確定是您本人申請這隻帳號的。"
+					+ "請點選底下的連結以驗證您的電子郵件地址：" + "<a href='http://localhost:8080/GameShop/certification/" + produceCode
+					+ "'>按此驗證電子郵件</a>", "text/html;charset=UTF-8");
 
-	         System.out.println("Sent message successfully....");
+			// Send message
+			Transport.send(message);
 
-	      } catch (MessagingException e) {
-	            throw new RuntimeException(e);
-	      }
-	   }
-	
-	//加密處理
-	private String encrypt(String value) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(key2.getBytes("UTF-8"));
- 
-            SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes("UTF-8"),"AES");
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-            byte[] encrypted = cipher.doFinal(value.getBytes());
-            System.out.println("encrypted string:"+ Base64.encodeBase64String(encrypted));
-            return Base64.encodeBase64String(encrypted);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-	
-	//解密
+			System.out.println("Sent message successfully....");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	// password * salt
+	private String passwordSalt(String password) {
+		String dateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+		String newPwd = password + "+" + dateTime;
+		return newPwd;
+	}
+
+	// 加密處理
+	private String encrypt(String password) {
+		String pwdsalt = passwordSalt(password);
+		try {
+			IvParameterSpec iv = new IvParameterSpec(key2.getBytes("UTF-8"));
+
+			SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes("UTF-8"), "AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+			cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+			byte[] encrypted = cipher.doFinal(pwdsalt.getBytes());
+			System.out.println("encrypted string:" + Base64.encodeBase64String(encrypted));
+			return Base64.encodeBase64String(encrypted);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	// 解密
 	private String decrypt(String encrypted) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(key2.getBytes("UTF-8"));
+		try {
+			IvParameterSpec iv = new IvParameterSpec(key2.getBytes("UTF-8"));
 
-            SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes("UTF-8"),"AES");
-            
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-            byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
- 
-            return new String(original);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+			SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes("UTF-8"), "AES");
+
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+			cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+			byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
+			String result = new String(original);
+			String password = result.split("\\+")[0];
+			System.out.println("decrypt password:" + password);
+			return password;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 
 }

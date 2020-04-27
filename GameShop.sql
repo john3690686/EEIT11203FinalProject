@@ -17,7 +17,7 @@ CREATE TABLE Profile(
   userAccount VARCHAR(50) NOT NULL UNIQUE,
   userName NVARCHAR(50) NOT NULL,
   userPwd VARCHAR(MAX) NOT NULL,
-  userToken VARCHAR(MAX),
+  salt INT NOT NULL,
   nickname NVARCHAR(50) NOT NULL UNIQUE,
   mail VARCHAR(100) NOT NULL UNIQUE,
   gender VARCHAR(1) ,
@@ -41,4 +41,5 @@ GO
 --DELETE FROM ProfileDetail 
 --DELETE FROM Profile
 
---ALTER TABLE Profile ALTER column userPwd varchar(max)
+--ALTER TABLE Profile ALTER column salt int
+--EXEC sp_rename 'Profile.userToken', 'salt', 'COLUMN';

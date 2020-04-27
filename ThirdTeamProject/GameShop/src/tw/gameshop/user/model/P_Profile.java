@@ -33,8 +33,8 @@ public class P_Profile implements Serializable{
 	@Column(name = "userPwd")
 	private String userPwd;
 	
-	@Column(name = "userToken")
-	private String userToken;
+	@Column(name = "salt")
+	private Integer salt;
 	
 	@Column(name = "nickName")
 	private String nickName;
@@ -140,12 +140,12 @@ public class P_Profile implements Serializable{
 		this.profileDetail = profileDetail;
 	}
 
-	public String getUserToken() {
-		return userToken;
+	public Integer getSalt() {
+		return salt;
 	}
 
-	public void setUserToken(String userToken) {
-		this.userToken = userToken;
+	public void setSalt(Integer salt) {
+		this.salt = salt;
 	}
 
 	public boolean isMailState() {

@@ -75,9 +75,9 @@
                 <fieldset>
                     <legend>Login Form</legend>
                     <form action="processLogin" method="POST">
-                        <label for="userAccount">User Account:</label><input type="text" name="userAccount"><br />
-                        <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
-                        <input type="checkbox" name="autoLogin" id="autoLogin"><span>記住我</span>
+                        <label for="userAccount">User Account:</label><input type="text" name="userAccount" value="${userAccount}"><br />
+                        <label for="userPwd">Password:</label><input type="password" name="userPwd" value="${userPwd}"><br />
+                        <input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
                         <button class="loginconfirm">Confirm</button><input type="reset" class="cancel_btn" value="Cancel">
                     </form>
                     
@@ -452,6 +452,7 @@
             $("#birthday").val("2020/03/03");
             $("#address").val("addr");
             $("#phone").val("0987141242");
+            errorAcc = 0; errorNickName =0; errorPwd = 0; errorMail = 0;
         })
 
         //check data right

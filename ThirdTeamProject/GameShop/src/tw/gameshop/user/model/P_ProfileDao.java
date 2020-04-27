@@ -139,14 +139,13 @@ public class P_ProfileDao {
 		return false;
 	}
 
-	public P_Profile processLogin(String userAccount, String userPwd) {
+	public P_Profile processLogin(String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
 		P_Profile result = null;
 		try {
 			Query<P_Profile> qProfile = session
-					.createQuery("from P_Profile WHERE userAccount=:account AND userPwd=:userPwd", P_Profile.class);
+					.createQuery("from P_Profile WHERE userAccount=:account", P_Profile.class);
 			qProfile.setParameter("account", userAccount);
-			qProfile.setParameter("userPwd", userPwd);
 			result = qProfile.getSingleResult();
 
 		} catch (Exception e) {

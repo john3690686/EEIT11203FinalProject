@@ -3,7 +3,9 @@ package tw.gameshop.controller;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,8 @@ public class SessionController {
 					model.addAttribute("titleMessage", "註冊成功");
 					return "home";
 				}
+				model.addAttribute("errorMessage", "資料不正確");
+				return "redirect:/error";
 			}
 
 		} catch (Exception e) {
@@ -72,20 +76,53 @@ public class SessionController {
 
 	// 登入
 	@RequestMapping(value = "/processLogin", method = RequestMethod.POST)
-	public String processLogin(@RequestParam(name = "userAccount") String userAccount,
-			@RequestParam(name = "userPwd") String userPwd, Model model, HttpServletRequest request) {
+	public String processLogin(
+			@RequestParam(name = "userAccount") String userAccount,
+			@RequestParam(name = "userPwd") String userPwd,
+			@RequestParam(name = "autoLogin",defaultValue = "false") String strautoLogin,
+			Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("processLogin");
 		P_Profile profile = null;
+		System.out.println(strautoLogin);
 		boolean ckeckInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches();
+		boolean autoLogin = false;
+		try {
+			 autoLogin = strautoLogin.equals("on");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//刪除session.cookie
+		if(!autoLogin) {
+			Cookie[] cookies = request.getCookies();
+			for(Cookie cookie:cookies) {
+				cookie.setMaxAge(0);
+			}
+			request.getSession().invalidate();
+		 }
+		
 		if (ckeckInput) {
 			profile = pservice.processLogin(userAccount, userPwd);
 			if (profile != null) {
 				if (profile.isMailState()) {
 					HttpSession session = request.getSession();
+					session.setMaxInactiveInterval(60 * 60 * 24);
 					session.setAttribute("userAccount", profile.getUserAccount());
 					session.setAttribute("userName", profile.getUserName());
 					session.setAttribute("nickName", profile.getNickName());
 					session.setAttribute("userImg", profile.getUserImg());
+
+					if(autoLogin) {
+						Cookie cookAcc = new Cookie("userAccount",profile.getUserAccount());
+						Cookie cookPwd = new Cookie("userPwd",profile.getUserPwd());
+						Cookie cookAutoLogin = new Cookie("autoLogin","checked");
+						cookAcc.setMaxAge(60*60*24*7);
+						cookPwd.setMaxAge(60*60*24*7);
+						cookAutoLogin.setMaxAge(60*60*24*7);
+						response.addCookie(cookAcc);
+						response.addCookie(cookPwd);
+						response.addCookie(cookAutoLogin);
+					}
 					System.out.println("Login Successfully");
 					return "redirect:/index.html";
 				}else {
