@@ -18,7 +18,7 @@
 
 body{
 	font-family:微軟正黑體;
-	background-image:url(img/shopbg.jpg) no-repeat;
+	background:url(img/shopbg.jpg) no-repeat;
 	background-size:cover;
 }
 
@@ -26,30 +26,28 @@ body{
 
 </head>
 <body>
-	<!--Navigator-->
+<!--Navigator-->
 	<nav>
 		<ul class="ul1">
 			<li><a href="index.html">HOME</a>
 			<li><a href="#">NEWS</a>
 			<li><a href="Shop">SHOP</a>
-			<li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-			<li><a href="#">CHAT</a> <a href="#"><input type="button"
-					class="loginz" value="LOGIN"></a>
+			<li><a href="#">BLOG</a>
+			<li><a href="#">CHAT</a> 
+			<a href="#"><input type="button" class="loginz" value="LOGIN"></a>
 		</ul>
 	</nav>
 
-	<!--Wishlist & Shopping cart-->
-	<a href="showWish.controller"><input type="button" class="wishlist"></a>
-	<a href="prePay.controller"><input type="button"
-		class="shoppingcart"></a>
+<!--Wishlist & Shopping cart &top-->
+        <a href="showWish.controller"><input type="button" class="wishlist"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 
-	<!--Main-->
+<!--Main-->
 	<div class="bgshop">
 
-		<div class="horizon2">
-			<H1>Shop</H1>
-		</div>
-		<br /> <br />
+		<div class="horizon2"><br/>Shop</div>
+		<br/><br/>
 
 		<fieldset>
 			<figure>
@@ -92,7 +90,7 @@ body{
  
 	</div>
 
-	<!--footer-->
+<!--footer-->
 	<footer>
 		<div class="foot">
 			<H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
@@ -328,15 +326,17 @@ body{
 						data : {
 				 			jsondata : $("#queryname").val()   // 獲取輸入框內容
 						},
+						
 						success : function(data) {		
 							response(data, function(item) {    // 此處是將返回資料轉換為 JSON物件
 								console.log(item.jsondata);
 								
-							return {
+							return {		
 				                    value: item.jsondata,
-				           			}
+									}
+
 						})
-						}
+						}					
 					});
 				    },		
 				    		 minLength: 2,					   // 至少輸入幾個字

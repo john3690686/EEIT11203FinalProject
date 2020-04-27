@@ -1,7 +1,3 @@
-*{
-    
-}
-
 body{
     margin:0;
     padding:0;
@@ -47,7 +43,7 @@ body{
     justify-content: center;
     text-decoration: none;
 }
-/*wish&cart button*/
+/*wish&cart&top button*/
 .wishlist {
     background:url(../img/wishlist.png);
 	width:100px;
@@ -76,6 +72,22 @@ body{
 .shoppingcart:hover{
     filter: saturate(3); 
 }
+
+.topbutton {
+    background:url(../img/topbutton.png) no-repeat;
+	width:105px;
+	height:105px;
+	border:0;
+    position: fixed;
+    padding-bottom:10px;
+	right: 0%;
+    bottom: 0%;
+    z-index: 8888;
+}
+.topbutton:hover{
+    filter: saturate(3);
+}
+
 /*login button*/
 .loginz{
 	font-family: 'Sen', sans-serif;
@@ -110,7 +122,89 @@ body{
     right:0;
     z-index: 9999;
 }
+#titleMessage{
+    position: relative;
+    z-index: 999;
+    font-size: 80px;
+    font-weight: bold;
+    font-family: DFKai-sb,Arial, Helvetica;
+    color:green;
+    background-color: wheat;
+    height: 100px;
+}
 
+.hello img{
+    background-image: none;
+    list-style: none;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.loginDiv,
+.registerDiv{
+    background-color: rgba(105, 95, 95, 0.6);
+    overflow:auto;
+}
+
+.loginForm,
+.registerForm{
+    font-size: 20px;
+    border:2px solid black;
+    border-radius: 10px;
+    background-color: white;
+/*    width: 800px;*/
+    margin: auto;
+    position: relative;
+    z-index: 99;
+}
+
+.loginForm label,
+.registerForm label{
+    line-height: 50px;
+    text-align: right;
+    display: inline-block;
+    width: 150px;
+
+}
+/*
+.loginForm input,
+.registerForm input,
+.loginForm button,
+.registerForm button{
+    font-size: 20px;
+    width:250px;
+}*/
+
+.registerForm .gender{
+    width:auto;
+}
+
+.imgUserPhoto{
+    position: relative;
+    z-index: 9999;
+    cursor: pointer;
+}
+.note{
+    display: inline;
+    font-size: 12px;
+    color: grey;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.check{
+    display: inline-block;
+    visibility: hidden;
+}
+
+.check img{
+    width: 20px;
+    height: 20px;
+}
+/*Main Theme*/
 .subtitle{
     font-family: 'Sen', sans-serif;
     font-size: 5.9vw;
@@ -234,7 +328,7 @@ footer{
     filter: saturate(3);
 }
 
-.registerbutton{
+#registerbutton{
     width: 160px;
     height: 50px;
     margin:50px;
@@ -247,7 +341,7 @@ footer{
     padding: 10px;
     z-index: 12;
 }
-.registerbutton:hover{
+#registerbutton:hover{
     filter: saturate(3);
 }
 
@@ -324,10 +418,10 @@ footer{
     text-align: center;
     z-index: 30;
 }
-/* .event tr:nth-child(2n), tr:nth-child(2n+3) {
+ .event tr:nth-child(2n), .event tr:nth-child(2n+3) {
     background:url(../img/blueline.png) no-repeat;
 }
-*/
+
 .salearea{
     position: relative;
     width:100%;
@@ -365,17 +459,22 @@ fieldset{
 	top:0;
     left:0;
     right:0;
-    background-image:url(../img/shopbg.jpg);
+    /*background-image:url(../img/shopbg.jpg);*/
 	background-size:cover;
 }
 .horizon2{
-    position: relative;
-    padding:30px;
-    left:0;
-    right:0;
-    top:80px;
-
+	font-size:25px;
+	font-weight:bold;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	text-align:center;
+	background:url(img/title.png) no-repeat;
+	background-position:center;
+	width:178px;
+	height:81px;
 }
+
 .searchArea{
 	text-align:right;
 	padding:10px;
@@ -388,6 +487,20 @@ fieldset{
 	z-index: 5555 !important; 
 	text-align:left;
 }
+.productTable{
+	border-collapse: collapse;
+	background: :rgba(0, 0, 0, 0.5);
+	position: relative;
+    width:70%;
+    top:0;
+    bottom:0;
+    margin-left:0;
+    margin-right:0;
+    margin:auto;
+    text-align:center;
+    z-index: 30;
+}
+
 .productTable td{
 	border:none;
 	border-collapse: collapse;
@@ -402,21 +515,22 @@ fieldset{
     font-size: 20px;
 }
 .productTable tr:hover{
-    background-color: rgb(0, 51, 119, 1);
+    background-color: rgb(0, 51, 119, 0.9);
 }
 .productTable tr:nth-child(1) {
 	border:none;
-   	background-color:rgba(143, 143, 143, 1);
+   	background-color:rgba(143, 143, 143, 0.9);
 }
 .productTable tr:nth-child(2n){
 	border:none;
-    background-color: rgb(92, 89, 89, 1);
+    background-color: rgb(92, 89, 89, 0.9);
 }
 .productTable tr:nth-child(2n+3) {
 	border:none;
-   	background-color:rgba(143, 143, 143, 1);
+   	background-color:rgba(143, 143, 143, 0.9);
 }
 .infobutton {
+  width:120px;
   font-family: 微軟正黑體;
   font-weight: bold;
   color: #14396A;
@@ -448,6 +562,7 @@ fieldset{
   background: -webkit-linear-gradient( rgb(243, 190, 91), rgb(231, 225, 172)); 
 }
 .cartbutton{
+  width:120px;
   font-family: 微軟正黑體;
   font-weight: bold;
   color: #6A2217;
@@ -620,8 +735,46 @@ transition: background-color .3s;
 	text-align:center;
 	color:whitesmoke;
 }
-/*wishList*/
+#updateCom{
+   border: 1px solid #C7C7C7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#7A6D6D));
+   box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 3px #A39E9E;
+   border-radius: 2px;
+   text-shadow: #918888 1px 1px 0px;
+   color: #000000;
+   font-size: 16px;
+   font-family: '微軟正黑體';
+   text-decoration: none;
+   font-weight: bold;
+}
+#updateCom:hover{
+   color:whitesmoke;
+   background-color: #7A6D6D;
+   box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -moz-box-shadow: 0px 0px 5px 0px #AAAAAA;
+}
+#deleteCom{
+   border: 1px solid #C7C7C7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#FA9696), to(#7A2828));
+   box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 3px #A39E9E;
+   border-radius: 2px;
+   text-shadow: #948C8C 1px 1px 0px;
+   color: #000000;
+   font-size: 16px;
+   font-family: '微軟正黑體';
+   text-decoration: none;
+   font-weight: bold;
+}
+#deleteCom:hover{
+   color:whitesmoke;
+   background-color: #7A2828;
+   box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -moz-box-shadow: 0px 0px 5px 0px #AAAAAA;
+}
 
+/*wishList*/
 .bgwish{
 	position: relative;
 	width:100%;
@@ -633,7 +786,7 @@ transition: background-color .3s;
 .wishList{
 	position:relative;
 	text-align:center;
-	top:100px;
+	top:200px;
 	width:70%;
 	border-collapse:collapse;
 	border-radius:2px 2px 2px 2px;
@@ -641,6 +794,7 @@ transition: background-color .3s;
 	margin-left:0;
 	margin-right:0;
 	margin:auto;
+	margin-bottom:550px;
 }
 .wishList h1{
 	color:white;
@@ -675,5 +829,106 @@ transition: background-color .3s;
 	font-weight:bold;
 	text-shadow:2px 2px 2px black;
 	padding:30px;
+}
+.deletebutton{  
+  width:120px;
+  font-family: 微軟正黑體;
+  font-weight: bold;
+  color: rgb(71, 70, 16);
+  font-size: 16px;
+  text-shadow: 1px 1px 0px #DBDE7F;
+  box-shadow: 1px 1px 1px #293136;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 2px inset #A39F37;
+  background: -webkit-linear-gradient( rgb(243, 206, 136), rgb(231, 211, 28)); 
+}
+.deletebutton:hover {
+  background: -webkit-linear-gradient( rgb(243, 190, 91), rgb(231, 225, 172)); 
+}	
+
+/*CartList*/
+.bgcart{
+	position: relative;
+	width:100%;
+	height:200%;
+    left:0;
+    right:0;
+    background-size:cover;
+}
+.cartList{
+	position:relative;
+	text-align:center;
+	top:200px;
+	width:70%;
+	border-collapse:collapse;
+	border-radius:2px 2px 2px 2px;
+	border:2px solid rgb(189, 192, 196);
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	margin-bottom:500px;
+}
+.cartList h1{
+	color:white;
+	font-weight:bold;
+	text-shadow:2px 2px 2px black;
+	text-align:left;
+}
+
+.cartList tr:nth-child(1){
+	border:none;
+	background-color:rgba(21, 65, 78, 0.8);
+}
+.cartList td:nth-child(1){
+	padding:0;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+.cartList tr:nth-child(2n){
+	font-size:20px;
+	border:none;
+	background-color:rgb(201, 214, 198, 0.8);
+
+}
+.cartList tr:nth-child(2n+3){
+	font-size:20px;
+	border:none;
+	background-color:rgb(83, 134, 150, 0.8);
+}
+.cartList td{
+	color:white;
+	font-weight:bold;
+	text-shadow:2px 2px 2px black;
+	padding:30px;
+}
+.cartList tr:last-child{
+	font-size:20px;
+	border:none;
+	background-color:rgb(0, 0, 0, 0.8);
+}
+
+#total{
+	color:bisque;
+	font-size:25px;
+}
+
+#pay{
+  width:100px;
+  font-family: 微軟正黑體;
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+  text-shadow: 1px 1px 0px rgb(222, 170, 127);
+  box-shadow: 1px 1px 1px #293136;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px inset #A33B37;
+  background: -webkit-linear-gradient( rgb(248, 205, 141), rgb(223, 131, 70));
+}
+#pay:hover {
+  width:100px;
+  background: -webkit-linear-gradient( rgb(252, 156, 78),rgb(221, 193, 152));
 }
 

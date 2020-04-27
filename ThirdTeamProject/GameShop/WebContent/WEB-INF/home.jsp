@@ -10,30 +10,99 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Bootstrap CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
-    <style>
-        footer {
-            border-radius: 2px 2px 2px 2px;
-            background: -webkit-linear-gradient(#3C3C3C, rgb(19, 18, 18));
-            background-repeat: no-repeat;
-            position: relative;
-            width: 100%;
-            height: 180px;
-            top: 150vh;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            text-align: center;
-            z-index: 6666;
-        }
+<style>
+ 
+body{
+	font-family:微軟正黑體;
 
-        .loginDiv {
-            display: none;
-        }
+}  
 
-        .registerDiv {
-            display: none;
-        }
-    </style>
+.loginDiv {
+	display: none;
+}
+.registerDiv {
+	display: none;
+}
+.loginForm{
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 200, 226, 0.9));
+	width:50%;
+	height:60%;
+	border-image-source: url(img/loginborder.png);
+	border-image-slice: 50;
+	border-image-width: 1em;
+	border-image-repeat: stretch;
+} 
+.loginForm input{
+	height:20px;	
+}  
+.loginForm legend{
+	font-family:微軟正黑體;
+	font-size:25px;
+	font-weight:bold;
+	margin:0;
+	padding:30px;
+}  
+.loginForm label{
+	font-family:微軟正黑體;
+	font-size:22px;
+	font-weight:bold;
+	margin-left:0;
+	margin-right:0;
+	margin:0;
+	padding-right:20px;
+	width:50px;
+	text-align:left;
+}
+.loginconfirm{
+	font-family:微軟正黑體;
+	font-size:18px;
+	font-weight:bold;
+	margin:20px;
+	width:100px;
+	height:40px;
+	border-radius:5px;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 226, 140, 0.9));
+}
+.loginconfirm:hover{
+	filter:saturate(3);
+}
+.cancel_btn{
+	font-family:微軟正黑體;
+	font-size:18px;
+	font-weight:bold;
+	margin:20px;
+	width:100px;
+	height:40px !important;
+	border-radius:5px;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 112, 97, 0.9));
+}
+.cancel_btn:hover{
+	filter:saturate(3);
+}
+#register2{
+	font-family:微軟正黑體;
+	font-size:18px;
+	font-weight:bold;
+	height:35px;
+	border-radius:5px;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 213, 97, 0.9));
+}
+#register2:hover{
+	filter:saturate(3);
+}
+.warning{
+	font-family:微軟正黑體;
+	font-size:16px;
+	font-weight:bold;
+	color:brown;
+	padding:10px;
+}
+
+      
+</style>
 
 </head>
 
@@ -50,10 +119,10 @@
         </ul>
     </nav>
 
-    <!--Wishlist & Shopping cart-->
-	<a href="showWish.controller"><input type="button" class="wishlist"></a>
-	<a href="prePay.controller"><input type="button"
-		class="shoppingcart"></a>
+<!--Wishlist & Shopping cart &top-->
+        <a href="showWish.controller"><input type="button" class="wishlist"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 
     <!--Main-->
     <div class="container-fluid">
@@ -61,19 +130,23 @@
         <!--Login System #1-->
         <div class="login">
             <button class="loginbutton">Login</button>
-            <button class="registerbutton">Register</button>
+            <button class="registerbutton" id="registerbutton">Register</button>
         </div>
 
         <!-- login form -->
         <div class="loginDiv">
             <div class="loginForm">
                 <fieldset>
-                    <legend>Login Form</legend>
+                    <legend>登入帳號 </legend>
+                    <div class="warning"><img src="img/Info_icon.png" title="需擁有帳號，方能使用願望清單與評論功能" style="vertical-align:middle">公用電腦請記得登出，或開啟無痕模式</div><br/>
                     <form action="processLogin" method="POST">
-                        <label for="userAccount">User Account:</label><input type="text" name="userAccount"><br />
-                        <label for="userPwd">Password:</label><input type="password" name="userPwd"><br />
-                        <button class="loginconfirm">Confirm</button><input type="button" class="cancel_btn"
-                            value="Cancel">
+                        <label for="userAccount">帳號:</label><input type="text" name="userAccount"><br/>
+                        <label for="userPwd">密碼:</label><input type="password" name="userPwd"><br/>
+                        <br/>
+                        <button class="loginconfirm">登入</button>
+                        <input type="button" class="cancel_btn" value="取消"><br/>
+                       <!-- 登入頁加入新申請帳號 -->
+                        <input type="button" class="registerbutton" id="register2" value="申請新帳號">
                     </form>
 
                 </fieldset>
@@ -84,7 +157,7 @@
 
             <div class="registerForm">
                 <fieldset>
-                    <legend>Register Form</legend>
+                    <legend>申請新帳號</legend>
                     <form action="processProfile" method="POST" enctype="multipart/form-data">
                         <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px"><input
                             class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
@@ -136,7 +209,7 @@
         <div class="eventarea">
             <div class="horizon">
                 <img src="img/hr.png">
-                <H1>NEWS & EVENTS</H1>
+                <H1>最新消息 & 活動</H1>
             </div>
 
             <div class="event">
@@ -163,7 +236,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
-                            <a href="#"><input type="submit" value="MORE" name="more" class="morebutton" /></a></td>
+                            <a href="#"><input type="submit" value="更多消息" name="more" class="morebutton" /></a></td>
                     </tr>
                 </table>
             </div>
@@ -173,12 +246,12 @@
         <div class="salearea">
             <div class="horizon">
                 <img src="img/hr.png">
-                <H1>TOP SALES</H1>
+                <H1>熱門商品</H1>
             </div>
 
             <fieldset>
                 <figure>
-                    <!--è¼ªæ­æ«ææ¥Steamç¶²å, ä¹å¾é ä¿®æ¹æååé ç·¨ç¢¼-->
+                    <!--輪播商品圖片-->
                     <a id="mainUrl" href="https://store.steampowered.com/">
                         <canvas id="myCanvas" width="460" height="215">
                             <img id="mainImg1" src="img/sale1.jpg" style="display: none">
@@ -191,14 +264,14 @@
                     <div id="chimg"></div><br>
                 </figure>
             </fieldset>
-            <a href="#"><input type="submit" value="MORE" name="more" class="morebutton" /></a>
+            <a href="Shop"><input type="submit" value="更多遊戲" name="more" class="morebutton" /></a>
         </div>
 
         <!--Top Comment-->
         <div class="commentarea">
             <div class="horizon">
                 <img src="img/hr.png">
-                <H1>HOT COMMENTS</H1>
+                <H1>熱門文章</H1>
             </div>
             <div class="event">
                 <table>
@@ -224,33 +297,26 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
-                            <a href="#"><input type="submit" value="MORE" name="more" class="morebutton" /></a></td>
+                            <a href="#"><input type="submit" value="更多文章" name="more" class="morebutton" /></a></td>
                     </tr>
                 </table>
 
             </div>
         </div>
 
-        <!--background image & footer-->
-        <!-- <div class="bg">
-        <div><img src="img/SkyTower2.jpg" style="width: 100%">
-            <video class="bg-video" src="https://cxc421.github.io/draw-lots/static/media/smoke.9c21ff18.mp4" autoplay="autoplay" muted="true" loop="true"></video>
-        </div>
-            <canvas class="bg-canvas"></canvas> -->
-
     </div>
 
     <!--footer-->
     <footer>
         <div class="foot">
-            <H2>Â©COPYRIGHT 2020 EEIT112 Team3</H2>
+            <H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
         </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
-        // èæ¯åççé§ææ
+        // 背景圖片效果
         (function () {
             const canvas = document.querySelector('.bg-canvas');
             const ctx = canvas.getContext('2d');
@@ -268,7 +334,7 @@
             }
         })();
 
-        //  Salesè¼ªæ­åç
+        //  Sales
         var nowAD = 0;
         var maxAD = 5;
         var intervalAD;
@@ -316,7 +382,7 @@
             } else if (tempAD > nowAD) {
                 backFlag = true;
             }
-            // å¯å°åç¶²é çåçé£çµ(ä¹å¾åæ¥ç¶²é å§çåå)
+            // 商品輪播網址
             // document.getElementById("mainUrl").href = "https://store.steampowered.com";
             let nowImg = document.getElementById("mainImg" + nowAD);
             for (let x = 0; x <= 460; x++) {

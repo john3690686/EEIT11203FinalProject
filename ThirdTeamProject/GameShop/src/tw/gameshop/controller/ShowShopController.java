@@ -56,12 +56,16 @@ public class ShowShopController {
 	public String findGameByName(@ModelAttribute("searchGo")Product myProduct, 
 	@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
 		
-		if(result.hasErrors()) {
-			return "ErrorPage";										// �ɦVweb-inf/pages/ErrorPage.jsp
-		}
+//		if(result.hasErrors()) {
+//			System.out.println("error");
+//			return "Shop";										// 回到商店主頁
+//		}
 		
 		String mygame= myProduct.getProductName();
 		Product findResult = pService.queryByName(mygame);
+		
+		if(findResult!=null) {
+		
 		urlName = findResult.getProductId().toString();
 			
 		model.addAttribute("productName", mygame);
@@ -70,15 +74,20 @@ public class ShowShopController {
 		model.addAttribute("tag", findResult.getTag());
 		
 		int nowProductId = findResult.getProductId();
-		model.addAttribute("comments", new Comment());				// �s�W���װ϶�
+		model.addAttribute("comments", new Comment());			
 		model.addAttribute("productId", nowProductId);
-																	// �j�M�ӹC���Ҧ�����
-		
+
 		List<Comment> theseComments= cService.QueryAllByProductId(nowProductId);
 		model.addAttribute("",theseComments);
-		
+
 		return "searchResult";	
 	}
+		else {
+			return "Shop";					// 搜尋空白或失敗會回到商店主頁
+		}
+		
+	
+}
 	
 	
 	@RequestMapping(path="/productImage", method=RequestMethod.GET) // Ū���Ϥ�
@@ -107,7 +116,8 @@ public class ShowShopController {
 	@ResponseBody
 	@RequestMapping(path = "/showProductName", method = RequestMethod.GET)
 	public List<String> showProductName(@RequestParam("jsondata")String key){
-		return pService.queryAllName(key);
+			return pService.queryAllName(key);
+
 	}
 	
 }
