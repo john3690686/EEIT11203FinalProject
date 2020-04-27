@@ -37,6 +37,7 @@
 
 </head>
 <body>
+	<div id="select"></div>
 	<div class="page">
 		<form action="<c:url value='/postArticle'></c:url>">
 			<input type="submit" value="發表">
@@ -59,11 +60,19 @@
 				var a = 1;
 
 // 				txt += "<span style='float:right;'><a href='...'>我的空間</a></span>";
-				txt += "<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>";
-				txt += "<option value='#'>會員空間</option>";
-				txt += "<option value='/GameShop/myArticle'>我的創作</option>";
-				txt += "<option value='...'>發表文章</option>";
-				txt += "</select>";
+// 				txt += "<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>";
+// 				txt += "<option value='#'>會員空間</option>";
+// 				txt += "<option value='/GameShop/myArticle'>我的創作</option>";
+// 				txt += "<option value='/GameShop/postArticle'>發表文章</option>";
+// 				txt += "</select>";
+
+				var select = "<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>"
+				select += "<option value='#'>想去哪裡</option>";
+				select += "<option value='/GameShop/processArticle'>創造の壁</option>";
+				select += "<option value='/GameShop/myArticle'>我的創作</option>";
+				select += "<option value='/GameShop/postArticle'>發表文章</option>";
+				select += "</select>";
+				document.getElementById("select").innerHTML = select;
 
 					
 				for (let i = 0; i < books.length; i++) {

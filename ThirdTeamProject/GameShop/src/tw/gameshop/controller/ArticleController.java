@@ -67,7 +67,6 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/processAction" , method = RequestMethod.POST)
 	public String processAction(
-//			@RequestParam("userID") int userId,
 			@RequestParam("articleTitle") String articleTitle,
 			@RequestParam("articleContent") String articleContent) {
 		
