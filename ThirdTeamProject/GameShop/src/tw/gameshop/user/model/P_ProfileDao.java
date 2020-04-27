@@ -119,4 +119,10 @@ public class P_ProfileDao {
 		List<P_Profile> list = query.list();
 		return list;
 	}
+	
+	
+	// Added by Yuzuha, 2020/04/06
+	public String getEmailByID(int uid) {
+		return sessionFactory.getCurrentSession().get(P_Profile.class, uid).getMail();
+	}
 }

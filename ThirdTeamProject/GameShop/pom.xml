@@ -8,6 +8,29 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+<!-- PLEASE DO NOT REMOVE COMMENTS!! IT HELPS TRACING ISSUES!! -->
+<!-- Added by Yuzuha 2020/04/06, BEGIN -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+<!-- Added by Yuzuha 2020/04/06, END -->
+		
+		
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
@@ -83,12 +106,13 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20190722</version>
 		</dependency>
+
 		
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -111,12 +135,14 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.10.3</version>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
 		
+
 	</dependencies>
 
 	<build>

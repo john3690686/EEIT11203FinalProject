@@ -95,4 +95,19 @@ public class ProductDAO {
 		return false;
 	}
 
+	
+	/**
+	 * Add by Yuzuha
+	 * This is better to have for creating Credit Card Pay Form for ECPay
+	 * @param pid
+	 * @return product name as string
+	 */
+	public String getProductNameById(int pid) {
+		Product myBean = sessionFactory.getCurrentSession().get(Product.class, pid);
+		if(myBean!=null) {
+			return myBean.getProductName();
+		}else {
+			return null;
+		}
+	}
 }

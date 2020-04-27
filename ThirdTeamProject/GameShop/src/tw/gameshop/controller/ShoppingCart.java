@@ -91,6 +91,7 @@ public class ShoppingCart {
 		return "payPage";
 	}
 	
+	// 
 	@RequestMapping(path="/pay.controller", method=RequestMethod.GET)
 	public String pay(@RequestParam("price") String price, Model model) {
 		int totalPrice = Integer.parseInt(price);
@@ -98,11 +99,14 @@ public class ShoppingCart {
 		//呼叫OrdersDao的addOrder方法，將訂單和訂單明細存入DB，成功存入回傳true
 		int userId = (int)model.getAttribute("userId");
 		
-		boolean status = oDao.addOrder(userId, totalPrice, cart);
+		int status = oDao.addOrder(userId, totalPrice, cart);
 		for(Product myProduct:cart) {
 			wDao.updateWish(userId, myProduct.getProductId());
 		}
-		System.out.println("status:" + status);
-		return "pay";
+		
+		System.out.println("[DEBUG][ShoppingCart] Created order with orderId:" + status);
+		model.addAttribute("orderId", status);
+		model.addAttribute("cart", new LinkedList<Product>());
+		return "redirect:/PayOrder";
 	}
 }

@@ -12,31 +12,30 @@ USE GameShop
 GO
 
 CREATE TABLE Profile(
-  userId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-  userAccount VARCHAR(50) NOT NULL UNIQUE,
+  userId int NOT NULL PRIMARY KEY identity(1,1) ,
   userName NVARCHAR(50) NOT NULL,
-  userPwd VARCHAR(50) NOT NULL,
-  userToken VARCHAR(MAX),
+  userPwd NVARCHAR(50) NOT NULL,
+  userToken NVARCHAR(100),
   nickname NVARCHAR(50) NOT NULL UNIQUE,
-  mail VARCHAR(100) NOT NULL UNIQUE,
-  gender VARCHAR(1) ,
-  userImg VARBINARY(MAX),
-  mailState BIT DEFAULT 0
+  mail NVARCHAR(100) NOT NULL UNIQUE,
+  gender NVARCHAR(1) ,
+  userImg VARBINARY(MAX)
 )
 GO
 
 CREATE TABLE ProfileDetail(
-  userId INT NOT NULL FOREIGN KEY REFERENCES Profile(userId),
-  address NVARCHAR(MAX),
+  userId int NOT NULL FOREIGN KEY REFERENCES Profile(userId),
+  address NVARCHAR(100),
   birthday DATE,
-  phone VARCHAR(100),
-  mailCode VARCHAR(255) NOT NULL,
-  codeStartingDate DATE NOT NULL
+  phone VARCHAR(15)
 )
 GO
 
 --DROP TABLE ProfileDetail
 --DROP TABLE Profile
---DELETE FROM ProfileDetail 
---DELETE FROM Profile
 
+INSERT INTO Profile(userId,userName,nickName,userPwd,mail)
+VALUES('uid1','unm1','nn1','upd1','u1@')
+
+INSERT INTO ProfileDetail(userId)
+VALUES('uid1')

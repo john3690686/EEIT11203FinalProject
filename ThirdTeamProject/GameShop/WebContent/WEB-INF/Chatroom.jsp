@@ -6,18 +6,17 @@
 <title>聊天室</title>
 <link rel="stylesheet" href="css/style.css">
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
  
 <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/chatroom.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style type="text/css">
 
 footer{
      border-radius: 2px 2px 2px 2px;
-     background: -webkit-linear-gradient( #3C3C3C, rgb(19, 18, 18));
+	background: -webkit-linear-gradient( #3C3C3C, rgb(19, 18, 18));
      background-repeat: no-repeat;
      position: relative;
      width: 100%;
@@ -26,21 +25,23 @@ footer{
      right: 0;
      bottom: 0;
      text-align: center;
+     z-index: 6666;
+     clear: both;
  }
  
- .tdName {vertical-align: top; color: white;}
+.tdName {vertical-align: top; color: white;}
 .tdNamePriv  {vertical-align: top; color: yellow;}
 </style>
 </head>
-<body>
+<body bgcolor="red">
 	<!--Navigator-->
      <nav>
         <ul class="ul1">
-        <li><a href="#">HOME</a>
-        <li><a href="#">NEWS</a>
-        <li><a href="#">SHOP</a>
+        <li><a href="index.html">HOME</a>
+        <li><a href="test">NEWS</a>
+        <li><a href="Shop">SHOP</a>
         <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-        <li><a href="Chatroom">CHAT</a>
+        <li><a href="Chat">CHAT</a>
         <a href="#"><input type="button" class="loginz" value="LOGIN"></a>
         </ul>
     </nav>
@@ -56,23 +57,23 @@ footer{
 			<div id="chatHistory"></div>
 			
 			<div class="spacer"></div>
-			<div><span id="sysMessage"></span></div>
+			<div style="text-align: left"><span id="sysMessage"></span></div>
 			
-			<div class="reply">
+			<div class="reply" style="text-align: left;">
 				<input id="username" hidden="hidden" value='${chatName}' type="text"/>
 				<span class="sernTo"></span><select id="toUser"></select><div></div>
-				<input type="text" class="text" id="sendMessage" name="content" />
+				<textarea class="text" id="sendMessage" name="content" rows="2" cols="120" style="width: 580px;resize: none;" maxlength="250"></textarea>
+				<!-- <input type="text" class="text" id="sendMessage" name="content" /> -->
 				<input type="button" id="sendMsg" value="送出文字"  onclick="sendMsg();"/><br>
 				<label id="imgLabel">傳送圖片:</label> <input id="uploadedImg" type="file" name="uploadedImg" accept="image/*"> 
 				<input id="cancelImg" type="button" value="取消" onclick="$('#uploadedImg').val('');">
 				<input id="sendImg" type="button" value="傳圖" onclick="sendImg();"><br>
-				<div><p id="notes">圖片大小限5MB，圖片會自動壓縮至最大邊長200px</p></div>
+				<div style="margin-top: 5px;"><p id="notes">圖片大小限5MB，圖片會自動壓縮至最大邊長200px</p></div>
 				<div><p id="imgError">&nbsp;</p></div>
 			</div>
 		</div>
 	
 	</div>
-
 	<!--footer-->
 
 	<footer>
@@ -83,6 +84,42 @@ footer{
     </footer>
 
 	<script type="text/javascript">
+		var winFoucs = 1;
+		window.onfocus = function() {
+			winFoucs = 1;
+		};
+
+		window.onblur = function() {
+			winFoucs = 0;
+		};
+	
+		var notifyConfig = {
+			//body: '\\ ^o^ /', // 設定內容
+			//icon: '/images/favicon.ico', // 設定 icon
+		};
+
+		if (Notification.permission === 'default' || Notification.permission === 'undefined') {
+			Notification.requestPermission(function(permission) {
+				if (permission === 'granted') {
+					// 使用者同意授權
+					var notification = new Notification('關閉視窗的話會中斷連線，不過視窗在背景或其他分頁的話仍會收到通知!', notifyConfig); // 建立通知
+			    }
+			});
+		}
+		if (('Notification' in window)) {
+			var notification = new Notification('關閉視窗的話會中斷連線，不過視窗在背景或其他分頁的話仍會收到通知!', notifyConfig); 
+		}
+		
+
+		var ip;
+		$.getJSON("https://api.ipify.org?format=json", 
+                function(data) { 
+				ip = data.ip;
+				console.log("client IP: "+ip);
+		}) 
+				
+	
+		 
 		var websocket = null;
 		var userName = $("#username").val();
 		var preventTimeOut = checkSetInterval(userName);
@@ -96,7 +133,11 @@ footer{
 		
 	    // Check Browser WebSocket Support
 		if ('WebSocket' in window) {
-			websocket = new WebSocket("ws://" + window.location.host + '${pageContext.request.contextPath}' + "/websocket?username=" + userName);
+			if(location.protocol !== 'https:'){
+				websocket = new WebSocket("ws://" + window.location.host + '${pageContext.request.contextPath}' + "/websocket?username=" + userName);
+			}else{
+				websocket = new WebSocket("wss://" + window.location.host + '${pageContext.request.contextPath}' + "/websocket?username=" + userName);
+			}
 		}else {
 			alert('不支援的瀏覽器! 請改用Firefox或Chrome');
 		}
@@ -142,6 +183,18 @@ footer{
 				var timeStamp = time.getMonth() + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
 				document.getElementById('chatHistory').innerHTML+= "<table class='otherSpeaks'><tr>" + event.data + "<td class='timeStamp'><p>" + timeStamp + "</p></td></tr><table>";
 				updateScroll();
+				if(winFoucs == 0){
+					var dataP = event.data.replace(/<br>/g, "\n").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+					if(dataP.indexOf("</p>") - (dataP.indexOf("otherSpeaksMsg")+16) > 10){
+						if(dataP.includes("img src")){
+							var notification = new Notification(dataP.substring(19, (dataP.substring(19).indexOf("<")+18)) + " [圖片訊息] ", notifyConfig);
+						}else {
+							var notification = new Notification(dataP.substring(19, (dataP.substring(19).indexOf("<")+18)) + dataP.substring( dataP.indexOf("otherSpeaksMsg")+16,dataP.indexOf("otherSpeaksMsg")+25)  + '...', notifyConfig);
+						}
+					}else {
+						var notification = new Notification(dataP.substring(19, (dataP.substring(19).indexOf("<")+18)) + dataP.substring( dataP.indexOf("otherSpeaksMsg")+16,dataP.indexOf("</p>")), notifyConfig); 
+					}
+				}
 			} 
 		}
 
@@ -163,13 +216,14 @@ footer{
 
 		function sendMsg(){
 			if($("#sendMessage").val().trim() !="" && !$("#sendMessage").val().includes("[ToUser::")){
-				var messageToSend = "";
+				console.log(ip);
+				var messageToSend = "[ip::"+ip+"]";
 				var myMessage = "";
 				if($("#toUser").val() != 0){
 					messageToSend += "[ToUser::" + $("#toUser").val() + "]";
 				}
-				myMessage += $("#sendMessage").val().replace("<", "&lt;").replace(">", "&gt;");
-				messageToSend += $("#sendMessage").val().replace("<", "&lt;").replace(">", "&gt;");
+				myMessage += $("#sendMessage").val().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+				messageToSend += $("#sendMessage").val().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
 				$("#sendMessage").val("");
 				websocket.send(messageToSend);
 				var time = new Date();
@@ -216,7 +270,7 @@ footer{
 			    	timeout: 20000, //設定傳輸的timeout,時間內沒完成則中斷, ngrok慢到靠杯所以設定20秒
 			    	success: function(data) {
 			    		$('#uploadedImg').val("");
-			    		var messageToSend = "";
+			    		var messageToSend = "[ip::"+ip+"]";
 						var myMessage = "";
 			    		if($("#toUser").val() != 0){
 							messageToSend += "[ToUser::" + $("#toUser").val() + "]";

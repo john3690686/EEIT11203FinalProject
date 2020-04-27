@@ -41,5 +41,9 @@ public class P_ProfileService {
 	public List<P_Profile> queryProfilesAll() {
 		return profileDao.queryProfilesAll();
 	}
+	
+	public String getEmailByID(int uid) {
+		return profileDao.getEmailByID(uid);
+	}
 
 }

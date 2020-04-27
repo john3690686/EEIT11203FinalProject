@@ -45,7 +45,7 @@
             <li><a href="test">NEWS</a>
             <li><a href="Shop">SHOP</a>
             <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-            <li><a href="#">CHAT</a>
+            <li><a href="Chat">CHAT</a>
                 <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
         </ul>
     </nav>

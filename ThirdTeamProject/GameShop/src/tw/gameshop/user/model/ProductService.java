@@ -48,4 +48,8 @@ public class ProductService {
 	public boolean deleteById(int id) {
 		return pDao.deleteById(id);
 	}
+	
+	public String getProductNameById(int pid) {
+		return pDao.getProductNameById(pid);
+	}
 }

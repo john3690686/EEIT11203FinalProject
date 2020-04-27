@@ -25,6 +25,12 @@ public class Orders {
 	private Date buyDatetime;
 	private Integer purchase;
 	private String hash;
+	
+	// Added by Yuzuha
+	// "P" is for Pending, "Y" is for Complete, "N" id s for Failed
+	@Column(name = "payResult")
+	private String payResult;
+	
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	public Orders() {
@@ -85,4 +91,14 @@ public class Orders {
 		this.orderDetails = orderDetails;
 	}
 
+	public String getPayResult() {
+		return payResult;
+	}
+
+	public void setPayResult(String payResult) {
+		this.payResult = payResult;
+	}
+
+	
+	
 }
