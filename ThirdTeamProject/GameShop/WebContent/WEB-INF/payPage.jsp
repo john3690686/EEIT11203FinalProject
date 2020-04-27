@@ -9,6 +9,7 @@
 </head>
 <body>
 <table>
+${userId}
   <c:forEach var="p" items="${cart}">
   <tr>
     <td id="${p.productId}" class="pName">${p.productName}</td>

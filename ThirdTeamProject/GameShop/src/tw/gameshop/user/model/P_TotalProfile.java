@@ -30,14 +30,14 @@ public class P_TotalProfile {
 		this.userAccount = profile.getUserAccount();
 		this.userName = profile.getUserName();
 		this.userPwd = profile.getUserPwd();
-		this.nickName = profile.getNickName();
+//		this.nickName = profile.getNickName();
 		this.mail = profile.getMail();
 		this.gender = profile.getGender();
 		this.userImg = profile.getUserImg();
 		this.address = profile.getProfileDetail().getAddress();
 		this.birthday = profile.getProfileDetail().getBirthday();
 		this.phone = profile.getProfileDetail().getPhone();
-		this.mailStatus = profile.isMailState();
+//		this.mailStatus = profile.isMailState();
 	}
 
 	public String getUserAccount() {

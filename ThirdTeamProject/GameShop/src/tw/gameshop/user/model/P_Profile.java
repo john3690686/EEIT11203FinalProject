@@ -135,4 +135,6 @@ public class P_Profile {
 	public void setUserToken(String userToken) {
 		this.userToken = userToken;
 	}
+
+	
 }

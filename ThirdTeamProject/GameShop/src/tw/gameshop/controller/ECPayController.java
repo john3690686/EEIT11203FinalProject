@@ -149,9 +149,9 @@ public class ECPayController {
 	}
 	
 	public void sendPayResultMail(int result, String itemList, String mailTo) {
-		final String SMTP_SERVER = "";	// smtp server address, ex: smtp.gmail.com
-		final String USERNAME = "";		// smtp username, ex: xxx@gmail.com
-		final String PASSWORD = ""; 	// smtp password
+		final String SMTP_SERVER = "smtp.gmail.com";	// smtp server address, ex: smtp.gmail.com
+		final String USERNAME = "eeit11203@gmail.com";		// smtp username, ex: xxx@gmail.com
+		final String PASSWORD = "P@ssW0rd"; 	// smtp password
 		final String EMAIL_FROM = "GameShop";	// smtp sender name, required
 		String EMAIL_TO = mailTo;
 		final String EMAIL_SUBJECT = "GameShop 付款結果通知";
