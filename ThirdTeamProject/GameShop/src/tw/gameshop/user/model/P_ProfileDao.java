@@ -123,7 +123,7 @@ public class P_ProfileDao {
 	// edit from Betty (send email)
 	public P_Profile queryByUserId(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		P_Profile profile = session.get(P_Profile.class, userId);
+		P_Profile profile = session.load(P_Profile.class, userId);
 		return profile;
 	}
 }

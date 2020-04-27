@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,11 +34,16 @@ public class TestSendEmail {
 		this.pDao = pDao;
 	}
 	
-	@RequestMapping(path="/email.do", method = RequestMethod.GET)
-	public String processAction() {
-		ed.sendMail("bettylin25@gmail.com", "bettylin50@gmail.com", "JavaMailTest22222", "Java寄信測試22222");
-		return "Success";
-	}
+//	@RequestMapping(path="/email.do", method = RequestMethod.GET)
+//	public String processAction() {
+//		List<Event> events = eDao.queryAllEvent();
+//		byte[] img = events.get(1).getEventImage();
+//		ByteArrayResource rimg = new ByteArrayResource(img);
+//		
+//		String content = "<html><body><h2>spring mail test</h2><img src='cid:aaa'/></body></html>";
+//		ed.sendMail("bettylin25@gmail.com", "eeit11203@gmail.com", "JavaMailTest22222", content, rimg);
+//		return "Success";
+//	}
 	
 	@RequestMapping(path="/event.do", method = RequestMethod.GET)
 	public String processEvent() {

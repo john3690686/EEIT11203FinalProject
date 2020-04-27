@@ -4,6 +4,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,16 +20,17 @@ public class TestEmailDAO {
 		this.mailSender = mailSender;
 	}
  
-	public void sendMail(String from, String to, String subject, String msg) {
+	public void sendMail(String from, String to, String subject, String msg,ByteArrayResource resource) {
 		MimeMessage message = mailSender.createMimeMessage();
  
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
  
+			helper.addInline("aaa", resource);
 			helper.setFrom(from);
 			helper.setTo(to);
 			helper.setSubject(subject);
-			helper.setText(msg);
+			helper.setText(msg,true);
  
 		}
 		catch (MessagingException e) {

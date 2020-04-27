@@ -48,8 +48,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" /> 
 		<property name="port" value="587" /> 
-		<property name="username" value="bettylin25@gmail.com" /> 
-		<property name="password" value="0020056832" /> 
+		<property name="username" value="eeit11203@gmail.com" /> 
+		<property name="password" value="P@ssW0rd" /> 
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
@@ -59,7 +59,7 @@
 	</bean>
 	
 	<task:scheduled-tasks>
-	  <task:scheduled ref="task1" method="processAction" cron="0 * * * * ?"/>
+	  <task:scheduled ref="task1" method="processAction" cron="0 55 11 * * ?"/>
 	</task:scheduled-tasks>
 
 </beans>
