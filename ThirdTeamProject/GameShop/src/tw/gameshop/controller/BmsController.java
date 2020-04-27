@@ -130,7 +130,7 @@ public class BmsController {
 	@RequestMapping(path = "/product.del/{id}", method = RequestMethod.GET)
 	public String DelProductItem( @PathVariable("id") String id, Model model ){
 		productDao.deleteById(Integer.parseInt(id));
-		return "redirect:/productlist";
+		return "success";
 	}
 	
 	@ResponseBody
@@ -138,7 +138,7 @@ public class BmsController {
 	public String TestBmsImageUpload(  @RequestParam MultipartFile fl1) throws IOException {
 		//System.out.println(ts1);
 		System.out.println("fl1" + fl1.toString());
-		return "success.";
+		return "success";
 	}
 	
 }
