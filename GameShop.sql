@@ -41,5 +41,6 @@ GO
 --DELETE FROM ProfileDetail 
 --DELETE FROM Profile
 
---ALTER TABLE Profile ALTER column salt int
+
 --EXEC sp_rename 'Profile.userToken', 'salt', 'COLUMN';
+--ALTER TABLE Profile ALTER column salt int

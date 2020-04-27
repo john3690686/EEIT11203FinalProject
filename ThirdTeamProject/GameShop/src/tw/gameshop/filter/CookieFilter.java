@@ -25,7 +25,6 @@ public class CookieFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		Cookie[] cookies = req.getCookies();
 		String userAccount = "", userPwd = "", autoLogin = "";
-		System.out.println("do filter");
 		if (cookies != null && cookies.length != 0) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("userAccount")) {

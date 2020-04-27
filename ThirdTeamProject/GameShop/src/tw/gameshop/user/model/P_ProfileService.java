@@ -58,14 +58,7 @@ public class P_ProfileService {
 
 	public P_TotalProfile queryProfile(String userAccount) {
 		P_TotalProfile result = profileDao.queryProfile(userAccount);
-		System.out.println("encrypt password : " + result.getUserPwd());
-		System.out.println("decrypt : " + decrypt(result.getUserPwd()));
 		return result;
-	}
-
-	public boolean updateProfile(P_Profile profile) {
-		profile.setUserPwd(encrypt(profile.getUserPwd()));
-		return profileDao.updateProfile(profile);
 	}
 
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
@@ -85,7 +78,6 @@ public class P_ProfileService {
 		}
 
 		String password = decrypt(profile.getUserPwd()).split("\\+")[0];
-		System.out.println("Login password:" + password);
 		if (password.equals(userPwd)) {
 			return profile;
 		}

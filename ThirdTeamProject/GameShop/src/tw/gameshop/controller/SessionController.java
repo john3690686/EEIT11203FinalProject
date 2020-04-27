@@ -38,6 +38,7 @@ public class SessionController {
 
 	@Autowired
 	public SessionController(P_ProfileService pservice) {
+		System.out.println("Controller = " + (int)Math.floor(Math.random()*1000));
 		this.pservice = pservice;
 	}
 
@@ -83,7 +84,7 @@ public class SessionController {
 			Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("processLogin");
 		P_Profile profile = null;
-		System.out.println(strautoLogin);
+		System.out.println("strautoLogin : "+strautoLogin);
 		boolean ckeckInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches();
 		boolean autoLogin = false;
 		try {
@@ -95,8 +96,10 @@ public class SessionController {
 		//刪除session.cookie
 		if(!autoLogin) {
 			Cookie[] cookies = request.getCookies();
+			
 			for(Cookie cookie:cookies) {
 				cookie.setMaxAge(0);
+				response.addCookie(cookie);
 			}
 			request.getSession().invalidate();
 		 }
@@ -113,6 +116,7 @@ public class SessionController {
 					session.setAttribute("userImg", profile.getUserImg());
 
 					if(autoLogin) {
+						System.out.println("Add Cookie");
 						Cookie cookAcc = new Cookie("userAccount",profile.getUserAccount());
 						Cookie cookPwd = new Cookie("userPwd",profile.getUserPwd());
 						Cookie cookAutoLogin = new Cookie("autoLogin","checked");
@@ -189,11 +193,12 @@ public class SessionController {
 	}
 
 	@RequestMapping(value = "/certification/{mailCode}", method = RequestMethod.GET)
-	public String certificationMail(@PathVariable("mailCode") String mailCode) {
+	public String certificationMail(@PathVariable("mailCode") String mailCode,Model model) {
 		boolean isPass = pservice.certificationMail(mailCode);
 		if (isPass) {
 			return "CertificationMailSuccess";
 		}
+		model.addAttribute("errorMessage", "信箱認證失敗，認證碼已過期(7日)或認證碼錯誤");
 		return "ErrorPage";
 	}
 }

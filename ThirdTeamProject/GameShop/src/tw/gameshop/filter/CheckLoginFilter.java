@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebFilter("/index.html")
+@WebFilter(value = "/*")
 public class CheckLoginFilter implements Filter {
 
 

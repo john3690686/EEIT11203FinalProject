@@ -21,7 +21,7 @@ public class P_ProfileDao {
 
 	@Autowired
 	public P_ProfileDao(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
-		System.out.println("SessionFactory: " + sessionFactory);
+		System.out.println("SessionFactory Open: " + sessionFactory.isOpen());
 		this.sessionFactory = sessionFactory;
 	}
 
