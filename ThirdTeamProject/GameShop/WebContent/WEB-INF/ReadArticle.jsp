@@ -138,8 +138,9 @@
 
 				for (let i = 0; i < books.length; i++) {
 					txt += "<div class = 'article'>";
-					txt += "<div class='title'>"+books[i].articleTitle;
-					txt += "<form id='editorArticle' action='gotoUpdataPage' method='POST' style='float:right;'></form>";					
+					txt += "<div class='title'>"+books[i].articleTitle;					
+					txt += "<form id='deleteArticle' action='deleteArticle' method='POST' style='float:right;'></form>";				
+					txt += "<form id='editorArticle' action='gotoUpdataPage' method='POST' style='float:right;'></form>";	
 					txt += "</div>";
 					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
 					txt += "<div class='articleContent'>"+books[i].articleContent+"</div>";
@@ -154,8 +155,13 @@
 				var loginid = ${sessionScope.userId};
 				var inputeditor = "<input type='submit' value='編輯文章' style='right'>";
 				inputeditor += "<input type='hidden' name='aID' value='" + books[0].articleID + "'>";
+
+				var deleteArticle = "<input type='submit' value='刪除文章' style='right'>";
+				deleteArticle += "<input type='hidden' name='aID' value='" + books[0].articleID + "'>";
+				
 				if(id == loginid){				
 					document.getElementById("editorArticle").innerHTML = inputeditor;
+					document.getElementById("deleteArticle").innerHTML = deleteArticle;
 				}
 			}
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tw.gameshop.user.model.Article;
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
 import tw.gameshop.user.model.ReplyMessageService;
@@ -43,7 +44,7 @@ public class ArticleController {
 		
 //		===============測試用偽裝userID====================
 		session = request.getSession();
-		session.setAttribute("userId", 1);
+		session.setAttribute("userId", 2);
 		userId = Integer.parseInt(session.getAttribute("userId").toString());
         System.out.println("===================>userid by session:"+session.getAttribute("userId"));
         System.out.println("===================>userid by userId:"+userId);
@@ -169,6 +170,15 @@ public class ArticleController {
 		processReadArticle(articleID);
 		
 		return "ReadArticle";
+	}
+	
+	@RequestMapping(path = "/deleteArticle" , method = RequestMethod.POST)
+	public String deleteArticle(@RequestParam("aID") int articleID) {
+		
+		aService.deleteArticle(articleID);
+		String page = myArticle();		
+		
+		return page;
 	}
 	
 }

@@ -35,4 +35,8 @@ public class ArticleService {
 		return artDao.updataArticle(articleID, articleTitle, articleAbstract, articleContent);
 	}
 	
+	public Article deleteArticle(int articleID) {
+		return artDao.deleteArticle(articleID);
+	}
+	
 }

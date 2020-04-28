@@ -136,5 +136,24 @@ public class ArticleDAO {
 		
 		return queryArt;
 	}
+	
+	public Article deleteArticle(int articleID) {
+		Session session = sessionFactory.getCurrentSession();
+		Article queryArt = session.get(Article.class, articleID);
+		
+		if(queryArt != null) {
+			session.delete(queryArt);
+		}
+		
+		return queryArt;
+	}
 
 }
+
+
+
+
+
+
+
+

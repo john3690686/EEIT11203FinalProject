@@ -9,10 +9,13 @@
 <style type="text/css">
 
 .article {
-	margin-top: 15px;
-	width: 80%; border-style : solid;
+ 	margin-top: 15px; 
+ 	margin-left: 90px; 
 	border-width: 1px;
 	border-style: solid;
+	height: 80px;
+	width: 1000px;
+/*  	float:left;  */
 }
 
 .page{
@@ -33,6 +36,20 @@
 .abstract{
 	margin-top: 20px;
 }
+
+.imageblock{ 
+/*  	margin-top: ; */
+	float:left;
+	border: 1px #ADADAD solid;
+	height: 80px;
+	width: 80px;
+ }
+ 
+ .articleImg{
+	height: 80px;
+	width: 80px;
+}
+
 </style>
 
 </head>
@@ -76,6 +93,8 @@
 
 					
 				for (let i = 0; i < books.length; i++) {
+					txt += "<div>";
+					txt += "<div class = 'imageblock'><img class = 'articleImg' alt='圖片失效' src='https://i.imgur.com/pLPub4P.jpg'></div>";
 					txt += "<div class = 'article'>";
 					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>This is Title: " + books[i].articleTitle+ "</div></a>";
 					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
@@ -86,7 +105,7 @@
 					txt += "<div class='abstract'>"+books[i].articleAbstract + "....(<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"' >繼續閱讀</a>)</div>";
 // 					txt += "articleTitle: "+ books[i].articleContent + "</br>";
 // 					txt += "postDatetime: "+ books[i].postDatetime + "</br>";
-					txt += "</div>";
+					txt += "</div></div>";
 					a++;
 				}
 				txt += "</br>"

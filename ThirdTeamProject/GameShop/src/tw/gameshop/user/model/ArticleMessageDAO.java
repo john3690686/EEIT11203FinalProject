@@ -84,10 +84,21 @@ public class ArticleMessageDAO {
 
 			jsonAr.put(json);
 		}
-		
+
 		String jsonstr = jsonAr.toString();
-		System.out.println("測試測試: "+jsonstr);
+
 		return jsonstr;
+	}
+
+	public ArticleMessage deleteAllArticleMessage(int articleID) {
+		Session session = sessionFactory.getCurrentSession();
+		ArticleMessage queryArtMeg = session.get(ArticleMessage.class, articleID);
+
+		if (queryArtMeg != null) {
+			session.delete(queryArtMeg);
+		}
+
+		return queryArtMeg;
 	}
 
 }
