@@ -45,7 +45,7 @@ public class ShowShopController {
 	public String shopIndex(Model model) {
 		model.addAttribute("searchGo", new Product());
 		
-		List<Product> product = pService.queryAll(); 		
+		List<Product> product = pService.queryCatalogue(); 		
 		model.addAttribute("products", product);
 
 		return "Shop";
@@ -56,9 +56,10 @@ public class ShowShopController {
 	public String findGameByName(@ModelAttribute("searchGo")Product myProduct, 
 	@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
 		
-		if(result.hasErrors()) {
-			return "Shop";									
-		}
+//		if(result.hasErrors()) {
+//		System.out.println("error");
+//		return "Shop";										// 回到商店主頁
+//	}
 		
 		String mygame= myProduct.getProductName();
 		Product findResult = pService.queryByName(mygame);
@@ -81,7 +82,7 @@ public class ShowShopController {
 			return "searchResult";
 			
 		}else {	
-			return "Shop";
+			return "Shop";          // 搜尋空白或失敗會回到商店主頁
 		}
 }
 	
