@@ -16,55 +16,49 @@
 
 <style type="text/css">
 
-.ui-autocomplete{ 
-	z-index: 9999 !important; 
-	text-align:left;
+body{
+	font-family:微軟正黑體;
+	background:url(img/shopbg.jpg) no-repeat;
+	background-size:cover;
 }
 
 </style>
 
 </head>
 <body>
-	<!--Navigator-->
+<!--Navigator-->
 	<nav>
 		<ul class="ul1">
 			<li><a href="index.html">HOME</a>
 			<li><a href="#">NEWS</a>
 			<li><a href="Shop">SHOP</a>
-			<li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-			<li><a href="Chat">CHAT</a> <a href="#"><input type="button"
-					class="loginz" value="LOGIN"></a>
+			<li><a href="#">BLOG</a>
+			<li><a href="#">CHAT</a> 
+			<a href="#"><input type="button" class="loginz" value="LOGIN"></a>
 		</ul>
 	</nav>
 
-	<!--Wishlist & Shopping cart-->
-	<a href="showWish.controller"><input type="button" class="wishlist"></a>
-	<a href="prePay.controller"><input type="button"
-		class="shoppingcart"></a>
+<!--Wishlist & Shopping cart &top-->
+        <a href="showWish.controller"><input type="button" class="wishlist"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 
-	<!--Main-->
+<!--Main-->
 	<div class="bgshop">
 
-		<div class="horizon2">
-			<H1>Shop</H1>
-		</div>
-		<br /> <br />
+		<div class="horizon2"><br/>Shop</div>
+		<br/><br/>
 
 		<fieldset>
 			<figure>
 				<!--輪播已修改完畢(接商品頁面)-->
 				<a id="mainUrl" href="">
-					<canvas id="myCanvas" width="460" height="215">  
-                <img id="mainImg1" src="img/sale1.jpg"
-							style="display: none" />
-                <img id="mainImg2" src="img/sale2.jpg"
-							style="display: none" />
-                <img id="mainImg3" src="img/sale3.jpg"
-							style="display: none" />
-                <img id="mainImg4" src="img/sale4.jpg"
-							style="display: none" />
-                <img id="mainImg5" src="img/sale5.jpg"
-							style="display: none" />
+				<canvas id="myCanvas" width="460" height="215">  
+                <img id="mainImg1" src="img/sale1.jpg" style="display: none" alt=""/>
+                <img id="mainImg2" src="img/sale2.jpg" style="display: none" alt=""/>
+                <img id="mainImg3" src="img/sale3.jpg" style="display: none" alt=""/>
+                <img id="mainImg4" src="img/sale4.jpg" style="display: none" alt=""/>
+                <img id="mainImg5" src="img/sale5.jpg" style="display: none" alt=""/>
                 </canvas>
 				</a>
 				<div id="chimg"></div>
@@ -82,21 +76,21 @@
 				<td></td>
 				<td></td>
 
-		<form:form action="searchGame" method="get" modelAttribute="searchGo">
-		<td><img src="img/searchicon2.png" style="filter: contrast(100%);"> 
-		<form:input	path="productName" id="queryname"/> 
-		<form:button value="Send">Search Games</form:button></td>
-		</form:form>
+			<form:form action="searchGame" method="get" modelAttribute="searchGo">
+				<td><img src="img/searchicon2.png" style="filter: contrast(100%);"> 
+				<form:input	path="productName" id="queryname"/> 
+				<form:button value="Send">搜尋</form:button></td>
+			</form:form>
 			</tr>
 		</table>
 		
 				<!--Show Products & Page-->
-				<table id="content" class="productTable" ></table>
+				<table id="content" class="productTable"></table><br><br>
     			<div id="page" class="pageview"></div>
  
 	</div>
 
-	<!--footer-->
+<!--footer-->
 	<footer>
 		<div class="foot">
 			<H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
@@ -105,11 +99,10 @@
 		</div>
 	</footer>
 
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script>
-	
-//Sales輪播圖片
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script>
+		//Sales輪播圖片
 
 		var nowAD = 0;
 		var maxAD = 5;
@@ -161,8 +154,8 @@
 			} else if (tempAD > nowAD) {
 				backFlag = true;
 			}
-
-// 可導向網頁的圖片連結(之後再接網頁內的商品)
+		// 可導向網頁的圖片連結(之後再接網頁內的商品)
+		
 			var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
 		 	document.getElementById("mainUrl").href = "http://localhost:8080/GameShop/searchGame?productName="+ db[(nowAD-1)];
 
@@ -221,7 +214,7 @@
 			}
 		}
 
-//鈞太哥的商品分頁
+		//鈞太哥的商品分頁
 		$(document).ready(function () {
 			
 	        var itemPerPage = 5;		// 一頁幾個商品
@@ -229,17 +222,19 @@
 	        var totalPage = 0;			// 全部頁數
 	        
 	        $.ajax({
-	            url: "JsonProducts.controller",
+	            url: "JsonProducts.controller",  //data path
 	            type: "GET",
 	            dataType: "json",
 	            success: function (data) {
-
+		            
+	                //donload data to <table>
 	                var txt = ' ';
+	                
 	                for (let i = 0; i < data.length; i++) {
 
 		                txt += '<tr><td>' + "<img src='data:image/jpeg;base64," + data[i].productImage + "' width='230px'>" + 
-	                    '</td><td class="pName" id="'+data[i].productId +'">' + data[i].productName + '</td><td>' + data[i].tag + '</td><td>' + data[i].price + 
-	                    '</td><td>' + "<a href='searchGame?productName="+data[i].productName+"'><input type='button' value='遊戲資訊'></a>  <input class='wish' type='button' value='加入願望清單'>  <input class='cart' type='button' value='加入購物車'>" +
+	                    '</td><td class="pName" id="'+data[i].productId +'">' + data[i].productName + '</td><td>' + data[i].tag + '</td><td>$' + data[i].price + 
+	                    '</td><td>' + "<a href='searchGame?productName="+data[i].productName+"'><input class='infobutton' type='button' value='遊戲資訊'></a>  <input class='cartbutton' type='button' value='加入購物車'>  <input class='wishbutton' type='button' value='加入願望清單'>" +
 	                    '</td></tr>';
 	                }
 	                txt + ' ';
@@ -282,17 +277,17 @@
 	                        $("#nowPage").text(nowPage);
 	                    }
 	                })
-	                //first show
-	                $("#page a").eq(1).click();
-					
-// 願望清單
-	   $(".wish").click(function(){
-			console.log("add wish");
-			var id1 = $(this).parent().siblings("td.pName").attr("id");
-			var name1 = $(this).parent().siblings("td.pName").html();
-			console.log("id1="+id1);
 
-			$.ajax({
+					//first show
+	                $("#page a").eq(1).click();
+	                
+ 					// 願望清單
+		            $(".wishbutton").click(function(){
+					console.log("add wish");
+					var id1 = $(this).parent().siblings("td.pName").attr("id");
+					var name1 = $(this).parent().siblings("td.pName").html();
+					console.log("id1="+id1);					
+					$.ajax({
 					url:"addWish.controller?id=" + id1,
 					type:"get",
 					success:function(data){
@@ -303,15 +298,15 @@
 							}else{
 		                    window.alert(name1+"已加入願望清單");
 						         }
-			              }
-				})
-			})
-			       //加入商品到購物車，並檢查是否重複
-				   $(".cart").click(function(){
+							}
+						})
+					})
+					//加入商品到購物車，並檢查是否重複
+				   $(".cartbutton").click(function(){
 					var id = $(this).parent().siblings("td.pName").attr("id");
 					var name = $(this).parent().siblings("td.pName").html();
 					console.log("add product");
-					$.ajax({
+						$.ajax({
 						url:"add.controller?id=" + id,
 						type:"get",
 						success:function(data){
@@ -321,47 +316,49 @@
 								}else{
 					            window.alert(name+"已加入購物車");
 									}
-						}
-						})
-					})
-	            }
-	        })
-	    })
-	     
-// 自動帶入資料庫關鍵字搜尋  autocomplete
-
-	$("#queryname").autocomplete({		
-		source : function(request, response) {
-	
-	$.ajax({
-		url : "showProductName",
-		type : "GET",
-		matchContains: true,
-		dataType : "JSON",
-		data : {
- 			jsondata : $("#queryname").val()   // 獲取輸入框內容
-		},
-		success : function(data) {		
-			response(data, function(item) {    // 此處是將返回資料轉換為 JSON物件
-				console.log(item.jsondata);
+								}
+							})
+						})	                
+					}
+				})
+			})
+	    
+					// 自動帶入資料庫關鍵字搜尋  autocomplete
 				
-			return {
-                    value: item.jsondata,
-           			}
-		})
-		}
-	});
-    },
-			 focus: function (event, ui) {	   // 選到某項目就顯示在搜尋框中
-		         $("#queryname").val(ui.item.value);		            
-		         return false;
-		},
-		      select: function (event, ui) {   // 當使用者選擇某項目後自動將所有的值帶進輸入框中
-			      $("#queryname").val(ui.item.value);
-		          return false;
-		        } 
-});
+					$("#queryname").autocomplete({		
+						source : function(request, response) {
+					
+					$.ajax({
+						url : "showProductName",
+						type : "GET",
+						dataType : "JSON",
+						data : {
+				 			jsondata : $("#queryname").val()   // 獲取輸入框內容
+						},
+						
+						success : function(data) {		
+							response(data, function(item) {    // 此處是將返回資料轉換為 JSON物件
+								console.log(item.jsondata);
+								
+							return {		
+				                    value: item.jsondata,
+									}
 
+						})
+						}					
+					});
+				    },		
+				    		 minLength: 2,					   // 至少輸入幾個字
+							 focus: function (event, ui) {	   // 選到某項目就顯示在搜尋框中
+						         $("#queryname").val(ui.item.value);		            
+						         return false;
+						},
+						      select: function (event, ui) {   // 當使用者選擇某項目後自動將所有的值帶進輸入框中
+							      $("#queryname").val(ui.item.value);
+						          return false;
+						        } 
+				});
+	
 	</script>
 
 </body>

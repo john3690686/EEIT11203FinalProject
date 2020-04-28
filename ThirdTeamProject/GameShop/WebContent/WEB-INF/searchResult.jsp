@@ -8,9 +8,10 @@
 <title>GameShop</title>
 
 <style type="text/css">
-
-*{
-font-family:微軟正黑體;
+body{
+	font-family:微軟正黑體;
+	background:url(img/shopbg.jpg) no-repeat;
+	background-size:cover;
 }
 </style>
 </head>
@@ -29,9 +30,10 @@ font-family:微軟正黑體;
         </ul>
     </nav>
     
- <!--Wishlist & Shopping cart-->
+<!--Wishlist & Shopping cart &top-->
         <a href="showWish.controller"><input type="button" class="wishlist"></a>
         <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 
  <!--Main-->
 	<div class="bgshop" style="height:200%">
@@ -113,10 +115,13 @@ window.onload = function(){
 
 			if (data.length!=0){
 				for(i=0; i<data.length; i++){
-				var row = "<tr><td>"+data[i].nickName+"</td><td class='com' id='newcom'>"+data[i].comment+"</td><td>"
+				var row = "<tr><td class='useridtag'>"+data[i].nickName+"</td><td class='com' id='newcom'>"+data[i].comment+"</td><td>"
 				+data[i].postDatetime+"</td><td class='comId' hidden>" + data[i].comId +"</td>";
 				if(data[i].userId==${userId}){
-					edit = "<td><input type='button' id='updateCom' value='編輯'><input type='button' id='deleteCom' value='刪除'></td>";
+					edit = "<td><input type='button' id='updateCom' value='編輯'>  <input type='button' id='deleteCom' value='刪除'></td>";
+					row += edit;
+				}else{
+					edit = "<td></td>"; 
 					row += edit;
 					}
 				empty+=row+t1;

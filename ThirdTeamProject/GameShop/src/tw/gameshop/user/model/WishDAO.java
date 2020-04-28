@@ -1,5 +1,6 @@
 package tw.gameshop.user.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -75,6 +76,19 @@ public class WishDAO {
 		query.setParameter(0, userId);
 		List<Wish> list = query.list();
 		return list;
+	}
+	
+	//send email(get userId save in list)
+	public LinkedList<Integer> queryByProductId(int productId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Wish> query = session.createQuery("from Wish where productId=?0", Wish.class);
+		query.setParameter(0, productId);
+		List<Wish> list = query.list();
+		LinkedList<Integer> userList = new LinkedList<Integer>();
+		for (Wish wish:list) {
+			userList.add(wish.getUserId());
+		}
+		return userList;
 	}
 
 }

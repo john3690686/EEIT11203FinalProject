@@ -8,29 +8,6 @@
 	<packaging>war</packaging>
 
 	<dependencies>
-<!-- PLEASE DO NOT REMOVE COMMENTS!! IT HELPS TRACING ISSUES!! -->
-<!-- Added by Yuzuha 2020/04/06, BEGIN -->
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>javax.mail-api</artifactId>
-			<version>1.6.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-<!-- Added by Yuzuha 2020/04/06, END -->
-		
-		
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
@@ -113,13 +90,6 @@
 			<version>20190722</version>
 		</dependency>
 
-		
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>ckeditor</artifactId>
-			<version>4.14.0</version>
-		</dependency>
-		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -137,11 +107,15 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.0.1.RELEASE</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
+			<version>1.4</version>
 		</dependency>
-		
 
 	</dependencies>
 
