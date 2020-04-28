@@ -120,6 +120,11 @@ public class P_ProfileDao {
 		return list;
 	}
 	
+	// Added by Yuzuha, 2020/04/06
+		public String getEmailByID(int uid) {
+			return sessionFactory.getCurrentSession().get(P_Profile.class, uid).getMail();
+		}
+	
 	// edit from Betty (send email)
 	public P_Profile queryByUserId(int userId) {
 		Session session = sessionFactory.getCurrentSession();
