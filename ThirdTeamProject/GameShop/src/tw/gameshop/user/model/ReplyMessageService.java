@@ -1,5 +1,7 @@
 package tw.gameshop.user.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,13 @@ public class ReplyMessageService {
 	
 	public String queryAllReply(int articleID) {
 		return reMessage.queryAllReply(articleID);
+	}
+	
+	public ReplyMessage deleteAllReplyMessage(int replyMessageID) {
+		return reMessage.deleteAllReplyMessage(replyMessageID);
+	}
+	
+	public List<Integer> queryReplyId(int articleID) {
+		return reMessage.queryReplyId(articleID);
 	}
 }

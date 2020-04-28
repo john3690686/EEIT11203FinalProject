@@ -1,5 +1,7 @@
 package tw.gameshop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.gameshop.user.model.Article;
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
 import tw.gameshop.user.model.ReplyMessageService;
@@ -176,6 +177,18 @@ public class ArticleController {
 	public String deleteArticle(@RequestParam("aID") int articleID) {
 		
 		aService.deleteArticle(articleID);
+		
+		List<Integer> megId = artMesService.queryMessageId(articleID);
+		List<Integer> remegId = rmService.queryReplyId(articleID);
+		
+		for(Integer li : megId) {
+			artMesService.deleteAllArticleMessage(li);
+		}
+		
+		for(Integer li : remegId) {
+			rmService.deleteAllReplyMessage(li);
+		}
+		
 		String page = myArticle();		
 		
 		return page;

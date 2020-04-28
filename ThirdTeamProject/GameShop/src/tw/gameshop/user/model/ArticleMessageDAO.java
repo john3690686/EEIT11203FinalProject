@@ -1,8 +1,8 @@
 package tw.gameshop.user.model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -81,24 +81,41 @@ public class ArticleMessageDAO {
 			JSONObject json = new JSONObject();
 			json.put("articleID", row[0]);
 			json.put("AMTimes", row[1]);
-
+			
 			jsonAr.put(json);
 		}
-
+		
 		String jsonstr = jsonAr.toString();
 
 		return jsonstr;
 	}
 
-	public ArticleMessage deleteAllArticleMessage(int articleID) {
+	public ArticleMessage deleteAllArticleMessage(int messageID) {
 		Session session = sessionFactory.getCurrentSession();
-		ArticleMessage queryArtMeg = session.get(ArticleMessage.class, articleID);
+
+		ArticleMessage queryArtMeg = session.get(ArticleMessage.class, messageID);
 
 		if (queryArtMeg != null) {
 			session.delete(queryArtMeg);
 		}
-
 		return queryArtMeg;
 	}
 
+	
+	public List<Integer> queryMessageId(int articleID) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<ArticleMessage> query = session.createQuery(
+				"From ArticleMessage where articleID = :articleID order by postDatetime", ArticleMessage.class);
+		query.setParameter("articleID", articleID);
+		List<ArticleMessage> list = query.list();
+		List<Integer> megId = new ArrayList<>();;
+		
+
+		for (ArticleMessage li : list) {
+			megId.add(li.getMessageID());
+		}
+
+		return megId;
+	}
 }

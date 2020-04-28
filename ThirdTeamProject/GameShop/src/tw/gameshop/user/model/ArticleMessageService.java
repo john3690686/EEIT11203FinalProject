@@ -1,5 +1,7 @@
 package tw.gameshop.user.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +27,13 @@ public class ArticleMessageService {
 	
 	public String queryAMTimes() {
 		return artMesDao.queryAMTimes();
+	}
+	
+	public ArticleMessage deleteAllArticleMessage(int articleID) {
+		return artMesDao.deleteAllArticleMessage(articleID);
+	}
+	
+	public List<Integer> queryMessageId(int articleID) {
+		return artMesDao.queryMessageId(articleID);
 	}
 }

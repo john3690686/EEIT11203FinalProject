@@ -1,6 +1,7 @@
 package tw.gameshop.user.model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,5 +68,34 @@ public class ReplyMessageDAO {
 
 		return json;
 	}
+	
+	public ReplyMessage deleteAllReplyMessage(int replyMessageID) {
+		Session session = sessionFactory.getCurrentSession();
+
+		ReplyMessage queryArtMeg = session.get(ReplyMessage.class, replyMessageID);
+
+		if (queryArtMeg != null) {
+			session.delete(queryArtMeg);
+		}
+		return queryArtMeg;
+	}
+	
+	
+	public List<Integer> queryReplyId(int articleID) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<ReplyMessage> query = session.createQuery(
+				"From ReplyMessage where articleID = :articleID order by postDatetime", ReplyMessage.class);
+		query.setParameter("articleID", articleID);
+		List<ReplyMessage> list = query.list();
+		List<Integer> megId = new ArrayList<>();;
+		
+		for (ReplyMessage li : list) {
+			megId.add(li.getReplyMessageID());
+		}
+
+		return megId;
+	}
+	
 
 }
