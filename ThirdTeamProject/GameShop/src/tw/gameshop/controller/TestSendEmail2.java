@@ -42,16 +42,13 @@ public class TestSendEmail2 {
 			List<Event> events = eDao.queryAllEvent();
 			byte[] img = events.get(1).getEventImage();
 			ByteArrayResource rimg = new ByteArrayResource(img);
-			//InputStream rimage = new ByteArrayInputStream(img);
-			//InputStreamResource pic = new InputStreamResource(rimage);
-			//helper.addAttachment("aaa", rimg);
+			
 			String content = "<html><body><h2>spring mail test</h2><img src='cid:aaa'/></body></html>";
 			helper.setText(content,true);
 			helper.addInline("aaa", rimg,"image/png");
 			helper.setFrom("bettylin25@gmail.com");
 			helper.setTo("eeit11203@gmail.com");
 			helper.setSubject("MailTest");
-			//rimage.close();
 			
  
 		}
