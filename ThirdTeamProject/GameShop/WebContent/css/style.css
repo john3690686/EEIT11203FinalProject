@@ -1,7 +1,3 @@
-*{
- font-family: 'Sen', sans-serif;   
-}
-
 body{
     margin:0;
     padding:0;
@@ -21,7 +17,7 @@ body{
 	background-color: rgb(6, 31, 62);
     border-radius: 5px 5px 5px 5px;
 	position: fixed;
-	z-index: 9999; /* 導航永遠在最上層 */
+	z-index: 9999; 
 	width: 100%;
 }
 .ul1 li {
@@ -47,8 +43,7 @@ body{
     justify-content: center;
     text-decoration: none;
 }
-
-/*wish&cart button*/
+/*wish&cart&top button*/
 .wishlist {
     background:url(../img/wishlist.png);
 	width:100px;
@@ -76,6 +71,21 @@ body{
 }
 .shoppingcart:hover{
     filter: saturate(3); 
+}
+
+.topbutton {
+    background:url(../img/topbutton.png) no-repeat;
+	width:105px;
+	height:105px;
+	border:0;
+    position: fixed;
+    padding-bottom:10px;
+	right: 0%;
+    bottom: 0%;
+    z-index: 8888;
+}
+.topbutton:hover{
+    filter: saturate(3);
 }
 
 /*login button*/
@@ -112,7 +122,168 @@ body{
     right:0;
     z-index: 9999;
 }
+#titleMessage{
+    position: relative;
+    z-index: 999;
+    font-size: 80px;
+    font-weight: bold;
+    font-family: DFKai-sb,Arial, Helvetica;
+    color:green;
+    background-color: wheat;
+    height: 100px;
+}
 
+.hello img{
+    background-image: none;
+    list-style: none;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.loginDiv,
+.registerDiv{
+    background-color: rgba(105, 95, 95, 0.6);
+    overflow:auto;
+}
+
+.loginForm,
+.registerForm{
+    font-size: 20px;
+    border:2px solid black;
+    border-radius: 10px;
+    background-color: white;
+/*    width: 800px;*/
+    margin: auto;
+    position: relative;
+    z-index: 99;
+}
+
+.loginForm label,
+.registerForm label{
+    line-height: 50px;
+    text-align: right;
+    display: inline-block;
+    width: 150px;
+
+}
+/*
+.loginForm input,
+.registerForm input,
+.loginForm button,
+.registerForm button{
+    font-size: 20px;
+    width:250px;
+}*/
+
+.registerForm .gender{
+    width:auto;
+}
+
+.imgUserPhoto{
+    position: relative;
+    z-index: 9999;
+    cursor: pointer;
+}
+.note{
+    display: inline;
+    font-size: 12px;
+    color: grey;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.check{
+    display: inline-block;
+    visibility: hidden;
+}
+
+.check img{
+    width: 20px;
+    height: 20px;
+}
+.loginForm{
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 200, 226, 0.9));
+	width:50%;
+	height:60%;
+	border-image-source: url(img/loginborder.png);
+	border-image-slice: 50;
+	border-image-width: 1em;
+	border-image-repeat: stretch;
+} 
+.loginForm input{
+	height:20px;	
+}  
+.loginForm legend{
+	font-family:微軟正黑體;
+	font-size:25px;
+	font-weight:bold;
+	margin:0;
+	padding:30px;
+}  
+.loginForm label{
+	font-family:微軟正黑體;
+	font-size:22px;
+	font-weight:bold;
+	margin-left:0;
+	margin-right:0;
+	margin:0;
+	padding-right:20px;
+	width:50px;
+	text-align:left;
+}
+.loginconfirm{
+	font-family:微軟正黑體;
+	font-size:18px;
+	font-weight:bold;
+	margin:20px;
+	width:100px;
+	height:40px;
+	border-radius:5px;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 226, 140, 0.9));
+}
+.loginconfirm:hover{
+	filter:saturate(3);
+}
+.cancel_btn{
+	font-family:微軟正黑體;
+	font-size:18px;
+	font-weight:bold;
+	margin:20px;
+	width:100px;
+	height:40px !important;
+	border-radius:5px;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 112, 97, 0.9));
+}
+.cancel_btn:hover{
+	filter:saturate(3);
+}
+#register2{
+	font-family:微軟正黑體;
+	font-size:18px;
+	font-weight:bold;
+	height:35px;
+	border-radius:5px;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 213, 97, 0.9));
+}
+#register2:hover{
+	filter:saturate(3);
+}
+.warning{
+	font-family:微軟正黑體;
+	font-size:16px;
+	font-weight:bold;
+	color:brown;
+	padding:10px;
+}
+
+
+/*Main Theme*/
 .subtitle{
     font-family: 'Sen', sans-serif;
     font-size: 5.9vw;
@@ -236,7 +407,7 @@ footer{
     filter: saturate(3);
 }
 
-.registerbutton{
+#registerbutton{
     width: 160px;
     height: 50px;
     margin:50px;
@@ -249,11 +420,13 @@ footer{
     padding: 10px;
     z-index: 12;
 }
-.registerbutton:hover{
+#registerbutton:hover{
     filter: saturate(3);
 }
 
 .morebutton{
+	font-family:微軟正黑體;
+	font-weight:bold;
     width: 160px;
     height: 50px;
     font-size: 20px;
@@ -326,10 +499,10 @@ footer{
     text-align: center;
     z-index: 30;
 }
-/* .event tr:nth-child(2n), tr:nth-child(2n+3) {
+ .event tr:nth-child(2n), .event tr:nth-child(2n+3) {
     background:url(../img/blueline.png) no-repeat;
 }
-*/
+
 .salearea{
     position: relative;
     width:100%;
@@ -359,58 +532,6 @@ fieldset{
 .commentarea a{
     text-decoration: none;
 }
-
-/*Login==========*/
-
-
-
-.loginDiv,
-.registerDiv{
-    background-color: rgba(105, 95, 95, 0.6);
-    overflow:auto;
-}
-
-.loginForm,
-.registerForm{
-    font-size: 20px;
-    border:2px solid black;
-    border-radius: 10px;
-    background-color: white;
-    width: 800px;
-    margin: auto;
-    position: relative;
-    z-index: 99;
-}
-
-.loginForm label,
-.registerForm label{
-    line-height: 50px;
-    text-align: right;
-    display: inline-block;
-    width: 150px;
-
-}
-
-.loginForm input,
-.registerForm input,
-.loginForm button,
-.registerForm button{
-    font-size: 20px;
-    width:200px;
-}
-
-
-
-.registerForm .gender{
-    width:auto;
-}
-
-.imgUserPhoto{
-    position: relative;
-    z-index: 9999;
-    cursor: pointer;
-}
-
 /*Shop Page*/
 .bgshop{
 	position: relative;
@@ -423,13 +544,18 @@ fieldset{
 	background-size:cover;
 }
 .horizon2{
-    position: relative;
-    padding:30px;
-    left:0;
-    right:0;
-    top:80px;
-
+	font-size:25px;
+	font-weight:bold;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	text-align:center;
+	background:url(img/title.png) no-repeat;
+	background-position:center;
+	width:178px;
+	height:81px;
 }
+
 .searchArea{
 	text-align:right;
 	padding:10px;
@@ -438,12 +564,10 @@ fieldset{
 .searchArea td{
 	background:black;
 }
-
-.ui-autocomplete{
-    z-index: 5555 !important;
-    text-align:left;
+.ui-autocomplete{ 
+	z-index: 5555 !important; 
+	text-align:left;
 }
-
 .productTable{
 	border-collapse: collapse;
 	background: :rgba(0, 0, 0, 0.5);
@@ -457,6 +581,7 @@ fieldset{
     text-align:center;
     z-index: 30;
 }
+
 .productTable td{
 	border:none;
 	border-collapse: collapse;
@@ -475,13 +600,8 @@ fieldset{
 }
 .productTable tr:nth-child(1) {
 	border:none;
-   	background-color:rgb(143, 143, 143, 0.9);
+   	background-color:rgba(143, 143, 143, 0.9);
 }
-.productTable tr:nth-child(1):hover{
-	background-color: #003377;
-    opacity:0.9;
-}
-
 .productTable tr:nth-child(2n){
 	border:none;
     background-color: rgb(92, 89, 89, 0.9);
@@ -491,6 +611,7 @@ fieldset{
    	background-color:rgba(143, 143, 143, 0.9);
 }
 .infobutton {
+  width:120px;
   font-family: 微軟正黑體;
   font-weight: bold;
   color: #14396A;
@@ -522,6 +643,7 @@ fieldset{
   background: -webkit-linear-gradient( rgb(243, 190, 91), rgb(231, 225, 172)); 
 }
 .cartbutton{
+  width:120px;
   font-family: 微軟正黑體;
   font-weight: bold;
   color: #6A2217;
@@ -694,6 +816,44 @@ transition: background-color .3s;
 	text-align:center;
 	color:whitesmoke;
 }
+#updateCom{
+   border: 1px solid #C7C7C7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#7A6D6D));
+   box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 3px #A39E9E;
+   border-radius: 2px;
+   text-shadow: #918888 1px 1px 0px;
+   color: #000000;
+   font-size: 16px;
+   font-family: '微軟正黑體';
+   text-decoration: none;
+   font-weight: bold;
+}
+#updateCom:hover{
+   color:whitesmoke;
+   background-color: #7A6D6D;
+   box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -moz-box-shadow: 0px 0px 5px 0px #AAAAAA;
+}
+#deleteCom{
+   border: 1px solid #C7C7C7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#FA9696), to(#7A2828));
+   box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 3px #A39E9E;
+   border-radius: 2px;
+   text-shadow: #948C8C 1px 1px 0px;
+   color: #000000;
+   font-size: 16px;
+   font-family: '微軟正黑體';
+   text-decoration: none;
+   font-weight: bold;
+}
+#deleteCom:hover{
+   color:whitesmoke;
+   background-color: #7A2828;
+   box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+   -moz-box-shadow: 0px 0px 5px 0px #AAAAAA;
+}
 
 /*wishList*/
 .bgwish{
@@ -707,7 +867,7 @@ transition: background-color .3s;
 .wishList{
 	position:relative;
 	text-align:center;
-	top:100px;
+	top:200px;
 	width:70%;
 	border-collapse:collapse;
 	border-radius:2px 2px 2px 2px;
@@ -715,6 +875,7 @@ transition: background-color .3s;
 	margin-left:0;
 	margin-right:0;
 	margin:auto;
+	margin-bottom:550px;
 }
 .wishList h1{
 	color:white;
@@ -750,8 +911,24 @@ transition: background-color .3s;
 	text-shadow:2px 2px 2px black;
 	padding:30px;
 }
-/*CartList*/
+.deletebutton{  
+  width:120px;
+  font-family: 微軟正黑體;
+  font-weight: bold;
+  color: rgb(71, 70, 16);
+  font-size: 16px;
+  text-shadow: 1px 1px 0px #DBDE7F;
+  box-shadow: 1px 1px 1px #293136;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 2px inset #A39F37;
+  background: -webkit-linear-gradient( rgb(243, 206, 136), rgb(231, 211, 28)); 
+}
+.deletebutton:hover {
+  background: -webkit-linear-gradient( rgb(243, 190, 91), rgb(231, 225, 172)); 
+}	
 
+/*CartList*/
 .bgcart{
 	position: relative;
 	width:100%;

@@ -15,6 +15,19 @@ body{
 	background:url(img/skytower.jpg) no-repeat;
 	background-size:cover;
 }
+.cartList{
+	position:relative;
+	text-align:center;
+	top:200px;
+	width:70%;
+	border-collapse:collapse;
+	border-radius:2px 2px 2px 2px;
+	border:2px solid rgb(189, 192, 196);
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	margin-bottom:500px;
+}
 </style>
 
 </head>
@@ -33,10 +46,10 @@ body{
 		</ul>
 	</nav>
 
-	<!--Wishlist & Shopping cart-->
-	<a href="showWish.controller"><input type="button" class="wishlist"></a>
-	<a href="prePay.controller"><input type="button"
-		class="shoppingcart"></a>
+<!--Wishlist & Shopping cart &top-->
+        <a href="showWish.controller"><input type="button" class="wishlist"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
 <div class="bgcart">
@@ -72,7 +85,7 @@ body{
 
 </div>
 
-	<!--footer-->
+<!--footer-->
 	<footer>
 		<div class="foot">
 			<H2>©COPYRIGHT 2020 EEIT112 Team3</H2>

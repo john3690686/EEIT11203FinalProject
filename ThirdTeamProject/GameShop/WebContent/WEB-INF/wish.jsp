@@ -12,9 +12,10 @@
 <style>
 body{
 	font-family:微軟正黑體;
-	background-image:url(img/skytower.jpg) no-repeat;
+	background:url(img/skytower.jpg) no-repeat;
 	background-size:cover;
 }
+
 </style>
 
 </head>
@@ -25,16 +26,16 @@ body{
 			<li><a href="index.html">HOME</a>
 			<li><a href="#">NEWS</a>
 			<li><a href="Shop">SHOP</a>
-			<li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-			<li><a href="#">CHAT</a> <a href="#"><input type="button"
-					class="loginz" value="LOGIN"></a>
+			<li><a href="#">BLOG</a>
+			<li><a href="#">CHAT</a> 
+			<a href="#"><input type="button" class="loginz" value="LOGIN"></a>
 		</ul>
 	</nav>
 
-	<!--Wishlist & Shopping cart-->
-	<a href="showWish.controller"><input type="button" class="wishlist"></a>
-	<a href="prePay.controller"><input type="button"
-		class="shoppingcart"></a>
+<!--Wishlist & Shopping cart &top-->
+        <a href="showWish.controller"><input type="button" class="wishlist"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
 <div class="bgwish">
@@ -53,7 +54,7 @@ body{
 		<a href="searchGame?productName=${wish.productName}"><input class="infobutton" type="button" value="遊戲資訊"></a>
 		<!--加入購物車按鈕(未完成)-->  
 		<input class="cartbutton" type="button" value="加入購物車">
-		<input class="delete" type="button" value="刪除">
+		<input class="deletebutton" type="button" value="刪除">
 		</td>
 		</tr>
 		</c:forEach>
@@ -61,7 +62,7 @@ body{
 
 </div>
 
-	<!--footer-->
+<!--footer-->
 	<footer>
 		<div class="foot">
 			<H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
@@ -69,8 +70,9 @@ body{
 				respective owners.</H6>
 		</div>
 	</footer>
+	
 <script type="text/javascript">
-$(".delete").click(function(){
+$(".deletebutton").click(function(){
 	var id = $(this).parent().siblings("td.deleteWish").attr("id");
 	console.log("id="+id);
 	var yes = confirm("是否將此遊戲從願望清單中刪除?");

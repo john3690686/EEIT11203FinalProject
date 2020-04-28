@@ -59,7 +59,7 @@
 	</bean>
 	
 	<task:scheduled-tasks>
-	  <task:scheduled ref="EventNotification" method="processAction" cron="0 * * * * ?"/>
+	  <task:scheduled ref="EventNotification" method="processAction" cron="0 50 11 * * ?"/>
 	</task:scheduled-tasks>
 
 </beans>
