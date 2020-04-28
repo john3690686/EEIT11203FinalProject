@@ -7,11 +7,10 @@
 </head>
 <body>
 <h1>信箱認證成功，3秒回到首頁</h1>
+<h1><a href="index.html">回到首頁</a></h1>
 </body>
 <script>
-//     setTimeout(() => {
-//         location.replace("index.html");
-//     }, 3000);
+     setTimeout(() => { location.replace("index.html"); }, 3000);
     
 </script>
 </html>

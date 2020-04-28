@@ -96,8 +96,8 @@ public class SessionController {
 		//刪除session.cookie
 		if(!autoLogin) {
 			Cookie[] cookies = request.getCookies();
-			
 			for(Cookie cookie:cookies) {
+				cookie.setValue("");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 			}
@@ -138,6 +138,34 @@ public class SessionController {
 		model.addAttribute("errorMessage", "資料不正確");
 		return "redirect:/error";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/checkProfile", method = RequestMethod.POST)
+	public boolean checkProfile(
+			@RequestParam(name = "userAccount")String userAccount, 
+			@RequestParam(name = "userPwd")String userPwd) {
+		P_Profile profile = pservice.processLogin(userAccount, userPwd);
+		if(profile == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	@RequestMapping(value = "/isAccountExist", method = RequestMethod.POST)
+	public boolean isAccountExist(String userAccount) {
+		return pservice.isAccountExist(userAccount);
+	}
+	
+	@RequestMapping(value = "/isNickNameExist", method = RequestMethod.POST)
+	public boolean isNickNameExist(String nickName) {
+		return pservice.isNickNameExist(nickName);
+	}
+	
+	@RequestMapping(value = "/isMailExist", method = RequestMethod.POST)
+	public boolean isMailExist(String mail) {
+		return pservice.isMailExist(mail);
+	}
 
 	// 測試session
 	@RequestMapping(value = "/session.detail", method = RequestMethod.GET)
@@ -153,16 +181,18 @@ public class SessionController {
 
 	@ResponseBody
 	@RequestMapping(value = "/serchProfile", method = RequestMethod.POST)
-	public P_TotalProfile queryProfile(Model model) {
+	public P_TotalProfile queryProfile(HttpServletRequest request) {
 		System.out.println("myProfile");
 		P_TotalProfile profile = null;
-		profile = pservice.queryProfile((String) model.getAttribute("userAccount"));
+		profile = pservice.queryProfile((String) request.getAttribute("userAccount"));
+		System.out.println((String) request.getAttribute("userAccount")+"= Has data : "+profile);
 		return profile;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/modifyProfile", method = RequestMethod.POST)
-	public P_Profile modifyProfile(@RequestParam("userAccount") String userAccount,
+	public P_Profile modifyProfile(
+			@RequestParam("userAccount") String userAccount, @RequestParam("oriPwd") String oriPwd,
 			@RequestParam("userName") String userName, @RequestParam("userPwd") String userPwd,
 			@RequestParam("nickName") String nickName, @RequestParam("mail") String mail,
 			@RequestParam("gender") Character gender, @RequestParam("userImg") MultipartFile userImg,
@@ -170,25 +200,29 @@ public class SessionController {
 			@RequestParam("phone") String phone) throws IOException {
 
 		boolean isExist = pservice.isProfileExist(userAccount, mail, nickName);
-		boolean checkInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches()
-				&& regMail.matcher(mail).matches();
+		boolean checkPwd = regUserPwd.matcher(userPwd).matches() || userPwd.equals("");
+		boolean checkAccount = regUserAccount.matcher(userAccount).matches();
+		boolean checkMail = regMail.matcher(mail).matches();
+		boolean checkOriPwd = regUserPwd.matcher(oriPwd).matches();
+		boolean checkInput = checkAccount && checkPwd && checkOriPwd && checkMail;
 		P_Profile profile = null;
-		if (checkInput && isExist) {
-			profile = new P_Profile();
-			PD_ProfileDetail proDetail = new PD_ProfileDetail();
-			profile.setUserAccount(userAccount);
-			profile.setUserName(userName);
-			profile.setNickName(nickName);
-			profile.setUserPwd(userPwd);
-			profile.setUserImg(userImg.getBytes());
-			profile.setMail(mail);
-			profile.setGender(gender);
-			proDetail.setAddress(address);
-			proDetail.setBirthday(birthday);
-			proDetail.setPhone(phone);
-			pservice.updateProfile(profile, proDetail);
+		if(pservice.processLogin(userAccount, oriPwd) != null) {
+			if (checkInput && isExist) {
+				profile = new P_Profile();
+				PD_ProfileDetail proDetail = new PD_ProfileDetail();
+				profile.setUserAccount(userAccount);
+				profile.setUserName(userName);
+				profile.setNickName(nickName);
+				profile.setUserPwd(userPwd);
+				profile.setUserImg(userImg.getBytes());
+				profile.setMail(mail);
+				profile.setGender(gender);
+				proDetail.setAddress(address);
+				proDetail.setBirthday(birthday);
+				proDetail.setPhone(phone);
+				pservice.updateProfile(profile, proDetail);
+			}
 		}
-
 		return profile;
 	}
 

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -62,7 +64,7 @@ public class P_ProfileDao {
 			result = qProfile.getSingleResult();
 			totalProfile = new P_TotalProfile(result, result.getProfileDetail());
 		} catch (Exception e) {
-			System.out.println("Error:ProfileDao");
+			System.out.println("Error:ProfileDao.queryProfile");
 			e.printStackTrace();
 		}
 		return totalProfile;
@@ -82,7 +84,59 @@ public class P_ProfileDao {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Error:ProfileDao");
+			System.out.println("Error:ProfileDao.isProfileExist");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean isAccountExist(String userAccount) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from P_Profile WHERE userAccount=:userAccount";
+		List<P_Profile> result = null;
+		try {
+			Query<P_Profile> qProfile = session.createQuery(hqlstr,P_Profile.class);
+			qProfile.setParameter("userAccount", userAccount);
+			result = qProfile.list();
+			if(result.size()>0) {
+				return true;
+			}
+		}catch (Exception e) {
+			System.out.println("Error:ProfileDao.isAccountExist");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean isNickNameExist(String nickName) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from P_Profile WHERE nickName=:nickName";
+		List<P_Profile> result = null;
+		try {
+			Query<P_Profile> qProfile = session.createQuery(hqlstr,P_Profile.class);
+			qProfile.setParameter("nickName", nickName);
+			result = qProfile.list();
+			if(result.size()>0) {
+				return true;
+			}
+		}catch (Exception e) {
+			System.out.println("Error:ProfileDao.isNickNameExist");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean isMailExist(String mail) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from P_Profile WHERE mail=:mail";
+		List<P_Profile> result = null;
+		try {
+			Query<P_Profile> qProfile = session.createQuery(hqlstr,P_Profile.class);
+			qProfile.setParameter("mail", mail);
+			result = qProfile.list();
+			if(result.size()>0) {
+				return true;
+			}
+		}catch (Exception e) {
+			System.out.println("Error:ProfileDao.isMailExist");
 			e.printStackTrace();
 		}
 		return false;
@@ -141,13 +195,16 @@ public class P_ProfileDao {
 
 	public P_Profile processLogin(String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from P_Profile WHERE userAccount=:account";
 		P_Profile result = null;
 		try {
-			Query<P_Profile> qProfile = session
-					.createQuery("from P_Profile WHERE userAccount=:account", P_Profile.class);
+			System.out.println("UserAccount = " + userAccount);
+			Query<P_Profile> qProfile = session.createQuery(hqlstr, P_Profile.class);
 			qProfile.setParameter("account", userAccount);
 			result = qProfile.getSingleResult();
-
+		} catch(NoResultException e) {
+			System.out.println("NoResultException");
+			return result;
 		} catch (Exception e) {
 			System.out.println("Login Error!");
 			e.printStackTrace();
@@ -163,24 +220,18 @@ public class P_ProfileDao {
 			Query<PD_ProfileDetail> findpd = 
 					session1.createQuery("from PD_ProfileDetail WHERE mailCode=:mailCode", PD_ProfileDetail.class);
 			findpd.setParameter("mailCode", mailCode);
-			//PD_ProfileDetail profileDetail = findpd.getSingleResult();
 			List<PD_ProfileDetail> profileDetailList = findpd.list();
-//			profile = profileDetail.getProfile();
-//			System.out.println(profileDetail.getUserId()+ ", "+profileDetail.getCodeStartingDate());
-//			System.out.println(profile.getUserId());
 			PD_ProfileDetail profileDetail = null;
 			for(PD_ProfileDetail p : profileDetailList) {
 				System.out.println("count");
 				profileDetail = p;
 			}
 
-//			if (profile != null) {
 			if (profileDetail != null) {
 				String startingDate = profileDetail.getCodeStartingDate();
 				Date applyDate = format.parse(startingDate);
 				isValid = applyDate.getTime() + (8 * 24 * 60 * 60 * 1000) > new Date().getTime();
 				if(isValid) {
-//					profile.setMailState(true);
 					profileDetail.getProfile().setMailState(true);
 					System.out.println("Valid Mail OK");
 				}
@@ -190,5 +241,11 @@ public class P_ProfileDao {
 			e.printStackTrace();
 		}
 		return isValid;
+	}
+	
+	public P_Profile queryByUserId(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		P_Profile profile = session.get(P_Profile.class, userId);
+		return profile;
 	}
 }

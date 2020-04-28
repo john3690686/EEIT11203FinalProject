@@ -75,14 +75,15 @@
                 <fieldset>
                     <legend>Login Form</legend>
                     <form action="processLogin" method="POST">
-                        <label for="userAccount">User Account:</label><input type="text" name="userAccount" value="${userAccount}"><br />
-                        <label for="userPwd">Password:</label><input type="password" name="userPwd" value="${userPwd}"><br />
+                        <label for="userAccount">User Account:</label><input id="loginAccount" type="text" name="userAccount" value="${userAccount}"><br />
+                        <label for="userPwd">Password:</label><input id="loginPwd" type="password" name="userPwd" value="${userPwd}"><br />
                         <input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
-                        <button class="loginconfirm">Confirm</button><input type="reset" class="cancel_btn" value="Cancel">
                     </form>
-                    
+                        <button class="loginconfirm">Confirm</button><input type="reset" class="cancel_btn" value="Cancel">
+                        <div><span id="loginMsg"></span></div>
                 </fieldset>
             </div>
+            
         </div>
         <!-- register form -->
         <div class="registerDiv">
@@ -516,8 +517,33 @@
             if(errorAcc == 0&& errorNickName ==0&& errorPwd == 0&& errorMail == 0){
                 $(".registerForm form").submit();
             }else{
-                alert("資料不對唷!");
+                alert("資料格式不對唷!請再確認一次!");
             }
+        })
+
+        $(".loginconfirm").click(function(){
+            console.log("userAccount:"+$("#loginAccount").val());
+            console.log("userPwd:"+$("#loginPwd").val());
+            $.ajax({
+                url:"http://localhost:8080/GameShop/checkProfile",
+                type: "POST",
+				data: {
+                    userAccount: $("#loginAccount").val(),
+                    userPwd: $("#loginPwd").val(),
+                },
+                dataType:"json",
+				cache: false,
+				success: function (data) {
+                    console.log(data);
+                    if(data){
+                        $(".loginForm form").submit();
+                    }else{
+                        $("#loginMsg").text("登入失敗，請檢查帳號密碼!")
+                    }
+                },error: function(){
+                    $("#loginMsg").text("登入失敗，請檢查帳號密碼!")
+                }
+            })
         })
 
         //Rightup Login Button

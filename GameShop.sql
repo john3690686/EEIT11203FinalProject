@@ -43,4 +43,4 @@ GO
 
 
 --EXEC sp_rename 'Profile.userToken', 'salt', 'COLUMN';
---ALTER TABLE Profile ALTER column salt int
+--ALTER TABLE Profile ALTER column salt varchar(Max)

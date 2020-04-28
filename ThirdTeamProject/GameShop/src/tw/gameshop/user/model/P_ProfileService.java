@@ -60,25 +60,35 @@ public class P_ProfileService {
 		P_TotalProfile result = profileDao.queryProfile(userAccount);
 		return result;
 	}
-
+	public boolean updateProfile(P_Profile profile) {
+		return profileDao.updateProfile(profile);
+	}
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
 		profile.setUserPwd(encrypt(profile.getUserPwd()));
 		return profileDao.updateProfile(profile, profileDetail);
 	}
 
 	public P_Profile processLogin(String userAccount, String userPwd) {
-
+		
 		P_Profile profile = profileDao.processLogin(userAccount);
+		
 		if (profile == null) {
 			return null;
 		}
-
-		if (profile.getUserPwd().equals(userPwd)) {
+		String dataPwd = profile.getUserPwd();
+		if (dataPwd.equals(userPwd)) {
 			return profile;
 		}
-
-		String password = decrypt(profile.getUserPwd()).split("\\+")[0];
+		String password = decrypt(dataPwd).split("\\+")[0];
+		System.out.println("Input Password : " + userPwd);
+		System.out.println("dataPwd : "+dataPwd);
+		System.out.println("decrypt Password : " + password);
 		if (password.equals(userPwd)) {
+			System.out.println(passwordSalt("newpassword : "+password));
+			String newPwd = encrypt(passwordSalt(password));
+			
+			profile.setUserPwd(newPwd);
+			updateProfile(profile);
 			return profile;
 		}
 
@@ -92,7 +102,15 @@ public class P_ProfileService {
 	public boolean isProfileExist(String userAccount, String mail, String nickName) {
 		return profileDao.isProfileExist(userAccount, mail, nickName);
 	}
-
+	public boolean isAccountExist(String userAccount) {
+		return profileDao.isAccountExist(userAccount);
+	}
+	public boolean isNickNameExist(String nickName) {
+		return profileDao.isNickNameExist(nickName);
+	}
+	public boolean isMailExist(String mail) {
+		return profileDao.isMailExist(mail);
+	}
 	private void sendMail(String userName, String mail, String produceCode) {
 		// Recipient's email ID needs to be mentioned.
 		String to = mail;

@@ -29,13 +29,10 @@ public class CookieFilter implements Filter {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("userAccount")) {
 					userAccount = cookie.getValue();
-					System.out.println("Filter Account:"+userAccount);
 				} else if (cookie.getName().equals("userPwd")) {
 					userPwd = cookie.getValue();
-					System.out.println("Filter password:"+userPwd);
 				} else if (cookie.getName().equals("autoLogin")) {
 					autoLogin = cookie.getValue();
-					System.out.println("Filter autoLogin:"+autoLogin);
 				}
 			}
 			if(req.getSession(false) != null) {
