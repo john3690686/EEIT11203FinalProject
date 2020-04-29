@@ -10,8 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/chatroom.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/gameshop.js"></script>
 <style type="text/css">
 
 footer{
@@ -37,13 +40,15 @@ footer{
 	<!--Navigator-->
      <nav>
         <ul class="ul1">
-        <li><a href="index.html">HOME</a>
-        <li><a href="test">NEWS</a>
-        <li><a href="Shop">SHOP</a>
-        <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-        <li><a href="Chat">CHAT</a>
-        <a href="#"><input type="button" class="loginz" value="LOGIN"></a>
+            <li><a href="index.html">HOME</a>
+            <li><a href="#">NEWS</a>
+            <li><a href="Shop">SHOP</a>
+            <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
+            <li><a href="Chatroom">CHAT</a>
+            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
         </ul>
+
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
     </nav>
 
 	<div id="chat-room">

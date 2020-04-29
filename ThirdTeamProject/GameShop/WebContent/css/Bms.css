@@ -1,0 +1,64 @@
+#header {
+	background-color: #425660;
+	padding: 20px;
+}
+
+#nav {
+	background-color: #20292F;
+	padding: 5px;
+}
+
+#aside {
+	width: 20%;
+	height: 700px;
+	text-align: center;
+	background-color: #63808F;
+	padding: 20px 10px;
+	float: left;
+}
+
+#section {
+	width: 76%;
+	height: 700px;
+	background-color: #849DAA;
+	line-height: 1.5em;
+	padding: 20px;
+	float: right;
+}
+
+#footer {
+	padding: 20px;
+	background-color: #425660;
+	clear: both;
+}
+
+h1 {
+	font-family: sans-serif, "·L³n¥¿¶ÂÅé";
+	font-size: 18px;
+	color: #FFF;
+	text-align: center;
+}
+
+#BmsProductListPage table {
+}
+
+#BmsProductListPage td {
+	width: 200px;
+	cellpadding: 8px;
+}
+
+#BmsProductListPage>.pImg {
+	height: 150px;
+}
+
+#BmsProductListPage>label {
+	border: 1px solid blue;
+}
+
+#uplDiv {
+	position: fixed;
+	z-index: 90;
+	top: 200px;
+	left: 200px;
+	/* 		display:none; */
+}
