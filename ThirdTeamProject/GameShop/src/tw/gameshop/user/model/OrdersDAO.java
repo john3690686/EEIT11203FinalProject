@@ -48,7 +48,29 @@ public class OrdersDAO {
 	public List<Orders> queryOrderRecord(int userId) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Orders> query = session.createQuery("from Orders where userId=?0", Orders.class);
+		query.setParameter(0, userId);
 		List<Orders> list = query.list();
 		return list;
 	}
+	
+	public void testJoin(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select o.buyDatetime,d from Orders o, OrderDetail d where o.userId=" + userId;
+		List<Object[]> data = session.createQuery(hql).list();
+		for(Object[] obj:data) {
+				Orders orderBean = (Orders)obj[0];
+				OrderDetail bean = (OrderDetail)obj[1];
+				System.out.print("UserId:" + orderBean.getUserId()+" ");
+				System.out.print("Buy date:"+orderBean.getBuyDatetime()+" ");
+				System.out.print("productId:"+bean.getProductId()+" ");
+				System.out.println("price:"+bean.getPrice());
+		}
+//		Object[] array = data.get(0);
+//		Date date = (Date)array[0];
+//		System.out.println("Buy date:"+date);
+//		OrderDetail bean = (OrderDetail)array[1];
+//		System.out.println("productId:"+bean.getProductId());
+		
+	}
+	
 }

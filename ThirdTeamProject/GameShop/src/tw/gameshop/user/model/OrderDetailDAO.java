@@ -32,6 +32,7 @@ public class OrderDetailDAO {
 	public List<OrderDetail> queryByOrderId(int orderId) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<OrderDetail> query = session.createQuery("from OrderDetail where orderId=?0", OrderDetail.class);
+		query.setParameter(0, orderId);
 		List<OrderDetail> list = query.list();
 		return list;
 	}

@@ -3,6 +3,7 @@ package tw.gameshop.controller;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,12 +20,16 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.gameshop.user.model.Event;
 import tw.gameshop.user.model.OrderDetail;
 import tw.gameshop.user.model.OrderDetailDAO;
+import tw.gameshop.user.model.OrderRecordBean;
 import tw.gameshop.user.model.Orders;
 import tw.gameshop.user.model.OrdersDAO;
+import tw.gameshop.user.model.Product;
+import tw.gameshop.user.model.ProductService;
 import tw.gameshop.user.model.TestEventDAO;
 
 @Controller
@@ -34,13 +39,15 @@ public class TestSendEmail2 {
 	private TestEventDAO eDao;
 	private OrderDetailDAO odDao;
 	private OrdersDAO oDao;
+	private ProductService pService;
 
 	@Autowired
-	public TestSendEmail2(JavaMailSender mailSender, TestEventDAO eDao, OrderDetailDAO odDao, OrdersDAO oDao) {
+	public TestSendEmail2(JavaMailSender mailSender, TestEventDAO eDao, OrderDetailDAO odDao, OrdersDAO oDao, ProductService pService) {
 		this.mailSender = mailSender;
 		this.eDao = eDao;
 		this.odDao = odDao;
 		this.oDao = oDao;
+		this.pService = pService;
 	}
 
 	@RequestMapping(path = "/email2.do", method = RequestMethod.GET)
@@ -79,5 +86,46 @@ public class TestSendEmail2 {
 			System.out.println(me.getValue());
 		}
 		return "Success";
+	}
+	
+	@RequestMapping(path = "/joinTest", method = RequestMethod.GET)
+	public String testJoinOrder() {
+		oDao.testJoin(1);
+		return "Success";
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "/joinTest2", method = RequestMethod.GET)
+	public LinkedList<LinkedList<OrderRecordBean>> test2() {
+		List<Orders> list = oDao.queryOrderRecord(3);
+		LinkedList<LinkedList<OrderRecordBean>> r2 = new LinkedList<LinkedList<OrderRecordBean>>();
+		for(Orders order:list) {
+			List<OrderDetail> orderDetail = odDao.queryByOrderId(order.getOrderId());
+			LinkedList<OrderRecordBean> record = new LinkedList<OrderRecordBean>();
+			for(OrderDetail od:orderDetail) {
+				OrderRecordBean orb = new OrderRecordBean();
+				orb.setProductId(od.getProductId());
+				orb.setPrice(od.getPrice());
+				Product product = pService.queryById(od.getProductId());
+				orb.setProductName(product.getProductName());
+				orb.setUserId(order.getUserId());
+				orb.setOrderId(order.getOrderId());
+				orb.setBuyDate(order.getBuyDatetime());
+				record.add(orb);
+			}
+			r2.add(record);
+		}
+//		System.out.println("Size:"+record.size());
+//		for(OrderRecordBean t2:record) {
+//			System.out.println("productId:"+t2.getProductId());
+//			System.out.println("Buy Date:"+t2.getBuyDate());
+//			System.out.println("product name:"+t2.getProductName());
+//		}
+		return r2;
+	}
+	
+	@RequestMapping(path="/toRecrod",method = RequestMethod.GET)
+	public String processToRecordPage() {
+		return "OrderRecord";
 	}
 }
