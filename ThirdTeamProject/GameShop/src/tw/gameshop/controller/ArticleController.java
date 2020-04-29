@@ -76,7 +76,7 @@ public class ArticleController {
         String articleAbstract;
         
         if(str.length()>100) {
-        	articleAbstract = str.substring(0, 99);
+        	articleAbstract = str.substring(0, 50);
         }else {
         	articleAbstract = str;
         }
