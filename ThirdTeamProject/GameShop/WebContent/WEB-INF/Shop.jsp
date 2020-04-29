@@ -13,7 +13,11 @@
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
 <title>Shop</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/gameshop.js"></script>
 <style type="text/css">
 
 body{
@@ -28,15 +32,17 @@ body{
 <body>
 <!--Navigator-->
 	<nav>
-		<ul class="ul1">
-			<li><a href="index.html">HOME</a>
-			<li><a href="#">NEWS</a>
-			<li><a href="Shop">SHOP</a>
-			<li><a href="#">BLOG</a>
-			<li><a href="#">CHAT</a> 
-			<a href="#"><input type="button" class="loginz" value="LOGIN"></a>
-		</ul>
-	</nav>
+        <ul class="ul1">
+            <li><a href="index.html">HOME</a>
+            <li><a href="#">NEWS</a>
+            <li><a href="Shop">SHOP</a>
+            <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
+            <li><a href="Chatroom">CHAT</a>
+            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
+        </ul>
+
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
+    </nav>
 
 <!--Wishlist & Shopping cart &top-->
         <a href="showWish.controller"><input type="button" class="wishlist"></a>

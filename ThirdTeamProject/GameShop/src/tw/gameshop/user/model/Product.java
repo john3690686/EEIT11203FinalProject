@@ -12,35 +12,48 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id @Column(name="productId")			// ���~id(�y����)
+	public Product() {
+	}
+
+	public Product(String pName, int pPrice, String intro, String tag, Date uplTime, Date dwlTime) {
+		this.productName = pName;
+		this.price = pPrice;
+		this.intro = intro;
+		this.tag = tag;
+		this.uploadTime = uplTime;
+		this.downloadTime = dwlTime;
+	}
+
+	@Id
+	@Column(name = "productId") // ���~id(�y����)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer ProductId;
-	
-	@Column(name="productName")				// ���~�W��
+
+	@Column(name = "productName") // ���~�W��
 	private String productName;
-	
-	@Column(name="intro")					// ���~²��
+
+	@Column(name = "intro") // ���~²��
 	private String intro;
-	
-	@Column(name="price")					// ���~����
+
+	@Column(name = "price") // ���~����
 	private Integer price;
-	
-	@Column(name="tag")						// ���~����
+
+	@Column(name = "tag") // ���~����
 	private String tag;
-	
-	@Column(name="productImage")			// ���~�Ϥ�
+
+	@Column(name = "productImage") // ���~�Ϥ�
 	private byte[] productImage;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-DD hh:mm:ss")
-	@Column(name="uploadTime")				// �W�[�ɶ�(��x����)
+	@Column(name = "uploadTime") // �W�[�ɶ�(��x����)
 	private Date uploadTime;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-DD hh:mm:ss")
-	@Column(name="downloadTime")			// �U�[�ɶ�(��x����)
+	@Column(name = "downloadTime") // �U�[�ɶ�(��x����)
 	private Date downloadTime;
 
 	public Integer getProductId() {

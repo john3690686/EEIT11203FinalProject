@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @SessionAttributes(names = {"nickName","chatName"})
 public class ChatroomController {
-	@RequestMapping(path = "/Chat", method = RequestMethod.GET)
+	@RequestMapping(path = "/Chatroom", method = RequestMethod.GET)
 	public String checkSession(HttpSession session) {
 		try {
 			if (session.getAttribute("chatName") != null && session != null) {
