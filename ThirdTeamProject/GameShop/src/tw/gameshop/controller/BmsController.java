@@ -6,14 +6,20 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -133,11 +139,12 @@ public class BmsController {
 		return "success";
 	}
 	
-	@ResponseBody
-	@RequestMapping(path = "/bmstestimageupload", method = RequestMethod.POST)
-	public String TestBmsImageUpload(  @RequestParam MultipartFile fl1) throws IOException {
+	@ResponseBody //-------------------  success upload file use ajax
+	@RequestMapping(path = "/bmstestimageupload", method = RequestMethod.POST)//, headers = "Content-Type= multipart/form-data")//, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String TestBmsImageUpload(@RequestParam("fd")MultipartFile fd, @RequestParam("k")String k, @RequestParam("test-k")String tk) throws IOException {
 		//System.out.println(ts1);
-		System.out.println("fl1" + fl1.toString());
+		System.out.println("k=" + k);
+		System.out.println("fd.len=" + fd.getBytes().length);
 		return "success";
 	}
 	
