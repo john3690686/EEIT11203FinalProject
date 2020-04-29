@@ -70,18 +70,23 @@ public class ArticleController {
 	@RequestMapping(path = "/processAction" , method = RequestMethod.POST)
 	public String processAction(
 			@RequestParam("articleTitle") String articleTitle,
-			@RequestParam("articleContent") String articleContent) {
+			@RequestParam("articleContent") String articleContent,
+			@RequestParam("imgLink") String articleThumbnail) {
 		
         String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
         String articleAbstract;
         
         if(str.length()>100) {
-        	articleAbstract = str.substring(0, 99);
+        	articleAbstract = str.substring(0, 50);
         }else {
         	articleAbstract = str;
         }
+        
+        if(articleThumbnail.length()<1) {
+        	articleThumbnail = null;
+        }
                 
-		aService.addArticle(userId, articleTitle, articleAbstract, articleContent);
+		aService.addArticle(userId, articleTitle, articleAbstract, articleContent,articleThumbnail);
 		return  "redirect:/processArticle";
 	}
 	
@@ -155,8 +160,8 @@ public class ArticleController {
 	public String updataArticle(
 			@RequestParam("articleID") int articleID,
 			@RequestParam("articleTitle") String articleTitle,
-			@RequestParam("articleContent") String articleContent			
-			) {
+			@RequestParam("articleContent") String articleContent,
+			@RequestParam("imgLink") String articleThumbnail) {
 		
         String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
         String articleAbstract;
@@ -167,7 +172,7 @@ public class ArticleController {
         	articleAbstract = str;
         }
 		
-		aService.updataArticle(articleID, articleTitle, articleAbstract, articleContent);
+		aService.updataArticle(articleID, articleTitle, articleAbstract, articleContent, articleThumbnail);
 		processReadArticle(articleID);
 		
 		return "ReadArticle";

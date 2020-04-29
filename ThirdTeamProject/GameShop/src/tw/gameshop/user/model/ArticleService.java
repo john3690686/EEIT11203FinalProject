@@ -15,8 +15,8 @@ public class ArticleService {
 		this.artDao = artDao;
 	}
 
-	public Article addArticle(int userId, String articleTitle, String articleAbstract, String articleContent) {
-		return artDao.addArticle(userId, articleTitle,articleAbstract, articleContent);
+	public Article addArticle(int userId, String articleTitle, String articleAbstract, String articleContent, String articleThumbnail) {
+		return artDao.addArticle(userId, articleTitle,articleAbstract, articleContent, articleThumbnail);
 	}
 	
 	public String queryAllData() {
@@ -31,8 +31,8 @@ public class ArticleService {
 		return artDao.queryArticle(articleID);
 	}
 	
-	public Article updataArticle(int articleID, String articleTitle, String articleAbstract, String articleContent) {
-		return artDao.updataArticle(articleID, articleTitle, articleAbstract, articleContent);
+	public Article updataArticle(int articleID, String articleTitle, String articleAbstract, String articleContent, String articleThumbnail) {
+		return artDao.updataArticle(articleID, articleTitle, articleAbstract, articleContent, articleThumbnail);
 	}
 	
 	public Article deleteArticle(int articleID) {
