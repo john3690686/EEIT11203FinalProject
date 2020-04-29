@@ -62,8 +62,6 @@ public class SendEventMailEveryDay {
 						String e = event.getContent();
 						//寄活動給願望清單內的人
 						String content = "<html><body><h3>" + e + "</h3><img src='cid:pic'/></body></html>";
-						//String content = "<html><body><h3>event</h3><img src='cid:pic'/></body></html>";
-						System.out.println("content:"+content);
 						helper.setText(content,true);
 						helper.addInline("pic", img,"image/png");
 						helper.setFrom("eeit11203@gmail.com");
