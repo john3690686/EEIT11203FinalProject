@@ -1,8 +1,11 @@
 package tw.gameshop.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,10 +30,12 @@ import com.sun.mail.smtp.SMTPTransport;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutOneTime;
+import tw.gameshop.user.model.ModelForEmailAfterPay;
 import tw.gameshop.user.model.OrderDetail;
 import tw.gameshop.user.model.Orders;
 import tw.gameshop.user.model.OrdersService;
 import tw.gameshop.user.model.P_ProfileService;
+import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductService;
 
 /**
@@ -43,10 +48,70 @@ import tw.gameshop.user.model.ProductService;
 @SessionAttributes(names = { "cart", "userId" })
 public class ECPayController {
 	public static AllInOne all;
-
+	
 	private ProductService productService;
 	private OrdersService ordersService;
 	private P_ProfileService profileService;
+	
+	private String Header = "<!DOCTYPE html>\n" + 
+			"<html lang=\"zh-TW\">\n" + 
+			"<head>\n" + 
+			"    <meta charset=\"UTF-8\">\n" + 
+			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" + 
+			"</head>";
+	
+	private String success = "<body style=\"margin: 0px; padding: 0px; background-image: linear-gradient(to bottom right, #1f4274, #576a85); min-width: 650px;\">\n" + 
+			"    <div align=\"center\">\n" + 
+			"    <table style=\"width: 600px;\">\n" + 
+			"        <tr>\n" + 
+			"            <th style=\"text-align: center; color: white; font-size: 30px;\">\n" + 
+			"                <p>Welcome to GameShop</p>\n" + 
+			"            </th>\n" + 
+			"        </tr>\n" + 
+			"        <tr style=\"text-align: center; color: lightgoldenrodyellow; font-size: 22px;\">\n" + 
+			"            <td>\n" + 
+			"            <p>\n" + 
+			"                Thank You for your purchase at GmaeShop.<br>\n" + 
+			"                You've purchase the following items on [::DATE::]\n" + 
+			"            </p>\n" + 
+			"        </td>\n" + 
+			"        </tr>\n" + 
+			"    </table>\n" + 
+			"    <table id=\"content\" style=\"width: 800px; border-collapse: collapse;\">";
+	
+	private String gameList = "<tr>\n" + 
+			"            <td rowspan=\"2\" style=\"width: 230px;\">\n" + 
+			"                <img src=\"[::img::]\" style=\"max-height: 230px; width: 230px;\"/>\n" + 
+			"            </td>\n" + 
+			"            <td style=\"width: 20px;\">\n" + 
+			"            </td>\n" + 
+			"            <td>\n" + 
+			"                <span style=\"color: white; font-weight: bold; font-size: 24px;\">[::Name::]</span>\n" + 
+			"            </td>\n" + 
+			"            <td rowspan=\"2\" style=\"vertical-align: middle;\">\n" + 
+			"                <a href=\"[::FileLocation::]\" download>\n" + 
+			"                <button type=\"submit\" style=\"border-radius: 5px; font-size: 25px; background-color: darkred; color: white;\">Download</button>\n" + 
+			"                </a>\n" + 
+			"            </td>\n" + 
+			"        </tr>\n" + 
+			"        <tr>\n" + 
+			"            <td style=\"width: 20px;\"></td>\n" + 
+			"            <td><span style=\"color: white; font-size: 12px;\">\n" + 
+			"                Product Key:\n" + 
+			"            </span><br>\n" + 
+			"                <span style=\"color: yellow; font-weight: bold; font-size: 20px;\">\n" + 
+			"                [::ProductKey::]\n" + 
+			"            </span>\n" + 
+			"            </td>\n" + 
+			"        </tr>\n" + 
+			"        <tr><td><br></td></tr>";
+	
+	private String successEnd = " </table>    \n" + 
+			"   \n" + 
+			"</div>\n" + 
+			"\n" + 
+			"</body>\n" + 
+			"</html>";
 
 	@Autowired
 	public ECPayController(ProductService productService, OrdersService ordersService, P_ProfileService profileService) {
@@ -64,7 +129,7 @@ public class ECPayController {
 
 		// Get order data from SQL
 		Orders orderBean = ordersService.getOrderDataById(orderId);
-
+		
 		// Create data needed to send to ECPay Server
 		// Total amount
 		int totalAmount = orderBean.getPurchase();
@@ -98,7 +163,7 @@ public class ECPayController {
 	
 	@PostMapping("confirmPay")
 	@ResponseBody
-	public int confirmPay(@RequestParam("MerchantTradeNo") String MerchantTradeNo, @RequestParam("RtnCode") int RtnCode) {
+	public int confirmPay(@RequestParam("MerchantTradeNo") String MerchantTradeNo, @RequestParam("RtnCode") int RtnCode, HttpServletRequest request) {
 		System.out.println("[DEBUG][ECPayController] Controller received message from ECPay Server!!");
 		System.out.println("[DEBUG][ECPayController] Accquired MerchantTradeNo: " + MerchantTradeNo);
 		System.out.println("[DEBUG][ECPayController] Accquired RtnCode: " + RtnCode);
@@ -110,16 +175,31 @@ public class ECPayController {
 		// Get Order details and send mail to inform buyer payment status
 		Orders myBean = ordersService.GetOrderPayStatusByHash(MerchantTradeNo);
 		String mailTo = profileService.getEmailByID(myBean.getUserId());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateString = sdf.format(myBean.getBuyDatetime());
 		myBean.getOrderDetails();
 		String itemList = "";
+		String serverLocation = "http://"+request.getServerName()+request.getContextPath();
 		Set<OrderDetail> orderDetails = myBean.getOrderDetails();
 		int i = 1;
+		List<ModelForEmailAfterPay> myList = new ArrayList<ModelForEmailAfterPay>();
 		for (OrderDetail details : orderDetails) {
+			ModelForEmailAfterPay myModel = new ModelForEmailAfterPay();
+			Product productBean = productService.queryById(details.getProductId());
+			
+			myModel.setName(productBean.getProductName());
+			myModel.setKey(createKey());
+			myModel.setImage(productBean.getProductImage());
+			
+			myList.add(myModel);
+			
 			itemList += i + ". " + productService.getProductNameById(details.getProductId()) + "<br>";
 			i++;
 		}
 		itemList += "總價: " + myBean.getPurchase() + "<br>";
-		sendPayResultMail(RtnCode, itemList, mailTo);
+		sendPayResultMail(RtnCode, itemList, mailTo, myList, dateString, serverLocation);
+		
 		// Return "I've heard you" to ECPay server(required by ECPay).
 		return 1;
 	}
@@ -148,7 +228,7 @@ public class ECPayController {
 		}
 	}
 	
-	public void sendPayResultMail(int result, String itemList, String mailTo) {
+	public void sendPayResultMail(int result, String itemList, String mailTo, List<ModelForEmailAfterPay> modelList, String buyDate, String serverLocation) {
 		final String SMTP_SERVER = "smtp.gmail.com";	// smtp server address, ex: smtp.gmail.com
 		final String USERNAME = "eeit11203@gmail.com";		// smtp username, ex: xxx@gmail.com
 		final String PASSWORD = "P@ssW0rd"; 	// smtp password
@@ -167,11 +247,20 @@ public class ECPayController {
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(EMAIL_TO, false));
 			msg.setSubject(EMAIL_SUBJECT);
 			StringBuffer text = new StringBuffer();
-			text.append("<h2>GameShop</h2>");
+			
 			if (result == 1) {
-				text.append("<p>感謝您在GameShop購買以下遊戲並完成付款</p>");
-				text.append("<p>" + itemList + "</p>");
+				text.append(Header);
+				
+				text.append(success.replace("[::DATE::]", buyDate));
+				for(ModelForEmailAfterPay myList:modelList) {
+					text.append(
+							gameList.replace("[::Name::]", myList.getName()).replace("[::img::]", (serverLocation+"/img/"+myList.getName()+".jpg")).replace("[::ProductKey::]", myList.getKey()));
+				}
+				text.append(successEnd);
+				//text.append("<p>感謝您在GameShop購買以下遊戲並完成付款</p>");
+				//text.append("<p>" + itemList + "</p>");
 			}else {
+				text.append("<h2>GameShop</h2>");
 				text.append("<p>感謝您在GameShop購買以下遊戲，但付款並未成功</p>");
 				text.append("<p>" + itemList + "</p>");
 			}
@@ -189,4 +278,20 @@ public class ECPayController {
 		
 	}
 	
+	private String createKey() {
+		String key = "";
+		for(int i=0;i<25;) {
+			int rand = new Random().nextInt(43);
+			if(rand<10||rand>17) {
+				char c = (char) (rand+'0');
+				key += c;
+				i++;
+				if(i%5==0&&i!=25) {
+					key += "-";
+				}
+			}
+		}
+		return key;
+	}
+
 }
