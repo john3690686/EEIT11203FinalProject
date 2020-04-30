@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GameShop~Enjoy your gameLife here~</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- css for phone -->
+    <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 	<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/gameshop.js"></script>
@@ -46,7 +48,7 @@ body{
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
-                <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
+            <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
             <li id="hello"> <a href="myProfile"> hi,${userName}</a>
 
         </ul>
@@ -112,28 +114,21 @@ body{
             <div class="registerForm">
                 <fieldset>
                     <legend>申請新帳號</legend>
-                    <form action="processProfile" method="POST" enctype="multipart/form-data">
-                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px"><input
-                            class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
-						 <label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount">
-                        <div class="check" id="checkAccount"><img src=""></div><br />
-                        <span class="note">(請輸入6~18英數字元)</span><br />		
+                    <form action="register" method="POST" enctype="multipart/form-data">
+                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px">
+                        <input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
+						<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" placeholder="請輸入6~18英數字元">
+                        <div class="check" id="checkAccount"><img src=""></div><br />	
+                        
                         <label for="userName">姓名:</label><input type="text" id="userName" name="userName"><br />
                         <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱"><br />
-                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd">
+                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="請輸入一組包含大小寫及數字的6~12位密碼">
                         <div class="check" id="checkPwd"><img src=""></div><br />
-                        <span class="note">(請輸入一組包含大小寫及數字的6~12位密碼)</span><br />
-                        <label for="recheckPwd">密碼:</label><input type="password" id="recheckPwd" name="recheckPwd"
-                            placeholder="再次輸入密碼">
-                        <div class="check" id="recheckPwd"><img src=""></div><br />
-						
+                        <label for="recheckPwd">確認密碼:</label><input type="password" id="recheckPwd" name="recheckPwd" placeholder="再次輸入密碼">
+                        <div class="check" id="recheckPwd"><img src=""></div><br />	
                         <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
                         <div class="check" id="checkMail"><img src=""></div><br />
 
-                    <form action="register" method="POST" enctype="multipart/form-data">
-                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px"
-                            height="200px"><input class="inputUserPhoto" type="file" name="userImg"
-                            hidden="hidden"><br />	
                         <hr>
                         <label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br />
                         <label style="width:90px;padding:0;">性別:</label>
@@ -238,7 +233,7 @@ body{
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
-                            <a href="#"><input type="submit" value="更多文章" name="more" class="morebutton" /></a></td>
+                            <a href="processArticle"><input type="submit" value="更多文章" name="more" class="morebutton" /></a></td>
                     </tr>
                 </table>
 
@@ -246,7 +241,7 @@ body{
 </div>          
 
 <!--footer-->
-    <footer style="margin-top:150px;">
+    <footer style="margin-top:50px;">
         <div class="foot">
             <H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>

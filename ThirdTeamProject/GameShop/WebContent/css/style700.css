@@ -6,486 +6,67 @@ body{
 }
 
 /*navigator*/
-.ul1 {
-	list-style: none;
-    padding:0;
-    padding-top: 10px;
-    margin:0;
-    top:0;
-    left:0;
-    right:0;
-	background-color: rgb(6, 31, 62);
-    border-radius: 5px 5px 5px 5px;
-	position: fixed;
-	z-index: 9999; 
-	width: 100%;
+.ul1{
+    width: 100%;
+	height: 15%;
 }
-.ul1 li {
-    margin: 10px;
-	padding: 20px;
-    display: inline-block;
-    background: url(../img/buttonlist.jpg);
-    background-repeat: no-repeat;
-}
-.ul1 li:hover {
-    background: url(../img/buttonlist2.jpg);
-    background-repeat: no-repeat;
+.ul1 li{
+	padding:20px;
+  	background-size: 25vw;
 }
 .ul1 li a {
-	font-family: 'Sen', sans-serif;
-    padding-right: 50px; 
-    padding-left: 40px;
-	color: rgb(226, 196, 98);
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgb(223, 153, 62);
-    justify-content: center;
-    text-decoration: none;
+    font-size: 2.5vh;
+	padding:0;
 }
-/*wish&cart&top button*/
-.wishlist {
-    background:url(../img/wishlist.png);
-	width:100px;
-	height:100px;
-	border:0;
-    position: fixed;
-	right: 0%;
-    top: 50%;
-    z-index: 8888;
-}
-.wishlist:hover, .shoppingcart:hover, .topbutton:hover, .cancel_btn:hover{
-    filter: saturate(3);
-}
-
-.shoppingcart{
-    background:url(../img/shoppingcart.png);
-	width:100px;
-	height:100px;
-	border:0;
-	z-index: 8888;
-    position: fixed;
-	right: 0%;
-	top: 62%;
-}
-
-.topbutton {
-    background:url(../img/topbutton.png) no-repeat;
-	width:105px;
-	height:105px;
-	border:0;
-    position: fixed;
-    padding-bottom:10px;
-	right: 0%;
-    bottom: 0%;
-    z-index: 8888;
+.ul1 li:hover {
+	background-size: 25vw;	
 }
 
 /*login button*/
 .loginz{
-	font-family: 'Sen', sans-serif;
-    background:url(../img/login700.png) no-repeat;
-    width:80px;
-    height:80px;
-    color: silver;
-    font-weight: bold;
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgb(58, 7, 17);
-    border:0;
-    padding: 10px;
-    position: fixed;
-    top:10px;
-    right:0;
-    z-index: 9999;
+	border:none;
+	width:80px;
+	height:80px;
+    font-size: 2vh;
+    padding: 0;
+	top:200px;
+	background:url(../img/login700.png) no-repeat;
 }
 .loginz:hover{
-	font-family: 'Sen', sans-serif;
-    display: block;
-    filter:saturate(3);
-    width:80px;
-    height:80px;
-    color:rgb(240, 238, 220);
-    text-shadow:inherit 2px 2px rgb(236, 236, 144);
-    font-weight: bold;
-    font-size: 20px;
-    border:0;
-    padding: 10px;
-    position: fixed;
-    top:10px;
-    right:0;
-    z-index: 9999;
-}
-#titleMessage{
-    position: relative;
-    z-index: 999;
-    font-size: 80px;
-    font-weight: bold;
-    font-family: DFKai-sb,Arial, Helvetica;
-    color:green;
-    background-color: wheat;
-    height: 100px;
-}
-.hello img{
-    background-image: none;
-    list-style: none;
-    background-color: white;
-    width: 30px;
-    height: 30px;
-    color: white;
-}
-.loginDiv,
-.registerDiv{
-    overflow:auto;
-}
-.loginForm,
-.registerForm{
-    position: relative;
-    z-index: 99;
-}
-.loginForm, .registerForm{
-	margin-left:0;
-	margin-right:0;
-	margin:auto;
-	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 200, 226, 0.9));
-	width:50%;
-	height:60%;
-	border:2px solid black;
-	border-image-source: url(../img/loginborder.png);
-	border-image-slice: 50;
-	border-image-width: 1em;
-	border-image-repeat: stretch;
-	box-shadow:2px 2px 2px rgb(172, 255, 248);
-}
-.registerForm{ 
-	height:100%;
-}
-.loginForm input, .registerForm input{
-	height:20px;	
-}  
-.loginForm legend, .registerForm legend{
-	font-family: Microsoft JhengHei;
-	font-size:25px;
-	font-weight:bold;
-	text-shadow:2px 2px 2px gray;
-	margin:0;
-	padding-top:30px;
-}  
-.loginForm label, .registerForm label{
-	font-size:20px;
-	font-weight:bold;
-	margin-left:0;
-	margin-right:0;
-	margin:0;
-	padding-right:15px;
-	text-align:left;
-	line-height: 50px;
-    display: inline-block;
-    width: 100px;
-}
-.loginconfirm, .registerconfirm{
-	font-family: Microsoft JhengHei;
-	font-size:18px;
-	font-weight:bold;
-	margin:20px;
-	width:100px;
-	height:40px;
-	border-radius:5px;
-	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 226, 140, 0.9));
-}
-.loginconfirm:hover, .registerconfirm:hover, .loginbutton:hover, #registerbutton:hover, #register2:hover{
+	border:none;
+	width:80px;
+	height:80px;
+    font-size: 2vh;
+    padding: 0;
+	top:200px;
+	background:url(../img/login700.png) no-repeat;
 	filter:saturate(3);
 }
 
-.registerForm .gender{
-    width:auto;
+.loginForm{
+	height:50%;
 }
-.loginArea{
-    width: 100%;
-    top:650px;
-    left:0;
-    right:0;
-    position: relative;
-    z-index: 10;
-}
-.loginbutton{
-    width: 160px;
-    height: 50px;
-    margin:50px;
-    font-size: 25px;
-    text-shadow: 1px 1px 1px rgb(243, 200, 200);
-	color: black;
-    background: -webkit-linear-gradient( rgb(231, 226, 226), rgb(226, 97, 97));
-    box-shadow: 2px 2px 2px rgb(104, 74, 74);
-    border-radius: 5px 5px 5px 5px;
-    padding: 10px;
-    z-index: 12;
-}
-#registerbutton{
-    width: 160px;
-    height: 50px;
-    margin:50px;
-    font-size: 25px;
-    text-shadow: 1px 1px 1px rgb(219, 241, 193);
-	color: black;
-    background:  -webkit-linear-gradient( rgb(231, 226, 226), rgb(77, 116, 16));
-    box-shadow: 2px 2px 2px rgb(48, 95, 64);
-    border-radius: 5px 5px 5px 5px;
-    padding: 10px;
-    z-index: 12;
+.registerForm{
+	height:100%;
 }
 
-#register2{
-	font-family: Microsoft JhengHei;
-	font-size:18px;
-	font-weight:bold;
-	height:35px;
-	border-radius:5px;
-	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 213, 97, 0.9));
-}
-
-.imgUserPhoto{
-    position: relative;
-    z-index: 9999;
-    cursor: pointer;
-}
-/* .note{
-    display: inline;
-    font-size: 12px;
-    color: grey;
-    line-height: 13px;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-} */
-.check{
-    display: inline-block;
-    visibility: hidden;
-}
-.check img{
-    width: 20px;
-    height: 20px;
-}
-.cancel_btn{
-	font-family: Microsoft JhengHei;
-	font-size:18px;
-	font-weight:bold;
-	margin:20px;
-	width:100px;
-	height:40px !important;
-	border-radius:5px;
-	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 112, 97, 0.9));
-}
-.warning{
-	font-family: Microsoft JhengHei;
-	font-size:16px;
-	font-weight:bold;
-	color:brown;
-	padding:10px;
-}
 /*Main Theme*/
 .subtitle{
-    font-family: 'Sen', sans-serif;
-    font-size: 5.9vw;
-    font-weight:bolder;
-    text-shadow: 2px 2px 2px black;
-    color:whitesmoke;
-    text-align: left;
-    z-index: 6666;
-    position: absolute;
-    top:100px;
-    left:15%;
-}
-.bg {
-    position: absolute;
-    width:100%;
-    left:0;
-    right:0;
-    top:990px;
-    text-align: center; 
-    z-index: -1;
-}
-.bg-video {
-    visibility: hidden;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    right:0;
-    margin: auto;
-    position: absolute;
-}
-.bg-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.2;
-}
-.video{
-    background: url(../img/trailer.gif);
-    background-size: cover;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 3;
-}
-.titledec{
-	position:relative;
-	background:url(../img/indextitle.png) no-repeat;
-	font-weight:bold;
-	font-size:25px;
-	margin-left:0;
-	margin-right:0;
-	margin:auto;
-	margin-top:50px;
-	margin-bottom:50px;
-	width:287px;
-	height:193px;
-}
-.titletext{
-	position:absolute;
-	text-align:center;
-	text-shadow:2px 2px 2px gray;
-	left:0;
-	right:0;
-	margin-top:110px;
-}
-
-.morebutton{
-	font-family: Microsoft JhengHei;
-	font-weight:bold;
-	font-size: 20px;
-    width: 160px;
-    height: 50px;
-	color: black;
-    background:  -webkit-linear-gradient( rgb(238, 215, 113), rgb(231, 169, 35));
-    box-shadow: 2px 2px 2px rgb(92, 79, 23);
-    border-radius: 5px 5px 5px 5px;
-    padding: 10px;
-    z-index: 20;
-}
-.morebutton:hover{
-	filter:saturate(3);	
+    font-size: 8vw;
+    top:200px;
 }
 
 /*footer*/
 footer{
-     border-radius: 2px 2px 2px 2px;
-     background: -webkit-linear-gradient( #3C3C3C, rgb(19, 18, 18));
-     background-repeat: no-repeat;
-     position: relative;
 	 margin-top:50px;
-     width: 100%;
-     height: 180px;
-     top:120px;
-     left: 0;
-     right: 0;
-     text-align: center;
-     z-index: 6666;
+     top:0px;
  }
-.foot{
-    position: absolute;
-	background:url(../img/footer-design.png);
-    width:100%;
-	height: 150px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    text-align: center;
-	z-index:8888;
-}
-.foot h2{
-    color:whitesmoke;
-    font-family:'Lucida Sans';
-    font-size: 1.5vw;
-}
-.foot h6{
-    color:rgb(182, 180, 180);
-    font-family:'Lucida Sans';
-    font-size:0.7vw;
-}
+
 /*event area*/
-.eventarea{
-    position: relative;
-    text-align: center;
-    top:800px;
-    left:0;
-    right:0;
-    padding-top:50px;
-    width: 100%;
-}
-.eventarea a{
-    text-decoration: none;
-}
-.event table{
-    border-collapse: collapse;
-    width: 100%;
-    text-align: left;
-    /* table-layout:fixed; */
-}
-.event td{
-    padding-top:30px;
-    padding-bottom:10px;
-    padding-left: 20px;
-    padding-right: 10px;
-    color:black;
-    font-weight: bold;
-    font-size: 20px;
-}
 .event{
-    background: whitesmoke;
-    border-radius: 20px;
-    border:1px solid moccasin;
-    opacity:0.8;
-    position: relative;
-    padding:10px;
-    top:0;
-    left:0;
-    right:0;
-    margin: auto;
-    width: 30%;
-    text-align: center;
-    z-index: 30;
-}
- .event tr:nth-child(2n), .event tr:nth-child(2n+3) {
-    background:url(../img/blueline.png) no-repeat;
+    width: 50%;
 }
 
-.salearea{
-    position: relative;
-    width:100%;
-    top:750px;
-    left:0;
-    right:0;
-    bottom:0;
-    padding-top:50px;
-    z-index: 30;
-}
-.salearea a{
-    text-decoration: none;
-}
-fieldset{
-    border:0;
-}
-.commentarea{
-    position: relative;
-    width:100%;
-    top:750px;
-    left:0;
-    right:0;
-    bottom:0;
-    padding-top:50px;
-    z-index: 30;
-}
-.commentarea a{
-    text-decoration: none;
-}
 /*Shop Page*/
 .bgshop{
 	position: relative;

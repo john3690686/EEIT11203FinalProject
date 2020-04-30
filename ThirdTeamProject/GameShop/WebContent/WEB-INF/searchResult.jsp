@@ -19,16 +19,16 @@ body{
 <body>
 
  <!--Navigator-->
-     <nav>
-        <ul class="ul1">
-        <li><a href="index.html">HOME</a>
-        <li><a href="#">NEWS</a>
-        <li><a href="Shop">SHOP</a>
-        <li><a href="#">BLOG</a>
-        <li><a href="#">CHAT</a>
-        <a href="#"><input type="button" class="loginz" value="LOGIN"></a>
-        </ul>
-    </nav>
+	<nav>
+		<ul class="ul1">
+			<li><a href="index.html">HOME</a>
+			<li><a href="#">NEWS</a>
+			<li><a href="Shop">SHOP</a>
+			<li><a href="processArticle">BLOG</a>
+			<li><a href="#">CHAT</a> 
+			<a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
+		</ul>
+	</nav>
     
 <!--Wishlist & Shopping cart &top-->
         <a href="showWish.controller"><input type="button" class="wishlist"></a>

@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- css for phone -->
+<link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <title>購物車內容</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -15,19 +17,7 @@ body{
 	background:url(img/skytower.jpg) no-repeat;
 	background-size:cover;
 }
-.cartList{
-	position:relative;
-	text-align:center;
-	top:200px;
-	width:70%;
-	border-collapse:collapse;
-	border-radius:2px 2px 2px 2px;
-	border:2px solid rgb(189, 192, 196);
-	margin-left:0;
-	margin-right:0;
-	margin:auto;
-	margin-bottom:500px;
-}
+
 </style>
 
 </head>
