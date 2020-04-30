@@ -112,7 +112,7 @@ body{
             <div class="registerForm">
                 <fieldset>
                     <legend>申請新帳號</legend>
-                    <form action="processProfile" method="POST" enctype="multipart/form-data">
+                    <form action="register" method="POST" enctype="multipart/form-data">
                         <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px"><input
                             class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
 						 <label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount">
@@ -129,11 +129,6 @@ body{
 						
                         <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
                         <div class="check" id="checkMail"><img src=""></div><br />
-
-                    <form action="register" method="POST" enctype="multipart/form-data">
-                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px"
-                            height="200px"><input class="inputUserPhoto" type="file" name="userImg"
-                            hidden="hidden"><br />	
                         <hr>
                         <label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br />
                         <label style="width:90px;padding:0;">性別:</label>
