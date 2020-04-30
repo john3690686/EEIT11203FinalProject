@@ -3,6 +3,7 @@ package tw.gameshop.user.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -111,5 +112,13 @@ public class OrdersDAO {
 	public Orders GetOrderPayStatusByHash(String hash) {
 		Query<Orders> query = sessionFactory.getCurrentSession().createQuery("FROM Orders WHERE hash = :hash", Orders.class).setParameter("hash", hash);
 		return query.uniqueResult();
+	}
+	
+	public List<Orders> queryOrderRecord(int userId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Orders> query = session.createQuery("from Orders where userId=?0", Orders.class);
+		query.setParameter(0, userId);
+		List<Orders> list = query.list();
+		return list;
 	}
 }

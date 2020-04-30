@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <title>購物車內容</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <style type="text/css">
 body{
 	font-family:微軟正黑體;
@@ -29,7 +28,6 @@ body{
 	margin-bottom:500px;
 }
 </style>
-
 </head>
 
 <body>
