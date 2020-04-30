@@ -29,3 +29,15 @@ ul { list-style:none; }
 #imgLabel {color:white}
 #imgError {color: red;　height: 20px; }
 #notes {color:white; font-size:12px;}
+#reply{
+	background:rgb(222, 243, 248, 0.5);
+	box-shadow:2px 2px 2px rgb(166, 202, 219);
+	border-radius:5px;
+	margin-left: 70%;
+ 	margin-right: 70%;
+ 	margin:auto;
+	text-align:left;
+	font-size:20px;
+	font-weight:bold;
+	padding:20px;
+}

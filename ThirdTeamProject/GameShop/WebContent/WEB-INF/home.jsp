@@ -115,6 +115,7 @@ body{
                 <fieldset>
                     <legend>申請新帳號</legend>
                     <form action="register" method="POST" enctype="multipart/form-data">
+
                         <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px">
                         <input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
 						<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" placeholder="請輸入6~18英數字元">

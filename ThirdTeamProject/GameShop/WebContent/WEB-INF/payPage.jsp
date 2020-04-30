@@ -10,7 +10,6 @@
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <title>購物車內容</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <style type="text/css">
 body{
 	font-family:微軟正黑體;
@@ -19,7 +18,6 @@ body{
 }
 
 </style>
-
 </head>
 
 <body>

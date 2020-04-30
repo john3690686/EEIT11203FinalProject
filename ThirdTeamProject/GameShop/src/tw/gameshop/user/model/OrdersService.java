@@ -1,5 +1,8 @@
 package tw.gameshop.user.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,10 @@ public class OrdersService {
 		this.ordersDao = ordersDao;
 	}
 	
+	public int addOrder(int userId, int totalPrice, LinkedList<Product> cart) {
+		return ordersDao.addOrder(userId, totalPrice, cart);
+	}
+	
 	public Orders getOrderDataById(int orderId) {
 		return ordersDao.getOrderDataById(orderId);
 	}
@@ -33,5 +40,9 @@ public class OrdersService {
 	
 	public Orders GetOrderPayStatusByHash(String hash) {
 		return ordersDao.GetOrderPayStatusByHash(hash);
+	}
+	
+	public List<Orders> queryOrderRecord(int userId){
+		return ordersDao.queryOrderRecord(userId);
 	}
 }
