@@ -40,7 +40,7 @@ body{
 			<li><a href="index.html">HOME</a>
 			<li><a href="#">NEWS</a>
 			<li><a href="Shop">SHOP</a>
-			<li><a href="#">BLOG</a>
+			<li><a href="processArticle">BLOG</a>
 			<li><a href="#">CHAT</a> 
 			<a href="#"><input type="button" class="loginz" value="LOGIN"></a>
 		</ul>

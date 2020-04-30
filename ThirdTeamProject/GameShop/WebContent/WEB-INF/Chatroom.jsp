@@ -10,11 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/chatroom.css">
+<!-- 2020/04/30 ERROR:: X-Content-Type-Options: nosniff 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1jquery.min.js"></script>
+-->
     <!-- Bootstrap CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    
+    <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/gameshop.js"></script>
+    
 <style type="text/css">
 
 footer{
@@ -64,7 +69,7 @@ footer{
 			<div class="spacer"></div>
 			<div style="text-align: left"><span id="sysMessage"></span></div>
 			
-			<div class="reply" style="text-align: left;">
+			<div id="reply" style="text-align: left;">
 				<input id="username" hidden="hidden" value='${chatName}' type="text"/>
 				<span class="sernTo"></span><select id="toUser"></select><div></div>
 				<textarea class="text" id="sendMessage" name="content" rows="2" cols="120" style="width: 580px;resize: none;" maxlength="250"></textarea>
@@ -120,7 +125,6 @@ footer{
 		$.getJSON("https://api.ipify.org?format=json", 
                 function(data) { 
 				ip = data.ip;
-				console.log("client IP: "+ip);
 		}) 
 				
 	
@@ -221,7 +225,6 @@ footer{
 
 		function sendMsg(){
 			if($("#sendMessage").val().trim() !="" && !$("#sendMessage").val().includes("[ToUser::")){
-				console.log(ip);
 				var messageToSend = "[ip::"+ip+"]";
 				var myMessage = "";
 				if($("#toUser").val() != 0){
