@@ -101,6 +101,7 @@ public class ArticleDAO {
 
 	public String queryArticle(int articleID) {
 		Session session = sessionFactory.getCurrentSession();
+
 		Article queryArt = session.get(Article.class, articleID);
 
 		JSONArray jsonAr = new JSONArray();
@@ -118,6 +119,7 @@ public class ArticleDAO {
 		}
 		String jsonstr = jsonAr.toString();
 		String json = jsonstr.replaceAll(":null,", ":\"null\",");
+	    
 		return json;
 	}
 	

@@ -94,23 +94,33 @@
 					
 				for (let i = 0; i < books.length; i++) {
 					txt += "<div>";
-					txt += "<div class = 'imageblock'><img class = 'articleImg' alt='圖片失效' src='https://i.imgur.com/pLPub4P.jpg'></div>";
+					txt += "<div class = 'imageblock'><img class='articleImg' id='articleImg_"+i+"' alt='圖片失效'></div>";
 					txt += "<div class = 'article'>";
 					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>This is Title: " + books[i].articleTitle+ "</div></a>";
 					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
-// 					txt += "articleNum: " + a + "</br>";
-
-// 					txt += "userId: "+ books[i].userId + "</br>";
 
 					txt += "<div class='abstract'>"+books[i].articleAbstract + "....(<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"' >繼續閱讀</a>)</div>";
-// 					txt += "articleTitle: "+ books[i].articleContent + "</br>";
-// 					txt += "postDatetime: "+ books[i].postDatetime + "</br>";
+
 					txt += "</div></div>";
 					a++;
 				}
 				txt += "</br>"
 				document.getElementById("demo1").innerHTML = txt;
-				
+
+
+				for (let i = 0; i < books.length; i++) {
+
+					var imgstr = 0;
+					imgstr = books[i].articleThumbnail;
+					
+					if(imgstr != undefined){
+						var b = "articleImg_"+i;
+						document.getElementById(b).src = books[i].articleThumbnail;
+					}else{
+						var b = "articleImg_"+i;
+						document.getElementById(b).src = 'https://i.imgur.com/4ZuUoI1.png';
+					}
+				}
 			}
 		}
 		xhttp.open("GET", "processArticle", true);

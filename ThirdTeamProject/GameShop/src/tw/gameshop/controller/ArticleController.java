@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
+import tw.gameshop.user.model.P_ProfileService;
 import tw.gameshop.user.model.ReplyMessageService;
 
 @Controller
@@ -22,6 +25,7 @@ public class ArticleController {
 
 	private ArticleMessageService artMesService;
 	private ReplyMessageService rmService;
+	private P_ProfileService profileService;
 
 	private HttpSession session;
 
@@ -29,6 +33,9 @@ public class ArticleController {
 	HttpServletRequest request;
 
 	private int userId;
+
+	private String userAccount;
+
 
 	public ArticleController() {
 	}
@@ -46,9 +53,12 @@ public class ArticleController {
 //		===============測試用偽裝userID====================
 		session = request.getSession();
 		session.setAttribute("userId", 2);
+//		userAccount = String.valueOf(session.getAttribute("userAccount"));
+		
+		System.out.println("===================>userAccount by session:"+userAccount);
+		
 		userId = Integer.parseInt(session.getAttribute("userId").toString());
-        System.out.println("===================>userid by session:"+session.getAttribute("userId"));
-        System.out.println("===================>userid by userId:"+userId);
+
         
 //		===================================
 		
@@ -73,6 +83,22 @@ public class ArticleController {
 			@RequestParam("articleContent") String articleContent,
 			@RequestParam("imgLink") String articleThumbnail) {
 		
+		if(articleTitle.length() > 20) {
+			JSONArray jsonAr = new JSONArray();
+				JSONObject json = new JSONObject();
+				json.put("articleTitle", articleTitle);
+				json.put("articleContent", articleContent);
+				json.put("articleThumbnail", articleThumbnail);
+			jsonAr.put(json);
+
+			String errorReturnTitle = jsonAr.toString();
+			postArticle();
+			request.setAttribute("checkout", 99847);
+			request.setAttribute("errormeg", "標題限定20字以內，請重新輸入!");
+			request.setAttribute("errorReturnTitle", errorReturnTitle);
+			return "PostArticle";			
+		}
+		
         String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
         String articleAbstract;
         
@@ -92,8 +118,9 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/postArticle" , method = RequestMethod.GET)
 	public String postArticle() {
-		request.setAttribute("checkout_1", 99847);
+		request.setAttribute("checkout", 9999);
 		request.setAttribute("readByArticleId", 0);
+		request.setAttribute("errorReturnTitle", 0);
 		return "PostArticle";
 	}
 	
@@ -106,6 +133,9 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/processReadArticle" , method = RequestMethod.GET)
 	public String processReadArticle(@RequestParam("articleID") int articleid) {
+		
+		System.out.println("=================>articleID: "+articleid);
+		
 		String readByArticleId = aService.queryArticle(articleid);
 		String message = artMesService.queryArticleMessage(articleid);
 		String remess = rmService.queryAllReply(articleid);
@@ -151,7 +181,7 @@ public class ArticleController {
 
 		String readByArticleId = aService.queryArticle(articleID);
 		request.setAttribute("readByArticleId", readByArticleId);
-		request.setAttribute("checkout_2", 19487);
+		request.setAttribute("checkout", 19487);
 		
 		return "PostArticle";
 	}
