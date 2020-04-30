@@ -1,4 +1,4 @@
-package tw.gameshop.controller;
+﻿package tw.gameshop.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -21,9 +21,8 @@ import org.json.JSONObject;
 
 @ServerEndpoint("/websocket")
 public class ChatRoomWebSocket {
-	// If JDBC Logging to SQL
-	private static final String SQL_USER_NAME = "";		// SQL Username
-	private static final String SQL_USER_PWD = "";		// SQL Password
+	private static final String SQL_USER_NAME = "SA";
+	private static final String SQL_USER_PWD = "P@ssW0rd";
 	
 	// Store users to Map
 	private static HashMap<String, ChatRoomWebSocket> webSocketMap = new HashMap<String, ChatRoomWebSocket>();

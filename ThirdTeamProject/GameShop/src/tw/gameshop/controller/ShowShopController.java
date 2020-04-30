@@ -65,7 +65,7 @@ public class ShowShopController {
 		Product findResult = pService.queryByName(mygame);
 		
 		if (findResult!=null) {
-			urlName = findResult.getProductId().toString();
+			urlName = String.valueOf(findResult.getProductId());
 			
 			model.addAttribute("productName", mygame);
 			model.addAttribute("intro", findResult.getIntro());

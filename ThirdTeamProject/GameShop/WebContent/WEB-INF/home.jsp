@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 
@@ -29,15 +30,23 @@ body{
 </head>
 
 <body>
+
 <!--Navigator-->
+
+    <c:if test="${titleMessage.length()>0}">
+        <div id="titleMessage">${titleMessage}</div>
+    </c:if>
+
     <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>
             <li><a href="#">NEWS</a>
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
-            <li><a href="#">CHAT</a>
-                <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
+            <li><a href="Chatroom">CHAT</a>
+                <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
+            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
+
         </ul>
     </nav>
 
@@ -79,17 +88,23 @@ body{
                     <legend>登入帳號 </legend>
                     <div class="warning"><img src="img/Info_icon.png" title="需擁有帳號，方能使用願望清單與評論功能" style="vertical-align:middle">公用電腦請記得登出，或開啟無痕模式</div><br/>
                     <form action="processLogin" method="POST">
+
                         <label for="userAccount">帳號:</label><input type="text" name="userAccount"><br/>
                         <label for="userPwd">密碼:</label><input type="password" name="userPwd"><br/>
-                        <br/>
+                        <input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
+						
+						<br/>
                         <button class="loginconfirm">登入</button>
                         <input type="button" class="cancel_btn" value="取消"><br/>
                        <!-- 登入頁加入新申請帳號 -->
                         <input type="button" class="registerbutton" id="register2" value="申請新帳號">
-                    </form>
 
+                    </form>
+                        <button class="loginconfirm">Confirm</button><input type="reset" class="cancel_btn" value="Cancel">
+                        <div><span id="loginMsg"></span></div>
                 </fieldset>
             </div>
+            
         </div>
 <!-- register form -->
         <div class="registerDiv">
@@ -99,22 +114,33 @@ body{
                     <form action="processProfile" method="POST" enctype="multipart/form-data">
                         <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px"><input
                             class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
-                        <label for="userAccount">帳號:</label><input type="text" id="userAccount"
-                            name="userAccount"><br />
+						 <label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount">
+                        <div class="check" id="checkAccount"><img src=""></div><br />
+                        <span class="note">(請輸入6~18英數字元)</span><br />		
                         <label for="userName">姓名:</label><input type="text" id="userName" name="userName"><br />
                         <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱"><br />
-                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd"><br />
-                        <label for="checkPwd">密碼確認:</label><input type="password" id="checkPwd" name="checkPwd"
-                            placeholder="再次輸入密碼"><br />
-                        <label for="mail">E-mail:</label><input type="text" id="mail" name="mail" placeholder="ex:aaa@gmail.com"><br />
+                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd">
+                        <div class="check" id="checkPwd"><img src=""></div><br />
+                        <span class="note">(請輸入一組包含大小寫及數字的6~12位密碼)</span><br />
+                        <label for="recheckPwd">密碼:</label><input type="password" id="recheckPwd" name="recheckPwd"
+                            placeholder="再次輸入密碼">
+                        <div class="check" id="recheckPwd"><img src=""></div><br />
+						
+                        <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
+                        <div class="check" id="checkMail"><img src=""></div><br />
+
+                    <legend>Register Form</legend>
+                    <form action="register" method="POST" enctype="multipart/form-data">
+                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px"
+                            height="200px"><input class="inputUserPhoto" type="file" name="userImg"
+                            hidden="hidden"><br />	
                         <hr>
                         <label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br />
                         <label style="width:90px;padding:0;">性別:</label>
                         <input type="radio" class="gender" name="gender" value="m" checked="checked"><label
                             class="gender">男</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">女</label>
-                        <input type="radio" class="gender" name="gender" value="o"><label
-                            class="gender">其他</label><br />
+                        <input type="radio" class="gender" name="gender" value="o"><label class="gender">其他</label><br />
                         <label for="birthday">生日:</label><input type="text" id="birthday" name="birthday" placeholder="ex:2020/04/29"><br />
                         <label for="address">地址:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />
@@ -122,6 +148,7 @@ body{
                         <input class="cancel_btn" type="button" value="取消">
                     </form>
                     <button class="fill">快速填入</button>
+
                 </fieldset>
             </div>
         </div>
@@ -229,7 +256,7 @@ body{
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 
-// 背景圖片效果
+// 背景圖片效果
 (function () {
     const canvas2 = document.querySelector('.bg-canvas');
     const ctx2 = canvas2.getContext('2d');
@@ -247,7 +274,7 @@ body{
     }
 })();
     
-//  商品輪播圖片
+//  商品輪播圖片
         var nowAD = 0;
         var maxAD = 5;
         var intervalAD;

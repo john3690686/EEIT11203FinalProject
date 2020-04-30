@@ -1,5 +1,3 @@
-create database gameshop
-go
 use gameshop
 go
 
@@ -7,12 +5,13 @@ CREATE TABLE Profile(
   userId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   userAccount VARCHAR(50) NOT NULL UNIQUE,
   userName NVARCHAR(50) NOT NULL,
-  userPwd VARCHAR(50) NOT NULL,
-  userToken VARCHAR(100),
+  userPwd VARCHAR(MAX) NOT NULL,
+  salt VARCHAR(MAX),
   nickname NVARCHAR(50) NOT NULL UNIQUE,
   mail VARCHAR(100) NOT NULL UNIQUE,
   gender VARCHAR(1) ,
-  userImg VARBINARY(MAX)
+  userImg VARBINARY(MAX),
+  mailState BIT DEFAULT 0
 )
 GO
 
@@ -20,7 +19,9 @@ CREATE TABLE ProfileDetail(
   userId INT NOT NULL FOREIGN KEY REFERENCES Profile(userId),
   address NVARCHAR(MAX),
   birthday DATE,
-  phone VARCHAR(100)
+  phone VARCHAR(100),
+  mailCode VARCHAR(255) NOT NULL,
+  codeStartingDate DATE NOT NULL
 )
 GO
 
@@ -44,15 +45,15 @@ select * from ProfileDetail
 go
 insert into Product(productName,intro,price,tag,productImage) values
 ('alien war','intro1',300,'action',
-(select * from openrowset(BULK N'C:\DataSource\teamproject\img\sale1.jpg',SINGLE_BLOB)as t3 ))
+(select * from openrowset(BULK N'C:\DataSource\teamproject\img\alien.png',SINGLE_BLOB)as t3 ))
 
 insert into Product(productName,intro,price,tag,productImage) values
 ('industry manager','intro2',600,'manager',
-(select * from openrowset(BULK N'C:\DataSource\teamproject\img\sale1.jpg',SINGLE_BLOB)as t3 ))
+(select * from openrowset(BULK N'C:\DataSource\teamproject\img\industry.jpg',SINGLE_BLOB)as t3 ))
 
 insert into Product(productName,intro,price,tag,productImage) values
 ('gun','intro3',50,'guns',
-(select * from openrowset(BULK N'C:\DataSource\teamproject\img\sale1.jpg',SINGLE_BLOB)as t3 ))
+(select * from openrowset(BULK N'C:\DataSource\teamproject\img\gun.jpg',SINGLE_BLOB)as t3 ))
 
 INSERT INTO Product(productName,intro,price,tag,productImage)
 select 'Dark Souls','intro4',1000,'Action',
@@ -97,16 +98,15 @@ BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale5.jpg', Sin
 
 INSERT INTO Product(productName,intro,price,tag, productImage)
 select 'Sekiro: Shadows Die Twice','在由開發商FromSoftware（Dark Souls系列的製作單位）的全新歷險中開拓你的復仇之路。 勇猛復仇，挽回榮譽，巧妙殺敵。 ','1033','Action',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale5.jpg', Single_Blob)as gamepic
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale6.jpg', Single_Blob)as gamepic
 
 INSERT INTO Product(productName,intro,price,tag, productImage)
 select 'For The King','For The King是一款結合桌遊和 roguelike 類型元素的跨越領域戰略型 RPG 遊戲。可以在線和單機進行單人或多人合作的遊戲體驗。 ','318','RTS',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale5.jpg', Single_Blob)as gamepic
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale7.jpg', Single_Blob)as gamepic
 go
 
 select * from Product
 go
-
 
 Create Table Orders(
    orderId int identity(1,1),
@@ -116,14 +116,12 @@ Create Table Orders(
    hash varchar(30),
    Primary Key(orderId),
    Foreign Key (userId) References Profile(userId),
-   payResult varchar(1),	-- "P" is for Pending, "Y" is for Complete, "N" id s for Failed
 )
 go
 
 select * from Orders
 go
-select * from OrderDetail
-go
+
 
 Create Table OrderDetail(
    detailId int not null primary key identity(1,1),
@@ -134,7 +132,8 @@ Create Table OrderDetail(
    Foreign Key (productId) References Product(productId),
 )
 go
-
+select * from OrderDetail
+go
 Create Table Comment(
    comId int identity(1,1),
    userId int,
