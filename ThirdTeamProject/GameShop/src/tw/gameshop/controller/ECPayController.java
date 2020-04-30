@@ -35,7 +35,6 @@ import tw.gameshop.user.model.OrderDetail;
 import tw.gameshop.user.model.Orders;
 import tw.gameshop.user.model.OrdersService;
 import tw.gameshop.user.model.P_ProfileService;
-import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductService;
 
 /**
@@ -106,7 +105,47 @@ public class ECPayController {
 			"        </tr>\n" + 
 			"        <tr><td><br></td></tr>";
 	
-	private String successEnd = " </table>    \n" + 
+	private String fail = "<body style=\"margin: 0px; padding: 0px; background-image: linear-gradient(to bottom right, #1f4274, #576a85); min-width: 650px;\">\n" + 
+			"    <div align=\"center\">\n" + 
+			"    <table style=\"width: 600px;\">\n" + 
+			"        <tr>\n" + 
+			"            <th style=\"text-align: center; color: white; font-size: 30px;\">\n" + 
+			"                <p>Welcome to GameShop</p>\n" + 
+			"            </th>\n" + 
+			"        </tr>\n" + 
+			"        <tr style=\"text-align: center; color: lightgoldenrodyellow; font-size: 22px;\">\n" + 
+			"            <td>\n" + 
+			"            <p>\n" + 
+			"                感謝您在GameShop購買下列遊戲，但是付款未成功<br>\n" + 
+			"                日期: [::DATE::]\n" + 
+			"            </p>\n" + 
+			"        </td>\n" + 
+			"        </tr>\n" + 
+			"    </table>\n" + 
+			"    <table id=\"content\" style=\"width: 800px; border-collapse: collapse;\">";
+	
+	private String failGameList = "<tr>\n" + 
+			"            <td rowspan=\"2\" style=\"width: 230px;\">\n" + 
+			"                <img src=\"[::img::]\" style=\"max-height: 230px; width: 230px;\"/>\n" + 
+			"            </td>\n" + 
+			"            <td style=\"width: 20px;\">\n" + 
+			"            </td>\n" + 
+			"            <td>\n" + 
+			"                <span style=\"color: white; font-weight: bold; font-size: 24px;\">[::Name::]</span>\n" + 
+			"            </td>\n" + 
+			"            <td rowspan=\"2\" style=\"vertical-align: middle;\">\n" + 
+			"            </td>\n" + 
+			"        </tr>\n" + 
+			"        <tr>\n" + 
+			"            <td style=\"width: 20px;\"></td>\n" + 
+			"            <td><span style=\"color: yellow; font-weight: bold; font-size: 20px;\">\n" + 
+			"                Failed\n" + 
+			"            </span>\n" + 
+			"            </td>\n" + 
+			"        </tr>\n" + 
+			"        <tr><td><br></td></tr>";
+	
+	private String End = " </table>    \n" + 
 			"   \n" + 
 			"</div>\n" + 
 			"\n" + 
@@ -186,12 +225,10 @@ public class ECPayController {
 		List<ModelForEmailAfterPay> myList = new ArrayList<ModelForEmailAfterPay>();
 		for (OrderDetail details : orderDetails) {
 			ModelForEmailAfterPay myModel = new ModelForEmailAfterPay();
-			Product productBean = productService.queryById(details.getProductId());
-			
-			myModel.setName(productBean.getProductName());
-			myModel.setKey(createKey());
-			myModel.setImage(productBean.getProductImage());
-			
+			myModel.setName(productService.getProductNameById(details.getProductId()));
+			if(RtnCode==1) {
+				myModel.setKey(createKey());
+			}
 			myList.add(myModel);
 			
 			itemList += i + ". " + productService.getProductNameById(details.getProductId()) + "<br>";
@@ -250,19 +287,21 @@ public class ECPayController {
 			
 			if (result == 1) {
 				text.append(Header);
-				
 				text.append(success.replace("[::DATE::]", buyDate));
 				for(ModelForEmailAfterPay myList:modelList) {
 					text.append(
 							gameList.replace("[::Name::]", myList.getName()).replace("[::img::]", (serverLocation+"/img/"+myList.getName()+".jpg")).replace("[::ProductKey::]", myList.getKey()));
 				}
-				text.append(successEnd);
-				//text.append("<p>感謝您在GameShop購買以下遊戲並完成付款</p>");
-				//text.append("<p>" + itemList + "</p>");
+				text.append(End);
 			}else {
+				text.append(Header);
 				text.append("<h2>GameShop</h2>");
-				text.append("<p>感謝您在GameShop購買以下遊戲，但付款並未成功</p>");
-				text.append("<p>" + itemList + "</p>");
+				text.append(fail.replace("[::DATE::]", buyDate));
+				for(ModelForEmailAfterPay myList:modelList) {
+					text.append(
+							failGameList.replace("[::Name::]", myList.getName()).replace("[::img::]", (serverLocation+"/img/"+myList.getName()+".jpg")));
+				}
+				text.append(End);
 			}
 			msg.setContent(text.toString(), "text/html;charset=UTF-8");
 			msg.setSentDate(new Date());
