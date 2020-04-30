@@ -15,6 +15,7 @@ public class Article {
 	private String articleTitle;
 	private String articleAbstract;
 	private String articleContent;
+	private String articleThumbnail;
 	private String postDatetime;
 	private String updateDatetime;
 
@@ -76,8 +77,17 @@ public class Article {
 		this.articleContent = articleContent;
 	}
 
+	@Column(name = "articleThumbnail")
+	public String getArticleThumbnail() {
+		return articleThumbnail;
+	}
+
+	public void setArticleThumbnail(String articleThumbnail) {
+		this.articleThumbnail = articleThumbnail;
+	}
+
 	@Column(name = "postDatetime")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	public String getPostDatetime() {
 		return postDatetime;
 	}

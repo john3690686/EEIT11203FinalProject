@@ -26,7 +26,7 @@ public class ArticleDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public Article addArticle(int userId, String articleTitle, String articleAbstract, String articleContent) {
+	public Article addArticle(int userId, String articleTitle, String articleAbstract, String articleContent, String articleThumbnail) {
 		Session session = sessionFactory.getCurrentSession();
 
 		Date date = new Date();
@@ -36,6 +36,7 @@ public class ArticleDAO {
 		article.setArticleTitle(articleTitle);
 		article.setArticleAbstract(articleAbstract);
 		article.setArticleContent(articleContent);
+		article.setArticleThumbnail(articleThumbnail);
 		article.setPostDatetime(ft.format(date));
 
 		if (article != null) {
@@ -60,6 +61,7 @@ public class ArticleDAO {
 			json.put("articleTitle", li.getArticleTitle());
 			json.put("articleAbstract", li.getArticleAbstract());
 			json.put("articleContent", li.getArticleContent());
+			json.put("articleThumbnail", li.getArticleThumbnail());
 			json.put("postDatetime", li.getPostDatetime());
 			json.put("updateDatetime", li.getUpdateDatetime());
 			jsonAr.put(json);
@@ -85,6 +87,7 @@ public class ArticleDAO {
 			json.put("articleTitle", li.getArticleTitle());
 			json.put("articleAbstract", li.getArticleAbstract());
 			json.put("articleContent", li.getArticleContent());
+			json.put("articleThumbnail", li.getArticleThumbnail());
 			json.put("postDatetime", li.getPostDatetime());
 			json.put("updateDatetime", li.getUpdateDatetime());
 			jsonAr.put(json);
@@ -108,6 +111,7 @@ public class ArticleDAO {
 			json.put("articleTitle", queryArt.getArticleTitle());
 			json.put("articleAbstract", queryArt.getArticleAbstract());
 			json.put("articleContent", queryArt.getArticleContent());
+			json.put("articleThumbnail", queryArt.getArticleThumbnail());
 			json.put("postDatetime", queryArt.getPostDatetime());
 			json.put("updateDatetime", queryArt.getUpdateDatetime());
 			jsonAr.put(json);
@@ -118,7 +122,7 @@ public class ArticleDAO {
 	}
 	
 	
-	public Article updataArticle(int articleID, String articleTitle, String articleAbstract, String articleContent) {
+	public Article updataArticle(int articleID, String articleTitle, String articleAbstract, String articleContent, String articleThumbnail) {
 		Session session = sessionFactory.getCurrentSession();
 		Article queryArt = session.get(Article.class, articleID);
 		
@@ -128,6 +132,7 @@ public class ArticleDAO {
 		queryArt.setArticleTitle(articleTitle);
 		queryArt.setArticleAbstract(articleAbstract);
 		queryArt.setArticleContent(articleContent);
+		queryArt.setArticleThumbnail(articleThumbnail);
 		queryArt.setUpdateDatetime((ft.format(date)));
 
 		if (queryArt != null) {
