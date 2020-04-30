@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -13,15 +12,11 @@
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
 <title>Shop</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Bootstrap CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/gameshop.js"></script>
+
 <style type="text/css">
 
 body{
-	font-family:微軟正黑體;
+	font-family:Microsoft JhengHei;
 	background:url(img/shopbg.jpg) no-repeat;
 	background-size:cover;
 }
@@ -32,17 +27,15 @@ body{
 <body>
 <!--Navigator-->
 	<nav>
-        <ul class="ul1">
-            <li><a href="index.html">HOME</a>
-            <li><a href="#">NEWS</a>
-            <li><a href="Shop">SHOP</a>
-            <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
-            <li><a href="Chatroom">CHAT</a>
-            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
-        </ul>
-
-        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
-    </nav>
+		<ul class="ul1">
+			<li><a href="index.html">HOME</a>
+			<li><a href="#">NEWS</a>
+			<li><a href="Shop">SHOP</a>
+			<li><a href="processArticle">BLOG</a>
+			<li><a href="#">CHAT</a> 
+			                <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
+		</ul>
+	</nav>
 
 <!--Wishlist & Shopping cart &top-->
         <a href="showWish.controller"><input type="button" class="wishlist"></a>
@@ -50,10 +43,10 @@ body{
 		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
-	<div class="bgshop">
-
-		<div class="horizon2"><br/>Shop</div>
-		<br/><br/>
+<div class="bgshop">
+	<div class="titledec">
+        <div class="titletext">遊戲商店</div>
+    </div>
 
 		<fieldset>
 			<figure>
@@ -287,47 +280,38 @@ body{
 					//first show
 	                $("#page a").eq(1).click();
 	                
- 					// 願望清單
+ 					// 購物車
 		            $(".wishbutton").click(function(){
 					console.log("add wish");
 					var id1 = $(this).parent().siblings("td.pName").attr("id");
 					var name1 = $(this).parent().siblings("td.pName").html();
-					console.log("id1="+id1);					
+					console.log("id1="+id1);
+					window.alert(name1+"加入願望清單");
 					$.ajax({
-					url:"addWish.controller?id=" + id1,
-					type:"get",
-					success:function(data){
-						if(data=="ok"){
-			                window.alert(name1+"加入願望清單");
-							}else if(data=="a"){
-							window.alert(name1+"此遊戲已購買");
-							}else{
-		                    window.alert(name1+"已加入願望清單");
-						         }
+						url:"addWish.controller?id=" + id1,
+						type:"get",
+						success:function(data){
+							console.log("add wish: "+data);
 							}
 						})
 					})
-					//加入商品到購物車，並檢查是否重複
 				   $(".cartbutton").click(function(){
 					var id = $(this).parent().siblings("td.pName").attr("id");
 					var name = $(this).parent().siblings("td.pName").html();
 					console.log("add product");
-						$.ajax({
+					window.alert(name+"加入購物車");
+					$.ajax({
 						url:"add.controller?id=" + id,
 						type:"get",
 						success:function(data){
 							console.log("add product: "+data);
-							if(data=="ok"){
-					            window.alert(name+"加入購物車");
-								}else{
-					            window.alert(name+"已加入購物車");
-									}
-								}
-							})
-						})	                
-					}
-				})
-			})
+							}
+						})
+					})
+	                
+	            }
+	        })
+	    })
 	    
 					// 自動帶入資料庫關鍵字搜尋  autocomplete
 				

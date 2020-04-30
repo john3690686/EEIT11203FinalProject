@@ -10,7 +10,9 @@
     <title>GameShop~Enjoy your gameLife here~</title>
     <link rel="stylesheet" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/gameshop.js"></script>
+	
 <style>
  
 body{
