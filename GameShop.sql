@@ -53,39 +53,8 @@ go
 
 select * from ProfileDetail
 go
-insert into Product(productName,intro,price,tag,productImage) values
-('alien war','intro1',300,'action',
-(select * from openrowset(BULK N'C:\DataSource\teamproject\img\alien.png',SINGLE_BLOB)as t3 ))
 
-insert into Product(productName,intro,price,tag,productImage) values
-('industry manager','intro2',600,'manager',
-(select * from openrowset(BULK N'C:\DataSource\teamproject\img\industry.jpg',SINGLE_BLOB)as t3 ))
-
-insert into Product(productName,intro,price,tag,productImage) values
-('gun','intro3',50,'guns',
-(select * from openrowset(BULK N'C:\DataSource\teamproject\img\gun.jpg',SINGLE_BLOB)as t3 ))
-
-INSERT INTO Product(productName,intro,price,tag,productImage)
-select 'Dark Souls','intro4',1000,'Action',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale1.jpg', Single_Blob)as gamepic
-
-INSERT INTO Product(productName,intro,price,tag,productImage)
-select 'Terraria','intro5',800,'RPG',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale2.jpg', Single_Blob)as gamepic
-
-INSERT INTO Product(productName,intro,price,tag,productImage)
-select 'Resident Evil3','intro6',1790,'Horror',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale3.jpg', Single_Blob)as gamepic
-
-INSERT INTO Product(productName,intro,price,tag,productImage)
-select 'Age Of Empires','intro7',600,'RTS',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale4.jpg', Single_Blob)as gamepic
-
-INSERT INTO Product(productName,intro,price,tag,productImage)
-select 'Monster Hunter','intro8',800,'RPG',
-BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale5.jpg', Single_Blob)as gamepic
-go
---====================================晨安的product=======================================--
+--====================================辰安的product=======================================--
 INSERT INTO Product(productName,intro,price,tag, productImage)
 select 'DARK SOULS: REMASTERED','有一天，燃起了第一團火。 重新體驗話題性、代表性十足的經典遊戲。 經過畫質提升，將以驚豔的60fps形式呈現，做好重返羅德蘭的準備吧。 黑暗靈魂 Remastered包含遊戲本體，以及DLC《Artorias of the Abyss》。 ','1000','Action',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale1.jpg', Single_Blob)as gamepic
@@ -123,7 +92,8 @@ Create Table Orders(
    userId int,
    buyDatetime datetime default getDate(),
    purchase int not null,
-   hash varchar(30),
+   hash varchar(20),
+   payResult varchar(1),
    Primary Key(orderId),
    Foreign Key (userId) References Profile(userId),
 )
@@ -172,9 +142,9 @@ select * from Wish
 go
 
 Create Table Event(
-   eventId int identity(1,1),
+   eventId int primary key identity(1,1),
    productId int,
-   eventName varchar(50),
+   eventName varchar(255),
    content varchar(255),
    startDate datetime not null,
    endDate datetime not null,
