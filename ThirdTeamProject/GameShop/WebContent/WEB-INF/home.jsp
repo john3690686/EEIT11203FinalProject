@@ -102,8 +102,7 @@ body{
                         <input type="button" class="registerbutton" id="register2" value="申請新帳號">
 
                     </form>
-                        <button class="loginconfirm">Confirm</button><input type="reset" class="cancel_btn" value="Cancel">
-                        <div><span id="loginMsg"></span></div>
+
                 </fieldset>
             </div>
             
@@ -131,7 +130,6 @@ body{
                         <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
                         <div class="check" id="checkMail"><img src=""></div><br />
 
-                    <legend>Register Form</legend>
                     <form action="register" method="POST" enctype="multipart/form-data">
                         <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px"
                             height="200px"><input class="inputUserPhoto" type="file" name="userImg"
