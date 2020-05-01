@@ -48,16 +48,21 @@ public class ArticleDAO {
 
 	public String queryAllData() {
 		Session session = sessionFactory.getCurrentSession();
-//		Query<Article> query = session.createQuery("From Article", Article.class);
-		Query<Article> query = session.createQuery("From Article order by postDatetime", Article.class);
+		Query<Article> query = session.createQuery("From Article order by postDatetime desc", Article.class);
 		List<Article> list = query.list();
 
+		
 		JSONArray jsonAr = new JSONArray();
 
 		for (Article li : list) {
 			JSONObject json = new JSONObject();
 			json.put("articleID", li.getArticleID());
 			json.put("userId", li.getUserId());
+			
+			String userId = String.valueOf(li.getUserId());
+			String nickname = querynickname(userId);
+			json.put("nickname", nickname);
+			
 			json.put("articleTitle", li.getArticleTitle());
 			json.put("articleAbstract", li.getArticleAbstract());
 			json.put("articleContent", li.getArticleContent());
@@ -74,7 +79,7 @@ public class ArticleDAO {
 	
 	public String queryMyArticle(int userId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Article> query = session.createQuery("From Article where userId = :userId order by postDatetime", Article.class);
+		Query<Article> query = session.createQuery("From Article where userId = :userId order by postDatetime desc", Article.class);
 		query.setParameter("userId", userId);
 		List<Article> list = query.list();
 
@@ -101,6 +106,7 @@ public class ArticleDAO {
 
 	public String queryArticle(int articleID) {
 		Session session = sessionFactory.getCurrentSession();
+
 		Article queryArt = session.get(Article.class, articleID);
 
 		JSONArray jsonAr = new JSONArray();
@@ -108,6 +114,11 @@ public class ArticleDAO {
 			JSONObject json = new JSONObject();
 			json.put("articleID", queryArt.getArticleID());
 			json.put("userId", queryArt.getUserId());
+			
+			String userId = String.valueOf(queryArt.getUserId());
+			String nickname = querynickname(userId);
+			json.put("nickname", nickname);
+			
 			json.put("articleTitle", queryArt.getArticleTitle());
 			json.put("articleAbstract", queryArt.getArticleAbstract());
 			json.put("articleContent", queryArt.getArticleContent());
@@ -116,8 +127,10 @@ public class ArticleDAO {
 			json.put("updateDatetime", queryArt.getUpdateDatetime());
 			jsonAr.put(json);
 		}
+		
 		String jsonstr = jsonAr.toString();
 		String json = jsonstr.replaceAll(":null,", ":\"null\",");
+	    
 		return json;
 	}
 	
@@ -152,7 +165,18 @@ public class ArticleDAO {
 		
 		return queryArt;
 	}
-
+	
+	public String querynickname(String userId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userId=:userId", P_Profile.class);
+		qProfile.setParameter("userId", userId);
+		List<P_Profile> plist = qProfile.list();
+		String nickname = null;
+		for (P_Profile pli : plist) {
+			nickname = pli.getNickName();
+		}
+		return nickname;
+	}
 }
 
 

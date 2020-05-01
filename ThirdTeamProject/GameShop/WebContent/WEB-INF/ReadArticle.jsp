@@ -71,8 +71,9 @@ p{
 
 		<form action="<c:url value='/processAddMessage'/>" method="post">
 			<div class="reply">我要回應:<br/><br/>
-			<textarea cols="50" rows="5" name="message"></textarea>
+			<textarea id='textareaMEG' cols="50" rows="5" name="message"></textarea>
 			<input type="submit" value="送出" style="margin-left:90%; font-size:18px">
+			<input type="button" value="一鍵填入" onclick="fillInQuicklyMeg()">
 			<input type="hidden" id="requestArticleId" name="requestArticleId">		
 <!-- 			<div style="margin-left: 20px;margin-bottom: 20px; text-align: right; width: 80%"> -->		
 <!-- 			</div> -->	
@@ -90,21 +91,34 @@ p{
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
         </div>
     </footer>
-	
+
 <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
 <script>
 
 		function addtext(i , mid, arid){
 			var a ="textarea_"+i
 			var messageTextaera = "<form action='<c:url value='/addReplyMessage'/>' method='POST'>" ;
-				messageTextaera += "<textarea name='mContent'></textarea>";
-
+				messageTextaera += "<textarea id='textareaRM' name='mContent'></textarea>";
 				messageTextaera += "<input type='submit' value='送出' style='right'>";
+				messageTextaera += "<input type='button' value='一鍵填入' onclick='fillInQuicklyRM()'>";
 				messageTextaera += "<input type='hidden' name='mID' value='" + mid + "'>";
 				messageTextaera += "<input type='hidden' name='aID' value='" + arid + "'>";
 				messageTextaera += "</form>";
 			document.getElementById(a).innerHTML = messageTextaera;
+
+
 		}
+
+		function fillInQuicklyRM() {
+			var txt = "感謝你的支持~我會再接再厲的";
+			document.getElementById("textareaRM").innerHTML = txt
+		}
+
+		function fillInQuicklyMeg(){
+			var txt = "這一篇寫得真好~希望作者還可以再接再厲~期待你的下一篇作品~~";
+			document.getElementById("textareaMEG").innerHTML = txt
+		}
+
 	
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
@@ -133,7 +147,7 @@ p{
 					txt += "<div class = 'readArticle'>";
 					txt += "<div class='title'>"+books[i].articleTitle;
 					txt += "</div>";
-					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | 發表時間: " + books[i].postDatetime;
+					txt += "<div class='authoranddate'> 作者: ${sessionScope.nickname} | 發表時間: " + books[i].postDatetime;
 					txt += "<form id='deleteArticle' action='deleteArticle' method='POST' style='float:right;'></form>";				
 					txt += "<form id='editorArticle' action='gotoUpdataPage' method='POST' style='float:right;'></form></div>";	
 					txt += "<hr/>";  // 加一條裝飾分隔線
@@ -145,8 +159,8 @@ p{
 				document.getElementById("requestArticleId").setAttribute("value", books[0].articleID);
 				document.getElementById("demo1").innerHTML = txt;
 
-				var id = books[0].userId;
-				var loginid = ${sessionScope.userId};
+				var id = books[0].nickname;
+				var loginid = "${sessionScope.nickname}";
 				var inputeditor = "<input type='submit' value='編輯文章' style='right'>";
 				inputeditor += "<input type='hidden' name='aID' value='" + books[0].articleID + "'>";
 
@@ -170,7 +184,7 @@ p{
 	 				messageID = books1[i].messageID
 	 				a++;
 					txt1 += "<div class = 'article' style='color:black'>";
-					txt1 += "<div class='title'>"+books1[i].respUserId+":</div>";
+					txt1 += "<div class='title'>"+books1[i].nickname+":</div>";
 					txt1 += "<div>" + books1[i].messageContent + "</div></div>";
 // 					txt1 += "<div style='float:right;'>"+ books1[i].postDatetime +"</div>"
 					txt1 += "<div class = 'timeremess'>" + "#" +a + ", " + books1[i].postDatetime + "</div>"
@@ -181,13 +195,16 @@ p{
 					for(let j = 0; j < remess.length; j++){
 						if(remess[j].messageID == books1[i].messageID){
 							books[0].userId
-							txt1 += "<div class='remess'>" + books[0].userId + ":</br>" + remess[j].messageContent+"</div></div>"
+							txt1 += "<div class='remess'>${sessionScope.nickname}:</br>" + remess[j].messageContent+"</div></div>"
 						}		
 					}
 
-					txt1 += "<div class='messageResponse'><a href='javascript:void(0)' onclick='addtext("+ i +","+ messageID +", "+ books[0].articleID +")'><span class='replyTitle'>回應</span></a>";
+						if(id == loginid){
+							txt1 += "<div class='messageResponse'><a href='javascript:void(0)' onclick='addtext("+ i +","+ messageID +", "+ books[0].articleID +")'><span class='replyTitle'>回應</span></a>";
+							txt1 += "</div>";
+						}
+					
 
-					txt1 += "</div>";
 					txt1 += "<div id='textarea_"+i+"'></div><hr>";
 					
 				}

@@ -103,23 +103,31 @@ body{
 				for (let i = 0; i < books.length; i++) {
 					txt += "<div class='articleList'>";
 //把block去掉			txt += "<div class = 'imageblock'><img class = 'articleImg' alt='圖片失效' src='https://i.imgur.com/pLPub4P.jpg'></div>";
-					txt += "<div><img class = 'articleImg' alt='圖片失效' src='https://orangemushroom.files.wordpress.com/2017/09/maplestory-256x256.png'>";
+					txt += "<div><img class = 'articleImg' id='articleImg_"+i+"' alt='圖片失效'>";
 					txt += "<div class = 'article'>";
-					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>文章標題: " + books[i].articleTitle+ "</div></a>";
-					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | 發表日期: " + books[i].postDatetime + "</div>";
-// 					txt += "articleNum: " + a + "</br>";
-
-// 					txt += "userId: "+ books[i].userId + "</br>";
-
+					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>" + books[i].articleTitle+ "</div></a>";
+					txt += "<div class='authoranddate'> 作者: " + books[i].nickname + " | 發表日期: " + books[i].postDatetime + "</div>";
 					txt += "<div class='abstract'>"+books[i].articleAbstract + "....(<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"' >繼續閱讀</a>)</div>";
-// 					txt += "articleTitle: "+ books[i].articleContent + "</br>";
-// 					txt += "postDatetime: "+ books[i].postDatetime + "</br>";
 					txt += "</div></div>";
 					a++;
 				}
 				txt += "</br>"
 				document.getElementById("demo1").innerHTML = txt;
-				
+
+				for (let i = 0; i < books.length; i++) {
+
+					var imgstr = 0;
+					imgstr = books[i].articleThumbnail;
+					console.log("imgstr: "+imgstr);
+					
+					if(imgstr != undefined || imgstr != null){
+						var b = "articleImg_"+i;
+						document.getElementById(b).src = books[i].articleThumbnail;
+					}else{
+						var b = "articleImg_"+i;
+						document.getElementById(b).src = 'https://orangemushroom.files.wordpress.com/2017/09/maplestory-256x256.png';
+					}
+				}
 			}
 		}
 		xhttp.open("GET", "processArticle", true);

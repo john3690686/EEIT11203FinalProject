@@ -5,7 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
+import tw.gameshop.user.model.P_Profile;
 import tw.gameshop.user.model.ReplyMessageService;
 
 @Controller
@@ -29,15 +36,26 @@ public class ArticleController {
 	HttpServletRequest request;
 
 	private int userId;
+	private String userAccount;
+	private String nickname;
+
+	private SessionFactory sessionFactory;
+
 
 	public ArticleController() {
 	}
 	
 	@Autowired
-	public ArticleController(ArticleService aService, ArticleMessageService artMesService, ReplyMessageService rmService) {
+	public ArticleController(
+			@Qualifier(value = "sessionFactory") SessionFactory sessionFactory,
+			ArticleService aService, ArticleMessageService artMesService, ReplyMessageService rmService) {
+		this.sessionFactory = sessionFactory;
 		this.aService = aService;
 		this.artMesService = artMesService;
 		this.rmService = rmService;
+
+		
+		System.out.println(userId);
 	}
 	
 	@RequestMapping(path = "/processArticle", method = RequestMethod.GET)
@@ -45,11 +63,16 @@ public class ArticleController {
 		
 //		===============測試用偽裝userID====================
 		session = request.getSession();
-		session.setAttribute("userId", 2);
-		userId = Integer.parseInt(session.getAttribute("userId").toString());
-        System.out.println("===================>userid by session:"+session.getAttribute("userId"));
-        System.out.println("===================>userid by userId:"+userId);
-        
+	
+		userAccount = "a11111";
+		
+		userId = Integer.parseInt(artMesService.queryuserId(userAccount));
+		nickname = artMesService.querynickname(artMesService.queryuserId(userAccount));
+		
+		session.setAttribute("nickname", nickname);
+		
+		System.out.println("=============>userId is: "+userId);
+		System.out.println("=============>nickname is: "+nickname);
 //		===================================
 		
         //熱門文章排行
@@ -73,16 +96,34 @@ public class ArticleController {
 			@RequestParam("articleContent") String articleContent,
 			@RequestParam("imgLink") String articleThumbnail) {
 		
+		if(articleTitle.length() > 25) {
+			JSONArray jsonAr = new JSONArray();
+				JSONObject json = new JSONObject();
+				json.put("articleTitle", articleTitle);
+				json.put("articleContent", articleContent);
+				json.put("articleThumbnail", articleThumbnail);
+			jsonAr.put(json);
+
+			String errorReturnTitle = jsonAr.toString();
+			postArticle();
+			request.setAttribute("checkout", 99847);
+			request.setAttribute("errormeg", "標題限定25字以內，請重新輸入!");
+			request.setAttribute("errorReturnTitle", errorReturnTitle);
+			System.out.println("======>errorReturnTitle: "+errorReturnTitle);
+			request.setAttribute("errorReturnTitle", errorReturnTitle);
+			return "PostArticle";			
+		}
+		
         String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
         String articleAbstract;
         
-        if(str.length()>100) {
+        if(str.length()>50) {
         	articleAbstract = str.substring(0, 50);
         }else {
         	articleAbstract = str;
         }
         
-        if(articleThumbnail.length()<1) {
+        if(articleThumbnail.length()<1 || articleThumbnail == "null") {
         	articleThumbnail = null;
         }
                 
@@ -92,8 +133,9 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/postArticle" , method = RequestMethod.GET)
 	public String postArticle() {
-		request.setAttribute("checkout_1", 99847);
+		request.setAttribute("checkout", 9999);
 		request.setAttribute("readByArticleId", 0);
+		request.setAttribute("errorReturnTitle", 0);
 		return "PostArticle";
 	}
 	
@@ -106,6 +148,7 @@ public class ArticleController {
 	
 	@RequestMapping(path = "/processReadArticle" , method = RequestMethod.GET)
 	public String processReadArticle(@RequestParam("articleID") int articleid) {
+		
 		String readByArticleId = aService.queryArticle(articleid);
 		String message = artMesService.queryArticleMessage(articleid);
 		String remess = rmService.queryAllReply(articleid);
@@ -151,8 +194,8 @@ public class ArticleController {
 
 		String readByArticleId = aService.queryArticle(articleID);
 		request.setAttribute("readByArticleId", readByArticleId);
-		request.setAttribute("checkout_2", 19487);
-		
+		request.setAttribute("checkout", 19487);
+		request.setAttribute("errorReturnTitle", 0);
 		return "PostArticle";
 	}
 	
@@ -166,12 +209,34 @@ public class ArticleController {
         String str = articleContent.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "");
         String articleAbstract;
         
-        if(str.length()>100) {
-        	articleAbstract = str.substring(0, 99);
+    	if(articleTitle.length() > 25) {
+			JSONArray jsonAr = new JSONArray();
+				JSONObject json = new JSONObject();
+				json.put("articleID", articleID);
+				json.put("articleTitle", articleTitle);
+				json.put("articleContent", articleContent);
+				json.put("articleThumbnail", articleThumbnail);
+			jsonAr.put(json);
+
+			String readByArticleId = jsonAr.toString();
+			postArticle();
+			request.setAttribute("checkout", 19487);
+			request.setAttribute("errormeg", "標題限定20字以內，請重新輸入!");
+			request.setAttribute("readByArticleId", readByArticleId);
+			return "PostArticle";			
+		}
+        
+        if(str.length()>50) {
+        	articleAbstract = str.substring(0, 50);
         }else {
         	articleAbstract = str;
         }
-		
+        
+        if(articleThumbnail.length()<1 || articleThumbnail.equals("undefined")) {
+        	articleThumbnail = null;
+        }
+            
+	
 		aService.updataArticle(articleID, articleTitle, articleAbstract, articleContent, articleThumbnail);
 		processReadArticle(articleID);
 		
@@ -198,6 +263,8 @@ public class ArticleController {
 		
 		return page;
 	}
+	
+
 	
 }
 
