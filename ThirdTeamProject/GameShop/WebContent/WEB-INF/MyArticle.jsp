@@ -96,7 +96,7 @@
 					txt += "<div>";
 					txt += "<div class = 'imageblock'><img class='articleImg' id='articleImg_"+i+"' alt='圖片失效'></div>";
 					txt += "<div class = 'article'>";
-					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>This is Title: " + books[i].articleTitle+ "</div></a>";
+					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>" + books[i].articleTitle+ "</div></a>";
 					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
 
 					txt += "<div class='abstract'>"+books[i].articleAbstract + "....(<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"' >繼續閱讀</a>)</div>";

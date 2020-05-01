@@ -50,6 +50,7 @@ public class ArticleMessageDAO {
 		query.setParameter("articleID", articleID);
 		List<ArticleMessage> list = query.list();
 
+		
 		JSONArray jsonAr = new JSONArray();
 
 		for (ArticleMessage li : list) {
@@ -57,6 +58,10 @@ public class ArticleMessageDAO {
 			json.put("messageID", li.getMessageID());
 			json.put("articleID", li.getArticleID());
 			json.put("respUserId", li.getRespUserId());
+			String userId = String.valueOf(li.getRespUserId());
+			String nickname = querynickname(userId);
+			json.put("nickname", nickname);
+			
 			json.put("messageContent", li.getMessageContent());
 			json.put("postDatetime", li.getPostDatetime());
 
@@ -118,4 +123,29 @@ public class ArticleMessageDAO {
 
 		return megId;
 	}
+	
+	public String querynickname(String userId) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userId=:userId", P_Profile.class);
+		qProfile.setParameter("userId", userId);
+		List<P_Profile> plist = qProfile.list();
+		String nickname = null;
+		for (P_Profile pli : plist) {
+			nickname = pli.getNickName();
+		}
+		return nickname;
+	}
+	
+	public String queryuserId(String userAccount) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:userAccount", P_Profile.class);
+		qProfile.setParameter("userAccount", userAccount);
+		List<P_Profile> plist = qProfile.list();
+		String userId = null;
+		for (P_Profile pli : plist) {
+			userId = pli.getUserId();
+		}
+		return userId;
+	}
+	
 }

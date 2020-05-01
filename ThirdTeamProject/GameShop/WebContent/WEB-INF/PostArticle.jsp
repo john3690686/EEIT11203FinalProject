@@ -91,7 +91,6 @@ img{
 		CKEDITOR.replace('articleContent', {});
 			
 		var checkout = ${checkout};	
-
  		console.log("checkout: "+checkout);
 
 		if(checkout == 19487){
@@ -105,9 +104,10 @@ img{
 			var imgset = "<img class='setImg' src='"+book[0].articleThumbnail+"'>";
 			document.getElementById("articleThumbnail").innerHTML = imgset;
 			document.getElementById("imgLink").value = book[0].articleThumbnail;
+			
 		}else if(checkout == 99847){
 			var errorReturnTitle = ${errorReturnTitle};
-			console.log("var errorReturnTitle = "+errorReturnTitle);
+			console.log("var errorReturnTitle = "+errorReturnTitle);			
 			document.getElementById("title").value = errorReturnTitle[0].articleTitle;
 			document.getElementById("editor").innerHTML = errorReturnTitle[0].articleContent;
 			var imgset = "<img class='setImg' src='"+errorReturnTitle[0].articleThumbnail+"'>";
@@ -131,6 +131,7 @@ img{
 			document.getElementById("articleThumbnail").innerHTML = txt;
 			 document.getElementById("success").innerHTML = " ";
 		}
+
 	
 	</script>
 	
