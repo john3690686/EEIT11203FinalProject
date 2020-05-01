@@ -111,7 +111,6 @@ public class SessionController {
 					if(request.getSession(false) != null) {
 						request.changeSessionId();
 					}
-					System.out.println("Create Session");
 					HttpSession session = request.getSession();
 					session.setMaxInactiveInterval(60 * 60 * 24);
 					session.setAttribute("userAccount", profile.getUserAccount());
@@ -120,7 +119,6 @@ public class SessionController {
 					session.setAttribute("userImg", profile.getUserImg());
 
 					if(autoLogin) {
-						System.out.println("Add Cookie");
 						Cookie cookAcc = new Cookie("userAccount",profile.getUserAccount());
 						Cookie cookPwd = new Cookie("userPwd",profile.getUserPwd());
 						Cookie cookAutoLogin = new Cookie("autoLogin","checked");
@@ -193,8 +191,13 @@ public class SessionController {
 	public P_TotalProfile queryProfile(HttpServletRequest request) {
 		System.out.println("myProfile");
 		P_TotalProfile profile = null;
-		profile = pservice.queryProfile((String) request.getAttribute("userAccount"));
-		System.out.println((String) request.getAttribute("userAccount")+"= Has data : "+profile);
+		Object objAccount = request.getSession().getAttribute("userAccount");
+		if(objAccount == null) {
+			System.out.println("SerchProfile : serch null account.");
+		}else {
+			profile = pservice.queryProfile((String) objAccount);
+		}
+		
 		return profile;
 	}
 

@@ -263,6 +263,9 @@ body{
     width: 20px;
     height: 20px;
 }
+.ckeck span{
+    width: 50px;
+}
 .cancel_btn{
 	font-family: Microsoft JhengHei;
 	font-size:18px;

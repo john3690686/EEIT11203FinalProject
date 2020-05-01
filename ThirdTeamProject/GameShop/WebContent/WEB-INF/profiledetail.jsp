@@ -12,9 +12,15 @@
 			padding: 0;
 			font-size: 20px;
 		}
+		body{
+			background-image: url("img/skytower.jpg");
+			background-repeat:no-repeat;
+			background-size:cover;
+		}
 		#profileForm{
 			width: 800px;
 			margin: auto;
+			background-color: rgba(79, 221, 240, 0.651);
 		}
 		fieldset{
 			border-radius: 10px;
@@ -49,46 +55,46 @@
 <body>
 	<div id="profileForm">
 	<fieldset>
-		<legend>Profile Detail</legend>
+		<legend>會員資料</legend>
 		<form action="#" method="POST" enctype="multipart/form-data">
 			<img style="cursor: pointer;" class="imgUserPhoto" src="" alt="" width="200px" height="200px">
 			<input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
-			<label>Required</label><br /> 
-			<label for="userAccount">Account:</label><input type="text" id="userAccount" name="userAccount" readonly="readonly"><br /> 
-			<label for="userName">Name:</label><input type="text" id="userName" name="userName">
+			<label>主要部分</label><br /> 
+			<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" readonly="readonly"><br /> 
+			<label for="userName">姓名:</label><input type="text" id="userName" name="userName">
             <div class="check"><img src=""></div><br />
 
-            <label for="nickName">Nick Name:</label><input type="text" id="nickName" name="nickName">
+            <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName">
             <div class="check" id="checkNickName"><img src=""></div><br />
-            <label for="oriPwd">Origin Password:</label><input type="password" id="oriPwd" name="oriPwd">
+            <label for="oriPwd">原密碼:</label><input type="password" id="oriPwd" name="oriPwd">
             <div class="check" id="checkOriPwd"><img src=""></div><br />
 			<span class="note">請輸入原密碼</span><br />
 			
-            <label for="userPwd">Password:</label><input type="password" id="userPwd" name="userPwd">
+            <label for="userPwd">新密碼:</label><input type="password" id="userPwd" name="userPwd">
             <div class="check" id="checkPwd"><img src=""></div><br />
             <span class="note">(不改密碼可不填)</span><br />
 
-            <label for="recheckPwd">Password:</label><input type="password" id="recheckPwd" name="recheckPwd"
+            <label for="recheckPwd">新密碼:</label><input type="password" id="recheckPwd" name="recheckPwd"
                             placeholder="Re-Enter Password">
             <div class="check" id="recheckPwd"><img src=""></div><br />
 
             <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
             <div class="check" id="checkMail"><img src=""></div><br />
 			<hr>
-			<label>Detail</label><br />
-			<label>Gender:</label>
+			<label>次要部分</label><br />
+			<label>性別:</label>
 			<input type="radio" class="gender" name="gender" value="m" checked="checked"><label
-				class="gender">male</label>
-			<input type="radio" class="gender" name="gender" value="f"><label class="gender">female</label>
+				class="gender">男生</label>
+			<input type="radio" class="gender" name="gender" value="f"><label class="gender">女生</label>
 			<input type="radio" class="gender" name="gender" value="o"><label
-				class="gender">other</label><br />
+				class="gender">其他</label><br />
 
-			<label for="birthday">Birthday:</label><input type="text" id="birthday" name="birthday"><br />
+			<label for="birthday">生日:</label><input type="text" id="birthday" name="birthday"><br />
 
-			<label for="address">Address:</label><input type="text" id="address" name="address"><br />
+			<label for="address">地址:</label><input type="text" id="address" name="address"><br />
 
-			<label for="phone">Phone:</label><input type="text" id="phone" name="phone"><br />
-			<button class="registerconfirm">Confirm</button><input class="cancel_btn" type="button" value="Cancel">
+			<label for="phone">電話:</label><input type="text" id="phone" name="phone"><br />
+			<button class="registerconfirm">確認</button><input class="cancel_btn" type="button" value="取消">
 		</form>
 	</fieldset>
 </div>
@@ -126,7 +132,7 @@
 					$("#address").val(data.address);
 					$("#phone").val(data.phone);
 					if (data.userImg == null || data.userImg == 0) {  
-						$(".imgUserPhoto").attr("src", "img/coda.jpg");
+						$(".imgUserPhoto").attr("src", "img/defaultUserImg.jpg");
 					} else {
 						$(".imgUserPhoto").attr("src", "data:image/jpeg;base64," + data.userImg);
 					}
@@ -178,7 +184,7 @@
         });
         $("#recheckPwd").blur(function(){
             $("#recheckPwd img").css("visibility","visible");
-            if($(this).val().length>0 && $(this).val() == $("#userPwd").val()){
+            if($(this).val() == $("#userPwd").val()){
                 $("#recheckPwd img").attr("src","img/Right.png");
             }else{
                 $("#recheckPwd img").attr("src","img/Wrong.png");

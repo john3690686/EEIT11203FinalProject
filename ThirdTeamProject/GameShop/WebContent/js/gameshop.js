@@ -81,12 +81,11 @@ $(document).ready(function () {
                 success: function(data){
                     console.log(data);
                     if(data){
-                        $("#checkAccount span").html("已存在");
+                        alert("此帳號已存在");
                         $("#checkAccount img").attr("src", "img/Wrong.png");
                         errorAcc = 1;
                     }else{
                         $("#checkAccount img").attr("src", "img/Right.png");
-                        $("#checkAccount span").append("")
                         errorAcc = 0;
                     }
                 },error: function(){
@@ -100,10 +99,30 @@ $(document).ready(function () {
         }
     });
     $("#nickName").blur(function () {
+        let ajaxFlag = true;
         $("#checkNickName img").css("visibility", "visible");
-        if ($(this).val().trim().length > 0) {
-            $("#checkNickName img").attr("src", "img/Right.png");
-            errorNickName = 0;
+        if (ajaxFlag) {
+            ajaxFlag = false;
+            console.log("thisvalue = " + $(this).val());
+            $.ajax({
+                url: "http://localhost:8080/GameShop/isNickNameExist",
+                type: "GET",
+                data : {"nickName":$(this).val()},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    if(data){
+                        alert("此暱稱已存在");
+                        $("#checkNickName img").attr("src", "img/Wrong.png");
+                        errorAcc = 1;
+                    }else{
+                        $("#checkNickName img").attr("src", "img/Right.png");
+                        errorAcc = 0;
+                    }
+                },error: function(){
+                    console.log("連線失敗");
+                }
+            }).done(ajaxFlag = true);
         } else {
             $("#checkNickName img").attr("src", "img/Wrong.png");
             errorNickName = 1;
@@ -128,10 +147,30 @@ $(document).ready(function () {
         }
     });
     $("#mail").blur(function () {
+        let ajaxFlag = true;
         $("#checkMail img").css("visibility", "visible");
         if (regMail.test($(this).val())) {
-            $("#checkMail img").attr("src", "img/Right.png");
-            errorMail = 0;
+            ajaxFlag = false;
+            console.log("thisvalue = " + $(this).val());
+            $.ajax({
+                url: "http://localhost:8080/GameShop/isMailExist",
+                type: "GET",
+                data : {"mail":$(this).val()},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    if(data){
+                        alert("此信箱已存在");
+                        $("#checkMail img").attr("src", "img/Wrong.png");
+                        errorAcc = 1;
+                    }else{
+                        $("#checkMail img").attr("src", "img/Right.png");
+                        errorAcc = 0;
+                    }
+                },error: function(){
+                    console.log("連線失敗");
+                }
+            }).done(ajaxFlag = true);
         } else {
             $("#checkMail img").attr("src", "img/Wrong.png");
             errorMail = 1;

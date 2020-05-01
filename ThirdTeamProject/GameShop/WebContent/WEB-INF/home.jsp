@@ -92,8 +92,8 @@ body{
                     <div class="warning"><img src="img/Info_icon.png" title="需擁有帳號，方能使用願望清單與評論功能" style="vertical-align:middle">公用電腦請記得登出，或開啟無痕模式</div><br/>
                     <form action="processLogin" method="POST">
 
-                        <label for="userAccount">帳號:</label><input type="text" name="userAccount"><br/>
-                        <label for="userPwd">密碼:</label><input type="password" name="userPwd"><br/>
+                        <label for="userAccount">帳號:</label><input type="text" name="userAccount" value="${userAccount}"><br/>
+                        <label for="userPwd">密碼:</label><input type="password" name="userPwd" value="${userPwd}"><br/>
                         <input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
 						
 						<br/>
@@ -121,7 +121,8 @@ body{
                         <div class="check" id="checkAccount"><img src=""><span></span></div><br />	
                         
                         <label for="userName">姓名:</label><input type="text" id="userName" name="userName"><br />
-                        <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱"><span></span><br />
+                        <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱">
+                        <div class="check" id="checkNickName"><img src=""><span></span></div><br />
                         <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="包含大小寫及數字的6~12位密碼">
                         <div class="check" id="checkPwd"><img src=""></div><br />
                         <label for="recheckPwd">確認密碼:</label><input type="password" id="recheckPwd" name="recheckPwd" placeholder="再次輸入密碼">
@@ -140,8 +141,9 @@ body{
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />
                         
                     </form>
+                    <div id="registerMsg"></div>
                     <button class="registerconfirm">確認</button>
-                        <input class="cancel_btn" type="button" value="取消">
+                    <input class="cancel_btn" type="button" value="取消">
                     <button class="fill">快速填入</button>
 
                 </fieldset>
