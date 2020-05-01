@@ -22,7 +22,7 @@ public class P_Profile implements Serializable{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name = "userId")
-	private String userId;
+	private Integer userId;
 	
 	@Column(name = "userAccount")
 	private String userAccount;
@@ -68,11 +68,11 @@ public class P_Profile implements Serializable{
 		this.userImg = userImg;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

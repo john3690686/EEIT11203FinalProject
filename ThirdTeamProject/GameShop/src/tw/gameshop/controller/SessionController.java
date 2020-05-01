@@ -25,7 +25,7 @@ import tw.gameshop.user.model.P_ProfileService;
 import tw.gameshop.user.model.P_TotalProfile;
 
 @Controller
-@SessionAttributes(names = { "userAccount", "userName", "nickName", "errorMessage" })
+@SessionAttributes(names = { "userAccount", "userName", "nickName", "errorMessage", "userId" })
 public class SessionController {
 
 	private P_ProfileService pservice;
@@ -113,6 +113,7 @@ public class SessionController {
 					}
 					HttpSession session = request.getSession();
 					session.setMaxInactiveInterval(60 * 60 * 24);
+					session.setAttribute("userId", profile.getUserId());
 					session.setAttribute("userAccount", profile.getUserAccount());
 					session.setAttribute("userName", profile.getUserName());
 					session.setAttribute("nickName", profile.getNickName());
