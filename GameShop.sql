@@ -178,14 +178,7 @@ C.comment, C.postDatetime,
 C.reply, C.replyDatetime from Profile as P
 Join	Comment as C on P.userId = C.userId
 GO
---DROP TABLE Product
---DROP TABLE ProfileDetail
---DROP TABLE Profile
---DELETE FROM ProfileDetail 
---DELETE FROM Profile
 
---EXEC sp_rename 'Profile.userToken', 'salt', 'COLUMN';
---ALTER TABLE Profile ALTER column salt varchar(Max)
 
 Create Table Article(
 	articleID int identity(1,1) not null,
@@ -220,3 +213,12 @@ select * from Article
 select * from ArticleMessage
 select * from ReplyMessage
 go
+
+--DROP TABLE Product
+--DROP TABLE ProfileDetail
+--DROP TABLE Profile
+--DELETE FROM ProfileDetail 
+--DELETE FROM Profile
+
+--EXEC sp_rename 'Profile.userToken', 'salt', 'COLUMN';
+--ALTER TABLE Profile ALTER column salt varchar(Max)

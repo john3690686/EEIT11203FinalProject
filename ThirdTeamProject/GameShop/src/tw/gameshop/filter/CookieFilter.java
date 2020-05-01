@@ -35,10 +35,6 @@ public class CookieFilter implements Filter {
 					autoLogin = cookie.getValue();
 				}
 			}
-			if(req.getSession(false) != null) {
-				req.changeSessionId();
-			}
-			
 			req.setAttribute("userAccount", userAccount);
 			req.setAttribute("userPwd", userPwd);
 			req.setAttribute("autoLogin", autoLogin);

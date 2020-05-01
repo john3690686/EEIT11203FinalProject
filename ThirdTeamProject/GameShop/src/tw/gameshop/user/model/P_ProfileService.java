@@ -113,7 +113,7 @@ public class P_ProfileService {
 	public boolean isProfileExist(String userAccount, String mail, String nickName) {
 		return profileDao.isProfileExist(userAccount, mail, nickName);
 	}
-	public boolean isAccountExist(String userAccount) {
+	public boolean isAccountExist(String userAccount) throws Exception {
 		return profileDao.isAccountExist(userAccount);
 	}
 	public boolean isNickNameExist(String nickName) {

@@ -90,7 +90,7 @@ public class P_ProfileDao {
 		return false;
 	}
 	
-	public boolean isAccountExist(String userAccount) {
+	public boolean isAccountExist(String userAccount) throws Exception {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlstr = "from P_Profile WHERE userAccount=:userAccount";
 		List<P_Profile> result = null;
@@ -100,12 +100,14 @@ public class P_ProfileDao {
 			result = qProfile.list();
 			if(result.size()>0) {
 				return true;
+			}else {
+				return false;
 			}
 		}catch (Exception e) {
 			System.out.println("Error:ProfileDao.isAccountExist");
 			e.printStackTrace();
 		}
-		return false;
+		throw new Exception("isAccountExist error!");
 	}
 	public boolean isNickNameExist(String nickName) {
 		Session session = sessionFactory.getCurrentSession();

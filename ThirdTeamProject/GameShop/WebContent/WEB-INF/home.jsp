@@ -48,10 +48,9 @@ body{
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
-            <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
             <li id="hello"> <a href="myProfile"> hi,${userName}</a>
-
         </ul>
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
     </nav>
 
 <!--Wishlist & Shopping cart &top-->
@@ -116,33 +115,33 @@ body{
                     <legend>申請新帳號</legend>
                     <form action="register" method="POST" enctype="multipart/form-data">
 
-                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/coda.jpg" alt="" width="200px" height="200px">
+                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/defaultUserImg.jpg" alt="" width="200px" height="200px">
                         <input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
 						<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" placeholder="請輸入6~18英數字元">
-                        <div class="check" id="checkAccount"><img src=""></div><br />	
+                        <div class="check" id="checkAccount"><img src=""><span></span></div><br />	
                         
                         <label for="userName">姓名:</label><input type="text" id="userName" name="userName"><br />
-                        <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱"><br />
-                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="請輸入一組包含大小寫及數字的6~12位密碼">
+                        <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱"><span></span><br />
+                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="包含大小寫及數字的6~12位密碼">
                         <div class="check" id="checkPwd"><img src=""></div><br />
                         <label for="recheckPwd">確認密碼:</label><input type="password" id="recheckPwd" name="recheckPwd" placeholder="再次輸入密碼">
                         <div class="check" id="recheckPwd"><img src=""></div><br />	
                         <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
-                        <div class="check" id="checkMail"><img src=""></div><br />
+                        <div class="check" id="checkMail"><img src=""><span></span></div><br />
 
                         <hr>
                         <label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br />
                         <label style="width:90px;padding:0;">性別:</label>
-                        <input type="radio" class="gender" name="gender" value="m" checked="checked"><label
-                            class="gender">男</label>
+                        <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">男</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">女</label>
                         <input type="radio" class="gender" name="gender" value="o"><label class="gender">其他</label><br />
                         <label for="birthday">生日:</label><input type="text" id="birthday" name="birthday" placeholder="ex:2020/04/29"><br />
                         <label for="address">地址:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />
-                        <button class="registerconfirm">確認</button>
-                        <input class="cancel_btn" type="button" value="取消">
+                        
                     </form>
+                    <button class="registerconfirm">確認</button>
+                        <input class="cancel_btn" type="button" value="取消">
                     <button class="fill">快速填入</button>
 
                 </fieldset>

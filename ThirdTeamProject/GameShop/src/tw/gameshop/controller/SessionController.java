@@ -41,16 +41,16 @@ public class SessionController {
 		System.out.println("Controller = " + (int)Math.floor(Math.random()*1000));
 		this.pservice = pservice;
 	}
-
+	
 	// 註冊
+	@ResponseBody
 	@RequestMapping(path = "/register", method = RequestMethod.POST)
-	public String processAction(@RequestParam("userAccount") String userAccount,
+	public boolean processAction(@RequestParam("userAccount") String userAccount,
 			@RequestParam("userName") String userName, @RequestParam("userPwd") String userPwd,
 			@RequestParam("nickName") String nickName, @RequestParam("mail") String mail,
 			@RequestParam("gender") Character gender, @RequestParam("userImg") MultipartFile userImg,
 			@RequestParam("birthday") String birthday, @RequestParam("address") String address,
 			@RequestParam("phone") String phone, Model model) {
-
 		try {
 			boolean ckeckInput = regUserAccount.matcher(userAccount).matches() && regUserPwd.matcher(userPwd).matches()
 					&& regMail.matcher(mail).matches();
@@ -62,17 +62,17 @@ public class SessionController {
 					PD_ProfileDetail profile2 = new PD_ProfileDetail(address, birthday, phone);
 					pservice.createProfile(profile, profile2);
 					model.addAttribute("titleMessage", "註冊成功");
-					return "home";
+					return true;
 				}
 				model.addAttribute("errorMessage", "資料不正確");
-				return "redirect:/error";
+				return false;
 			}
 
 		} catch (Exception e) {
 			System.out.println("Error!!");
 			e.printStackTrace();
 		}
-		return "ErrorPage";
+		return false;
 	}
 
 	// 登入
@@ -108,6 +108,9 @@ public class SessionController {
 			profile = pservice.processLogin(userAccount, userPwd);
 			if (profile != null) {
 				if (profile.isMailState()) {
+					if(request.getSession(false) != null) {
+						request.changeSessionId();
+					}
 					System.out.println("Create Session");
 					HttpSession session = request.getSession();
 					session.setMaxInactiveInterval(60 * 60 * 24);
@@ -153,18 +156,23 @@ public class SessionController {
 		}
 	}
 	
-	@RequestMapping(value = "/isAccountExist", method = RequestMethod.POST)
-	public boolean isAccountExist(String userAccount) {
+	@ResponseBody
+	@RequestMapping(value = "/isAccountExist", method = RequestMethod.GET)
+	public boolean isAccountExist(@RequestParam(name = "userAccount")String userAccount) throws Exception {
 		return pservice.isAccountExist(userAccount);
 	}
 	
-	@RequestMapping(value = "/isNickNameExist", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "/isNickNameExist", method = RequestMethod.GET)
 	public boolean isNickNameExist(String nickName) {
+		System.out.println("isNickNameExist");
 		return pservice.isNickNameExist(nickName);
 	}
 	
-	@RequestMapping(value = "/isMailExist", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "/isMailExist", method = RequestMethod.GET)
 	public boolean isMailExist(String mail) {
+		System.out.println("isMailExist");
 		return pservice.isMailExist(mail);
 	}
 

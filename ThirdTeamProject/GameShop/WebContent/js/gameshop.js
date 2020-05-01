@@ -68,10 +68,32 @@ $(document).ready(function () {
 
 
     $("#userAccount").blur(function () {
+        let ajaxFlag = true;
         $("#checkAccount img").css("visibility", "visible");
-        if (regUserAccount.test($(this).val())) {
-            $("#checkAccount img").attr("src", "img/Right.png");
-            errorAcc = 0;
+        if (regUserAccount.test($(this).val()) && ajaxFlag) {
+            ajaxFlag = false;
+            console.log("thisvalue = " + $(this).val());
+            $.ajax({
+                url: "http://localhost:8080/GameShop/isAccountExist",
+                type: "GET",
+                data : {"userAccount":$(this).val()},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    if(data){
+                        $("#checkAccount span").html("已存在");
+                        $("#checkAccount img").attr("src", "img/Wrong.png");
+                        errorAcc = 1;
+                    }else{
+                        $("#checkAccount img").attr("src", "img/Right.png");
+                        $("#checkAccount span").append("")
+                        errorAcc = 0;
+                    }
+                },error: function(){
+                    console.log("連線失敗");
+                }
+            }).done(ajaxFlag = true);
+            
         } else {
             $("#checkAccount img").attr("src", "img/Wrong.png");
             errorAcc = 1;
@@ -117,17 +139,42 @@ $(document).ready(function () {
     });
 
     //confirm
-    $(".registerconfirm").click(function () {
+    $(".registerconfirm").click(function (e) {
+        e.preventDefault();
         if (errorAcc == 0 && errorNickName == 0 && errorPwd == 0 && errorMail == 0) {
-            $(".registerForm form").submit();
+            var form = $(".registerForm form")[0];
+            var formdata = new FormData(form);
+            for(var pair of formdata.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+             }
+            $.ajax({
+                url: "http://localhost:8080/GameShop/register",
+                type: "POST",
+                data : formdata,
+				dataType : "json",
+				contentType: false,
+				processData : false,
+				cache : false,
+				async : false,
+                success: function (data) {
+                    console.log("DATA : "+data);
+                    if (data) {
+                        alert("註冊成功，請到信箱收取確認信!");
+                        location="http://localhost:8080/GameShop/index.html"
+                    } else {
+                        alert("註冊失敗，請檢查資料是否正確");
+                    }
+                }, error: function () {
+                    alert("註冊失敗，請檢查資料是否正確");
+                }
+            })
         } else {
             alert("資料格式不對唷!請再確認一次!");
         }
     })
 
     $(".loginconfirm").click(function () {
-        console.log("userAccount:" + $("#loginAccount").val());
-        console.log("userPwd:" + $("#loginPwd").val());
+
         $.ajax({
             url: "http://localhost:8080/GameShop/checkProfile",
             type: "POST",

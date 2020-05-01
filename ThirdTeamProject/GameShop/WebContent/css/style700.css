@@ -91,7 +91,7 @@ footer{
 }
 .productTable{
 	border-collapse: collapse;
-	background: :rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.5);
 	position: relative;
     width:70%;
     top:0;
