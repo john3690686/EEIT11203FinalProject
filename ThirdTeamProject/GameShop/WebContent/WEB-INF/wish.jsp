@@ -69,7 +69,7 @@ body{
 <!--footer-->
 	<footer>
 		<div class="foot">
-			<H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
+			<H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
 			<H6>All copyrights and trademarks are the property of their
 				respective owners.</H6>
 		</div>
