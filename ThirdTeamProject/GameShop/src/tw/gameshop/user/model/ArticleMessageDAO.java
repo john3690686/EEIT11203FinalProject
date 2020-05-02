@@ -136,12 +136,13 @@ public class ArticleMessageDAO {
 		return nickname;
 	}
 	
-	public Integer queryuserId(String userAccount) {
+
+	public int queryuserId(String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:userAccount", P_Profile.class);
 		qProfile.setParameter("userAccount", userAccount);
 		List<P_Profile> plist = qProfile.list();
-		Integer userId = null;
+		int userId = 0;
 		for (P_Profile pli : plist) {
 			userId = pli.getUserId();
 		}

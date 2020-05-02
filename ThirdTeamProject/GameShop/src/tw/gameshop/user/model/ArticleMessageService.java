@@ -41,7 +41,8 @@ public class ArticleMessageService {
 		return artMesDao.querynickname(userId);
 	}
 	
-	public Integer queryuserId(String userAccount) {
+
+	public int queryuserId(String userAccount) {
 		return artMesDao.queryuserId(userAccount);
 	}
 }

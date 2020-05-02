@@ -59,7 +59,7 @@ public class ArticleDAO {
 			json.put("articleID", li.getArticleID());
 			json.put("userId", li.getUserId());
 			
-			String userId = String.valueOf(li.getUserId());
+			int userId = li.getUserId();
 			String nickname = querynickname(userId);
 			json.put("nickname", nickname);
 			
@@ -115,7 +115,7 @@ public class ArticleDAO {
 			json.put("articleID", queryArt.getArticleID());
 			json.put("userId", queryArt.getUserId());
 			
-			String userId = String.valueOf(queryArt.getUserId());
+			int userId = queryArt.getUserId();
 			String nickname = querynickname(userId);
 			json.put("nickname", nickname);
 			
@@ -166,7 +166,7 @@ public class ArticleDAO {
 		return queryArt;
 	}
 	
-	public String querynickname(String userId) {
+	public String querynickname(int userId) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userId=:userId", P_Profile.class);
 		qProfile.setParameter("userId", userId);
