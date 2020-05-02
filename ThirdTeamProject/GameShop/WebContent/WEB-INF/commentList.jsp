@@ -17,7 +17,7 @@
 	<form:button value="Send" >Submit</form:button>
 	</form:form>
  -->	
-	<span class="useridtag">UserID: ${nickName}</span><br><br>
+	<span class="useridtag">暱稱: ${nickName}</span><br><br>
 	<textarea cols="50" rows="5" id="commentHere" required="required"></textarea>
 	<input type="button" value="發表評論" id="sendComment">
 </div>

@@ -3,6 +3,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameGuild~Enjoy your gameLife here~</title>
+<link rel="stylesheet" href="css/style.css">
+<!-- css for phone -->
+<link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
+<!-- favicon -->
+<link rel="shortcut icon" href="img/favicon.ico"/>
+
 <title>購買紀錄</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
