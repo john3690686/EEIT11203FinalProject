@@ -7,10 +7,12 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GameShop~Enjoy your gameLife here~</title>
+    <title>GameGuild~Enjoy your gameLife here~</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- css for phone -->
     <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico"/>
 	<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/gameshop.js"></script>
@@ -28,9 +30,19 @@ body{
 .registerDiv {
 	display: none;
 }
-
+#hello{
+    background:url(img/infobutton.png) no-repeat;
+    width: 150px;
+    height: 35px;
+}
+#hello a{
+	color:black;
+	text-shadow:2px 2px 2px gray;
+}
+#hello:hover{
+	filter:satuate(3);
+}
 </style>
-
 </head>
 
 <body>
@@ -48,9 +60,10 @@ body{
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
+            <a href="#"><input type="button" class="loginz" value="${login_btn}"></a>	
             <li id="hello"> <a href="myProfile"> hi,${userName}</a>
-        </ul>
-        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
+
+        </ul>	
     </nav>
 
 <!--Wishlist & Shopping cart &top-->
@@ -70,7 +83,7 @@ body{
 
 <!--Login & Register#1-->
      <div class="loginArea">
-        <button class="loginbutton">Login</button>
+        <input type="button" class="loginbutton" value="Login">
         <button class="registerbutton" id="registerbutton">Register</button>
      </div>
 
@@ -139,11 +152,11 @@ body{
                         <label for="birthday">生日:</label><input type="text" id="birthday" name="birthday" placeholder="ex:2020/04/29"><br />
                         <label for="address">地址:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />
-                        
+
                     </form>
-                    <div id="registerMsg"></div>
                     <button class="registerconfirm">確認</button>
                     <input class="cancel_btn" type="button" value="取消">
+                    <div id="registerMsg"></div>
                     <button class="fill">快速填入</button>
 
                 </fieldset>
@@ -468,6 +481,7 @@ body{
                 })
             }
         })
+        
          
 </script>
 

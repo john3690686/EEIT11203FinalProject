@@ -129,7 +129,6 @@ body{
     background-color: white;
     width: 30px;
     height: 30px;
-    color: white;
 }
 .loginDiv,
 .registerDiv{
@@ -155,7 +154,7 @@ body{
 	box-shadow:2px 2px 2px rgb(172, 255, 248);
 }
 .registerForm{ 
-	height:115%;
+	height:100%;
 }
 .loginForm input, .registerForm input{
 	height:20px;	
@@ -262,9 +261,6 @@ body{
 .check img{
     width: 20px;
     height: 20px;
-}
-.ckeck span{
-    width: 50px;
 }
 .cancel_btn{
 	font-family: Microsoft JhengHei;
@@ -513,7 +509,7 @@ fieldset{
 }
 .productTable{
 	border-collapse: collapse;
-	background: rgba(0, 0, 0, 0.5);
+	background: :rgba(0, 0, 0, 0.5);
 	position: relative;
     width:70%;
     top:0;
@@ -554,7 +550,7 @@ fieldset{
 }
 .infobutton {
   width:120px;
-  font-family: 微軟正黑體;
+  font-family: 敺株�迤暺��;
   font-weight: bold;
   color: #14396A;
   font-size: 16px;
@@ -570,7 +566,7 @@ fieldset{
 }
 
 .wishbutton{   
-  font-family: 微軟正黑體;
+  font-family: 敺株�迤暺��;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -586,7 +582,7 @@ fieldset{
 }
 .cartbutton{
   width:120px;
-  font-family: 微軟正黑體;
+  font-family: 敺株�迤暺��;
   font-weight: bold;
   color: #6A2217;
   font-size: 16px;
@@ -722,6 +718,7 @@ transition: background-color .3s;
 	color:darkorange;
 	font-size:22px;
 	padding-bottom:10px;
+	text-align:left;
 }
 #t5{
 	border-collapse:collapse;
@@ -765,7 +762,7 @@ transition: background-color .3s;
    text-shadow: #918888 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '微軟正黑體';
+   font-family: '敺株�迤暺��';
    text-decoration: none;
    font-weight: bold;
 }
@@ -784,7 +781,7 @@ transition: background-color .3s;
    text-shadow: #948C8C 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '微軟正黑體';
+   font-family: '敺株�迤暺��';
    text-decoration: none;
    font-weight: bold;
 }
@@ -854,7 +851,7 @@ transition: background-color .3s;
 }
 .deletebutton{  
   width:120px;
-  font-family: 微軟正黑體;
+  font-family: 敺株�迤暺��;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -938,7 +935,7 @@ transition: background-color .3s;
 
 #pay{
   width:100px;
-  font-family: 微軟正黑體;
+  font-family: 敺株�迤暺��;
   font-weight: bold;
   color: black;
   font-size: 16px;

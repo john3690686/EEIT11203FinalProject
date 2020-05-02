@@ -7,8 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
- <!-- css for phone -->
+<!-- css for phone -->
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
+<!-- favicon -->
+<link rel="shortcut icon" href="img/favicon.ico"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
