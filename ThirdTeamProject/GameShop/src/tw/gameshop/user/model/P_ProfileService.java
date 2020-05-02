@@ -84,9 +84,6 @@ public class P_ProfileService {
 			return profile;
 		}
 		String password = decrypt(dataPwd).split("\\+")[0];
-		System.out.println("Input Password : " + userPwd);
-		System.out.println("dataPwd : "+dataPwd);
-		System.out.println("decrypt Password : " + password);
 		if (password.equals(userPwd)) {
 			System.out.println(passwordSalt("newpassword : "+password));
 			String newPwd = encrypt(passwordSalt(password));
@@ -101,7 +98,8 @@ public class P_ProfileService {
 	
 	public void forgetMail(String mail) {
 		P_Profile profile = profileDao.queryByMail(mail);
-		String password = decrypt(profile.getUserPwd().split("\\+")[0]);
+		String password = decrypt(profile.getUserPwd()).split("\\+")[0];
+		System.out.println("Send " + mail + "forgetMail password:" + password);
 		String content = "你的密碼是:( " + password + " )，請定時更改您的密碼並妥善保管，以防資料外洩。";
 		sendMail(mail, content);
 	}
@@ -194,7 +192,7 @@ public class P_ProfileService {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
 			byte[] encrypted = cipher.doFinal(pwdsalt.getBytes());
-			System.out.println("encrypted string:" + Base64.encodeBase64String(encrypted));
+			
 			return Base64.encodeBase64String(encrypted);
 		} catch (Exception ex) {
 			ex.printStackTrace();

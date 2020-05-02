@@ -213,7 +213,7 @@ $(document).ready(function () {
     })
 
     $(".loginconfirm").click(function () {
-
+        console.log("Account = " + $("#loginAccount").val());
         $.ajax({
             url: "http://localhost:8080/GameShop/checkProfile",
             type: "POST",
