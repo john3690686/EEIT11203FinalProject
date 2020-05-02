@@ -44,16 +44,9 @@ body{
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
-<<<<<<< HEAD
             <li id="hello"> <a href="myProfile"> 會員中心</a>
         </ul>
         <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
-=======
-            <a href="#"><input type="button" class="loginz" value="${login_btn}"></a>	
-            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
-
-        </ul>	
->>>>>>> 14828cf2bf3a5c0f8136118529bc294e32c8a6ab
     </nav>
 
 <!--Wishlist & Shopping cart &top-->
