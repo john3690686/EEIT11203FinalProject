@@ -30,18 +30,7 @@ body{
 .registerDiv {
 	display: none;
 }
-#hello{
-    background:url(img/infobutton.png) no-repeat;
-    width: 150px;
-    height: 35px;
-}
-#hello a{
-	color:black;
-	text-shadow:2px 2px 2px gray;
-}
-#hello:hover{
-	filter:satuate(3);
-}
+
 </style>
 </head>
 
@@ -128,12 +117,14 @@ body{
                     <legend>申請新帳號</legend>
                     <form action="register" method="POST" enctype="multipart/form-data">
 
-                        <img style="cursor: pointer;" class="imgUserPhoto" src="img/defaultUserImg.jpg" alt="" width="200px" height="200px">
+                        <img style="cursor: pointer; width:150px; height:150px" class="imgUserPhoto" src="img/defaultUserImg.jpg" alt="">
                         <input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
 						<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" placeholder="請輸入6~18英數字元">
                         <div class="check" id="checkAccount"><img src=""><span></span></div><br />	
                         
-                        <label for="userName">姓名:</label><input type="text" id="userName" name="userName"><br />
+                        <label for="userName">姓名:</label><input type="text" id="userName" name="userName">
+                        <div class="check" id=""><img src=""><span></span></div><br />
+                        	
                         <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱">
                         <div class="check" id="checkNickName"><img src=""><span></span></div><br />
                         <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="包含大小寫及數字的6~12位密碼">
@@ -145,10 +136,10 @@ body{
 
                         <hr>
                         <label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br />
-                        <label style="width:90px;padding:0;">性別:</label>
+                        <label style="width:60px;padding:0">性別:</label>
                         <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">男</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">女</label>
-                        <input type="radio" class="gender" name="gender" value="o"><label class="gender">其他</label><br />
+                        <input type="radio" class="gender" name="gender" value="o"><label style="width:50px">其他</label><br />
                         <label for="birthday">生日:</label><input type="text" id="birthday" name="birthday" placeholder="ex:2020/04/29"><br />
                         <label for="address">地址:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />

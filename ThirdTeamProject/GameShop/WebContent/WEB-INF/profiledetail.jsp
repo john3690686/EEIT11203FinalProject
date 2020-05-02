@@ -3,71 +3,45 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/style.css">
-	<!-- css for phone -->
-    <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
-    <!-- favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<!-- css for phone -->
+<link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
+<!-- favicon -->
+<link rel="shortcut icon" href="img/favicon.ico"/>
 	
-	<title>修改會員資料</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<style>
-		*{
-			margin: 0;
-			padding: 0;
-			font-size: 20px;
-		}
-		body{
-			background-image: url("img/skytower.jpg");
-			background-repeat:no-repeat;
-			background-size:cover;
-		}
-		#profileForm{
-			width: 800px;
-			margin: auto;
-			background-color: rgba(79, 221, 240, 0.651);
-		}
-		fieldset{
-			border-radius: 10px;
-			text-align: center;
-			
-		}
-		.message{
-			font-size: 20px;
-			font-weight: bold;
-			margin: auto;
-			text-align: center;
-		}
-		label{
-			display: inline-block;
-			line-height: 20px;
-			width: 90px;
-			text-align: right;
-		}
-		.gender{
-			width: auto;
-		}
-		.check{
-			display: inline-block;
-			visibility: hidden;
-		}
-		.check img{
-			width: 20px;
-		}
-	</style>
+<title>修改會員資料</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style>
+
+body{
+	font-family: Microsoft JhengHei;
+	background: url("img/skytower.jpg") no-repeat;
+	background-size:cover;
+}
+
+</style>
 </head>
 
 <body>
+
+<!-- top -->
+	<a href="#"><input type="button" class="topbutton"></a>
+	
+<!-- main -->
+	<div class="titledec">
+        <div class="titletext">修改會員資料</div>
+	</div>
+
 	<div id="profileForm">
 	<fieldset>
 		<legend>會員資料</legend>
 		<form action="#" method="POST" enctype="multipart/form-data">
-			<img style="cursor: pointer;" class="imgUserPhoto" src="" alt="" width="200px" height="200px">
+			<img style="cursor: pointer;width:150px;height:150px" class="imgUserPhoto" alt="" title="點擊圖片更換大頭貼">
 			<input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
-			<label>主要部分</label><br /> 
-			<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" readonly="readonly"><br /> 
+			<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" readonly="readonly">
+			<div class="check"><img src=""></div><br />
 			<label for="userName">姓名:</label><input type="text" id="userName" name="userName">
             <div class="check"><img src=""></div><br />
 
@@ -75,38 +49,47 @@
             <div class="check" id="checkNickName"><img src=""></div><br />
             <label for="oriPwd">原密碼:</label><input type="password" id="oriPwd" name="oriPwd">
             <div class="check" id="checkOriPwd"><img src=""></div><br />
-			<span class="note">請輸入原密碼</span><br />
+			<span class="note">(請輸入原密碼)</span><br />
 			
             <label for="userPwd">新密碼:</label><input type="password" id="userPwd" name="userPwd">
             <div class="check" id="checkPwd"><img src=""></div><br />
             <span class="note">(不改密碼可不填)</span><br />
 
-            <label for="recheckPwd">新密碼:</label><input type="password" id="recheckPwd" name="recheckPwd"
+            <label for="recheckPwd">再次輸入新密碼:</label><input type="password" id="recheckPwd" name="recheckPwd"
                             placeholder="Re-Enter Password">
             <div class="check" id="recheckPwd"><img src=""></div><br />
 
             <label for="mail">E-mail:</label><input type="text" id="mail" name="mail">
             <div class="check" id="checkMail"><img src=""></div><br />
 			<hr>
-			<label>次要部分</label><br />
-			<label>性別:</label>
-			<input type="radio" class="gender" name="gender" value="m" checked="checked"><label
-				class="gender">男生</label>
-			<input type="radio" class="gender" name="gender" value="f"><label class="gender">女生</label>
-			<input type="radio" class="gender" name="gender" value="o"><label
-				class="gender">其他</label><br />
+			<label style="padding-bottom:10px">詳細資訊</label><br />
+			<label style="width:60px">性別:</label>
+			<input type="radio" class="gender" name="gender" value="m" checked="checked">
+			<label class="gender">男</label>
+			<input type="radio" class="gender" name="gender" value="f">
+			<label class="gender">女</label>
+			<input type="radio" class="gender" name="gender" value="o">
+			<label style="width:50px">其他</label><br />
 
 			<label for="birthday">生日:</label><input type="text" id="birthday" name="birthday"><br />
-
 			<label for="address">地址:</label><input type="text" id="address" name="address"><br />
-
-			<label for="phone">電話:</label><input type="text" id="phone" name="phone"><br />
+			<label for="phone">電話:</label><input type="text" id="phone" name="phone"><br /><br />
 			<button class="registerconfirm">確認</button><input class="cancel_btn" type="button" value="取消">
 		</form>
 	</fieldset>
 </div>
 	<div class="message"></div>
-	<script>
+	<a href="index.html"><input type="button" class="morebutton" style="margin-top:50px;" value="回到首頁"></a>
+	
+	<!--footer-->
+    <footer>
+        <div class="foot">
+            <H2>©COPYRIGHT 2020 EEIT112 Team3</H2>
+            <H6>All copyrights and trademarks are the property of their respective owners.</H6>
+        </div>
+    </footer>
+	
+<script>
 		//user image <input>
 		function readURL(input) {
 			if (input.files && input.files[0]) {
