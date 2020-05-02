@@ -66,7 +66,7 @@ public class ArticleController {
 	
 		userAccount = "a11111";
 		
-		userId = Integer.parseInt(artMesService.queryuserId(userAccount));
+		userId = artMesService.queryuserId(userAccount);
 		nickname = artMesService.querynickname(artMesService.queryuserId(userAccount));
 		
 		session.setAttribute("nickname", nickname);

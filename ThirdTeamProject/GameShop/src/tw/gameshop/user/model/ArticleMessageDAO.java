@@ -58,7 +58,7 @@ public class ArticleMessageDAO {
 			json.put("messageID", li.getMessageID());
 			json.put("articleID", li.getArticleID());
 			json.put("respUserId", li.getRespUserId());
-			String userId = String.valueOf(li.getRespUserId());
+			int userId = li.getRespUserId();
 			String nickname = querynickname(userId);
 			json.put("nickname", nickname);
 			
@@ -124,7 +124,7 @@ public class ArticleMessageDAO {
 		return megId;
 	}
 	
-	public String querynickname(String userId) {
+	public String querynickname(int userId) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userId=:userId", P_Profile.class);
 		qProfile.setParameter("userId", userId);
@@ -136,12 +136,12 @@ public class ArticleMessageDAO {
 		return nickname;
 	}
 	
-	public String queryuserId(String userAccount) {
+	public int queryuserId(String userAccount) {
 		Session session = sessionFactory.getCurrentSession();
 		Query<P_Profile> qProfile = session.createQuery("from P_Profile WHERE userAccount=:userAccount", P_Profile.class);
 		qProfile.setParameter("userAccount", userAccount);
 		List<P_Profile> plist = qProfile.list();
-		String userId = null;
+		int userId = 0;
 		for (P_Profile pli : plist) {
 			userId = pli.getUserId();
 		}
