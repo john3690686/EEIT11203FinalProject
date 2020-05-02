@@ -32,6 +32,10 @@ public class RequestController {
 		session.invalidate();
 		return "redirect:/index.html";
 	}
-
+	
+	@RequestMapping(value = "/forget_password", method = RequestMethod.GET)
+	public String forgetPassword() {
+		return "P_ForgetPassword";
+	}
 	
 }

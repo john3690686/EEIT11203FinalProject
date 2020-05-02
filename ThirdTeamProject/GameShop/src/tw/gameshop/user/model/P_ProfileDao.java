@@ -257,7 +257,7 @@ public class P_ProfileDao {
 		try {
 			Query<P_Profile> qProfile = session.createQuery(hqlstr, P_Profile.class);
 			qProfile.setParameter("mail", mail);
-			result = qProfile.getSingleResult();
+			result = qProfile.list().get(0);
 		} catch(NoResultException e) {
 			System.out.println("NoResultException");
 		} catch (Exception e) {

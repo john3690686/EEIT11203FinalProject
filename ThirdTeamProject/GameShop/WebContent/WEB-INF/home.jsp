@@ -36,11 +36,6 @@ body{
 <body>
 
 <!--Navigator-->
-
-    <c:if test="${titleMessage.length()>0}">
-        <div id="titleMessage">${titleMessage}</div>
-    </c:if>
-
     <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>
@@ -48,7 +43,7 @@ body{
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
-            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
+            <li id="hello"> <a href="myProfile"> 會員中心</a>
         </ul>
         <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
     </nav>
@@ -92,18 +87,17 @@ body{
                     <div class="warning"><img src="img/Info_icon.png" title="需擁有帳號，方能使用願望清單與評論功能" style="vertical-align:middle">公用電腦請記得登出，或開啟無痕模式</div><br/>
                     <form action="processLogin" method="POST">
 
-                        <label for="userAccount">帳號:</label><input type="text" name="userAccount" value="${userAccount}"><br/>
-                        <label for="userPwd">密碼:</label><input type="password" name="userPwd" value="${userPwd}"><br/>
+                        <label for="userAccount">帳號:</label><input type="text" id="loginAccount" name="userAccount" value="${userAccount}"><br/>
+                        <label for="userPwd">密碼:</label><input type="password" id="loginPwd" name="userPwd" value="${userPwd}"><br/>
                         <input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
 						
 						<br/>
-                        <button class="loginconfirm">登入</button>
+                    </form>
+                    <button class="loginconfirm">登入</button>
                         <input type="button" class="cancel_btn" value="取消"><br/>
                        <!-- 登入頁加入新申請帳號 -->
                         <input type="button" class="registerbutton" id="register2" value="申請新帳號">
-
-                    </form>
-
+                        <a href="forget_password">?忘記密碼?</a>
                 </fieldset>
             </div>
             
@@ -377,98 +371,6 @@ body{
                 intervalAD = setInterval(cycleAD, intervalTime);
             }
         }
-
-//Login & Register Form
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $(".imgUserPhoto").attr("src", e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $(".inputUserPhoto").change(function () {
-            readURL(this);
-        });
-        $(".imgUserPhoto").click(function(){
-            $(".inputUserPhoto").click();
-        });
-
-        $(".loginbutton").click(function () {
-            $(".loginDiv").css({
-                "position": "absolute",
-                "display": "flex",
-                "z-index": "99999",
-                "top": $(document).scrollTop() + "px",
-                "height": "100vh",
-                "width": "100vw",
-                "align-items": "center"
-            });
-            $("html").css("overflow", "hidden");
-        })
-
-        $(".registerbutton").click(function () {
-            $(".registerDiv").css({
-                "position": "absolute",
-                "display": "flex",
-                "z-index": "99999",
-                "top": $(document).scrollTop() + "px",
-                "height": "100vh",
-                "width": "100vw",
-                "align-items": "center"
-            });
-            $("html").css("overflow", "hidden");
-        })
-
-        var cancelbtn = function () {
-            $(".loginDiv").css("display", "none");
-            $(".registerDiv").css("display", "none");
-            $("html").css("overflow", "initial");
-        }
-        $(".cancel_btn").click(cancelbtn);
-        $(".loginDiv").click(function (e) {
-            console.log($(".loginForm").is(e.target));
-            if (!$(".loginForm").is(e.target)) {
-                $(".loginDiv").css("display", "hidden");
-            }
-        })
-
-        $(".fill").click(function () {
-            $("#userId").val("uid");
-            $("#userAccount").val("account");
-            $("#userName").val("unm");
-            $("#nickName").val("nnm");
-            $("#userPwd").val("pwd");
-            $("#checkPwd").val("pwd");
-            $("#mail").val("uid@mail");
-            $("#birthday").val("2020/03/03");
-            $("#address").val("addr");
-            $("#phone").val("0987141242");
-
-        })
-
-        $(document).ready(function () {
-
-            if ($(".loginz").val() == "Logout") {
-                $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
-            } else {
-                $(".loginz").parent().attr("href", "#");
-                $(".loginz").click(function () {
-                    $(".loginDiv").css({
-                        "position": "absolute",
-                        "display": "flex",
-                        "z-index": "99999",
-                        "top": $(document).scrollTop() + "px",
-                        "height": "100vh",
-                        "width": "100vw",
-                        "align-items": "center"
-                    })
-                    $("html").css("overflow", "hidden");
-                })
-            }
-        })
-         
 </script>
 
 </body>

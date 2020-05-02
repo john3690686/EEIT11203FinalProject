@@ -130,7 +130,7 @@ public class SessionController {
 						response.addCookie(cookPwd);
 						response.addCookie(cookAutoLogin);
 					}
-					System.out.println("Login Successfully");
+					System.out.println("Login Successfully....");
 					return "redirect:/index.html";
 				}else {
 					model.addAttribute("errorMessage", "尚未進行信箱認證，請至信箱確認");
@@ -147,6 +147,7 @@ public class SessionController {
 	public boolean checkProfile(
 			@RequestParam(name = "userAccount")String userAccount, 
 			@RequestParam(name = "userPwd")String userPwd) {
+		System.out.println("Ajax check profile:"+userAccount);
 		P_Profile profile = pservice.processLogin(userAccount, userPwd);
 		if(profile == null) {
 			return false;
@@ -163,14 +164,14 @@ public class SessionController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/isNickNameExist", method = RequestMethod.GET)
-	public boolean isNickNameExist(String nickName) {
+	public boolean isNickNameExist(@RequestParam(name = "nickName")String nickName) {
 		System.out.println("isNickNameExist");
 		return pservice.isNickNameExist(nickName);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/isMailExist", method = RequestMethod.GET)
-	public boolean isMailExist(String mail) {
+	public boolean isMailExist(@RequestParam(name = "mail")String mail) {
 		System.out.println("isMailExist");
 		return pservice.isMailExist(mail);
 	}
@@ -249,7 +250,9 @@ public class SessionController {
 		return "ErrorPage";
 	}
 	
-	public String forgetPwd(@RequestParam("mail") String mail,Model model) {
+	
+	@RequestMapping(value = "/forget_password/sendMail")
+	public String sendMailPwd(@RequestParam("mail") String mail,Model model) {
 		pservice.forgetMail(mail);
 		return "redirect:/index.html";
 	}
