@@ -226,14 +226,16 @@ $(window).on('load', function () {
                 $("#productList>tr:not(.hideClass)").eq(i).show()
             }
         }
-//-----------------------------------------------------------------Edit
+
         //點擊上/下頁的動作
         $("a.button.special").on("click", function() {
-            let page = $("li.page.current>a").text()
+            let page = parseInt($("li.page.current>a").text())
             actionName = $(this).text()
             if( page > 1 && actionName == "Previous" ){
+				$("li.page").eq(page-2).addClass("current").siblings().removeClass("current")
                 turningPPage(page-1)
             }else if( page < pAllPage && actionName == "Next" ){
+				$("li.page").eq(page).addClass("current").siblings().removeClass("current")
                 turningPPage(page+1)
             }
         })
