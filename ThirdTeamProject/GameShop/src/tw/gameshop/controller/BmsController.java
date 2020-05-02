@@ -1,18 +1,12 @@
 package tw.gameshop.controller;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,68 +31,22 @@ public class BmsController {
 		this.productDao = pDao;
 	}
 	
-	@RequestMapping(path = {"/bms", "/BmsHome"}, method = RequestMethod.GET)
+	@RequestMapping(path = "/bms/home", method = RequestMethod.GET)
 	public String GoBmsHomePage() {
 		return "BmsHome";
 	}
 	
-	/* Call Url path:'/product.all'
-	 * return > direct: ProductView.jsp
-	 */
-	@RequestMapping(path = "/productlist", method = RequestMethod.GET)
-	public String SelectProductAll(ModelMap model) throws SQLException {
-		model.addAttribute("productlist",productDao.queryAll());
-		return "BmsProductListView";
-	}
-
 	@ResponseBody
-	@RequestMapping(path = "/productJsonView", method = RequestMethod.GET)
+	@RequestMapping(path = "/bms/productJsonView", method = RequestMethod.GET)
 	public List<Product> SelectProductAllJson() throws SQLException {
 		return productDao.queryAll();
 	}
-
-	@RequestMapping(path = "/productImageView/{id}", method = RequestMethod.GET)
-	public void ImageView( @PathVariable("id")String rsqId, HttpServletResponse response, Model model) throws IOException {
-        int id = Integer.parseInt(rsqId);
-        Product myProduct = productDao.queryById(id);
-        response.setContentType("image/png");
-        ServletOutputStream os = response.getOutputStream();
-        byte[] image = myProduct.getProductImage();
-        InputStream ISimage = new ByteArrayInputStream(image);
-        byte[] bytes = new byte[8192];
-        int len = 0;
-        System.out.println("ImageView");
-        while ((len  = ISimage.read(bytes)) != -1) {
-            os.write(bytes, 0, len);
-        }
-    }
-	
-	@RequestMapping(path = "/product.newPage", method = RequestMethod.GET)
-	public String uploadById() {
-		return "BmsUplPage";
-	}
-	
-	@RequestMapping(path = "/product.upl/{id}", method = RequestMethod.GET)
-	public String uploadById(@PathVariable("id") String id, Model model) {
-		if( id != null ) {
-			model.addAttribute("product",productDao.queryById(Integer.parseInt(id)));
-		}
-		return "BmsUplPage";
-	}
 	
 	@ResponseBody
-	@RequestMapping(path = "/json.product.view/{id}", method = RequestMethod.GET)
-	public Product jsonProductViewById(@PathVariable("id") String id, Model model) {
-		if( id != null ) {
-			return productDao.queryById(Integer.parseInt(id));
-		}
-		return null;
-	}
-	
-	@RequestMapping(path = "/productBean", method = RequestMethod.POST)
+	@RequestMapping(path = "/bms/productBean", method = RequestMethod.POST)
 	public String UpdateProductItem(	@RequestParam("id") String id,
 										@RequestParam("pName") String pName,
-		Model model,					@RequestParam("price") int price,
+										@RequestParam("price") int price,
 										@RequestParam("intro") String intro,
 										@RequestParam("tag") String tag,
 										@RequestParam("file") MultipartFile mf,
@@ -127,10 +75,10 @@ public class BmsController {
 		return "redirect:/productlist";
 	}
 	
-	@RequestMapping(path = "/product.del/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/bms/product.del/{id}", method = RequestMethod.GET)
 	public String DelProductItem( @PathVariable("id") String id, Model model ){
 		productDao.deleteById(Integer.parseInt(id));
-		return "redirect:/productlist";
+		return "success";
 	}
-	
+
 }
