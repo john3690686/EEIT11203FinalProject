@@ -31,6 +31,7 @@ body{
 	display: none;
 }
 
+
 </style>
 </head>
 
@@ -40,7 +41,7 @@ body{
     <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>
-            <li><a href="#">NEWS</a>
+            <li><a href="Event">NEWS</a>
             <li><a id="navShop" href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
@@ -98,7 +99,7 @@ body{
                         <input type="button" class="cancel_btn" value="取消"><br/>
                        <!-- 登入頁加入新申請帳號 -->
                         <input type="button" class="registerbutton" id="register2" value="申請新帳號">
-                        <a href="forget_password">?忘記密碼?</a>
+                        <p><a href="forget_password">忘記密碼?</a></p>
                 </fieldset>
             </div>
             
@@ -110,7 +111,8 @@ body{
                     <legend>申請新帳號</legend>
                     <form action="register" method="POST" enctype="multipart/form-data">
 
-                        <img style="cursor: pointer; width:150px; height:150px" class="imgUserPhoto" src="img/defaultUserImg.jpg" alt="">
+                        <div class="warning"><img class="imgUserPhoto" src="img/defaultUserImg.jpg" alt="">
+                      	<span>點擊左方圖片可更換大頭貼</span></div>
                         <input class="inputUserPhoto" type="file" name="userImg" hidden="hidden"><br />
 						<label for="userAccount">帳號:</label><input type="text" id="userAccount" name="userAccount" placeholder="請輸入6~18英數字元">
                         <div class="check" id="checkAccount"><img src=""><span></span></div><br />	
@@ -128,8 +130,8 @@ body{
                         <div class="check" id="checkMail"><img src=""><span></span></div><br />
 
                         <hr>
-                        <label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br />
-                        <label style="width:60px;padding:0">性別:</label>
+                    <!--<label style="padding:0;text-align:center;font-size:20px;text-shadow:2px 2px 2px gray;">詳細資訊</label><br /> -->    
+                        <label style="width:65px;padding:0;padding-left:10px;">性別:</label>
                         <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">男</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">女</label>
                         <input type="radio" class="gender" name="gender" value="o"><label style="width:50px">其他</label><br />

@@ -25,17 +25,18 @@ body{
 <body>
 
 <!--Navigator-->
-	<nav>
-		<ul class="ul1">
-			<li><a href="index.html">HOME</a>
-			<li><a href="#">NEWS</a>
-			<li><a href="Shop">SHOP</a>
-			<li><a href="processArticle">BLOG</a>
-			<li><a href="#">CHAT</a> 
-			<a href="#"><input type="button" class="loginz" value="LOGIN"></a>
-		</ul>
-	</nav>
-
+    <nav>
+        <ul class="ul1">
+            <li><a href="index.html">HOME</a>
+            <li><a href="Event">NEWS</a>
+            <li><a id="navShop" href="Shop">SHOP</a>
+            <li><a href="processArticle">BLOG</a>
+            <li><a href="Chatroom">CHAT</a>
+            <li id="hello"><a href="myProfile">會員中心</a>
+        </ul>
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
+    </nav>
+    
 <!--Wishlist & Shopping cart &top-->
         <a href="showWish.controller"><input type="button" class="wishlist"></a>
         <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
