@@ -21,7 +21,7 @@ public class Game_EventDAO {
 
 	@Autowired
 	public Game_EventDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
-		System.out.println("SessionFactory: " + sessionFactory);
+		System.out.println("Game_EventDAO SessionFactory Open: " + sessionFactory.isOpen());
 		this.sessionFactory = sessionFactory;
 	}
 
