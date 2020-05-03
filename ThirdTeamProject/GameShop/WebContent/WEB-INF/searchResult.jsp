@@ -15,7 +15,7 @@
 body{
 	font-family:微軟正黑體;
 	background:url(img/shopbg.jpg) no-repeat;
-	background-size:cover;
+	background-attachment: fixed;
 }
 </style>
 </head>

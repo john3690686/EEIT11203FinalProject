@@ -22,24 +22,9 @@
 
 body{
 	font-family:Microsoft JhengHei;
-	background:url(img/shopbg.jpg) no-repeat;
-	background-size:cover;
+	background:url(img/eventbg.jpg) no-repeat;
+	background-attachment: fixed;
 }
-
-/*Event Page*/
-.bgevent{
-	position: relative;
-	width:100%;
-	height:200%;
-	top:0;
-    left:0;
-    right:0;
-}
-.eventHead td{
-	background:black;
-	height:40px
-}
-
 
 </style>
 
@@ -90,11 +75,11 @@ body{
 		<!--Show Event & Page-->
 		<table class="productTable">
 			<tr class="eventHead">
-			<td colspan="5"></td>
+			<td colspan="4"></td>
 			</tr>
 		</table>
 		
-		<table id="eventContent" class="productTable" style="text-align:left !important"></table><br><br>
+		<table id="eventContent" class="eventTable"></table><br><br>
     	<div id="page" class="pageview"></div>
  
 	</div>
@@ -240,7 +225,7 @@ body{
 	                for (let i = 0; i < data.length; i++) {
 
 		                txt += '<tr><td>' + "<img src='data:image/jpeg;base64," + data[i].eventImage + "' width='230px'>" + 
-	                    '</td><td>' + data[i].eventName + '</td><td>' + data[i].startDate + '</td><td>' + data[i].endDate + 
+	                    '</td><td>' + data[i].eventName + "</td><td style='color:rgb(231, 225, 136)'>" + data[i].startDate +  
 	                    '</td><td>' + "<a href='searchEvent?eventId="+data[i].eventId+"'><input class='infobutton' type='button' value='活動資訊'></a>" +
 	                    '</td></tr>';
 	                }

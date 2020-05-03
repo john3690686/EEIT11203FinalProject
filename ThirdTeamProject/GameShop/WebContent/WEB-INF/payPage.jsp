@@ -16,7 +16,7 @@
 body{
 	font-family:微軟正黑體;
 	background:url(img/skytower.jpg) no-repeat;
-	background-size:cover;
+	background-size: cover;
 }
 
 </style>

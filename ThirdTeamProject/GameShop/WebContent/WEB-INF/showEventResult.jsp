@@ -14,8 +14,8 @@
 <style type="text/css">
 body{
 	font-family:Microsoft JhengHei;
-	background:url(img/shopbg.jpg) no-repeat;
-	background-size:cover;
+	background:url(img/eventbg.jpg) no-repeat;
+	background-attachment: fixed;
 }
 .bgevent{
 	position: relative;

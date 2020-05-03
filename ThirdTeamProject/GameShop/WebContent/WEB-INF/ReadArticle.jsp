@@ -17,7 +17,7 @@
 body{
 	font-family:Microsoft JhengHei;
 	background:url(img/blogbg.jpg) no-repeat;
-	background-size:cover;
+	background-attachment: fixed;
 }
 p{
 	padding:20px;

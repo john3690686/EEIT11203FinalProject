@@ -17,22 +17,8 @@
 body{
 	font-family:Microsoft JhengHei;
 	background:url(img/blogbg.jpg) no-repeat;
-	background-size:cover;
+	background-attachment: fixed;
 }
-
-/* .imageblock{ 
-	position:relative;
-	left:50px;
-	float:left;
-	border: 1px #ADADAD solid;
- 	height: 140px; 
- 	width: 140px; 
- } 
- .page{
-	margin: auto;
-	width: 90%;
-	
-} */
 
 </style>
 
@@ -44,7 +30,7 @@ body{
     <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>
-            <li><a href="#">NEWS</a>
+            <li><a href="Event">NEWS</a>
             <li><a id="navShop" href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
@@ -72,7 +58,7 @@ body{
 </div>
 
 <!--footer-->
-    <footer>
+    <footer style="margin-top: 300px">
         <div class="foot">
             <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
