@@ -16,6 +16,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/gameshop.js"></script>
 <title>Shop</title>
 
 <style type="text/css">
@@ -31,6 +33,7 @@ body{
 </head>
 <body>
 <!--Navigator-->
+
     <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>

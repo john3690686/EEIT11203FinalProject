@@ -20,7 +20,7 @@ public class ProductDAO {
 
 	@Autowired
 	public ProductDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
-		System.out.println("SessionFactory: " + sessionFactory);//TODO Delete This line
+		System.out.println("ProductDAO SessionFactory Open: " + sessionFactory.isOpen());
 		this.sessionFactory = sessionFactory;
 	}
 	

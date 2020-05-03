@@ -38,7 +38,6 @@ public class SessionController {
 
 	@Autowired
 	public SessionController(P_ProfileService pservice) {
-		System.out.println("Controller = " + (int)Math.floor(Math.random()*1000));
 		this.pservice = pservice;
 	}
 	
@@ -174,12 +173,6 @@ public class SessionController {
 	public boolean isMailExist(@RequestParam(name = "mail")String mail) {
 		System.out.println("isMailExist");
 		return pservice.isMailExist(mail);
-	}
-
-	// 測試session
-	@RequestMapping(value = "/session.detail", method = RequestMethod.GET)
-	public String processTest() {
-		return "testsession";
 	}
 
 	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)

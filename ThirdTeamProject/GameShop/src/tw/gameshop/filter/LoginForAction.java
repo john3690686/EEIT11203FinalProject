@@ -46,7 +46,6 @@ public class LoginForAction implements Filter {
 		requestURI  = req.getRequestURI();
 		isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 		
-		System.out.println("mustLogin:"+mustLogin() + " ;checkLogin: " +  checkLogin(req));
 		if (mustLogin()) {           
 			if (checkLogin(req)) {   
 				//  需要登入，但已經登入

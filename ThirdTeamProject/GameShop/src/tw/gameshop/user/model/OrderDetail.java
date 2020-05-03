@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="OrderDetail")
 @Component
@@ -52,6 +54,7 @@ public class OrderDetail {
 		this.price = price;
 	}
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="orderId")
 	public Orders getOrders() {

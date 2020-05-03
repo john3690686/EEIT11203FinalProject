@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -21,14 +23,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.gameshop.user.model.OrderDetail;
+import tw.gameshop.user.model.OrderDetailDAO;
 import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductDAO;
+import tw.gameshop.user.model.ProductService;
 
 @Controller
 @PropertySource("classpath:/bmsAccountInfo.properties")
 public class BmsController {
 
-	private ProductDAO productDao;
+	private ProductService pService;
+	private OrderDetailDAO oDao;
 
 	public BmsController() {
 		super();
@@ -38,10 +44,11 @@ public class BmsController {
     Environment env;
 
 	@Autowired
-	public BmsController(ProductDAO pDao) {
-		this.productDao = pDao;
+	public BmsController(ProductService pService, OrderDetailDAO oDao) {
+		this.pService = pService;
+		this.oDao = oDao;
 	}
-	
+
 	@RequestMapping(path = "/bms/home", method = RequestMethod.GET)
 	public String GoBmsHomePage() {
 		return "BmsHome";
@@ -75,7 +82,7 @@ public class BmsController {
 	@ResponseBody
 	@RequestMapping(path = "/bms/productJsonView", method = RequestMethod.GET)
 	public List<Product> SelectProductAllJson() throws SQLException {
-		return productDao.queryAll();
+		return pService.queryAll();
 	}
 	
 	@ResponseBody
@@ -101,21 +108,29 @@ public class BmsController {
 		
 		if(id!=null && id.length()>0) {
 			try {
-				productDao.updateById(Integer.parseInt(id), p);
+				pService.updateById(Integer.parseInt(id), p);
 			} catch(NumberFormatException e) {
 				e.printStackTrace();
 			}
 		}else {
-			productDao.insertProduct(p);
+			pService.insertProduct(p);
 		}
-		return productDao.queryAll();
+		return pService.queryAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping(path = "/bms/product.del/{id}", method = RequestMethod.GET)
 	public List<Product> DelProductItem( @PathVariable("id") String id, Model model ){
-		productDao.deleteById(Integer.parseInt(id));
-		return productDao.queryAll();
+		pService.deleteById(Integer.parseInt(id));
+		return pService.queryAll();
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "/tryOrderDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<?> showOrderAll() {
+		
+		List<?> list = oDao.queryAllOrderDetail();
+		return list;
 	}
 
 }
