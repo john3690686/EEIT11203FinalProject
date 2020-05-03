@@ -21,6 +21,7 @@
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/gameshop.js"></script>
     
+    
 <style type="text/css">
 
 footer{
