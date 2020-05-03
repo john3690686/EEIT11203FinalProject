@@ -98,7 +98,5 @@ public class Orders {
 	public void setPayResult(String payResult) {
 		this.payResult = payResult;
 	}
-
-	
 	
 }
