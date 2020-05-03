@@ -25,4 +25,9 @@ public class OrderDetailDAO {
 		List<OrderDetail> list = query.list();
 		return list;
 	}
+	
+	public List queryAllOrderDetail() {
+		String hqlStr = "Select productId, count(productId) as n from OrderDetail group by productId Order by n";
+		return sessionFactory.getCurrentSession().createQuery(hqlStr).list();
+	}
 }

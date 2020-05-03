@@ -52,4 +52,8 @@ public class ProductService {
 	public String getProductNameById(int pid) {
 		return pDao.getProductNameById(pid);
 	}
+
+	public Product insertProduct(Product p) {
+		return pDao.insertProduct(p);
+	}
 }
