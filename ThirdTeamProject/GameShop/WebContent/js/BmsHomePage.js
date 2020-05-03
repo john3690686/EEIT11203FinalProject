@@ -249,8 +249,230 @@ $(window).on('load', function () {
         turningPPage(1)
     }
 //------------------------------------------   以下為活動的 JS   -------------------------------------------------
-    
+    $("#tabs-nav a").click(function() {
+		$("#tabs-nav a").removeClass("tabs-menu-active");
+		$(this).addClass("tabs-menu-active");
+		$(".tabs-panel").hide();
+		var tab_id = $(this).attr("href");
+		$(tab_id).show("blind");
+		return false;
+	});
+	
+    var editorcontent;
+	var responseEditorcontent;
+	ClassicEditor
+		.create(document.querySelector('#editor'), {
+			toolbar: ['bold', 'italic', 'link',
+				'bulletedList',
+				'numberedList',
+				'|', 'outdent', 'indent'],
+			placeholder: '請輸入文章...',
+		})
+		.then(editor => {
+			console.log(editor);
+			editorcontent = editor;
+		})
+		.catch(error => {
+			console.error(error);
+		});
+	
+	//修改
+	ClassicEditor
+	.create(document.querySelector('#editor2'), {
+		toolbar: ['bold', 'italic', 'link',
+			'bulletedList',
+			'numberedList',
+			'|', 'outdent', 'indent']
+	})
+	.then(editor => {
+		console.log(editor);
+		responseEditorcontent = editor;
+	})
+	.catch(error => {
+		console.error(error);
+	});
+	
+	console.log('QueryAll:run');
+	$.ajax({
+		url : "queryAllEvent",
+		dataType : "json",
+		type : "GET",
+		success : function(response) {
+			console.log('queryResopnse', response);
+			//console.log('QueryAll:2');
+			var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
+			for (let i = 0; i < response.length; i++) {
+				var id = response[i].eventId;
+				txt += "<tr><td>"+ response[i].eventId;
+				txt += "<td>"+ response[i].productId;
+				txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "' >"
+				txt += "<td>"+ response[i].eventName;
+				txt += "<td>"+ response[i].content;
+				txt += "<td>"+ response[i].startDate;
+				txt += "<td>"+ response[i].endDate;
+				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';
+				
+				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
+						
+			}
+			$('#queryAllEvent').html(txt);
 
+			console.log('ShowQueryAllEvent:OK');
+		}
+	});
+
+	$(document).on('click', '#searchAllData', function() {
+		$.ajax({
+			url : "queryAllEvent",
+			dataType : "json",
+			type : "GET",
+			success : function(response) {
+				console.log('queryResopnse',response);								
+				var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
+				for (let i = 0; i < response.length; i++) {
+					var id = response[i].eventId;
+					txt += "<tr><td>"+ response[i].eventId;
+					txt += "<td>"+ response[i].productId;
+					txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "'>"
+					txt += "<td>"+ response[i].eventName;
+					txt += "<td>"+ response[i].content;
+					txt += "<td>"+ response[i].startDate;
+					txt += "<td>"+ response[i].endDate;
+					txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';									
+					txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
+					console.log('searchAllData:OK');
+				}
+				$('#queryAllEvent').html(txt);								
+			}
+		});
+	})
+	
+	var eventId = null;					
+	//addEvent
+	$(document).on('click', '#add', function() {
+		alert("新增成功");
+	});
+	//選擇圖檔立即顯現
+	$("#imageUpload").change(function(){
+		var file = $('#imageUpload')[0].files[0];
+		var reader = new FileReader;
+		reader.onload = function(e) {
+			$('#preview_Image').attr('src', e.target.result);
+		};
+		reader.readAsDataURL(file);
+	});
+	$("#preview_Image").click(function(){
+		$("#imageUpload").click();
+	});
+
+	//deleteEvent
+	$(document).on('click', '#delete', function() {
+		var checkstr = confirm("確定是否刪除該活動?");
+		if (checkstr == true) {
+			var $tr = $(this).parents("tr");
+			eventId = $tr.find("td").eq(0).text(); //抓取id值
+			console.log('eventId=' + eventId);
+			$(this).parents("tr").remove(); //刪除整個欄位
+
+			$.ajax({
+				url : "deleteEvent",
+				dataType : "json",
+				type : "POST",
+				data : {
+					eventId : eventId
+				},
+				success : function(response) {
+					console.log(response);
+				},
+			});
+			alert("刪除成功");
+		} else {
+			return false;
+		}
+	});
+
+	//queryUpdateData
+	$(document).on('click', '#queryUpdateData', function() {
+		var $tr = $(this).parents("tr");
+		eventId = $tr.find("td").eq(0).text(); //抓取id值
+		console.log('eventId=' + eventId);
+
+		$.ajax({
+			url : "queryEvent",
+			dataType : "json",
+			type : "GET",
+			data : {eventId : eventId},
+			success : function(response) {
+				console.log(response);	
+				var txt = "活動編號 : "+response.eventId;
+				$('input[name="startDate1"]').val(response.startDate);
+				$('input[name="endDate1"]').val(response.endDate);								
+				$('input[name="productId1"]').val(response.productId);
+				$('input[name="eventName1"]').val(response.eventName);
+				responseEditorcontent.setData(response.content);							
+				$('img[name="eventImage2"]').attr("src","data:image/jpeg;base64,"+response.eventImage+"");
+				$('p[name="eventId1"]').val(response.eventId);
+				$('#eventId1').html(txt);						 
+			},
+		});		
+	});				
+	//searchButton
+	$(document).on('click', '#search', function() {
+		console.log("searchButton:1");
+		console.log("searchcontent:",$("#se1").val());	
+		eventId = $("#se1").val();
+		$.ajax({
+			url : "queryEvent",
+			dataType : "json",
+			type : "GET",
+			data : {eventId : eventId},
+			success : function(response) {
+				console.log(response);	
+				var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
+				txt += "<tr><td>"+ response.eventId;
+				txt += "<td>"+ response.productId;
+				txt += "<td><img src='data:image/jpeg;base64," + response.eventImage + "'>"
+				txt += "<td>"+ response.eventName;
+				txt += "<td>"+ response.content;
+				txt += "<td>"+ response.startDate;
+				txt += "<td>"+ response.endDate;
+				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';						
+				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
+				$('#queryAllEvent').html(txt);						 
+			},
+		});				
+	});
+	
+	
+	//UpdateEventData
+	$(document).on('click', '#SaveButton', function() {
+		var myForm = document.getElementById('updateForm');
+		var formData = new FormData(myForm);
+		
+		var updateImage =$('#imageUpdate').get(0).files[0];			
+//			console.log('content:'+responseEditorcontent.getData());
+		console.log(updateImage);
+		
+		if(updateImage != undefined){				
+			formData.append("eventImage1","null");						
+		}
+		formData.append("eventImage1",updateImage);	
+								
+		formData.append("content1",responseEditorcontent.getData());			
+		formData.append("eventId1",eventId);
+			$.ajax({
+				url : "updateEvent",
+				processData : false,
+				contentType : false,
+				type : "POST",
+				data : formData,
+				success : function(response) {
+					//console.log(response);	
+					console.log("Save ok");	
+					alert("修改成功");			 
+				},
+			});				
+		});
 })//----------------------------------------------------  End Document.ready  ----------------------------------------------------
 
 //用產品編號查詢該產品的物件

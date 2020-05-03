@@ -3,11 +3,19 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <link rel="stylesheet" href="../css/BmsHomePage.css">
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <script src="../js/BmsHomePage.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 活動用的 UI js -->
+<!-- 	<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
+	<!-- 活動用的 UI js END -->
     <title>Back-Manager-System_HomePage</title>
 </head>
 
@@ -15,7 +23,7 @@
     <div class="bms">
         <div class="header">
             <h1>GameGuild's 後臺管理系統</h1>
-            <div class="logout button">
+            <div class="logout">
 	        	<a href="Logout">登出</a>
 	        </div>
         </div>
@@ -91,9 +99,6 @@
                                 <td>產品編號</td>
                                 <td>產品名稱</td>
                                 <td>價格</td>
-                                <!-- <td>遊戲資訊</td> -->
-                                <!-- <td>分類</td> -->
-                                <!-- <td>遊戲封面</td> -->
                                 <td>上架時間</td>
                                 <td>下架時間</td>
                             </tr>
@@ -106,7 +111,113 @@
 
                 </div>
 
-                <div id="eventDiv" class="section" hidden></div>
+                <div id="eventDiv" class="section" hidden>
+                	<div id="jquery-tabs" style="width: auto;">
+						<div id="tabs-nav">
+							<a href="#tab0" class="tabs-menu tabs-menu-active">新增活動</a> 
+							<a href="#tab1" class="tabs-menu">查詢活動</a> 
+						</div>
+
+						<div class="tabs-container" style="height: auto;">
+					<!-- 第一個標籤 -->
+							<div id="tab0" class="tabs-panel" style="display: block;">
+								<h2>新增活動</h2>
+								<form action="addEvent" method="post" enctype="multipart/form-data">
+									<table>
+										<tr>
+											<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
+										</tr>
+										<tr>
+											<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
+										</tr>
+										<tr>
+											<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" /><img id="preview_Image" src="#" />
+											</td>
+										</tr>
+										<tr>
+											<td>產品編號 : <input type="text" name="productId"></td>
+										</tr>
+										<tr>
+											<td>活動標題 : <input type="text" name="eventName"></td>
+										</tr>
+										<tr>
+											<td>活動內文 : <textarea id="editor" name="content"></textarea></td>
+										</tr> 
+										<tr>
+											<td><input type="submit" value="新增" id="add" /><input type="reset" value="清除" id="reset" /></td>							
+																	
+										</tr>
+									</table>
+								</form>
+							</div>
+				
+							<!-- 第二個標籤 -->
+							<div id="tab1" class="tabs-panel">
+								<div>
+									<table>
+										<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
+										<button id="search">查詢</button>
+										<button id="searchAllData">查詢全部活動</button>						
+									</table>
+				
+									<table id="queryAllEvent">
+									</table>
+								</div>
+				
+				
+								<div class="container">
+									
+									<!-- Button to Open the Modal -->					
+									<!-- The Modal -->
+									<div class="modal" id="myModal">
+										<div class="modal-dialog">
+											<div class="modal-content"  style="width:600px;height:600px;">
+												<!-- Modal Header -->
+												<div class="modal-header">
+													<h5 class="modal-title">修改活動資料</h5>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<form id="updateForm" name="updateForm" action="updateEvent" method="post" enctype="multipart/form-data" >
+												<!-- Modal body -->
+												<div class="modal-body">							
+													<table id="updateEvent">
+														<tr>
+															<td name="eventId1" id="eventId1"></td>
+														</tr>
+														<tr>
+															<td>活動起始時間 : <input type="date" id="startDate1" name="startDate1"></td>
+														</tr>
+														<tr>
+															<td>活動結束時間 : <input type="date" id="endDate1" name="endDate1"></td>
+														</tr>
+														<tr>
+															<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img  name="eventImage2" alt="" src="" >	</td>
+														</tr>
+														<tr>
+															<td>產品編號 <input type="text" name="productId1"></td>
+														</tr>
+														<tr>
+															<td>活動標題 : <input type="text" name="eventName1"></td>
+														</tr>									
+													 	<tr>
+															<td>活動內文 : <textarea id="editor2" name="content1"></textarea></td>
+														</tr> 														
+													</table>																																										
+												</div>
+												<!-- Modal footer -->
+												<div class="modal-footer">
+													<button type="submit" id="SaveButton" class="btn btn-success"data-dismiss="modal">Save</button>
+													<button type="button" class="btn btn-danger"data-dismiss="modal">Close</button>
+												</div>															
+												</form>																								
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>		
+						</div>
+					</div>
+                </div>
             </div>
         </div>
     </div>
