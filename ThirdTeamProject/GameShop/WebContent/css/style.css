@@ -126,11 +126,13 @@ body{
 #hello{
     background:url(../img/infobutton.png) no-repeat;
     width: 150px;
-    height: 35px;
+    height: 30px;
 }
 #hello a{
-	color:black;
-	text-shadow:2px 2px 2px gray;
+    color:black;
+    text-shadow:2px 2px 2px gray;
+    padding: 0;
+    text-align: center;
 }
 #hello:hover{
 	filter:satuate(3);

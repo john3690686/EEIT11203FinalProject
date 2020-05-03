@@ -191,7 +191,6 @@ public class SessionController {
 	@ResponseBody
 	@RequestMapping(value = "/serchProfile", method = RequestMethod.POST)
 	public P_TotalProfile queryProfile(HttpServletRequest request) {
-		System.out.println("myProfile");
 		P_TotalProfile profile = null;
 		Object objAccount = request.getSession().getAttribute("userAccount");
 		if(objAccount == null) {
