@@ -20,9 +20,7 @@
 	        </div>
         </div>
         
-        
-
-        <div id="asideLeft">
+		<div id="asideLeft">
             <ul>
                 <li id="product" class="bmsmenu"><a href="#">商品</a></li>
                 <li id="event" class="bmsmenu"><a href="#">活動</a></li>

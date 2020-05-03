@@ -9,6 +9,12 @@ $(window).on('load', function () {
         }
     })
 
+    //Menu 點擊活動後呼叫之函數
+    function eventView() {
+        $("#eventDiv").show().siblings().hide()
+    }
+
+    //Menu 點擊商品後呼叫之函數
      var productList;
      function getProductList(urlStr){
          $.getJSON(urlStr, function( jdata ){
@@ -70,8 +76,8 @@ $(window).on('load', function () {
                 $("#iPDiv").find("input[type=text][name=tag]").val(p.tag)
                 $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag)-8)
                 $("#iPDiv").find("textarea[name=intro]").val(p.intro)
-                $("#iPDiv").find("img#Preview").attr("src", p.productImage)
-                // $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
+//                $("#iPDiv").find("img#Preview").attr("src", p.productImage)
+                 $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
                 $("#iPDiv").find("input[type=date][name=uplTime]").val(p.uploadTime)
                 $("#iPDiv").find("input[type=date][name=dwlTime]").val(p.downloadTime)
 
@@ -84,12 +90,6 @@ $(window).on('load', function () {
             }
         })
         createProductPageNum()
-    }
-
-    //Menu 點擊活動後呼叫之函數
-    function eventView() {
-        let txt = "hi, this is event Div"
-        $("#eventDiv").html(txt).show().siblings().hide()
     }
 
     //點擊新增產品按鈕的事件->若有進行修改按下取消按鈕 跳出詢問放棄的視窗 是則隱藏視窗 並清空資料
@@ -126,7 +126,6 @@ $(window).on('load', function () {
             $("#iPDiv").find("input[type=text][name=tag]").val(p.tag)
             $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag))
             $("#iPDiv").find("textarea[name=intro]").val(p.intro)
-//            $("#iPDiv").find("img#Preview").attr("src", p.productImage)
             $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
             $("#iPDiv").find("input[type=date][name=uplTime]").val(p.uploadTime)
             $("#iPDiv").find("input[type=date][name=dwlTime]").val(p.downloadTime)
@@ -149,7 +148,7 @@ $(window).on('load', function () {
     	formdata.append("dwlTime" , $("input[name=dwlTime]").val())
     	formdata.append("file" , $("input#pfile").get(0).files[0])
     	
-    	$.ajax({/// -------------------------  success upload file use ajax
+    	$.ajax({
 			url: "productBean",
 			type: "POST",
 			data: formdata,
@@ -249,7 +248,7 @@ $(window).on('load', function () {
         //讓一開始都在第一頁
         turningPPage(1)
     }
-
+//------------------------------------------   以下為活動的 JS   -------------------------------------------------
     
 
 })//----------------------------------------------------  End Document.ready  ----------------------------------------------------

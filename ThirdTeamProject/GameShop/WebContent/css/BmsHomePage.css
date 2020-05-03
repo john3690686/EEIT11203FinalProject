@@ -9,6 +9,7 @@
     background-color: aquamarine;
     text-align: center;
     padding-top: 30px;
+/*     position: fixed; */
 }
 
 .bms > .nav > ul {
@@ -71,9 +72,10 @@
 }
 
 .logout {
-	position: fixed;
-	right: 4em;
-	top: 80px;
+/* 	position: fixed; */
+	z-index: 99;
+	right: 2em;
+	top: 40px;
 	width: 8em;
 	margin-top: -2.5em;
 }
