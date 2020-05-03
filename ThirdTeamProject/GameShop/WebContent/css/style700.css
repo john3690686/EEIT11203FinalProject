@@ -80,7 +80,7 @@ footer{
 .searchArea{
 	text-align:right;
 	padding:10px;
-	cols:3;
+	columns:3;
 }
 .searchArea td{
 	background:black;

@@ -1,7 +1,10 @@
 package tw.gameshop.user.model;
 
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,7 +23,11 @@ public class Game_EventDAO {
 	}
 
 	@Autowired
+<<<<<<< HEAD
 	public Game_EventDAO(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
+=======
+	public Game_EventDAO(@Qualifier(value ="sessionFactory") SessionFactory sessionFactory) {
+>>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 		System.out.println("SessionFactory: " + sessionFactory);
 		this.sessionFactory = sessionFactory;
 
@@ -50,6 +57,7 @@ public class Game_EventDAO {
 		String json = jsonstr.replaceAll(":null,", ":\"null\",");
 		return json;
 	}
+<<<<<<< HEAD
 
 	public List<Game_Event> queryAllEvent2() {
 		return sessionFactory.getCurrentSession().createQuery("from Game_Event", Game_Event.class).list();
@@ -66,6 +74,27 @@ public class Game_EventDAO {
 		}
 		return event;
 	}
+=======
+	
+	
+	public List<Game_Event> queryAllEvent2(){
+		return sessionFactory.getCurrentSession().createQuery("from Game_Event",Game_Event.class).list();
+	}
+	
+	public Game_Event queryEvent(int eventId) {
+		return  sessionFactory.getCurrentSession().get(Game_Event.class,eventId);	
+	}
+	
+
+	public Game_Event addEvent(Game_Event event) {
+		Session session = sessionFactory.getCurrentSession();	
+		if(event != null ) {
+			session.save(event);
+		}
+		return event;	
+	}
+	
+>>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 
 	public void deleteEvent(int eventId) {
 		Session session = sessionFactory.getCurrentSession();
@@ -73,20 +102,41 @@ public class Game_EventDAO {
 		session.delete(event);
 	}
 
+<<<<<<< HEAD
 	public boolean upDateEvent(int eventId, Game_Event gEvent) {
 		Game_Event nBean = sessionFactory.getCurrentSession().get(Game_Event.class, eventId);
 		if (nBean != null) {
+=======
+	public boolean upDateEvent(int eventId,Game_Event gEvent) {
+		Game_Event nBean = sessionFactory.getCurrentSession().get(Game_Event.class,eventId);
+		if(nBean != null) {
+>>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 			nBean.setProductId(gEvent.getProductId());
 			nBean.setEventName(gEvent.getEventName());
 			nBean.setContent(gEvent.getContent());
 			nBean.setStartDate(gEvent.getStartDate());
 			nBean.setEndDate(gEvent.getEndDate());
+<<<<<<< HEAD
 			if (gEvent != null) {
 				nBean.setEventImage(gEvent.getEventImage());
 			}
+=======
+			if(gEvent!= null) {
+				nBean.setEventImage(gEvent.getEventImage());
+			}		
+>>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 			return true;
 		}
 		return false;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	
+	
+	
+	
+	
+>>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 }

@@ -22,6 +22,7 @@ public class CommentService {
 	}
 	
 	public Comment insertData(Comment cData) {			// �s�W����
+		cData.setComment(processComment(cData.getComment()));
 		return commentDao.insertData(cData);
 	}
 	
@@ -30,12 +31,18 @@ public class CommentService {
 	}
 	
 	// 以comId 和 userId 修改評論
-	public Comment updateData(int comId, String newComments) {			
-		return commentDao.updateData(comId, newComments);
+	public Comment updateData(int comId, String newComments) {	
+		return commentDao.updateData(comId, processComment(newComments));
 	}
 	
 	// 以comId 和 userId 刪除評論
 	public boolean deleteData(int comId) {			
 		return commentDao.deleteData(comId);
+	}
+	
+	//防止注入
+	private String processComment(String comment) {
+		String newString = comment.replaceAll("&", "&amp").replaceAll(" ", "&nbsp").replaceAll("<", "&lt").replaceAll(">", "&gt");
+		return newString;
 	}
 }

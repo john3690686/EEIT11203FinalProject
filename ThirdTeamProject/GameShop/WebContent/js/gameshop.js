@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    //nav
+    $("#navShop").click(function(){
+        if($(".loginz").val() == "Login"){
+            alert("請先登入");
+        }
+    });
+
     //Login & Register Form
 
     //User Photo
@@ -101,7 +108,7 @@ $(document).ready(function () {
     $("#nickName").blur(function () {
         let ajaxFlag = true;
         $("#checkNickName img").css("visibility", "visible");
-        if (ajaxFlag) {
+        if (ajaxFlag && $(this).val().length>0) {
             ajaxFlag = false;
             console.log("thisvalue = " + $(this).val());
             $.ajax({
@@ -229,10 +236,10 @@ $(document).ready(function () {
                     $(".loginForm form").submit();
                     alert("登入成功");
                 } else {
-                    $("#loginMsg").text("登入失敗，請檢查帳號密碼!")
+                    alert("登入失敗，請檢查帳號密碼!")
                 }
             }, error: function () {
-                $("#loginMsg").text("登入失敗，請檢查帳號密碼!")
+                alert("登入失敗，請檢查帳號密碼!")
             }
         })
     })
@@ -243,11 +250,11 @@ $(document).ready(function () {
         //if login
         if ($(".loginz").val() == "Logout") {
             $(".loginz").parent().attr("href", "http://localhost:8080/GameShop/logout/");
-            $(".login").css("visibility", "hidden");
+            $(".loginArea").css("visibility", "hidden");
             $("#hello").show();
         } else {     //if guest
             $("#hello").hide();
-            $(".login").css("visibility", "visible")
+            $(".loginArea").css("visibility", "visible")
             $(".loginz").parent().removeAttr("href");
             $(".loginz").click(function () {
                 $(".loginDiv").css({
