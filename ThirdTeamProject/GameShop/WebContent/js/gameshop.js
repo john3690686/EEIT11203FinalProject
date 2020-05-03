@@ -1,11 +1,4 @@
 $(document).ready(function () {
-    //nav
-    $("#navShop").click(function(){
-        if($(".loginz").val() == "Login"){
-            alert("請先登入");
-        }
-    });
-
     //Login & Register Form
 
     //User Photo

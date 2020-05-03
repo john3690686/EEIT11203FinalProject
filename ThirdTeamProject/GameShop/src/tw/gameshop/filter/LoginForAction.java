@@ -19,17 +19,17 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(value = "/*",
 		initParams = {
-				@WebInitParam(name = "mustLogin1",value = "/Shop/*"),
+				@WebInitParam(name = "mustLogin1",value = "/showWish.controller"),
 				@WebInitParam(name = "mustLogin2",value = "/blog/*"),
-				@WebInitParam(name = "mustLogin3",value = "/comment/*")
+				@WebInitParam(name = "mustLogin3",value = "/pay.controller*")
 		})
-public class LoginToAction implements Filter {
+public class LoginForAction implements Filter {
 	List<String> url = new ArrayList<String>();
 	String servletPath;
 	String contextPath;
 	String requestURI;
 
-    public LoginToAction() {
+    public LoginForAction() {
         // TODO Auto-generated constructor stub
     }
 
