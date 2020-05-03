@@ -1,0 +1,167 @@
+.bms > .main {
+    /* width: 72%; */
+    margin: 0 auto;
+    float: left;
+}
+
+.bms > .header {
+    height: 100px;
+    background-color: aquamarine;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.bms > .nav > ul {
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    list-style-type: none;
+    overflow: auto;
+    padding: 0;
+}
+
+.bms > .nav > ul > li {
+    background-color: beige;
+    width: 33.33%;
+    height: 100%;
+    float: left;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.bms > .nav a {
+    height: 100%;
+    line-height: 80px;
+    display: block;
+    text-align: center;
+}
+
+.bms > .nav a:link {
+    text-decoration:none;
+}
+.bms > .nav a:hover {
+    background-color:	#0080FF	;
+    color:	#ffffff;
+    border-radius:5px;
+}
+
+.bms #asideLeft {
+    width: 180px;
+    float: left;/* position: fixed; */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    /* z-index: 999; */
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.bms .expired, .notyet {
+    background-color: rgb(213, 115, 169, 0.4);
+}
+
+.bms .expired > .pStatus,
+.bms .notyet > .pStatus{
+    color: red;
+}
+
+.bms .valid > .pStatus {
+    color: green;
+}
+
+.logout {
+	position: fixed;
+	right: 4em;
+	top: 80px;
+	width: 8em;
+	margin-top: -2.5em;
+}
+
+.hideClass {
+    display: none;
+}
+
+input[type=text] {
+    border: none;
+    border-bottom: 4px solid #8842d5;  
+}
+
+/* ----------------- Test product page csss ---------------------   */
+
+ul.pagination{
+    cursor:default;
+    margin:0;
+    text-align:center
+}
+ul.pagination li{
+    display:inline-block;
+    margin:0 0.325em
+}
+ul.pagination .button{
+    width:10em;
+    padding:0
+}
+ul.pagination .page.current a{
+    color:#ff6098;
+    border-color:#ff6098
+}
+ul.pagination .page a{
+    -moz-transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    -webkit-transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    -ms-transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    display:inline-block;
+    text-transform:uppercase;
+    font-size:0.9em;
+    font-weight:700;
+    letter-spacing:.125em;
+    line-height:3em;
+    width:3em;
+    text-align:center;
+    border-radius:4px;
+    color:#444;
+    background:#fff;
+    border:solid 2px rgb(160, 150, 150)
+}
+ul.pagination .page a:hover{
+    color:#5FCEC0;border-color:#5FCEC0
+}
+
+.button {
+    -moz-transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    -webkit-transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    -ms-transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    -moz-appearance:none;-webkit-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    display:inline-block;
+    text-transform:uppercase;
+    font-size:0.75em !important;
+    font-weight:700;letter-spacing:.125em;
+    line-height:3.75em;
+    height:3.75em;
+    padding:0 2.25em;
+    border:0;
+    box-shadow:0 0 0 2px #dfdfdf;
+    border-radius:4px;color:#444;
+    text-align:center;
+    background:none;
+    cursor:pointer
+}
+
+.button:hover {
+    color:#5FCEC0;
+    box-shadow:0 0 0 2px #5FCEC0
+}
+
+.button.special {
+	background:#5FCEC0;
+	color:#fff;
+	box-shadow:0 0 0 2px #5FCEC0
+}
+.button.special:hover {
+	background:#3bbfaf;
+	box-shadow:0 0 0 2px #3bbfaf
+}

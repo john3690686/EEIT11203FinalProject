@@ -24,18 +24,29 @@ window.onload = function(){
 		dataType:"json",
 		success:function(data){
 			console.log(data);
+			console.log(data[0][0].payResult);
 			var record;
+			var payStatus;
 			for (var i=0;i<data.length;i++){
 				var d = new Date(data[i][0].buyDate).toLocaleDateString();
 				var date = "<h2>"+d+"</h2>";
 				var thead = "<table>";
 				var table="";
+				var totalPrice=0;
 				for(var j=0;j<data[i].length;j++){
 				var tr = "<tr><td>"+(j+1)+"</td><td>"+data[i][j].productName+"</td><td>"+data[i][j].price+"</td></tr>";
 				table +=tr;
+				var p = data[i][j].price;
+				totalPrice += p; 
 				}
+				var total = "<tr><td></td><td>總計</td><td>"+totalPrice+"</td>";
+				if(data[i][0].payResult=='Y'){
+					payStatus="<td><input type='button' id='payY' value='已結帳'></td></tr>";
+					}else{
+						payStatus="<td><input type='button' id='payN' value='去結帳'></td></tr>";
+						}
 				var ttail = "</table>";
-				record =date+thead+table+ttail; 
+				record =date+thead+table+total+payStatus+ttail; 
 			$("body").append(record);
 				}
 			}

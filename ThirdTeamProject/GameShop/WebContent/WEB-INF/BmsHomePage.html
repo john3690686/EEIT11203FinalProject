@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/BmsHomePage.css">
+    <link rel="stylesheet" href="BmsHomePage.css">
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-    <script src="../js/BmsHomePage.js"></script>
+    <script src="BmsHomePage.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Back-Manager-System_HomePage</title>
 </head>
@@ -15,12 +14,7 @@
     <div class="bms">
         <div class="header">
             <h1>GameGuild's 後臺管理系統</h1>
-            <div class="logout button">
-	        	<a href="Logout">登出</a>
-	        </div>
         </div>
-        
-        
 
         <div id="asideLeft">
             <ul>
@@ -35,8 +29,8 @@
                 <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
                 
                 <div id="productDiv" class="section" hidden>
-                    <button id="insProduct" class="button">新增產品</button>
-                    <button id="hideProductNotSales" class="productListView button">隱藏位在架上商品</button>
+                    <button id="insProduct">新增產品</button>
+                    <button id="hideProductNotSales" class="productListView">隱藏位在架上商品</button>
 
                     <div id="iPDiv" hidden>
                         <form action="xxxController" method="post" enctype="multipart/form-data">
