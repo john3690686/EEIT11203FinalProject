@@ -43,18 +43,17 @@ footer{
 </style>
 </head>
 <body bgcolor="red">
-	<!--Navigator-->
-     <nav>
+<!--Navigator-->
+    <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>
-            <li><a href="#">NEWS</a>
-            <li><a href="Shop">SHOP</a>
-            <li><a href="#" style="padding-right: 20px; padding-left: 25px;">COMMENT</a>
+            <li><a href="Event">NEWS</a>
+            <li><a id="navShop" href="Shop">SHOP</a>
+            <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
-            <li id="hello"> <a href="myProfile"> hi,${userName}</a>
+            <li id="hello"><a href="myProfile">會員中心</a>
         </ul>
-
-        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
     </nav>
 
 	<div id="chat-room">
