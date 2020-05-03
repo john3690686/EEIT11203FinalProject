@@ -1,12 +1,7 @@
 package tw.gameshop.user.model;
 
-<<<<<<< HEAD
-=======
-
-
 import java.sql.Date;
 
->>>>>>> e70a02928e9d5de9f95707a5905964c90691851f
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
