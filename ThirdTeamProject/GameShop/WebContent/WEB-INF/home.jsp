@@ -44,7 +44,7 @@ body{
             <li><a href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>
-            <li id="hello"> <a href="myProfile"> 會員中心</a>
+            <li id="hello"> <a href="myProfile">會員中心</a>
         </ul>
         <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
     </nav>
