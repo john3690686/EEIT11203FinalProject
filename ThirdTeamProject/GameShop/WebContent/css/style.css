@@ -547,7 +547,7 @@ fieldset{
 .searchArea{
 	text-align:right;
 	padding:10px;
-	cols:3;
+	columns:3;
 }
 .searchArea td{
 	background:black;
@@ -558,7 +558,7 @@ fieldset{
 }
 .productTable{
 	border-collapse: collapse;
-	background: :rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.5);
 	position: relative;
     width:70%;
     top:0;
