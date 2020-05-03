@@ -3,8 +3,15 @@ package tw.gameshop.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +25,7 @@ import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductDAO;
 
 @Controller
+@PropertySource("classpath:/bmsAccountInfo.properties")
 public class BmsController {
 
 	private ProductDAO productDao;
@@ -25,6 +33,9 @@ public class BmsController {
 	public BmsController() {
 		super();
 	}
+	
+	@Autowired
+    Environment env;
 
 	@Autowired
 	public BmsController(ProductDAO pDao) {
@@ -36,6 +47,31 @@ public class BmsController {
 		return "BmsHome";
 	}
 	
+	@RequestMapping(path = "/bms/Logout", method = {RequestMethod.POST, RequestMethod.GET})
+	public String BmsLogoutSystem(HttpSession httpSession) {
+		httpSession.removeAttribute("bmsLoginStatusSession");
+		return "redirect:/bmsLoginPage";
+	}
+	
+	@RequestMapping(path = "/bmsLoginPage", method = {RequestMethod.POST, RequestMethod.GET})
+	public String BmsLoginSystem(@RequestParam(value = "bmsAcc", required = false)String bmsAcc, 
+								@RequestParam(value = "bmsPwd", required = false)String bmsPwd, 
+								HttpSession httpSession, Model model) {
+		// TODO login Check
+		String bmsLoginStatusSession = (String)httpSession.getAttribute("bmsLoginStatusSession");
+		Map<String, String> errMsg = new HashMap<String, String>();
+		if(bmsAcc != null && bmsPwd != null || bmsLoginStatusSession != null) {
+			if(!env.getProperty("bms.manager.acc").equalsIgnoreCase(bmsAcc) || !env.getProperty("bms.manager.pwd").equals(bmsPwd) && bmsLoginStatusSession == null ) {
+				errMsg.put("errMsg", "帳號不存在或密碼錯誤");
+				model.addAttribute("errMsg", errMsg);
+			}else {
+				httpSession.setAttribute("bmsLoginStatusSession", "Logined");
+				return "redirect:/bms/home";
+			}
+		}
+		return "BmsLoginPage";
+	}
+	
 	@ResponseBody
 	@RequestMapping(path = "/bms/productJsonView", method = RequestMethod.GET)
 	public List<Product> SelectProductAllJson() throws SQLException {
@@ -44,7 +80,7 @@ public class BmsController {
 	
 	@ResponseBody
 	@RequestMapping(path = "/bms/productBean", method = RequestMethod.POST)
-	public String UpdateProductItem(	@RequestParam("id") String id,
+	public List<Product> UpdateProductItem(	@RequestParam("id") String id,
 										@RequestParam("pName") String pName,
 										@RequestParam("price") int price,
 										@RequestParam("intro") String intro,
@@ -72,13 +108,14 @@ public class BmsController {
 		}else {
 			productDao.insertProduct(p);
 		}
-		return "redirect:/productlist";
+		return productDao.queryAll();
 	}
 	
+	@ResponseBody
 	@RequestMapping(path = "/bms/product.del/{id}", method = RequestMethod.GET)
-	public String DelProductItem( @PathVariable("id") String id, Model model ){
+	public List<Product> DelProductItem( @PathVariable("id") String id, Model model ){
 		productDao.deleteById(Integer.parseInt(id));
-		return "success";
+		return productDao.queryAll();
 	}
 
 }

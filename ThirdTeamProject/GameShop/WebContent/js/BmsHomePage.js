@@ -52,8 +52,8 @@ $(window).on('load', function () {
                         url: 'product.del/' + id,
                     })
                     .done(function (data) {
-                        productList = data
                         alert("產品編號 " + id + " 的產品已成功刪除！");
+                        getProductList("productJsonView")
                     })
                 } else {
                     txt = "您已取消刪除！";
