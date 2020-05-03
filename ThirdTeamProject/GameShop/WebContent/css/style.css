@@ -129,14 +129,15 @@ body{
     height: 30px;
 }
 #hello a{
+	font-family: Microsoft JhengHei;
+	font-weight:bold;
     color:black;
     text-shadow:2px 2px 2px gray;
     padding: 0;
+    padding-right:10px;
     text-align: center;
 }
-#hello:hover{
-	filter:satuate(3);
-}
+
 .hello img{
     background-image: none;
     list-style: none;
@@ -159,8 +160,8 @@ body{
 	margin-right:0;
 	margin:auto;
 	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 200, 226, 0.9));
-	width:50%;
-	height:60%;
+	width:45%;
+	height:55%;
 	border:2px solid black;
 	border-image-source: url(../img/loginborder.png);
 	border-image-slice: 50;
@@ -169,7 +170,7 @@ body{
 	box-shadow:2px 2px 2px rgb(172, 255, 248);
 }
 .registerForm{ 
-	height:100%;
+	height:90%;
 }
 .loginForm input, .registerForm input{
 	height:20px;	
@@ -255,8 +256,12 @@ body{
 .imgUserPhoto{
     position: relative;
     z-index: 9999;
-    cursor: pointer;
+    cursor: pointer; 
+	width:100px; 
+	height:100px ;
+	vertical-align:middle;
 }
+
 #profileForm{
 	width: 50%;
 	margin-left:0;

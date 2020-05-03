@@ -31,10 +31,11 @@ body{
 </head>
 <body>
 <!--Navigator-->
-	<nav>
+
+    <nav>
         <ul class="ul1">
             <li><a href="index.html">HOME</a>
-            <li><a href="#">NEWS</a>
+            <li><a href="Event">NEWS</a>
             <li><a id="navShop" href="Shop">SHOP</a>
             <li><a href="processArticle">BLOG</a>
             <li><a href="Chatroom">CHAT</a>

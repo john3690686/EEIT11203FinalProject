@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +24,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import tw.gameshop.user.model.Game_EventService;
+import tw.gameshop.user.model.Product;
+import tw.gameshop.user.model.Comment;
 import tw.gameshop.user.model.Game_Event;
 
 @Controller
 public class EventController {
 
 	private Game_EventService eventService;
-	
+
 	@Autowired
 	public EventController(Game_EventService eventService) {
 		this.eventService = eventService;
@@ -73,7 +79,7 @@ public class EventController {
 	
 	@ResponseBody
 	@RequestMapping(path = "/queryAllEvent",method = RequestMethod.GET )
-	public List<Game_Event> queryAllData(Model model) {
+	public List<Game_Event> queryAllData() {
 		List<Game_Event> eventList = eventService.queryAllEvent2();
 		System.out.println("start queryAllEvent controller");
 		return eventList;
@@ -109,6 +115,27 @@ public class EventController {
 		
 	}
 	
+	// to event
+	@RequestMapping(path="/Event",method = RequestMethod.GET)
+	public String toEventPage2() {
+		return "Event";
+	}
+	
+	// use id to find event and show it
+		@RequestMapping(path="/searchEvent{urlname}", method=RequestMethod.GET)
+		public String findEventById(@ModelAttribute("searchGo")Game_Event myEvent, 
+		@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
+					
+				urlName = String.valueOf(myEvent.getEventId());
+				
+				model.addAttribute("eventId", myEvent.getEventId());
+				model.addAttribute("eventName", myEvent.getEventName());
+				model.addAttribute("eventContent", myEvent.getContent());
+				model.addAttribute("sDate", myEvent.getStartDate());
+				model.addAttribute("eDate", myEvent.getEndDate());
+				
+				return "showEventResult";
+}	
 	
 	@RequestMapping(path = "/updateEvent",method = RequestMethod.POST)
 	public String updateEvent(@RequestParam("productId1")int productId,@RequestParam("startDate1")String startDate, 

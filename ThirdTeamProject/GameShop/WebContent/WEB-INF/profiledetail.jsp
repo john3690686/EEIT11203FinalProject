@@ -21,61 +21,6 @@ body{
 	background-repeat:no-repeat;
 	background-size:cover;
 }
-#profileForm{
-	width: 50%;
-	margin-left:0;
-	margin-right:0;
-	margin: auto;
-	background-color: rgba(79, 221, 240, 0.651);
-	border:2px solid black;
-	border-image-source: url(img/loginborder.png);
-	border-image-slice: 50;
-	border-image-width: 1em;
-	border-image-repeat: stretch;
-	box-shadow:2px 2px 2px rgb(172, 255, 248);
-	font-size:20px;
-	text-align: center;
-}
-#profileForm legend{
-	margin:0;
-	padding-top:20px;
-	padding-bottom:20px;
-	font-size:25px;
-	font-weight:bold;
-	text-shadow:2px 2px 2px gray;
-}
-
-#profileForm label{
-	display: inline-block;
-	line-height: 20px;
-	width: 90px;
-	font-weight:bold;
-	text-align: left;
-}
-.note{
-	font-size:14px;
-	color:red;
-	text-align:center;
-}
-.gender{
-	margin:0;
-	width:25px !important;
-}
-
-.message{
-	font-size: 20px;
-	font-weight: bold;
-	margin: auto;
-	text-align: center;
-}
-
-.check{
-	display: inline-block;
-	visibility: hidden;
-}
-.check img{
-	width: 20px;
-}
 
 </style>
 </head>
