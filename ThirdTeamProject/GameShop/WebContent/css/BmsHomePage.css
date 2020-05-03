@@ -70,8 +70,21 @@
     color: green;
 }
 
+.logout {
+	position: fixed;
+	right: 4em;
+	top: 80px;
+	width: 8em;
+	margin-top: -2.5em;
+}
+
 .hideClass {
     display: none;
+}
+
+input[type=text] {
+    border: none;
+    border-bottom: 4px solid #8842d5;  
 }
 
 /* ----------------- Test product page csss ---------------------   */

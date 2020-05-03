@@ -15,7 +15,12 @@
     <div class="bms">
         <div class="header">
             <h1>GameGuild's 後臺管理系統</h1>
+            <div class="logout button">
+	        	<a href="Logout">登出</a>
+	        </div>
         </div>
+        
+        
 
         <div id="asideLeft">
             <ul>
@@ -30,8 +35,8 @@
                 <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
                 
                 <div id="productDiv" class="section" hidden>
-                    <button id="insProduct">新增產品</button>
-                    <button id="hideProductNotSales" class="productListView">隱藏位在架上商品</button>
+                    <button id="insProduct" class="button">新增產品</button>
+                    <button id="hideProductNotSales" class="productListView button">隱藏位在架上商品</button>
 
                     <div id="iPDiv" hidden>
                         <form action="xxxController" method="post" enctype="multipart/form-data">
