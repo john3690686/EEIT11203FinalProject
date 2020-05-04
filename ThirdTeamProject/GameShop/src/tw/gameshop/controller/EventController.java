@@ -146,8 +146,7 @@ public class EventController {
 	}
 
 	// show event pic
-	@ResponseBody
-	@RequestMapping(path = { "/updateEvent", "/bms/updateEvent" }, method = { RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(path="/eventImage", method=RequestMethod.GET) 
 	public void processAction(@RequestParam("eventId") String eventId, HttpServletResponse response, Model model)
 			throws IOException {
 
@@ -164,7 +163,8 @@ public class EventController {
 		}
 	}
 
-	@RequestMapping(path = "/updateEvent", method = RequestMethod.POST)
+	@RequestMapping(path = "/bms/updateEvent", method = RequestMethod.POST)
+	@ResponseBody
 	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
 			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
 			@RequestParam("endDate1") String endDate, @RequestParam("eventImage1") MultipartFile eventImage,
