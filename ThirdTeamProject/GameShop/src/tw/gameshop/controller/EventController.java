@@ -144,8 +144,8 @@ public class EventController {
 				model.addAttribute("sDate", findEvent.getStartDate());
 				model.addAttribute("eDate", findEvent.getEndDate());
 				
-				Product findProduct = pService.queryById(myEvent.getEventId());
-				model.addAttribute("productName", findProduct.getProductName());
+				Product findProduct = pService.queryById(findEvent.getProductId());
+				model.addAttribute("productName2", findProduct.getProductName());
 				
 				return "showEventResult";
 }	

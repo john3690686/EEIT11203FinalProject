@@ -51,8 +51,8 @@ body{
     </nav>
 
 <!--Wishlist & Shopping cart &top-->
-        <a href="showWish.controller"><input type="button" class="wishlist"></a>
-        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+        <a href="showWish.controller"><input type="button" class="wishlist" title="願望清單"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
 		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
@@ -157,28 +157,28 @@ body{
             <div class="event">
                 <table>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.04.17</td>
+                        <td><a href="searchEvent?eventId=1">《魔物獵人》更新擊殺排行榜</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.04.03</td>
+                        <td><a href="searchEvent?eventId=2">《惡靈古堡 3重製版》上市頭 5天全球出貨突破 200萬套</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.03.30</td>
+                        <td><a href="searchEvent?eventId=3">戰略 RPG《為了國王 For The King》PS4、Switch中文版即將發售</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.03.30</td>
+                        <td><a href="searchEvent?eventId=4">戰爭策略名作《騎馬與砍殺2：霸主》2020年3月登上Steam</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.01.01</td>
+                        <td><a href="searchEvent?eventId=5">2019 Steam大獎揭曉《隻狼》獲年度遊戲獎</a></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
-                            <a href="#"><input type="submit" value="更多消息" name="more" class="morebutton" /></a></td>
+                            <a href="Event"><input type="submit" value="更多消息" name="more" class="morebutton" /></a></td>
                     </tr>
                 </table>
             </div>
