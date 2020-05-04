@@ -46,8 +46,8 @@ body{
     </nav>
 
 <!--Wishlist & Shopping cart &top-->
-        <a href="showWish.controller"><input type="button" class="wishlist"></a>
-        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+        <a href="showWish.controller"><input type="button" class="wishlist" title="願望清單"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
 		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
@@ -61,11 +61,11 @@ body{
 				<!--輪播待補(接活動頁面)-->
 				<a id="mainUrl" href="">
 				<canvas id="myCanvas" width="460" height="215">  
-                <img id="mainImg1" src="img/sale1.jpg" style="display: none" alt=""/>
-                <img id="mainImg2" src="img/sale2.jpg" style="display: none" alt=""/>
-                <img id="mainImg3" src="img/sale3.jpg" style="display: none" alt=""/>
-                <img id="mainImg4" src="img/sale4.jpg" style="display: none" alt=""/>
-                <img id="mainImg5" src="img/sale5.jpg" style="display: none" alt=""/>
+                <img id="mainImg1" src="img/05.jpg" style="display: none" alt=""/>
+                <img id="mainImg2" src="img/03.jpg" style="display: none" alt=""/>
+                <img id="mainImg3" src="img/07.jpg" style="display: none" alt=""/>
+                <img id="mainImg4" src="img/08.jpg" style="display: none" alt=""/>
+                <img id="mainImg5" src="img/06.jpg" style="display: none" alt=""/>
                 </canvas>
 				</a>
 				<div id="chimg"></div>
@@ -152,8 +152,8 @@ body{
 			}
 		// 可導向網頁的圖片連結(之後再接網頁內的商品)
 		
-			var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
-		 	document.getElementById("mainUrl").href = "http://localhost:8080/GameShop/searchGame?productName="+ db[(nowAD-1)];
+			var db = [1,2,3,4,5];
+		 	document.getElementById("mainUrl").href = "searchEvent?eventId="+ db[(nowAD-1)];
 
 			let nowImg = document.getElementById("mainImg" + nowAD);
 			for (let x = 0; x <= 460; x++) {

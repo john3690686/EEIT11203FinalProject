@@ -88,7 +88,7 @@ body{
     </tr>
     <!--product&wish button-->
     <tr>
-    	<td><a href="searchGame?productName=${productName}"><input type="button" class="shopthis" value="前往遊戲主頁"></a></td>
+    	<td><a href="searchGame?productName=${productName2}"><input type="button" class="shopthis" value="前往遊戲主頁"></a></td>
     	<td><input type="button" class="wishthis" value="加入願望清單"></td>
     </tr>
     

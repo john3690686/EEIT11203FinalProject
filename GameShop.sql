@@ -169,71 +169,80 @@ Create Table Event(
 )
 go
 
---===============Event Data===============--
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1','微軟將於 5月7日首度揭露新一代 Xbox Series X 主機遊戲實際遊玩展示',
-'Xbox今（1）日在官方 Twitter 上預告，將於台灣時間 5 月 7 日晚間 11:00 帶來最新一集「Inside Xbox」直播節目，首度揭露預定 2020 年底推出之研發中新一代主機「Xbox Series X」的遊戲實際遊玩展示。Xbox Series X 是微軟預定 2020 年年底推出的下一代 Xbox 主機。配備整合 AMD Ryzen Zen 2 CPU 核心與 Radeon RDNA 2 繪圖架構 GPU 核心的整合處理器。提供 8 倍於前代、高達12TFLOPS 的圖形處理效能。支援硬體加速光影追蹤，最高 8K 解析度 120fps 畫面輸出，內建高速 SSD，並相容 Xbox One 遊戲軟體。',
-'2020-05-01','2020-05-07',
-(select * from BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\Xbox01.jpg', Single_Blob)as a where eventId=1)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('2','保有史上最高獎金電競比賽紀錄的《Dota 2》國際邀請賽宣布今年因疫情將延期舉辦',
-'Valve 今日宣布，旗下《Dota 2》年度重要賽事第十屆《Dota 2》國際邀請賽（TI10）將因疫情延期舉辦，或許可能要到明年（2021 年）才能舉辦。Valve 表示，由於疫情引發全球衛生危機，經過多方面的考量、他們決定延後舉辦國際邀請賽，他們研究了許多可能舉辦的時間，但賽事或許要到 2021 年才能舉辦。考量到各地限制人群聚集的規定、病毒的傳播軌跡與全球通航政策等因素，Valve 指出，他們短期內還無法提供明確的賽事舉辦日期，但他們也在重新規劃秋季巡迴賽，並將盡快提供更多消息。 Valve 表示，第十屆國際邀請賽總獎金也將會包含下一個戰鬥通行證 25% 銷售額，他們計畫不久後會先推出戰鬥通行證，而非等到賽事快來臨時，但由於團隊目前是以在家上班的方式工作，所以戰鬥通行證的推出時程也會較以往至少延遲數週。',
-'2020-05-01','9999-01-01',(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\Dota2.png', Single_Blob)as a))
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1003','維京戰魂不朽！《刺客教條：維京紀元》正式揭露 將同步在 PS5、Xbox SX 主機推出',
-'Ubisoft 於台灣時間 30 日晚間正式公開由 Ubisoft 蒙特婁工作室領軍開發的旗下暢銷遊戲《刺客教條（Assasin''s Creed）》系列最新作《刺客教條：維京紀元（Assassin’s Creed Valhalla）》首部預告片，確定遊戲將於 2020 年底在 PS4、Xbox One、PC 以及下一代 PS5、Xbox Series X 主機同步推出。',
-'2020-04-30','9999-01-01',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\刺客教條：維京紀元.jpg', Single_Blob)as a)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1004','《動物森友會》「貍克」登上封面！大誌雜誌第 122 期將探討 ACG「異世界」題材',
-'The Big Issue Taiwan 大誌雜誌第 122 期將於 2020 年 5 月 1 日出刊，現正當紅的《集合啦！動物森友會》角色「貍克」登上封面！除了封面故事以「動物森友會與森友們」為主題，亦向名人邀稿帶來「我的動森之島」特輯。',
-'2020-05-01','9999-01-01',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\動物森友會.jpg', Single_Blob)as a)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1005','《泡泡糖忍戰》搶先體驗會 四面八方來回縱橫的新時代忍術對戰',
-'GungHo 預定 5 月 28 日推出的 Nintendo Switch 忍者泡泡糖動作遊戲《泡泡糖忍戰（ニンジャラ）》（採基本免費制營運）在 4 月 29 日舉辦了搶先體驗會，以下就要為大家帶來搶先體驗會的試玩報導。',
-'2020-04-29','9999-01-01',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\泡泡糖忍戰.jpg', Single_Blob)as a)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1006','突襲地獄對抗成群惡魔！《垂死之光》曝光新 DLC《地獄突襲 Hellraid》並預定今夏推出',
-'遊戲開發商 Techland 公開《垂死之光（Dying Light）》全新 DLC《地獄突襲（Hellraid）》，玩家將有機會體驗地獄之旅並在深淵中大殺四方。《垂死之光：地獄突襲》預定今年夏季推出。
+--===============Event Data===============
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '5','《魔物獵人》更新擊殺排行榜',
+'本次統計時間為 4 月 17~23 日，僅統計 PS4 版，且不包含聚魔之地。 在擊殺排行中，上週位居首位的雷狼龍本週繼續霸榜冠軍，第二名至第五名分別是殲世滅盡龍、絢輝龍、冥赤龍與炎王龍。','2020-04-17','2020-04-23',
+BulkColumn from Openrowset( Bulk N'E:\05.jpg', Single_Blob)as gamepic
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '3','《惡靈古堡 3 重製版》上市頭 5 天全球出貨突破 200 萬套 下載版佔比近半',
+'CAPCOM 今（13）日宣布，2020 年 4 月 3 日推出的生存驚悚遊戲《惡靈古堡 3 重製版（Resident Evil 3）》（PS4 / Xbox One / PC），上市頭 5 天的全球出貨套數已達到 200 萬套，其中下載版佔比近半。《惡靈古堡》是以生化危機為題材，描寫深陷危機險境的角色運用武器與道具，突破重重難關逃出生天的生存驚悚遊戲，自 1996 年問世以來，全系列累計銷售已超過 9500 萬套，是 CAPCOM旗下最暢銷的系列。
  
-　　於 2015 年推出的《垂死之光》是款採用跑酷玩法的動作遊戲，玩家在充斥著殭屍的廣大開放世界舞台中盡可能的生存下去。今日，官方宣布將推出全新 DLC《地獄突襲》，並強調將帶領玩家真實地體驗一次突襲地獄、對抗成群惡魔的探險之旅。',
-'2020-04-30','9999-01-01',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\垂死之光.png', Single_Blob)as a)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1007','《上古卷軸 Online：Greymoor》宣布將延後約一週上市 公開全新古文明系統影片',
-'Bethesda Softworks 宣布，《上古卷軸 Online》最新冒險篇章《上古卷軸 Online：Greymoor》將延後約 一週上市，同步公開了最新遊戲預告影片。
+　　本次推出的《惡靈古堡 3 重製版》則是 1999 年問世的《惡靈古堡》系列第 3 代的完全重製版，採用自家開發的「RE Engine」以最新技術重現當年的故事內容。此外還加入非對稱對戰玩法的全新多人連線模式。
  
-　　原本 Bethesda 今年 1 月宣布《上古卷軸 Online：Greymoor》將於 5 月 18 日登陸 PC/Mac 平台、6 月 2 日推出 Xbox One 與 PS4 版，但官方今日發表聲明，將延後約一週上市。也就是說，《上古卷軸 Online：Greymoor》預定於台灣時間 5 月 27 日推出 PC/Mac 版本，而 6 月 10 日上市 Xbox One 與 PS4 版。',
-'2020-04-30','9999-01-01',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\上古卷軸 Online：Greymoor.jpg', Single_Blob)as a)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1008','續作《海商王 4》公布發售日與封測版本資訊 封測將開放西班牙戰役與四個可玩角色',
-'遊戲開發商 Gaming Minds Studios 與發行商 Kalypso Media 今日宣布《海商王》系列續作《海商王 4》2020 年 9 月 25 日發售，同時預告將在上市前於 PS4 平台展開封閉測試。',
-'2020-04-30','2020-09-25',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\海商王4.jpg', Single_Blob)as a)
-)
+　　官方宣布，《惡靈古堡 3 重製版》於上市頭 5 天的全球出貨套數已達到 200 萬套，其中數位下載版的銷售佔比已經達到約 50% 的水準。而 2019 年 1 月推出的《惡靈古堡 2 重製版》的銷售套數亦成長至 650 萬套。',
+'2020-04-03','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\03.jpg', Single_Blob)as gamepic
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '7','戰略 RPG《為了國王 For The King》PS4、Switch 中文版即將發售',
+'H2 Interactive 宣布，由 Curve Digital 製作的戰略 RPG《為了國王 For The King》將於 3 月 30 日發售PS4 及 Nintendo Switch 繁體中文版。',
+'2020-03-30','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\07.jpg', Single_Blob)as gamepic
 go
 
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1009','《三國志 14》之《銀英傳》合作企劃第 3 彈 DLC 開放下載 免費更新同步實施',
-'臺灣光榮特庫摩宣布，好評發售中的歷史模擬遊戲「三國志」系列最新作《三國志 14》（Windows / PlayStation 4）於今日 4 月 30 日（四）發布《銀河英雄傳說》第 3 彈 DLC 合作免費 DLC 第 3 彈。',
-'2020-04-30','2020-04-30',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\三國志 14.jpg', Single_Blob)as a)
-)
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '8','戰爭策略名作《騎馬與砍殺2：霸主》2020年3月登上Steam',
+'結束多年等待，由 TaleWorlds 開發的中世紀動作角色扮演遊戲續作《騎馬與砍殺 2：霸主》（Mount & Blade 2: Bannerlord），在今年德國科隆遊戲展 Gamescom 2019 正式公布遊戲釋出時間點，預計 2020 年 3 月在 Steam 進入「搶先體驗」（Early Access）公開測試。
+經過年初的封閉 Beta 測試活動，這次科隆遊戲展會中，TaleWorlds 在一支全新公開的預告片中證實了《騎馬與砍殺 2：霸主》預計將於 明年 3 月在 Steam 上進入搶先體驗階段。再過半年左右，玩家們就能夠玩到這款令全球玩家望穿秋水的傳奇之作。',
+'2020-03-30','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\08.jpg', Single_Blob)as gamepic
 go
 
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '6','2019 Steam大獎揭曉《隻狼》獲年度遊戲獎',
+'由 Steam 玩家社群投票決定的 2019 Steam 大獎（Steam Award 2019）在 2020 年第一天正式公布，年度大獎不意外由今年甫拿下遊戲大獎 GOTY 的《隻狼：暗影雙死》（SEKIRO: Shadow Die Twice）獲得殊榮。
 
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1010','獨立遊戲團隊解謎新作《Timelie》5 月 21 日發售 藉著操控時間軸來探索抽象世界',
-'獨立遊戲團隊 Urnique Studio 宣布旗下研發的解謎新作《Timelie》將於 5 月 21 日發售，利用操控時間的能力解決問題並發現這抽象世界中的秘密。',
-'2020-04-30','2020-05-21',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\Timelie.jpg', Single_Blob)as a)
-)
-insert into Event(productId,eventName,content,startDate,endDate,eventImage) values('1011','獨立團隊同樂新作《Gotcha》登陸 Steam 平台 限時內從大人手中救出其他小孩',
-'由獨立遊戲製作團隊 Kidom 宣布，旗下同樂遊戲《Gotcha》將於今（30）日正式於 Steam 平台推出，玩家可以與最多三名朋友一起遊玩，逃離大人的追捕。',
-'2020-04-30','2020-04-30',
-(select * from Openrowset(Bulk N'C:\DataSource\teamproject\img\Gotcha.jpg', Single_Blob)as a)
-)
+由黑魂系列團隊 From Software 去年推出的《隻狼：暗影雙死》甫一推出隨即在全球玩家社群造成轟動，本次擊敗與之一同競爭的《惡靈古堡 2 重製版》、《惡魔獵人 5》、《天命 2》、《星際大戰 絕地：組織》，獲得 Steam 年度最佳遊戲實至名歸。',
+'2020-01-01','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\06.jpg', Single_Blob)as gamepic
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '2','挖掘！製作！戰鬥！《泰拉瑞亞 Terraria》NS 中文版 12 月 19 日發售',
+'Spike Chunsoft Co., Ltd. 今（2）日宣布，將發行由美國 Re-Logic/Pipeworks 公司所開發的造物動作冒險遊戲《泰拉瑞亞（Terraria）》Nintendo Switch 中文版。本作預定於 2019 年 12 月 19 日發售，售價為新台幣 1,090 元／港幣 278 元。《泰拉瑞亞 Terraria》是由方塊所創造出的廣闊世界，玩家可以自由地挖掘、收集素材、製作道具及建築，創造出專屬自己的世界的造物動作冒險遊戲。
+ 
+　　本作自 2011 年 PC 版發售後，在全世界創下了銷售量達 2,000 萬以上的亮眼成績，Spike Chunsoft 從 2013 年起便在日本的各遊戲平台販售，日本國內累計出貨量・下載數超過 90 萬，可說是受到眾多玩家支持的超人氣作品。而本次的新作 Nintendo Switch 版將會支援 PC 版的最新大型更新檔 Ver. 1.3。',
+'2019-12-19','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\02.jpg', Single_Blob)as gamepic
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '9','【獵魔士】Netflix新劇效應！《Witcher 3》遊玩人數創新紀錄',
+'《巫師》小說同名原著改編真人電視影集《獵魔士》於 Netfilx 上映後，除了為小說帶來了不小的推廣效果外，也對《巫師》系列的遊戲帶來了不小的影響，光是《巫師 3》（The Witcher 3）在 12 月 25 號的同時在線遊玩人數便創下了 55468 位的佳績。',
+'2019-12-13','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\09.jpg', Single_Blob)as gamepic
 go
-select * from Event
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '10','《神諭：原罪2》推出第3部免費DLC',
+'Larian Studios 最近公開他們為《神諭：原罪2》推出的第3波免費 DLC 已經登陸PC、PS4 與 Xbox One 和近期發行的 Switch 版本囉。這次的 DLC 名為「秩序與魔法（Order & Magic）」，帶來新的追隨者、新物品、強而有力的咒語、改善與Switch上的好友邀請功能。',
+'2019-11-20','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\10.jpg', Single_Blob)as gamepic
+go
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '4','【GC 19】《世紀帝國 2：決定版》宣布將於 11 月 14 日正式推出',
+'微軟於今日在 Gamescom 展前所展開的「Inside Xbox - Live @ gamescom 2019」活動上，正式宣布《世紀帝國 2：決定版》將於 11 月 14 日推出的消息。《世紀帝國 2：決定版》為經典即時策略遊戲《世紀帝國 2》的強化版。除了有 4K 超高畫質、以及全新重製音軌等內容外，也增加了 4 個全新文明以及 3 個新章節。隨著這次 gamescom 的展開，官方也宣布遊戲將於 11 月正式上市。',
+'2019-11-14','2020-05-08',
+BulkColumn from Openrowset( Bulk N'E:\04.jpg', Single_Blob)as gamepic
+
+INSERT INTO Event(productId,eventName,content,startDate,endDate, EventImage)
+select '1','《黑暗靈魂 Remastered》將於 5 月 11 日至 5 月 12 日舉行公開測試',
+'台灣萬代南夢宮娛樂今（2）日宣布，FROMSOFTWARE Inc .開發，預定於 2018 年 5 月 24 日正式發售的動作角色扮演遊戲《黑暗靈魂 Remastered》PlayStation 4／Xbox One 版將會舉行網路伺服器功能公開測試，藉由本次大規模的網路壓力測試以驗證連線系統機能，提升正式發售時的連線遊玩品質。',
+'2018-05-11','2018-05-24',
+BulkColumn from Openrowset( Bulk N'E:\01.jpg', Single_Blob)as gamepic
+
+
 
 
 Create View ComandPro as

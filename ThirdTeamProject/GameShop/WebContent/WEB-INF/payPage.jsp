@@ -38,8 +38,8 @@ body{
     </nav>
     
 <!--Wishlist & Shopping cart &top-->
-        <a href="showWish.controller"><input type="button" class="wishlist"></a>
-        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+        <a href="showWish.controller"><input type="button" class="wishlist" title="願望清單"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
 		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
