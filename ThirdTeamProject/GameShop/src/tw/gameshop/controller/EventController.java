@@ -38,24 +38,29 @@ public class EventController {
 		this.eventService = eventService;
 	}
 	
-	@RequestMapping(path = "/processHomePage",method = RequestMethod.GET)
+	@RequestMapping(path = {"/processHomePage", "/bms/processHomePage"},method = RequestMethod.GET)
 	public String home() {
 		return "home";
 	}
 	
 	
-	@RequestMapping(path = "/processShowEvent",method = RequestMethod.GET)
+	@RequestMapping(path = {"/processShowEvent", "/bms/processShowEvent"},method = RequestMethod.GET)
 	public String Event() {
 		return "ShowEvent";
 	}
 	
-	@RequestMapping(path = "/processEvent",method = RequestMethod.GET)
+	@RequestMapping(path = {"/processEvent", "/bms/processEvent"},method = RequestMethod.GET)
 	public String goTestTabs() {
 		return "EventPage";
 	}
 	
-	@RequestMapping(path = "/addEvent",method = RequestMethod.POST)
-	public String addEvent(@RequestParam("productId")int productId,@RequestParam("startDate")String startDate, 
+	@RequestMapping(path = {"/processEvent2", "/bms/processEvent2"},method = RequestMethod.GET)
+	public String goTestTabs2() {
+		return "EventPage2";
+	}
+	
+	@RequestMapping(path = {"/addEvent", "/bms/addEvent"},method = RequestMethod.POST)
+	public String addEvent(@RequestParam("product_Id")Integer productId,@RequestParam("startDate")String startDate, 
 			@RequestParam("eventName")String eventName,@RequestParam("content")String content,
 			@RequestParam("endDate")String endDate,@RequestParam("eventImage")MultipartFile eventImage)  {				
 		try {
@@ -73,12 +78,12 @@ public class EventController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	
-		return "redirect:/processEvent";
+		return "BmsHome";
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping(path = "/queryAllEvent",method = RequestMethod.GET )
+	@RequestMapping(path = {"/queryAllEvent", "/bms/queryAllEvent"},method = RequestMethod.GET )
 	public List<Game_Event> queryAllData() {
 		List<Game_Event> eventList = eventService.queryAllEvent2();
 		System.out.println("start queryAllEvent controller");
@@ -87,7 +92,7 @@ public class EventController {
 	
 	
 	@ResponseBody
-	@RequestMapping(path = "/deleteEvent",method = RequestMethod.POST)
+	@RequestMapping(path = {"/deleteEvent", "/bms/deleteEvent"},method = RequestMethod.POST)
 	public String deleteEvent(int eventId) {
 		
 		try {
@@ -106,7 +111,7 @@ public class EventController {
 	}
 
 	
-	@RequestMapping(path = "/queryEvent",method = RequestMethod.GET)
+	@RequestMapping(path = {"/queryEvent", "/bms/queryEvent"},method = RequestMethod.GET)
 	@ResponseBody
 	public Game_Event queryData(int eventId) {
 		Game_Event event = eventService.queryEvent(eventId);
@@ -116,13 +121,13 @@ public class EventController {
 	}
 	
 	// to event
-	@RequestMapping(path="/Event",method = RequestMethod.GET)
+	@RequestMapping(path= {"/Event", "/bms/Event"},method = RequestMethod.GET)
 	public String toEventPage2() {
 		return "Event";
 	}
 	
 	// use id to find event and show it
-		@RequestMapping(path="/searchEvent{urlname}", method=RequestMethod.GET)
+		@RequestMapping(path= {"/searchEvent{urlname}","/bms/searchEvent{urlname}"}, method=RequestMethod.GET)
 		public String findEventById(@ModelAttribute("searchGo")Game_Event myEvent, 
 		@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
 					
@@ -137,15 +142,17 @@ public class EventController {
 				return "showEventResult";
 }	
 	
-	@RequestMapping(path = "/updateEvent",method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(path = {"/updateEvent", "/bms/updateEvent"},method = RequestMethod.POST)
 	public String updateEvent(@RequestParam("productId1")int productId,@RequestParam("startDate1")String startDate, 
 			@RequestParam("eventName1")String eventName,@RequestParam("content1")String content,
-			@RequestParam("endDate1")String endDate,@RequestParam("eventImage1")MultipartFile eventImage,@RequestParam("eventId1")int eventId) throws IOException  {				
+			@RequestParam("endDate1")String endDate,@RequestParam("eventImage1")MultipartFile eventImage,@RequestParam("eventId1")Integer eventId) throws IOException  {				
 		
 		System.out.println("updateEvent_ControllerStart");	
 		//System.out.println(content.substring(1));
 		System.out.println("eventImage:"+eventImage);
 		System.out.println("eventImage.getBytes:"+eventImage.getBytes());
+		
 		Game_Event gEvent = new Game_Event();
 		gEvent.setStartDate(startDate);
 		gEvent.setEndDate(endDate);		
@@ -157,7 +164,7 @@ public class EventController {
 		}	
 		eventService.upDateEvent(eventId, gEvent);
 		
-		return "EventPage";
+		return "ok";
 	}
 
 }

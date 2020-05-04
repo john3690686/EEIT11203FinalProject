@@ -112,15 +112,12 @@
                 </div>
 
                 <div id="eventDiv" class="section" hidden>
-                	<div id="jquery-tabs" style="width: auto;">
-						<div id="tabs-nav">
-							<a href="#tab0" class="tabs-menu tabs-menu-active">新增活動</a> 
-							<a href="#tab1" class="tabs-menu">查詢活動</a> 
-						</div>
 
-						<div class="tabs-container" style="height: auto;">
+					<button id="insEvent" class="button">新增活動</button>
+           			<button id="qurEvent" class="productListView button">查詢活動</button>
+
 					<!-- 第一個標籤 -->
-							<div id="tab0" class="tabs-panel" style="display: block;">
+							<div id="tab0" class="tabs-panel" style="display: block;" >
 								<h2>新增活動</h2>
 								<form action="addEvent" method="post" enctype="multipart/form-data">
 									<table>
@@ -135,7 +132,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td>產品編號 : <input type="text" name="productId"></td>
+											<td>產品編號 : <input type="text" name="product_Id"></td>
 										</tr>
 										<tr>
 											<td>活動標題 : <input type="text" name="eventName"></td>
@@ -152,7 +149,7 @@
 							</div>
 				
 							<!-- 第二個標籤 -->
-							<div id="tab1" class="tabs-panel">
+							<div id="tab1" class="tabs-panel" style="width:1000px">
 								<div>
 									<table>
 										<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
@@ -163,64 +160,47 @@
 									<table id="queryAllEvent">
 									</table>
 								</div>
+							</div>
 				
-				
-								<div class="container">
-									
-									<!-- Button to Open the Modal -->					
-									<!-- The Modal -->
-									<div class="modal" id="myModal">
-										<div class="modal-dialog">
-											<div class="modal-content"  style="width:600px;height:600px;">
-												<!-- Modal Header -->
-												<div class="modal-header">
-													<h5 class="modal-title">修改活動資料</h5>
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-												</div>
-												<form id="updateForm" name="updateForm" action="updateEvent" method="post" enctype="multipart/form-data" >
-												<!-- Modal body -->
-												<div class="modal-body">							
-													<table id="updateEvent">
-														<tr>
-															<td name="eventId1" id="eventId1"></td>
-														</tr>
-														<tr>
-															<td>活動起始時間 : <input type="date" id="startDate1" name="startDate1"></td>
-														</tr>
-														<tr>
-															<td>活動結束時間 : <input type="date" id="endDate1" name="endDate1"></td>
-														</tr>
-														<tr>
-															<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img  name="eventImage2" alt="" src="" >	</td>
-														</tr>
-														<tr>
-															<td>產品編號 <input type="text" name="productId1"></td>
-														</tr>
-														<tr>
-															<td>活動標題 : <input type="text" name="eventName1"></td>
-														</tr>									
-													 	<tr>
-															<td>活動內文 : <textarea id="editor2" name="content1"></textarea></td>
-														</tr> 														
-													</table>																																										
-												</div>
-												<!-- Modal footer -->
-												<div class="modal-footer">
-													<button type="submit" id="SaveButton" class="btn btn-success"data-dismiss="modal">Save</button>
-													<button type="button" class="btn btn-danger"data-dismiss="modal">Close</button>
-												</div>															
-												</form>																								
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>		
+				       		<!-- 第三個標籤 -->
+							<div id="tab2" class="container" hidden>
+								<form id="updateForm" name="updateForm"  method="POST" enctype="multipart/form-data" >													
+									<table id="updateEvent">
+											<tr>
+												<td name="eventId1" id="eventId1"></td>
+											</tr>
+											<tr>
+												<td>活動起始時間 : <input type="date" id="startDate1" name="startDate1"></td>
+											</tr>
+											<tr>
+												<td>活動結束時間 : <input type="date" id="endDate1" name="endDate1"></td>
+											</tr>
+											<tr>
+												<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img  name="eventImage2" alt="" src="" >	</td>
+											</tr>
+											<tr>
+												<td>產品編號 <input type="text" name="productId1"></td>
+											</tr>
+											<tr>
+												<td>活動標題 : <input type="text" name="eventName1"></td>
+											</tr>									
+											<tr>
+												<td>活動內文 : <textarea id="editor2" name="content1"></textarea></td>
+											</tr>
+											<tr>
+												<td><button type="button" id="SaveButton" class="btn btn-success"data-dismiss="modal">Save</button>
+											   <button type="button" class="btn btn-danger"data-dismiss="modal">Close</button></td>
+											</tr> 																							
+									</table>																																																																																													
+								</form>																								
+							</div>
+											
 						</div>
 					</div>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>		
+						
+
 </body>
 
 </html>

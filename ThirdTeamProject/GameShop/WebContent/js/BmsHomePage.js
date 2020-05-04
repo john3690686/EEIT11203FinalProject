@@ -249,14 +249,27 @@ $(window).on('load', function () {
         turningPPage(1)
     }
 //------------------------------------------   以下為活動的 JS   -------------------------------------------------
-    $("#tabs-nav a").click(function() {
-		$("#tabs-nav a").removeClass("tabs-menu-active");
-		$(this).addClass("tabs-menu-active");
-		$(".tabs-panel").hide();
-		var tab_id = $(this).attr("href");
-		$(tab_id).show("blind");
-		return false;
-	});
+//    $("#tabs-nav a").click(function() {
+//		$("#tabs-nav a").removeClass("tabs-menu-active");
+//		$(this).addClass("tabs-menu-active");
+//		$(".tabs-panel").hide();
+//		var tab_id = $(this).attr("href");
+//		$(tab_id).show("blind");
+//		return false;
+//	});
+    $("#insEvent").click(function(){
+    	$("#tab2").hide();
+    	$("#tab1").hide();
+    	$("#tab0").show();
+    	
+    });
+    
+    $("#qurEvent").click(function(){
+    	$("#tab2").hide();
+    	$("#tab0").hide();
+    	$("#tab1").show();
+    	
+    })
 	
     var editorcontent;
 	var responseEditorcontent;
@@ -292,7 +305,10 @@ $(window).on('load', function () {
 		console.error(error);
 	});
 	
-	console.log('QueryAll:run');
+	
+	//ShowQueryAllEvent
+	function reloadAllEvent(){
+		console.log('QueryAll:run');
 	$.ajax({
 		url : "queryAllEvent",
 		dataType : "json",
@@ -307,6 +323,7 @@ $(window).on('load', function () {
 				txt += "<td>"+ response[i].productId;
 				txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "' >"
 				txt += "<td>"+ response[i].eventName;
+				//txt += "<td><button type='button' class='btn btn-danger' id=''>內文</button>";
 				txt += "<td>"+ response[i].content;
 				txt += "<td>"+ response[i].startDate;
 				txt += "<td>"+ response[i].endDate;
@@ -320,7 +337,9 @@ $(window).on('load', function () {
 			console.log('ShowQueryAllEvent:OK');
 		}
 	});
-
+	}
+	
+	//searchAllData	
 	$(document).on('click', '#searchAllData', function() {
 		$.ajax({
 			url : "queryAllEvent",
@@ -335,6 +354,7 @@ $(window).on('load', function () {
 					txt += "<td>"+ response[i].productId;
 					txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "'>"
 					txt += "<td>"+ response[i].eventName;
+					//txt += "<td><button type='button' class='btn btn-danger' id=''>內文</button>";
 					txt += "<td>"+ response[i].content;
 					txt += "<td>"+ response[i].startDate;
 					txt += "<td>"+ response[i].endDate;
@@ -396,7 +416,9 @@ $(window).on('load', function () {
 		var $tr = $(this).parents("tr");
 		eventId = $tr.find("td").eq(0).text(); //抓取id值
 		console.log('eventId=' + eventId);
-
+		$("#tab0").hide();
+		$("#tab1").hide();
+		$("#tab2").show();
 		$.ajax({
 			url : "queryEvent",
 			dataType : "json",
@@ -452,7 +474,7 @@ $(window).on('load', function () {
 		var updateImage =$('#imageUpdate').get(0).files[0];			
 //			console.log('content:'+responseEditorcontent.getData());
 		console.log(updateImage);
-		
+		console.log("eventId1:",eventId);
 		if(updateImage != undefined){				
 			formData.append("eventImage1","null");						
 		}
@@ -469,11 +491,19 @@ $(window).on('load', function () {
 				success : function(response) {
 					//console.log(response);	
 					console.log("Save ok");	
-					alert("修改成功");			 
+					alert("修改成功");	
+					$("#tab1").show();
+					$("#tab2").hide();
+					//location.reload();
+					reloadAllEvent();
 				},
 			});				
 		});
-})//----------------------------------------------------  End Document.ready  ----------------------------------------------------
+	$(document).ready(function(){
+		reloadAllEvent()
+	});
+})
+//----------------------------------------------------  End Document.ready  ----------------------------------------------------
 
 //用產品編號查詢該產品的物件
 function findProductById(id) {

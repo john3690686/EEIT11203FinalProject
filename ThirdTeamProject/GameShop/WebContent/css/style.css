@@ -28,6 +28,8 @@ body{
     background-repeat: no-repeat;
 }
 .ul1 li:hover {
+	padding: 20px;
+	display: inline-block;
     background: url(../img/buttonlist2.jpg);
     background-repeat: no-repeat;
 }
@@ -48,11 +50,12 @@ body{
 	height:100px;
 	border:0;
     position: fixed;
+    padding-bottom:10px;
 	right: 0%;
     top: 50%;
     z-index: 8888;
 }
-.wishlist:hover, .shoppingcart:hover, .topbutton:hover, .cancel_btn:hover{
+.wishlist:hover{
     filter: saturate(3);
 }
 
@@ -66,6 +69,9 @@ body{
 	right: 0%;
 	top: 62%;
 }
+.shoppingcart:hover{
+    filter: saturate(3); 
+}
 
 .topbutton {
     background:url(../img/topbutton.png) no-repeat;
@@ -78,13 +84,16 @@ body{
     bottom: 0%;
     z-index: 8888;
 }
+.topbutton:hover{
+    filter: saturate(3);
+}
 
 /*login button*/
 .loginz{
 	font-family: 'Sen', sans-serif;
-    background:url(../img/login700.png) no-repeat;
-    width:80px;
-    height:80px;
+    background:url(../img/loginz.png);
+    width:168px;
+    height:71px;
     color: silver;
     font-weight: bold;
     font-size: 20px;
@@ -99,9 +108,9 @@ body{
 .loginz:hover{
 	font-family: 'Sen', sans-serif;
     display: block;
-    filter:saturate(3);
-    width:80px;
-    height:80px;
+    background:url(../img/loginy.png);
+    width:168px;
+    height:71px;
     color:rgb(240, 238, 220);
     text-shadow:inherit 2px 2px rgb(236, 236, 144);
     font-weight: bold;
@@ -123,20 +132,6 @@ body{
     background-color: wheat;
     height: 100px;
 }
-#hello{
-    background:url(../img/infobutton.png) no-repeat;
-    width: 150px;
-    height: 30px;
-}
-#hello a{
-	font-family: Microsoft JhengHei;
-	font-weight:bold;
-    color:black;
-    text-shadow:2px 2px 2px gray;
-    padding: 0;
-    padding-right:10px;
-    text-align: center;
-}
 
 .hello img{
     background-image: none;
@@ -144,8 +139,8 @@ body{
     background-color: white;
     width: 30px;
     height: 30px;
+    color: white;
 }
-/*Login & Register form*/
 .loginDiv,
 .registerDiv{
     overflow:auto;
@@ -155,22 +150,33 @@ body{
     position: relative;
     z-index: 99;
 }
-.loginForm, .registerForm{
+.loginForm{
 	margin-left:0;
 	margin-right:0;
 	margin:auto;
 	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 200, 226, 0.9));
-	width:45%;
-	height:55%;
+	width:50%;
+	height:550px;
 	border:2px solid black;
 	border-image-source: url(../img/loginborder.png);
 	border-image-slice: 50;
 	border-image-width: 1em;
 	border-image-repeat: stretch;
 	box-shadow:2px 2px 2px rgb(172, 255, 248);
-}
-.registerForm{ 
-	height:90%;
+} 
+.registerForm{
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 200, 226, 0.9));
+	width:50%;
+	height:800px;
+	border:2px solid black;
+	border-image-source: url(../img/loginborder.png);
+	border-image-slice: 50;
+	border-image-width: 1em;
+	border-image-repeat: stretch;	
+	box-shadow:2px 2px 2px rgb(172, 255, 248);
 }
 .loginForm input, .registerForm input{
 	height:20px;	
@@ -205,10 +211,13 @@ body{
 	border-radius:5px;
 	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(97, 226, 140, 0.9));
 }
-.loginconfirm:hover, .registerconfirm:hover, .loginbutton:hover, #registerbutton:hover, #register2:hover{
+.loginconfirm:hover, .registerconfirm:hover{
 	filter:saturate(3);
 }
 
+.registerForm .gender{
+    width:auto;
+}
 .loginArea{
     width: 100%;
     top:650px;
@@ -230,6 +239,9 @@ body{
     padding: 10px;
     z-index: 12;
 }
+.loginbutton:hover{
+    filter: saturate(3);
+}
 #registerbutton{
     width: 160px;
     height: 50px;
@@ -243,7 +255,9 @@ body{
     padding: 10px;
     z-index: 12;
 }
-
+#registerbutton:hover{
+    filter: saturate(3);
+}
 #register2{
 	font-family: Microsoft JhengHei;
 	font-size:18px;
@@ -252,64 +266,23 @@ body{
 	border-radius:5px;
 	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 213, 97, 0.9));
 }
-
+#register2:hover{
+	filter:saturate(3);
+}
 .imgUserPhoto{
     position: relative;
     z-index: 9999;
-    cursor: pointer; 
-	width:100px; 
-	height:100px ;
-	vertical-align:middle;
-}
-
-#profileForm{
-	width: 50%;
-	margin-left:0;
-	margin-right:0;
-	margin: auto;
-	background-color: rgba(79, 221, 240, 0.651);
-	border:2px solid black;
-	border-image-source: url(../img/loginborder.png);
-	border-image-slice: 50;
-	border-image-width: 1em;
-	border-image-repeat: stretch;
-	box-shadow:2px 2px 2px rgb(172, 255, 248);
-	font-size:20px;
-	text-align: center;
-}
-#profileForm legend{
-	margin:0;
-	padding-top:20px;
-	padding-bottom:20px;
-	font-size:25px;
-	font-weight:bold;
-	text-shadow:2px 2px 2px gray;
-}
-
-#profileForm label{
-	display: inline-block;
-	line-height: 20px;
-	width: 90px;
-	font-weight:bold;
-	text-align: left;
+    cursor: pointer;
 }
 .note{
-	font-size:14px;
-	color:red;
-	text-align:center;
+    display: inline;
+    font-size: 12px;
+    color: grey;
+    line-height: 13px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
-.gender{
-	margin:0;
-	width:25px !important;
-}
-
-.message{
-	font-size: 20px;
-	font-weight: bold;
-	margin: auto;
-	text-align: center;
-}
-
 .check{
     display: inline-block;
     visibility: hidden;
@@ -327,6 +300,9 @@ body{
 	height:40px !important;
 	border-radius:5px;
 	background: -webkit-linear-gradient( rgb(231, 226, 226, 0.9), rgba(226, 112, 97, 0.9));
+}
+.cancel_btn:hover{
+	filter:saturate(3);
 }
 .warning{
 	font-family: Microsoft JhengHei;
@@ -437,7 +413,7 @@ footer{
 	 margin-top:50px;
      width: 100%;
      height: 180px;
-     top:120px;
+     top:100px;
      left: 0;
      right: 0;
      text-align: center;
@@ -493,6 +469,7 @@ footer{
     font-weight: bold;
     font-size: 20px;
 }
+
 .event{
     background: whitesmoke;
     border-radius: 20px;
@@ -551,10 +528,23 @@ fieldset{
     right:0;
 	background-size:cover;
 }
+/*.horizon2{
+	font-size:25px;
+	font-weight:bold;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	text-align:center;
+	background:url(../img/title.png) no-repeat;
+	background-position:center;
+	width:178px;
+	height:81px;
+}*/
+
 .searchArea{
 	text-align:right;
 	padding:10px;
-	columns:3;
+	cols:3;
 }
 .searchArea td{
 	background:black;
@@ -565,9 +555,7 @@ fieldset{
 }
 .productTable{
 	border-collapse: collapse;
-	border-radius:5px;
-	background: rgba(0, 0, 0, 0.5);
-	box-shadow: 2px 2px 2px rgb(173, 173, 173);
+	background: :rgba(0, 0, 0, 0.5);
 	position: relative;
     width:70%;
     top:0;
@@ -578,6 +566,7 @@ fieldset{
     text-align:center;
     z-index: 30;
 }
+
 .productTable td{
 	border:none;
 	border-collapse: collapse;
@@ -591,24 +580,24 @@ fieldset{
     font-weight: bold;
     font-size: 20px;
 }
-.productTable tr:hover, .eventTable tr:hover{
+.productTable tr:hover{
     background-color: rgb(0, 51, 119, 0.9);
 }
-.productTable tr:nth-child(1), .eventTable tr:nth-child(1) {
+.productTable tr:nth-child(1) {
 	border:none;
    	background-color:rgba(143, 143, 143, 0.9);
 }
-.productTable tr:nth-child(2n), .eventTable tr:nth-child(2n){
+.productTable tr:nth-child(2n){
 	border:none;
     background-color: rgb(92, 89, 89, 0.9);
 }
-.productTable tr:nth-child(2n+3), .eventTable tr:nth-child(2n+3){
+.productTable tr:nth-child(2n+3) {
 	border:none;
    	background-color:rgba(143, 143, 143, 0.9);
 }
 .infobutton {
   width:120px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: 微軟正黑體;
   font-weight: bold;
   color: #14396A;
   font-size: 16px;
@@ -624,7 +613,7 @@ fieldset{
 }
 
 .wishbutton{   
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: 微軟正黑體;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -640,7 +629,7 @@ fieldset{
 }
 .cartbutton{
   width:120px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: 微軟正黑體;
   font-weight: bold;
   color: #6A2217;
   font-size: 16px;
@@ -679,6 +668,7 @@ transition: background-color .3s;
     background:rgb(82, 190, 82);
     color:#fff;
 }
+
 .pageview a:hover:not(.active) {
     background-color: rgb(81, 88, 80);
     color:white;
@@ -776,7 +766,6 @@ transition: background-color .3s;
 	color:darkorange;
 	font-size:22px;
 	padding-bottom:10px;
-	text-align:left;
 }
 #t5{
 	border-collapse:collapse;
@@ -820,7 +809,7 @@ transition: background-color .3s;
    text-shadow: #918888 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '��嚙踐�縣��嚙踝蕭';
+   font-family: '微軟正黑體';
    text-decoration: none;
    font-weight: bold;
 }
@@ -839,7 +828,7 @@ transition: background-color .3s;
    text-shadow: #948C8C 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '��嚙踐�縣��嚙踝蕭';
+   font-family: '微軟正黑體';
    text-decoration: none;
    font-weight: bold;
 }
@@ -909,7 +898,7 @@ transition: background-color .3s;
 }
 .deletebutton{  
   width:120px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: 微軟正黑體;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -993,7 +982,7 @@ transition: background-color .3s;
 
 #pay{
   width:100px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: 微軟正黑體;
   font-weight: bold;
   color: black;
   font-size: 16px;
@@ -1191,51 +1180,3 @@ transition: background-color .3s;
 .replyTitle{
 	margin-right:50px;
 }
-
-/*event area*/
-.bgevent{
-	position: relative;
-	width:100%;
-	height:200%;
-	top:0;
-    left:0;
-    right:0;
-}
-
-.eventHead td{
-	border-radius:5px;
-	background:black;
-	height:40px
-}
-.eventTable{
-	border-collapse: collapse;
-	border-radius:5px;
-	background: rgba(0, 0, 0, 0.5);
-	box-shadow: 2px 2px 2px rgb(173, 173, 173);
-	position: relative;
-    width:70%;
-    top:0;
-    bottom:0;
-    margin-left:0;
-    margin-right:0;
-    margin:auto;
-    padding:10px;
-    text-align:left;
-    font-size:18px;
-    z-index: 30;
-}
-.eventTable td{
-	border:none;
-	border-collapse: collapse;
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color:white;
-	text-shadow:2px 2px 2px black;
-	font-family: Microsoft JhengHei;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-
