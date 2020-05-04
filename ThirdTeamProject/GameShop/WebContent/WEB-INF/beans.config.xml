@@ -61,7 +61,7 @@
 	</bean>
 	
 	<task:scheduled-tasks>
-	  <task:scheduled ref="EventNotification" method="processAction" cron="0 * * * * ?"/>
+	  <task:scheduled ref="EventNotification" method="processAction" cron="0 30 14 * * ?"/>
 	</task:scheduled-tasks>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">   
