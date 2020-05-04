@@ -1,3 +1,14 @@
+Date.prototype.Format = function (fmt) { //author: meizz
+    var o = {
+    "M+": this.getMonth()+1, //月份
+    "d+": this.getDate() //日
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("("+k+")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00"+o[k]).substr((""+o[k]).length)));
+    return fmt;
+    }
+    var today = new Date().Format("yyyy-MM-dd")
 $(document).ready(function () {
     //Login & Register Form
 
@@ -44,6 +55,7 @@ $(document).ready(function () {
             "align-items": "center"
         });
         $("html").css("overflow", "hidden");
+        $("#birthday").attr("max",today)
     })
 
     //auto filled
@@ -54,7 +66,7 @@ $(document).ready(function () {
         $("#userPwd").val("Passw0rd");
         $("#recheckPwd").val("Passw0rd");
         $("#mail").val("j.t.hung1988@gmail.com");
-        $("#birthday").val("2020/03/03");
+        $("#birthday").val("2020-03-03");
         $("#address").val("addr");
         $("#phone").val("0987141242");
         errorAcc = 0; errorNickName = 0; errorPwd = 0; errorMail = 0;

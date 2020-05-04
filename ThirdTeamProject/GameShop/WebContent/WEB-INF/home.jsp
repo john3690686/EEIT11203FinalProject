@@ -127,7 +127,7 @@ body{
                         <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">男</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">女</label>
                         <input type="radio" class="gender" name="gender" value="o"><label style="width:50px">其他</label><br />
-                        <label for="birthday">生日:</label><input type="text" id="birthday" name="birthday" placeholder="ex:2020/04/29"><br />
+                        <label for="birthday">生日:</label><input type="date" id="birthday" name="birthday"><br />
                         <label for="address">地址:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />
 
