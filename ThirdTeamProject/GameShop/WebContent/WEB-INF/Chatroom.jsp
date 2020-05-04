@@ -215,7 +215,7 @@ footer{
 			} catch (e) {
 				// If message is not JSON, it means pure message for user
 				var time = new Date();
-				var timeStamp = time.getMonth() + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
+				var timeStamp = (time.getMonth()+1) + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
 				document.getElementById('chatHistory').innerHTML+= "<table class='otherSpeaks'><tr>" + event.data + "<td class='timeStamp'><p>" + timeStamp + "</p></td></tr><table>";
 				updateScroll();
 				if(winFoucs == 0){
@@ -261,7 +261,7 @@ footer{
 				$("#sendMessage").val("");
 				websocket.send(messageToSend);
 				var time = new Date();
-				var timeStamp = time.getMonth() + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
+				var timeStamp = (time.getMonth()+1) + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
 				if($("#toUser").val() != 0){
 					$("#chatHistory").append("<table class='mySpeaks'><tr><td class='tdNamePriv'>(私訊給 " + $("#toUser").val() + " )</td><td><p class='mySpeaksMsg'>"+ myMessage + "</p></td><td class='timeStamp'><p>" + timeStamp + "</p></td></tr><table>");
 				}else {
@@ -314,7 +314,7 @@ footer{
 			    		websocket.send(messageToSend);
 			    		$('#uploadedImg').val("");
 			    		var time = new Date();
-						var timeStamp = time.getMonth() + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
+						var timeStamp = (time.getMonth()+1) + "/" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes();
 						if($("#toUser").val() != 0){
 							$("#chatHistory").append("<table class='mySpeaks'><tr><td class='tdNamePriv'>(私訊給 " + $("#toUser").val() + " )</td><td><p class='mySpeaksMsg'>"+ myMessage + "</p></td><td class='timeStamp'><p>" + timeStamp + "</p></td></tr><table>");
 						}else {
