@@ -80,7 +80,7 @@ public class BmsController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "/bms/productJsonView", method = RequestMethod.GET)
+	@RequestMapping(path = {"/bms/productJsonView", "/productJsonView"}, method = RequestMethod.GET)
 	public List<Product> SelectProductAllJson() throws SQLException {
 		return pService.queryAll();
 	}
@@ -92,7 +92,7 @@ public class BmsController {
 										@RequestParam("price") int price,
 										@RequestParam("intro") String intro,
 										@RequestParam("tag") String tag,
-										@RequestParam("file") MultipartFile mf,
+										@RequestParam(value = "file", required = false) MultipartFile mf,
 										@RequestParam("uplTime") Date uplTime,
 										@RequestParam("dwlTime") Date dwlTime ){
 		Product p = new Product( pName, price, intro, tag, uplTime, dwlTime);

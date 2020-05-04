@@ -149,6 +149,7 @@ body{
 .loginDiv,
 .registerDiv{
     overflow:auto;
+    display: none;
 }
 .loginForm,
 .registerForm{
@@ -508,6 +509,9 @@ footer{
     text-align: center;
     z-index: 30;
 }
+.event a{
+	text-decoration:none;
+}
  .event tr:nth-child(2n), .event tr:nth-child(2n+3) {
     background:url(../img/blueline.png) no-repeat;
 }
@@ -844,7 +848,7 @@ transition: background-color .3s;
    text-shadow: #948C8C 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '��嚙踐�縣��嚙踝蕭';
+   font-family: Microsoft JhengHei;
    text-decoration: none;
    font-weight: bold;
 }
@@ -914,7 +918,7 @@ transition: background-color .3s;
 }
 .deletebutton{  
   width:120px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -998,7 +1002,7 @@ transition: background-color .3s;
 
 #pay{
   width:100px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: black;
   font-size: 16px;
@@ -1055,11 +1059,12 @@ transition: background-color .3s;
  
 .articleImg{
 	position:relative;
-	padding-left:10%;
+	padding-left:5%;
 	float:left;
 	height: 160px;
- 	width: 160px;
+ 	width: 20%;
 }
+
 .title{
 	text-align:left;
 	font-size: 20px;
@@ -1121,6 +1126,40 @@ transition: background-color .3s;
 .ck-editor__editable {
 	min-height: 400px;
 }
+.uploadImg{
+	text-align:left;
+	background: -webkit-linear-gradient( rgba(226, 230, 231, 0.8), rgba(155, 206, 221, 0.8));
+	border-radius:5px;
+	box-shadow:2px 2px 2px rgb(172, 255, 248);
+	width:50%;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	padding:20px;
+
+}
+.articleThumbnail{
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	text-align:right;
+}
+.uppic{
+	width:180px;
+	margin-left:0;
+}
+.postArticleGO{
+	text-align:right;
+	background: black;
+	border-radius:5px;
+	box-shadow:2px 2px 2px gray;
+	width:70%;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	padding:20px;
+}
+
 /*Blog reply*/
 
 .readArticle{

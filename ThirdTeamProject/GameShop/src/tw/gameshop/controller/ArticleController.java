@@ -64,7 +64,8 @@ public class ArticleController {
 //		===============測試用偽裝userID====================
 		session = request.getSession();
 	
-		userAccount = "a11111";
+//		userAccount = "a11111";
+		userAccount = (String) session.getAttribute("userAccount");
 		
 		userId = artMesService.queryuserId(userAccount);
 		nickname = artMesService.querynickname(artMesService.queryuserId(userAccount));
