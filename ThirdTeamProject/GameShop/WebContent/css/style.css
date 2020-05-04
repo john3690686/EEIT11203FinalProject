@@ -144,6 +144,7 @@ body{
 .loginDiv,
 .registerDiv{
     overflow:auto;
+    display: none;
 }
 .loginForm,
 .registerForm{
@@ -485,6 +486,9 @@ footer{
     text-align: center;
     z-index: 30;
 }
+.event a{
+	text-decoration:none;
+}
  .event tr:nth-child(2n), .event tr:nth-child(2n+3) {
     background:url(../img/blueline.png) no-repeat;
 }
@@ -528,18 +532,6 @@ fieldset{
     right:0;
 	background-size:cover;
 }
-/*.horizon2{
-	font-size:25px;
-	font-weight:bold;
-	margin-left:0;
-	margin-right:0;
-	margin:auto;
-	text-align:center;
-	background:url(../img/title.png) no-repeat;
-	background-position:center;
-	width:178px;
-	height:81px;
-}*/
 
 .searchArea{
 	text-align:right;
@@ -597,7 +589,7 @@ fieldset{
 }
 .infobutton {
   width:120px;
-  font-family: 微軟正黑體;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: #14396A;
   font-size: 16px;
@@ -613,7 +605,7 @@ fieldset{
 }
 
 .wishbutton{   
-  font-family: 微軟正黑體;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -629,7 +621,7 @@ fieldset{
 }
 .cartbutton{
   width:120px;
-  font-family: 微軟正黑體;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: #6A2217;
   font-size: 16px;
@@ -697,7 +689,8 @@ transition: background-color .3s;
 .showProductIntro{
     color:whitesmoke;
     padding-left: 50px;
-    font-size: 25px;
+    padding:10px;
+    font-size: 20px;
     text-align: left;
     text-shadow:2px 2px 2px black;
 }
@@ -726,7 +719,9 @@ transition: background-color .3s;
 .buythis{
     text-shadow: 1px 1px 1px rgb(243, 200, 200);
 	color: whitesmoke;
-    font-size:25px;
+    font-family: Microsoft JhengHei;
+	font-weight:bold;
+	font-size: 20px;
     background: -webkit-linear-gradient( rgb(248, 141, 141), rgb(223, 70, 70));
     box-shadow: 2px 2px 2px rgb(104, 74, 74);
     border-radius: 10px 10px 10px 10px;
@@ -736,7 +731,9 @@ transition: background-color .3s;
 .wishthis{
     text-shadow: 1px 1px 1px rgb(243, 200, 200);
 	color: black;
-    font-size:25px;
+    font-family: Microsoft JhengHei;
+	font-weight:bold;
+	font-size: 20px;
     background: -webkit-linear-gradient( rgb(243, 206, 136), rgb(231, 211, 28));
     box-shadow: 2px 2px 2px rgb(104, 74, 74);
     border-radius: 10px 10px 10px 10px;
@@ -809,7 +806,7 @@ transition: background-color .3s;
    text-shadow: #918888 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '微軟正黑體';
+   font-family: Microsoft JhengHei;
    text-decoration: none;
    font-weight: bold;
 }
@@ -828,7 +825,7 @@ transition: background-color .3s;
    text-shadow: #948C8C 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '微軟正黑體';
+   font-family: Microsoft JhengHei;
    text-decoration: none;
    font-weight: bold;
 }
@@ -898,7 +895,7 @@ transition: background-color .3s;
 }
 .deletebutton{  
   width:120px;
-  font-family: 微軟正黑體;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -982,7 +979,7 @@ transition: background-color .3s;
 
 #pay{
   width:100px;
-  font-family: 微軟正黑體;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: black;
   font-size: 16px;
@@ -1039,11 +1036,12 @@ transition: background-color .3s;
  
 .articleImg{
 	position:relative;
-	padding-left:10%;
+	padding-left:5%;
 	float:left;
 	height: 160px;
- 	width: 160px;
+ 	width: 20%;
 }
+
 .title{
 	text-align:left;
 	font-size: 20px;
@@ -1105,6 +1103,40 @@ transition: background-color .3s;
 .ck-editor__editable {
 	min-height: 400px;
 }
+.uploadImg{
+	text-align:left;
+	background: -webkit-linear-gradient( rgba(226, 230, 231, 0.8), rgba(155, 206, 221, 0.8));
+	border-radius:5px;
+	box-shadow:2px 2px 2px rgb(172, 255, 248);
+	width:50%;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	padding:20px;
+
+}
+.articleThumbnail{
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	text-align:right;
+}
+.uppic{
+	width:180px;
+	margin-left:0;
+}
+.postArticleGO{
+	text-align:right;
+	background: black;
+	border-radius:5px;
+	box-shadow:2px 2px 2px gray;
+	width:70%;
+	margin-left:0;
+	margin-right:0;
+	margin:auto;
+	padding:20px;
+}
+
 /*Blog reply*/
 
 .readArticle{

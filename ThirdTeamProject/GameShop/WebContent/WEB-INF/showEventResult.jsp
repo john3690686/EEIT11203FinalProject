@@ -25,6 +25,23 @@ body{
     left:0;
     right:0;
 }
+.shopthis{
+    text-shadow: 1px 1px 1px rgb(243, 200, 200);
+    font-family: Microsoft JhengHei;
+	font-weight:bold;
+	font-size: 20px;
+    background: -webkit-linear-gradient( rgb(141, 191, 248), rgb(70, 154, 223));
+    box-shadow: 2px 2px 2px rgb(74, 88, 104);
+    border-radius: 10px 10px 10px 10px;
+    width:200px;
+    height:50px;
+}
+.shopthis:hover{
+	filter: saturate(3);
+}
+.showProduct td{
+	padding:20px;
+}
 
 </style>
 </head>
@@ -55,44 +72,28 @@ body{
 	<table class="showProduct">
     <tr>
         <td colspan="2">
-            <H1>${productName}</H1>
+            <H1>${eventName}</H1>
         </td>
     </tr>
-    <!--#2 Product Introduction-->
+    <!--Event Introduction-->
 	<tr>
-		<td><img src="${pageContext.servletContext.contextPath}/productImage?gamename=${productName}" width="460px"/></td>
-    	<td class="showProductIntro">遊戲簡介:<br/>
-        ${intro}<br/><br/>
-		<span style="color:bisque">價錢：$${price}</span><br/><br/>
-		分類：${tag}<br/></td>
+		<td><img src="${pageContext.servletContext.contextPath}/eventImage?eventId=${eventId}" width="460px"/></td>
+    	<td class="showProductIntro">${eventContent}<br/></td>
+		
     </tr>
-    <!--#3 BUY & WISH button-->
+    <!--event start & end time-->
     <tr>
-    	<td><input type="button" class="buythis" value="BUY"></td>
-    	<td><input type="button" class="wishthis" value="WISH"></td>
+    	<td><span style="color:bisque; font-size:18px">活動開始時間：${sDate}</span></td>
+		<td><span style="color:bisque; font-size:18px">活動結束時間：${eDate}</span></td>
     </tr>
-
-    <!--#4 Create Comment-->
+    <!--product&wish button-->
     <tr>
-    	<td><H1>建立遊戲評論</H1>
-    	<p class="commentRule">
-    	請描述這款遊戲您喜歡或不喜歡的地方，<br/>
-    	以及您是否會將該款遊戲推薦給其他人。<br/>
-		※請保持禮貌並尊重他人言論<br/>
-		</p>
-    	</td>
-    	<td>
-    	<%@include file="commentList.jsp" %>
-    	</td>
+    	<td><a href="searchGame?productName=${productName2}"><input type="button" class="shopthis" value="前往遊戲主頁"></a></td>
+    	<td><input type="button" class="wishthis" value="加入願望清單"></td>
     </tr>
-    <!--#5&6 Show All Comment-->
+    
     <tr>
-    	<td colspan="2"><H1>所有評論</H1>
-    </tr>
-    <tr>
-    	<td colspan="2">
-    	<%@include file="showComment.jsp" %>
-   		</td>
+    	<td colspan="2"><a href="Event"><input type="button" class="morebutton" value="回到最新消息"></a></td>
     </tr>
 
 </table>
@@ -100,7 +101,7 @@ body{
 </div>
 
  <!--footer-->
-    <footer>
+    <footer style="margin-top:200px">
         <div class="foot">
             <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
@@ -109,154 +110,28 @@ body{
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-//新增評論
 
-window.onload = function(){
-
-	var productid = ${productId};
-	var comId = "";
-	
-	$.ajax({
-		url:"searchCom2?id="+productid,
-		type:"Post",
-		dataType:"json",
-		success:function(data){
-			
-			var empty ="";
-			var i;
-			var edit = "";
-			var t1 = "</tr>";
-
-			if (data.length!=0){
-				for(i=0; i<data.length; i++){
-				var row = "<tr><td class='useridtag'>"+data[i].nickName+"</td><td class='com' id='newcom'>"+data[i].comment+"</td><td>"
-				+data[i].postDatetime+"</td><td class='comId' hidden>" + data[i].comId +"</td>";
-				if(data[i].userId==${userId}){
-					edit = "<td><input type='button' id='updateCom' value='編輯'>  <input type='button' id='deleteCom' value='刪除'></td>";
-					row += edit;
-				}else{
-					edit = "<td></td>"; 
-					row += edit;
-					}
-				empty+=row+t1;
-			}
-				$("#t5").html(empty);
-
-			// 更新評論按鈕
-
-				$("input#updateCom").click(function(){
-					var preCom = $(this).parent().siblings("td.com").html();
-					var comId = $(this).parent().siblings("td.comId").html();
-					
-					$("#editCom").show();	
-					$("#editword").html(preCom);
-					$("input[name='showComId']").val(comId);
-
-					$('html,body').animate({scrollTop:$('.useridtag').offset().top}, 200);
-				})
-
-				$("#submit_reply").click(function(){
-					var yes = confirm("確認編輯評論?");
-						
-					if (yes){
-			    	$("#editCom").hide();
-			    	alert("已修改評論");
-			    	
-				}else{
-					alert("已取消");
-			     	location.href="";
-					}
-				})
-				
-				$("#submit_cancel").click(function(){
-					location.href="";
-				})
-
-			// 修改評論
-			
-				$("#idForm").submit(function() {
-
-				var form = $(this);
-
-    				$.ajax({
-           				type: "post",
-           				url: "updateComment",
-           				data: form.serialize(), 
-           				success: function(data){      				
-           				location.reload();	
-			           }
-			         });
-			});
-
-		   // 刪除評論
-
-				 $("input#deleteCom").click(function(){
-
-					var yes= confirm("確認刪除該評論？");
-					var comId = $(this).parent().siblings("td.comId").html();
-
-					console.log(comId);
-					
-					if (yes){
-						$.ajax({
-							type: "get",
-							url: "deleteCom?id="+comId,
-							success: function(data){  
-								alert("評論已刪除！");    				
-	           					location.reload();	
-				        }
-			})
-				}else{
-			     	location.href="";
-				}
-		})
-				   
-		}else{
-			$("#t5").html("");
-			}
-		}
-	})
-}
-	//buy button 接起來
-	$(".buythis").click(function(){
-		console.log("buy");
-			var id = ${productId};
-			var name = "${productName}";
-			console.log("add product");
+//wish button 接起來
+$(".wishthis").click(function(){
+			console.log("add wish");
+			var id1 = ${productId};
+			var name1 = "${productName}";
+			console.log("id1="+id1);
 			$.ajax({
-				url:"add.controller?id=" + id,
+				url:"addWish.controller?id=" + id1,
 				type:"get",
 				success:function(data){
-					console.log("add product: "+data);
 					if(data=="ok"){
-			            window.alert(name+"加入購物車");
+		                window.alert(name1+"加入願望清單");
+						}else if(data=="a"){
+						window.alert(name1+"此遊戲已購買");
 						}else{
-			            window.alert(name+"已加入購物車");
-							}
-				}
+	                    window.alert(name1+"已加入願望清單");
+					         }
+		              }
 				})
+			})
 			
-		})
-		//wish button 接起來
-		$(".wishthis").click(function(){
-					console.log("add wish");
-					var id1 = ${productId};
-					var name1 = "${productName}";
-					console.log("id1="+id1);
-					$.ajax({
-						url:"addWish.controller?id=" + id1,
-						type:"get",
-						success:function(data){
-							if(data=="ok"){
-				                window.alert(name1+"加入願望清單");
-								}else if(data=="a"){
-								window.alert(name1+"此遊戲已購買");
-								}else{
-			                    window.alert(name1+"已加入願望清單");
-							         }
-				              }
-						})
-					})
 </script>
 </body>
 </html>

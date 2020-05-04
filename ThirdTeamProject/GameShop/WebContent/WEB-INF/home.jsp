@@ -7,7 +7,6 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GameGuild~Enjoy your gameLife here~</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- css for phone -->
     <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
@@ -16,6 +15,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/gameshop.js"></script>
+	<title>GameGuild~Enjoy your gameLife here~</title>
 	
 <style>
  
@@ -24,12 +24,7 @@ body{
 	/* background:url(img/SkyTower2.jpg) no-repeat; */
 } 
 
-.loginDiv {
-	display: none;
-}
-.registerDiv {
-	display: none;
-}
+
 
 
 </style>
@@ -51,8 +46,8 @@ body{
     </nav>
 
 <!--Wishlist & Shopping cart &top-->
-        <a href="showWish.controller"><input type="button" class="wishlist"></a>
-        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+        <a href="showWish.controller"><input type="button" class="wishlist" title="願望清單"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
 		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
@@ -157,28 +152,28 @@ body{
             <div class="event">
                 <table>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.04.17</td>
+                        <td><a href="searchEvent?eventId=1">《魔物獵人》更新擊殺排行榜</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.04.03</td>
+                        <td><a href="searchEvent?eventId=2">《惡靈古堡 3重製版》上市頭 5天全球出貨突破 200萬套</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.03.30</td>
+                        <td><a href="searchEvent?eventId=3">戰略 RPG《為了國王 For The King》PS4、Switch中文版即將發售</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.03.30</td>
+                        <td><a href="searchEvent?eventId=4">戰爭策略名作《騎馬與砍殺2：霸主》2020年3月登上Steam</a></td>
                     </tr>
                     <tr>
-                        <td>2020.04.01</td>
-                        <td>New Release Avaliable!</td>
+                        <td>2020.01.01</td>
+                        <td><a href="searchEvent?eventId=5">2019 Steam大獎揭曉《隻狼》獲年度遊戲獎</a></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
-                            <a href="#"><input type="submit" value="更多消息" name="more" class="morebutton" /></a></td>
+                            <a href="Event"><input type="submit" value="更多消息" name="more" class="morebutton" /></a></td>
                     </tr>
                 </table>
             </div>
@@ -213,24 +208,19 @@ body{
             <div class="event">
                 <table>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle1</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=5">《最後生還者》表示不歡迎仇恨同性戀之玩家</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle2</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=4">微軟首度揭露新一代 Xbox Series X</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle3</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=3">在家裡自導自演一場 B 級恐怖片吧</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle4</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=2">《Apex 英雄》賽季 5「時來運轉」</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle5</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=1">夏季遊戲節 SGF</a></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">

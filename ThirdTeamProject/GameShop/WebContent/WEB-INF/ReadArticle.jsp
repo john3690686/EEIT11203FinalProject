@@ -28,29 +28,6 @@ p{
 	font-weight:bold;
 }
 
-/* .articlePage{ 
-	margin: auto;
-	width: 80%; 
-	border-style : solid;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ADADAD;
-}
-	 */
-/* textarea{
-	margin-left:20px;
-	width: 80%; 
-} */
-/* .remess{
-	font-size:13px;
- 	margin-top:10px; 
-	margin-left:50px;
-	padding:5px;
-	background-color:#FFEEDD;
-	width: 75%;
-}
- */
-
 </style>
 </head>
 
@@ -79,12 +56,10 @@ p{
 			<input type="submit" value="送出" style="margin-left:90%; font-size:18px">
 			<input type="button" value="一鍵填入" onclick="fillInQuicklyMeg()">
 			<input type="hidden" id="requestArticleId" name="requestArticleId">		
-<!-- 			<div style="margin-left: 20px;margin-bottom: 20px; text-align: right; width: 80%"> -->		
-<!-- 			</div> -->	
 			</div>
 		</form>
-		<br/>
-		<a href="processArticle"><input type="button" class="morebutton" value="回到創造の壁"></a>
+		
+		<p><a href="processArticle"><input type="button" class="morebutton" value="回到創造の壁"></a></p>
 		
 </div>
 	

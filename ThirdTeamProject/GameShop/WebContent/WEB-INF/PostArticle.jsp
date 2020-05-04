@@ -22,10 +22,9 @@ body{
 }
 
 img{
-	width: 100px;
-	height: 100px;
+	width: 20%;
+	height: 20%;
 }
-
 
 </style>
 
@@ -50,18 +49,21 @@ img{
 	</div>
 
 <!-- ===================================================================================================================== -->
-		<div class="uploadImg">
-			<form id="myform" onsubmit="submitFile(event)" method="POST"
+			<form id="myform" class="uploadImg" onsubmit="submitFile(event)" method="POST"
 				enctype=multipart/form-data>
-				文章縮圖<br/>
-				<input type="file" name="myfile" onchange="onChange(event)" />
-				<input type="submit" value="圖片上傳" /><span id = "success"></span><br/>
-				<input type="reset" onclick="resetImg()">
-					<div class="articleThumbnail" id="articleThumbnail">
-						<div id="image">No image<br/>available</div>
-					</div>				
-			</form>
-		</div>
+				<h3 style="margin:0">文章縮圖:</h3>
+				
+				<div class="articleThumbnail" id="articleThumbnail">
+						<div id="image">No image available</div>
+				</div>
+				
+				<div class="uppic">
+					<p><input type="file" name="myfile" onchange="onChange(event)" class="uppic"/></p>
+					<p style="margin:0;"><input type="submit" value="圖片上傳" /><span id = "success"></span>
+					   <input type="reset" onclick="resetImg()"></p>
+				</div>
+				
+			</form>		
 <!-- ===================================================================================================================== -->
 
 		<form class="postArea" action="<c:url value='/processAction'></c:url>" id="form" method="post">
@@ -81,7 +83,7 @@ img{
 </div>
 
 <!--footer-->
-    <footer style="margin-top:200px">
+    <footer>
         <div class="foot">
             <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>

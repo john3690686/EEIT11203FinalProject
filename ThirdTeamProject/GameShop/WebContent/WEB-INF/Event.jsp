@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> 
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/gameshop.js"></script>
-<title>EVENT</title>
+<script src="js/gameshop.js"></script>
+<title>最新消息</title>
 
 <style type="text/css">
 
@@ -43,17 +43,40 @@ body{
             <li id="hello"><a href="myProfile">會員中心</a>
         </ul>
         <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
-    </nav>
+	</nav>
+	
+	<!-- login form -->
+	<div class="loginDiv">
+		<div class="loginForm">
+			<fieldset>
+				<legend>登入帳號 </legend>
+				<div class="warning"><img src="img/Info_icon.png" title="需擁有帳號，方能使用願望清單與評論功能" style="vertical-align:middle">公用電腦請記得登出，或開啟無痕模式</div><br/>
+				<form action="processLogin" method="POST">
 
+					<label for="userAccount">帳號:</label><input type="text" id="loginAccount" name="userAccount" value="${userAccount}"><br/>
+					<label for="userPwd">密碼:</label><input type="password" id="loginPwd" name="userPwd" value="${userPwd}"><br/>
+					<input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
+					
+					<br/>
+				</form>
+				<button class="loginconfirm">登入</button>
+					<input type="button" class="cancel_btn" value="取消"><br/>
+				   <!-- 登入頁加入新申請帳號 -->
+					<input type="button" class="registerbutton" id="register2" value="申請新帳號">
+					<p><a href="forget_password">忘記密碼?</a></p>
+			</fieldset>
+		</div>
+		
+	</div>
 <!--Wishlist & Shopping cart &top-->
-        <a href="showWish.controller"><input type="button" class="wishlist"></a>
-        <a href="prePay.controller"><input type="button" class="shoppingcart"></a>
+        <a href="showWish.controller"><input type="button" class="wishlist" title="願望清單"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
 		<a href="#"><input type="button" class="topbutton"></a>
 
 <!--Main-->
 <div class="bgevent">
 	<div class="titledec">
-        <div class="titletext">活動資訊</div>
+        <div class="titletext">最新消息</div>
     </div>
 
 		<fieldset>
@@ -61,11 +84,11 @@ body{
 				<!--輪播待補(接活動頁面)-->
 				<a id="mainUrl" href="">
 				<canvas id="myCanvas" width="460" height="215">  
-                <img id="mainImg1" src="img/sale1.jpg" style="display: none" alt=""/>
-                <img id="mainImg2" src="img/sale2.jpg" style="display: none" alt=""/>
-                <img id="mainImg3" src="img/sale3.jpg" style="display: none" alt=""/>
-                <img id="mainImg4" src="img/sale4.jpg" style="display: none" alt=""/>
-                <img id="mainImg5" src="img/sale5.jpg" style="display: none" alt=""/>
+                <img id="mainImg1" src="img/05.jpg" style="display: none" alt=""/>
+                <img id="mainImg2" src="img/03.jpg" style="display: none" alt=""/>
+                <img id="mainImg3" src="img/07.jpg" style="display: none" alt=""/>
+                <img id="mainImg4" src="img/08.jpg" style="display: none" alt=""/>
+                <img id="mainImg5" src="img/06.jpg" style="display: none" alt=""/>
                 </canvas>
 				</a>
 				<div id="chimg"></div>
@@ -152,8 +175,8 @@ body{
 			}
 		// 可導向網頁的圖片連結(之後再接網頁內的商品)
 		
-			var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
-		 	document.getElementById("mainUrl").href = "http://localhost:8080/GameShop/searchGame?productName="+ db[(nowAD-1)];
+			var db = [1,2,3,4,5];
+		 	document.getElementById("mainUrl").href = "searchEvent?eventId="+ db[(nowAD-1)];
 
 			let nowImg = document.getElementById("mainImg" + nowAD);
 			for (let x = 0; x <= 460; x++) {
