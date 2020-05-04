@@ -45,9 +45,11 @@ body{
 
 .loginForm{
 	height:50%;
+	display: none;
 }
 .registerForm{
 	height:100%;
+	display: none;
 }
 
 /*Main Theme*/
