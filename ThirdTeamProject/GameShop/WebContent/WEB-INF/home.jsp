@@ -24,12 +24,7 @@ body{
 	/* background:url(img/SkyTower2.jpg) no-repeat; */
 } 
 
-.loginDiv {
-	display: none;
-}
-.registerDiv {
-	display: none;
-}
+
 
 
 </style>
