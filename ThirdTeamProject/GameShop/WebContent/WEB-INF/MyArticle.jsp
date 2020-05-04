@@ -5,13 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GameGuild~Enjoy your gameLife here~</title>
 <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
+	rel="stylesheet">
 <!-- css for phone -->
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <!-- favicon -->
 <link rel="shortcut icon" href="img/favicon.ico"/>
-<title>My Article Page</title>
+<title>我的創作</title>
 
 <style type="text/css">
 

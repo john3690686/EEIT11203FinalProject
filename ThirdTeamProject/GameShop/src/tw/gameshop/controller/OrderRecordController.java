@@ -20,7 +20,7 @@ import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductService;
 
 @Controller
-@SessionAttributes("userid")
+@SessionAttributes("userId")
 public class OrderRecordController {
 	private OrdersDAO orderDao;
 	private OrderDetailDAO odDao;
@@ -33,7 +33,7 @@ public class OrderRecordController {
 		this.pService = pService;
 	}
 	
-	@RequestMapping(path="/toOrderRecrod",method = RequestMethod.GET)
+	@RequestMapping(path="/toOrderRecord",method = RequestMethod.GET)
 	public String processToRecordPage() {
 		return "OrderRecord";
 	}
@@ -41,9 +41,10 @@ public class OrderRecordController {
 	@ResponseBody
 	@RequestMapping(path = "/getOrderRecord", method = RequestMethod.GET)
 	public LinkedList<LinkedList<OrderRecordBean>> orderRecord(Model model) {
-		//取session userId
-		model.getAttribute("userId");
-		List<Orders> list = orderDao.queryOrderRecord(3);
+		//��ession userId
+		int userId = (int)model.getAttribute("userId");
+        List<Orders> list = orderDao.queryOrderRecord(userId);
+        
 		LinkedList<LinkedList<OrderRecordBean>> orderList = new LinkedList<LinkedList<OrderRecordBean>>();
 		for(Orders order:list) {
 			List<OrderDetail> orderDetail = odDao.queryByOrderId(order.getOrderId());
