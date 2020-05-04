@@ -149,6 +149,7 @@ body{
 .loginDiv,
 .registerDiv{
     overflow:auto;
+    display: none;
 }
 .loginForm,
 .registerForm{

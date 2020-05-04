@@ -44,6 +44,30 @@ body{
 <!-- top -->
 		<a href="#"><input type="button" class="topbutton"></a>    
  
+<!-- login form -->
+<div class="loginDiv">
+	<div class="loginForm">
+		<fieldset>
+			<legend>登入帳號 </legend>
+			<div class="warning"><img src="img/Info_icon.png" title="需擁有帳號，方能使用願望清單與評論功能" style="vertical-align:middle">公用電腦請記得登出，或開啟無痕模式</div><br/>
+			<form action="processLogin" method="POST">
+
+				<label for="userAccount">帳號:</label><input type="text" id="loginAccount" name="userAccount" value="${userAccount}"><br/>
+				<label for="userPwd">密碼:</label><input type="password" id="loginPwd" name="userPwd" value="${userPwd}"><br/>
+				<input type="checkbox" name="autoLogin" id="autoLogin" ${autoLogin}><span>記住我</span><br/>
+				
+				<br/>
+			</form>
+			<button class="loginconfirm">登入</button>
+				<input type="button" class="cancel_btn" value="取消"><br/>
+			   <!-- 登入頁加入新申請帳號 -->
+				<input type="button" class="registerbutton" id="register2" value="申請新帳號">
+				<p><a href="forget_password">忘記密碼?</a></p>
+		</fieldset>
+	</div>
+	
+</div>
+
 <!-- Main -->
 <div class="bgblog">
 
