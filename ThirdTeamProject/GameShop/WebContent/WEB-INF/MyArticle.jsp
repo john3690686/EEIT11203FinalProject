@@ -15,71 +15,68 @@
 
 <style type="text/css">
 
-.article {
- 	margin-top: 15px; 
- 	margin-left: 90px; 
-	border-width: 1px;
-	border-style: solid;
-	height: 80px;
-	width: 1000px;
-/*  	float:left;  */
-}
-
-.page{
-	margin: auto;
-	width: 90%;
-}
-
-.title{
-	font-size: 20px;
-	font-family: 微軟正黑體;
-}
-
-.authoranddate{
-	font-size: 10px;
-	color: #ADADAD;
-}
-
-.abstract{
-	margin-top: 20px;
-}
-
-.imageblock{ 
-/*  	margin-top: ; */
-	float:left;
-	border: 1px #ADADAD solid;
-	height: 80px;
-	width: 80px;
- }
- 
- .articleImg{
-	height: 80px;
-	width: 80px;
+body{
+	font-family:Microsoft JhengHei;
+	background:url(img/blogbg.jpg) no-repeat;
+	background-attachment: fixed;
 }
 
 </style>
 
 </head>
 <body>
+
+<!--Navigator-->
+    <nav>
+        <ul class="ul1">
+            <li><a href="index.html">HOME</a>
+            <li><a href="Event">NEWS</a>
+            <li><a id="navShop" href="Shop">SHOP</a>
+            <li><a href="processArticle">BLOG</a>
+            <li><a href="Chatroom">CHAT</a>
+            <li id="hello"><a href="myProfile">會員中心</a>
+        </ul>
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
+    </nav>
+    
+<!-- top -->
+		<a href="#"><input type="button" class="topbutton"></a>    
+ 
+<!-- Main -->
+<div class="bgblog">
+
+	<div class="titledec">
+        <div class="titletext">我的創作</div>
+	</div>
+	
 	<div id="select"></div>
-	<div class="page">
-		<form action="<c:url value='/postArticle'></c:url>">
-			<input type="submit" value="發表">
+	
+<!-- Show Article -->
+		<form class="postArticleGO" action="<c:url value='/postArticle'></c:url>">
+			<input type="submit" class="morebutton" value="發表文章">
 		</form>
 
-		<form id="demo1" action=""></form>
+		<form id="demo1" class="blogArea" action=""></form>
+	
+	<p><a href="processArticle"><input type="button" class="morebutton" value="回到創造の壁"></a></p>
 
-	</div>
+</div>
 
-	<script
-		src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+<!--footer-->
+    <footer>
+        <div class="foot">
+            <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
+            <H6>All copyrights and trademarks are the property of their respective owners.</H6>
+        </div>
+    </footer>
 
-	<script>
+<script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+<script>
 	
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				var txt = "<span>創造の壁</span>";
+				var txt = "";
 				var books = ${ aJson };
 				var a = 1;
 
@@ -90,8 +87,8 @@
 // 				txt += "<option value='/GameShop/postArticle'>發表文章</option>";
 // 				txt += "</select>";
 
-				var select = "<select style='float:right;' onChange='location = this.options[this.selectedIndex].value;'>"
-				select += "<option value='#'>想去哪裡</option>";
+				var select = "<select class='movePage' onChange='location = this.options[this.selectedIndex].value;'>"
+				select += "<option value='#'>移動至...</option>";
 				select += "<option value='/GameShop/processArticle'>創造の壁</option>";
 				select += "<option value='/GameShop/myArticle'>我的創作</option>";
 				select += "<option value='/GameShop/postArticle'>發表文章</option>";
@@ -100,14 +97,13 @@
 
 					
 				for (let i = 0; i < books.length; i++) {
-					txt += "<div>";
-					txt += "<div class = 'imageblock'><img class='articleImg' id='articleImg_"+i+"' alt='圖片失效'></div>";
+					txt += "<div class='articleList'>";
+					txt += "<div><img class='articleImg' id='articleImg_"+i+"' alt='圖片失效'></div>";
 					txt += "<div class = 'article'>";
 					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>" + books[i].articleTitle+ "</div></a>";
 					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
 
 					txt += "<div class='abstract'>"+books[i].articleAbstract + "....(<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"' >繼續閱讀</a>)</div>";
-
 					txt += "</div></div>";
 					a++;
 				}

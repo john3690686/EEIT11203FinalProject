@@ -213,24 +213,19 @@ body{
             <div class="event">
                 <table>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle1</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=5">《最後生還者》表示不歡迎仇恨同性戀之玩家</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle2</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=4">微軟首度揭露新一代 Xbox Series X</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle3</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=3">在家裡自導自演一場 B 級恐怖片吧</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle4</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=2">《Apex 英雄》賽季 5「時來運轉」</a></td>
                     </tr>
                     <tr>
-                        <td>GameName</td>
-                        <td>GameTitle5</td>
+                        <td colspan="2"><a href="processReadArticle?articleID=1">夏季遊戲節 SGF</a></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
