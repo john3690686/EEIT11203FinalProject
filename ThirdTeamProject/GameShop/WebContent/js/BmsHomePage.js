@@ -54,8 +54,8 @@ $(window).on('load', function () {
 
         //對修改/刪除的按鈕新增事件 (刪除)
         $(".upl,.del").on("click", function () {
-            let id = $(this).parent().parent().find("td").eq(0).html()
-
+            let id = parseInt($(this).parent().parent().find("td").eq(1).html())
+alert(id)
             if ($(this).hasClass("del")) {
                 if (confirm("您確定要刪除 產品編號:" + id + " 的產品嗎 ?")) {
                     txt = "您已確定刪除!";
@@ -72,7 +72,9 @@ $(window).on('load', function () {
                 }
             }
             if ($(this).hasClass("upl")) {
-                let p = findProductById(id)
+            	console.log(productList)
+                let p = findProductById(id);
+                console.log(p)
                 $(".productListView").hide()
                 $("#iPDiv").show()
                 $("#insProduct").text("放棄修改")
@@ -485,8 +487,9 @@ $(window).on('load', function () {
 
 //用產品編號查詢該產品的物件
 function findProductById(id) {
-    for (let i = 0; i < productList.length; i++) {
-        if (productList[i].productId == id) {
+	for (let i = 0; i < productList.length; i++) {
+		alert(i)
+        if (parseInt(productList[i].productId) == parseInt(id)) {
             return productList[i]
         }
     }
