@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.gameshop.user.model.OrderDetail;
 import tw.gameshop.user.model.OrderDetailDAO;
@@ -18,6 +20,7 @@ import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductService;
 
 @Controller
+@SessionAttributes("userid")
 public class OrderRecordController {
 	private OrdersDAO orderDao;
 	private OrderDetailDAO odDao;
@@ -37,9 +40,10 @@ public class OrderRecordController {
 	
 	@ResponseBody
 	@RequestMapping(path = "/getOrderRecord", method = RequestMethod.GET)
-	public LinkedList<LinkedList<OrderRecordBean>> orderRecord() {
+	public LinkedList<LinkedList<OrderRecordBean>> orderRecord(Model model) {
 		//取session userId
-		List<Orders> list = orderDao.queryOrderRecord(1);
+		model.getAttribute("userId");
+		List<Orders> list = orderDao.queryOrderRecord(3);
 		LinkedList<LinkedList<OrderRecordBean>> orderList = new LinkedList<LinkedList<OrderRecordBean>>();
 		for(Orders order:list) {
 			List<OrderDetail> orderDetail = odDao.queryByOrderId(order.getOrderId());

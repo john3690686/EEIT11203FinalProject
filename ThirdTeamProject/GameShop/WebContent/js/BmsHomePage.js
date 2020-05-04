@@ -15,7 +15,7 @@ $(window).on('load', function () {
     }
 
     //Menu 點擊商品後呼叫之函數
-     var productList;
+     
      function getProductList(urlStr){
          $.getJSON(urlStr, function( jdata ){
              productList = jdata;
@@ -86,9 +86,8 @@ alert(id)
                 $("#iPDiv").find("textarea[name=intro]").val(p.intro)
 //                $("#iPDiv").find("img#Preview").attr("src", p.productImage)
                  $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
-                $("#iPDiv").find("input[type=date][name=uplTime]").val(p.uploadTime)
-                $("#iPDiv").find("input[type=date][name=dwlTime]").val(p.downloadTime)
-
+                $("#iPDiv").find("input[type=date][name=uplTime]").val(left(p.uploadTime,10))
+                $("#iPDiv").find("input[type=date][name=dwlTime]").val(left(p.downloadTime,10))
                 //現在的時間已經超過上架時間(即為已經開始販售之商品)不可再修改上架時間
                 if(Compare(new Date(), p.uploadTime)){
                     $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled', true)
@@ -110,6 +109,7 @@ alert(id)
             productEdit = false
             $(".productListView,.pagination").show()
             $("#insProduct").text("新增產品")
+            $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled', false)
         }else{
             if(!productEdit){
                 $("#insProduct").text("放棄" + actionName)
@@ -127,16 +127,15 @@ alert(id)
     $("#resetProductBean").on("click", function() {
         id= $("input[name=pId]").val()
         if(id != ""){
-            p = findProductById( $("input[name=pId]").val() )
+            p = findProductById( id )
             $("#iPDiv").find("input[type=hidden][name=pId]").val(p.productId)
             $("#iPDiv").find("input[type=text][name=pName]").val(p.productName)
             $("#iPDiv").find("input[type=text][name=price]").val(p.price)
-            $("#iPDiv").find("input[type=text][name=tag]").val(p.tag)
-            $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag))
+            $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag)-8)
             $("#iPDiv").find("textarea[name=intro]").val(p.intro)
             $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
-            $("#iPDiv").find("input[type=date][name=uplTime]").val(p.uploadTime)
-            $("#iPDiv").find("input[type=date][name=dwlTime]").val(p.downloadTime)
+            $("#iPDiv").find("input[type=date][name=uplTime]").val(p.uploadTime.format("yyyy/MM/dd"))
+            $("#iPDiv").find("input[type=date][name=dwlTime]").val(p.downloadTime.format("yyyy/MM/dd"))
         }else{
             $("#iPDiv").find("input:not([type=button]),textarea").val("")
             $("#iPDiv").find("img#Preview").attr("src", imgDefault)
@@ -146,8 +145,6 @@ alert(id)
     
     //新增/修改商品中的送出按鈕
     $("input#sendProductBean").on("click", function() {
-    	alert($("select[name=tagList]").val())
-    	alert(parseInt($("select[name=tagList]").val())+8)
     	var formdata = new FormData();
     	formdata.append("id" , $("input[name=pId]").val())
     	formdata.append("pName" , $("input[name=pName]").val())
@@ -485,10 +482,14 @@ alert(id)
 		});
 })//----------------------------------------------------  End Document.ready  ----------------------------------------------------
 
+//取字串左邊 num 位出來
+function left(str, num) {
+    return str.substring(0,num)
+}
+
 //用產品編號查詢該產品的物件
 function findProductById(id) {
 	for (let i = 0; i < productList.length; i++) {
-		alert(i)
         if (parseInt(productList[i].productId) == parseInt(id)) {
             return productList[i]
         }
@@ -524,6 +525,7 @@ Date.prototype.format = function(fmt){
     return fmt;
 }
 
+var productList;
 var imgDefault = "../img/BmsDefualtImg.jpg"
 var productEdit = false
 var pPerPageNum = 5
