@@ -14,7 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style type="text/css">
 body{
-	font-family:微軟正黑體;
+	font-family: Microsoft JhengHei;
 	background:url(img/skytower.jpg) no-repeat;
 	background-size: cover;
 }

@@ -15,7 +15,7 @@
 
 <style>
 body{
-	font-family:微軟正黑體;
+	font-family: Microsoft JhengHei;
 	background:url(img/skytower.jpg) no-repeat;
 	background-size: cover;
 }

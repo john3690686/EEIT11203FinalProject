@@ -11,11 +11,12 @@
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <!-- favicon -->
 <link rel="shortcut icon" href="img/favicon.ico"/>
+<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/gameshop.js"></script>
+<script src="js/gameshop.js"></script>
 <title>創造の壁</title>
-<style type="text/css">
 
+<style>
 body{
 	font-family:Microsoft JhengHei;
 	background:url(img/blogbg.jpg) no-repeat;
@@ -75,16 +76,17 @@ body{
         <div class="titletext">創造の壁</div>
 	</div>
 
-	<div id="select">
-	</div>
+	<div id="select"></div>
 	
 <!-- Show Article -->
 	<form id="demo1" class="blogArea" action=""></form>
 
+	<p><a href="postArticle"><input type="button" class="morebutton" value="發表文章"></a></p>
+
 </div>
 
 <!--footer-->
-    <footer style="margin-top: 300px">
+    <footer>
         <div class="foot">
             <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
