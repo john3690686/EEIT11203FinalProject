@@ -1,5 +1,5 @@
 $(window).on('load', function () {
-    //Menu 選擇後的動作
+    // Menu 選擇後的動作
     $(".bmsmenu").on("click", function () {
         let menuSelect = $(this).attr("id")
         if (menuSelect == "product") {
@@ -9,24 +9,23 @@ $(window).on('load', function () {
         }
     })
 
-    //Menu 點擊活動後呼叫之函數
+    // Menu 點擊活動後呼叫之函數
     function eventView() {
         $("#eventDiv").show().siblings().hide()
     }
 
-    //Menu 點擊商品後呼叫之函數
-     
-     function getProductList(urlStr){
-         $.getJSON(urlStr, function( jdata ){
+	// Menu 點擊商品後呼叫之函數
+	function getProductList(urlStr){
+		$.getJSON(urlStr, function( jdata ){
              productList = jdata;
              productView();
          })
      }
 
-    //Menu點擊商品後呼叫之函數
-    //將Json物件[Product]轉成表格並顯示
+    // Menu點擊商品後呼叫之函數
+    // 將Json物件[Product]轉成表格並顯示
     function productView() {
-        let txt //= "<table>"
+        let txt // = "<table>"
         for (let i = productList.length - 1; i >= 0; i--) {
             let now = new Date()
             let uplt = productList[i].uploadTime
@@ -46,13 +45,15 @@ $(window).on('load', function () {
         $("#productDiv").show().siblings().hide()
         
         if($("#insProduct").text()!="新增產品"){
-        	$("#iPDiv").hide()
-        	$("#productListTable").show()
-        	$("ul.pagination").show()
+        	productEdit = false
+        	$("#insProduct").click()
+//        	$("#iPDiv").hide()
+//        	$("#productListTable").show()
+//        	$("ul.pagination").show()
         }
         $("#productDiv").find("tbody#productList").html(txt).show()
 
-        //對修改/刪除的按鈕新增事件 (刪除)
+        // 對修改/刪除的按鈕新增事件 (刪除)
         $(".upl,.del").on("click", function () {
             let id = parseInt($(this).parent().parent().find("td").eq(1).html())
             if ($(this).hasClass("del")) {
@@ -74,7 +75,7 @@ $(window).on('load', function () {
             	console.log(productList)
                 let p = findProductById(id);
                 console.log(p)
-                $(".productListView").hide()
+                $(".productListView,.pagination").hide()
                 $("#iPDiv").show()
                 $("#insProduct").text("放棄修改")
                 $("#iPDiv").find("input[name=pId]").val(p.productId)
@@ -83,11 +84,10 @@ $(window).on('load', function () {
                 $("#iPDiv").find("input[type=text][name=tag]").val(p.tag)
                 $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag)-8)
                 $("#iPDiv").find("textarea[name=intro]").val(p.intro)
-//                $("#iPDiv").find("img#Preview").attr("src", p.productImage)
-                 $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
+                $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
                 $("#iPDiv").find("input[type=date][name=uplTime]").val(left(p.uploadTime,10))
                 $("#iPDiv").find("input[type=date][name=dwlTime]").val(left(p.downloadTime,10))
-                //現在的時間已經超過上架時間(即為已經開始販售之商品)不可再修改上架時間
+                // 現在的時間已經超過上架時間(即為已經開始販售之商品)不可再修改上架時間
                 if(Compare(new Date(), p.uploadTime)){
                     $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled', true)
                 }else{
@@ -98,7 +98,7 @@ $(window).on('load', function () {
         createProductPageNum()
     }
 
-    //點擊新增產品按鈕的事件->若有進行修改按下取消按鈕 跳出詢問放棄的視窗 是則隱藏視窗 並清空資料
+    // 點擊新增產品按鈕的事件->若有進行修改按下取消按鈕 跳出詢問放棄的視窗 是則隱藏視窗 並清空資料
     $("#insProduct").click( function () {
         let actionName = $("input[name=pId]").val()!=""?"修改":"新增"
         // $("#iPDiv").load("insertProduct.html")
@@ -116,13 +116,14 @@ $(window).on('load', function () {
                 $("#iPDiv").find("textarea").val("")
                 $("#iPDiv").find("img").attr("src", imgDefault)
                 $("#iPDiv").show()
-                // $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled', false)
+                // $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled',
+				// false)
                 $(".productListView,.pagination").hide()
             }
         }
     })
 
-    //新增/修改商品中的重設按鈕 若是修改則回覆該筆資料本來的樣子 不是則清空
+    // 新增/修改商品中的重設按鈕 若是修改則回覆該筆資料本來的樣子 不是則清空
     $("#resetProductBean").on("click", function() {
         id= $("input[name=pId]").val()
         if(id != ""){
@@ -142,7 +143,7 @@ $(window).on('load', function () {
         }
     })
     
-    //新增/修改商品中的送出按鈕
+    // 新增/修改商品中的送出按鈕
     $("input#sendProductBean").on("click", function() {
     	var formdata = new FormData();
     	formdata.append("id" , $("input[name=pId]").val())
@@ -187,7 +188,7 @@ $(window).on('load', function () {
         $("#pfile").click();
     })
 
-    //產品的上/下架時間 判斷 (目前只有判斷 下架日必須在上架日之後 且兩個日期都是[目前時間]之後)
+    // 產品的上/下架時間 判斷 (目前只有判斷 下架日必須在上架日之後 且兩個日期都是[目前時間]之後)
     $("input[type=date]#uplTime").attr("min", (new Date()).format("yyyy-MM-dd")).on("change", function(){
         if(Date.parse($(this).val()).valueOf() > Date.parse($("input[type=date]#dwlTime").val()).valueOf() && Date.parse($("input[type=date]#dwlTime").val()).valueOf != null) {
             alert("到期日不得超過開始日")
@@ -196,7 +197,7 @@ $(window).on('load', function () {
         $("input[type=date]#dwlTime").attr("min", $(this).val())
     })
 
-    //顯示/隱藏目前沒有再販售的商品
+    // 顯示/隱藏目前沒有再販售的商品
     $("#hideProductNotSales").on("click", function() {
         if($(".expired,.notyet").hasClass("hideClass")){
             $(".expired,.notyet").removeClass("hideClass")
@@ -208,12 +209,12 @@ $(window).on('load', function () {
         createProductPageNum()
     })
 
-    //判斷新增/修改狀態有沒有進行動作(方便關掉視窗時提醒放棄修改)
+    // 判斷新增/修改狀態有沒有進行動作(方便關掉視窗時提醒放棄修改)
     $("#iPDiv").find("input,textarea").on("change", function() {
         productEdit = true
     })
 
-    //產生產品的頁碼
+    // 產生產品的頁碼
     function createProductPageNum(){
         pAllPage = Math.ceil( $("#productList>tr:not(.hideClass)").length / pPerPageNum )
         let txt = "<li><a href='#' class='button special'>Previous</a></li>"
@@ -223,7 +224,7 @@ $(window).on('load', function () {
         txt += "<li><a href='#' class='button special'>Next</a></li>"
         $("ul.pagination").html(txt)
 
-        //此為翻頁的事件(翻到第幾頁)
+        // 此為翻頁的事件(翻到第幾頁)
         function turningPPage(page) {
             trLen = $("#productList>tr:not(.hideClass)").length
             $("#productList>tr:not(.hideClass)").hide()
@@ -232,7 +233,7 @@ $(window).on('load', function () {
             }
         }
 
-        //點擊上/下頁的動作
+        // 點擊上/下頁的動作
         $("a.button.special").on("click", function() {
             let page = parseInt($("li.page.current>a").text())
             actionName = $(this).text()
@@ -245,24 +246,24 @@ $(window).on('load', function () {
             }
         })
 
-        //點擊頁碼後的動作
+        // 點擊頁碼後的動作
         $("li.page>a").on("click", function() {
             $(this).closest("li.page").addClass("current").siblings().removeClass("current")
             turningPPage($(this).text())
         })
 
-        //讓一開始都在第一頁
+        // 讓一開始都在第一頁
         turningPPage(1)
     }
-//------------------------------------------   以下為活動的 JS   -------------------------------------------------
-//    $("#tabs-nav a").click(function() {
-//		$("#tabs-nav a").removeClass("tabs-menu-active");
-//		$(this).addClass("tabs-menu-active");
-//		$(".tabs-panel").hide();
-//		var tab_id = $(this).attr("href");
-//		$(tab_id).show("blind");
-//		return false;
-//	});
+// ------------------------------------------ 以下為活動的 JS -------------------------------------------------
+// $("#tabs-nav a").click(function() {
+// $("#tabs-nav a").removeClass("tabs-menu-active");
+// $(this).addClass("tabs-menu-active");
+// $(".tabs-panel").hide();
+// var tab_id = $(this).attr("href");
+// $(tab_id).show("blind");
+// return false;
+// });
     $("#insEvent").click(function(){
     	$("#tab2").hide();
     	$("#tab1").hide();
@@ -295,7 +296,7 @@ $(window).on('load', function () {
 			console.error(error);
 		});
 	
-	//修改
+	// 修改
 	ClassicEditor
 	.create(document.querySelector('#editor2'), {
 		toolbar: ['bold', 'italic', 'link',
@@ -312,7 +313,7 @@ $(window).on('load', function () {
 	});
 	
 	
-	//ShowQueryAllEvent
+	// ShowQueryAllEvent
 	function reloadAllEvent(){
 		console.log('QueryAll:run');
 	$.ajax({
@@ -321,7 +322,7 @@ $(window).on('load', function () {
 		type : "GET",
 		success : function(response) {
 			console.log('queryResopnse', response);
-			//console.log('QueryAll:2');
+			// console.log('QueryAll:2');
 			var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
 			for (let i = 0; i < response.length; i++) {
 				var id = response[i].eventId;
@@ -329,7 +330,8 @@ $(window).on('load', function () {
 				txt += "<td>"+ response[i].productId;
 				txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "' >"
 				txt += "<td>"+ response[i].eventName;
-				//txt += "<td><button type='button' class='btn btn-danger' id=''>內文</button>";
+				// txt += "<td><button type='button' class='btn btn-danger'
+				// id=''>內文</button>";
 				txt += "<td>"+ response[i].content;
 				txt += "<td>"+ response[i].startDate;
 				txt += "<td>"+ response[i].endDate;
@@ -345,7 +347,7 @@ $(window).on('load', function () {
 	});
 	}
 	
-	//searchAllData	
+	// searchAllData
 	$(document).on('click', '#searchAllData', function() {
 		$.ajax({
 			url : "queryAllEvent",
@@ -360,7 +362,8 @@ $(window).on('load', function () {
 					txt += "<td>"+ response[i].productId;
 					txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "'>"
 					txt += "<td>"+ response[i].eventName;
-					//txt += "<td><button type='button' class='btn btn-danger' id=''>內文</button>";
+					// txt += "<td><button type='button' class='btn btn-danger'
+					// id=''>內文</button>";
 					txt += "<td>"+ response[i].content;
 					txt += "<td>"+ response[i].startDate;
 					txt += "<td>"+ response[i].endDate;
@@ -374,11 +377,11 @@ $(window).on('load', function () {
 	})
 	
 	var eventId = null;					
-	//addEvent
+	// addEvent
 	$(document).on('click', '#add', function() {
 		alert("新增成功");
 	});
-	//選擇圖檔立即顯現
+	// 選擇圖檔立即顯現
 	$("#imageUpload").change(function(){
 		var file = $('#imageUpload')[0].files[0];
 		var reader = new FileReader;
@@ -391,14 +394,14 @@ $(window).on('load', function () {
 		$("#imageUpload").click();
 	});
 
-	//deleteEvent
+	// deleteEvent
 	$(document).on('click', '#delete', function() {
 		var checkstr = confirm("確定是否刪除該活動?");
 		if (checkstr == true) {
 			var $tr = $(this).parents("tr");
-			eventId = $tr.find("td").eq(0).text(); //抓取id值
+			eventId = $tr.find("td").eq(0).text(); // 抓取id值
 			console.log('eventId=' + eventId);
-			$(this).parents("tr").remove(); //刪除整個欄位
+			$(this).parents("tr").remove(); // 刪除整個欄位
 
 			$.ajax({
 				url : "deleteEvent",
@@ -417,10 +420,10 @@ $(window).on('load', function () {
 		}
 	});
 
-	//queryUpdateData
+	// queryUpdateData
 	$(document).on('click', '#queryUpdateData', function() {
 		var $tr = $(this).parents("tr");
-		eventId = $tr.find("td").eq(0).text(); //抓取id值
+		eventId = $tr.find("td").eq(0).text(); // 抓取id值
 		console.log('eventId=' + eventId);
 		$("#tab0").hide();
 		$("#tab1").hide();
@@ -444,7 +447,7 @@ $(window).on('load', function () {
 			},
 		});		
 	});				
-	//searchButton
+	// searchButton
 	$(document).on('click', '#search', function() {
 		console.log("searchButton:1");
 		console.log("searchcontent:",$("#se1").val());	
@@ -472,13 +475,13 @@ $(window).on('load', function () {
 	});
 	
 	
-	//UpdateEventData
+	// UpdateEventData
 	$(document).on('click', '#SaveButton', function() {
 		var myForm = document.getElementById('updateForm');
 		var formData = new FormData(myForm);
 		
 		var updateImage =$('#imageUpdate').get(0).files[0];			
-//			console.log('content:'+responseEditorcontent.getData());
+// console.log('content:'+responseEditorcontent.getData());
 		console.log(updateImage);
 		console.log("eventId1:",eventId);
 		if(updateImage != undefined){				
@@ -495,12 +498,12 @@ $(window).on('load', function () {
 				type : "POST",
 				data : formData,
 				success : function(response) {
-					//console.log(response);	
+					// console.log(response);
 					console.log("Save ok");	
 					alert("修改成功");	
 					$("#tab1").show();
 					$("#tab2").hide();
-					//location.reload();
+					// location.reload();
 					reloadAllEvent();
 				},
 			});				
@@ -509,14 +512,15 @@ $(window).on('load', function () {
 		reloadAllEvent()
 	});
 })
-//----------------------------------------------------  End Document.ready  ----------------------------------------------------
+// ---------------------------------------------------- End Document.ready -----------------------------------------------
 
-//取字串左邊 num 位出來
+
+// 取字串左邊 num 位出來
 function left(str, num) {
     return str.substring(0,num)
 }
 
-//用產品編號查詢該產品的物件
+// 用產品編號查詢該產品的物件
 function findProductById(id) {
 	for (let i = 0; i < productList.length; i++) {
         if (parseInt(productList[i].productId) == parseInt(id)) {
@@ -525,7 +529,7 @@ function findProductById(id) {
     }
 }
 
-//傳入兩個時間參數 x, y 並比較 x 是否比 y 大，是則回傳 true
+// 傳入兩個時間參數 x, y 並比較 x 是否比 y 大，是則回傳 true
 function Compare(x, y) {
     a = Date.parse(x).valueOf()
     b = Date.parse(y).valueOf()
@@ -536,17 +540,17 @@ function Compare(x, y) {
     }
 }
 
-//新增 JavaScript Data格式設定 .format 函數
-//參考資源 https://dotblogs.com.tw/felixfu/2014/12/29/147856
+// 新增 JavaScript Data格式設定 .format 函數
+// 參考資源 https://dotblogs.com.tw/felixfu/2014/12/29/147856
 Date.prototype.format = function(fmt){
     var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
+        "M+": this.getMonth() + 1, // 月份
+        "d+": this.getDate(), // 日
+        "h+": this.getHours(), // 小时
+        "m+": this.getMinutes(), // 分
+        "s+": this.getSeconds(), // 秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S": this.getMilliseconds() // 毫秒
     };
     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)
@@ -561,7 +565,8 @@ var pPerPageNum = 5
 var pAllPage = 0
 var pPage = 0
 
-//遊戲分類中英文對照參考 https://blog.xuite.net/foreveriori/game/33551587-%E9%81%8A%E6%88%B2%E9%A1%9E%E5%9E%8B%E8%8B%B1%E6%96%87%E5%90%8D%E8%A9%9E%E8%A7%A3%E9%87%8B
+// 遊戲分類中英文對照參考
+// https://blog.xuite.net/foreveriori/game/33551587-%E9%81%8A%E6%88%B2%E9%A1%9E%E5%9E%8B%E8%8B%B1%E6%96%87%E5%90%8D%E8%A9%9E%E8%A7%A3%E9%87%8B
 var tagList = [
     "RTS",// "策略",
     "RPG",// "角色扮演",
@@ -570,7 +575,7 @@ var tagList = [
     "AVG",// "冒險",
     "ETC",// "休閒",
     "SPG",// "運動",
-    "Horror",// "恐怖" 
+    "Horror",// "恐怖"
     "策略",
     "角色扮演",
     "射擊",
@@ -581,7 +586,7 @@ var tagList = [
     "恐怖"
 ]
 
-//產品狀態表
+// 產品狀態表
 var pStatus = [
     "expired",
     "valid",
@@ -591,7 +596,7 @@ var pStatus = [
     "未上架"
 ]
 
-//找分類陣列中索引
+// 找分類陣列中索引
 function tagListIndexOf(str) {
     for(let i=0;i<tagList.length;i++){
         if(str==tagList[i]){
