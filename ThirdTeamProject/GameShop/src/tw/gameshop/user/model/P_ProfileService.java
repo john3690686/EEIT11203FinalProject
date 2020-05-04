@@ -68,7 +68,9 @@ public class P_ProfileService {
 		return profileDao.updateProfile(profile);
 	}
 	public boolean updateProfile(P_Profile profile, PD_ProfileDetail profileDetail) {
-		profile.setUserPwd(encrypt(profile.getUserPwd()));
+		if(!profile.getUserPwd().isEmpty()) {
+			profile.setUserPwd(encrypt(profile.getUserPwd()));
+		}
 		return profileDao.updateProfile(profile, profileDetail);
 	}
 

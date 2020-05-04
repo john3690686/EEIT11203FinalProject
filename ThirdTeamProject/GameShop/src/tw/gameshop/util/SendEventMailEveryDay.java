@@ -69,7 +69,7 @@ public class SendEventMailEveryDay {
 						String mail = target.getMail();
 						String e = event.getContent();
 						//寄活動給願望清單內的人
-						String content = "<html><body><h3>" + e + "</h3><a href='http://localhost:8080/GameShop/searchGame?productName="+product.getProductName()+"'><img src='cid:pic'/></a></body></html>";
+						String content = "<html><body><h3>" + e + "</h3><img src='cid:pic'/><br><a href='http://localhost:8080/GameShop/searchGame?productName="+product.getProductName()+"'>活動商品連結</a></body></html>";
 						helper.setText(content,true);
 						helper.addInline("pic", img,"image/png");
 						helper.setFrom("eeit11203@gmail.com");

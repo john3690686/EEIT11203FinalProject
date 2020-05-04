@@ -178,7 +178,9 @@ public class P_ProfileDao {
 			if (result != null) {
 				result.setUserName(profile.getUserName());
 				result.setNickName(profile.getNickName());
-				result.setUserPwd(profile.getUserPwd());
+				if(!profile.getUserPwd().isEmpty()) {
+					result.setUserPwd(profile.getUserPwd());
+				}
 				result.setGender(profile.getGender());
 				result.setUserImg(profile.getUserImg());
 				result.setMail(profile.getMail());
