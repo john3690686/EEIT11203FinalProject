@@ -47,7 +47,7 @@ body{
 
             <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName">
             <div class="check" id="checkNickName"><img src=""></div><br />
-            <label for="oriPwd">原密碼:</label><input type="password" id="oriPwd" name="oriPwd">
+            <label for="oriPwd">原密碼:</label><input type="password" id="oriPwd" name="oriPwd" placeholder="必填">
             <div class="check" id="checkOriPwd"><img src=""></div><br />
 			<span class="note">(請輸入原密碼)</span><br />
 			
@@ -108,12 +108,15 @@ body{
 		});
 
 		//get data
-		function queryProfile(){
+		var nickName,mail;
+		var queryProfile = function(){
 			$.ajax({
 				url: "http://localhost:8080/GameShop/serchProfile",
 				type: "POST",
 				dataType: "json",
 				success: function (data) {
+					nickName = data.nickName;
+					mail = data.mail;
 					$("#userAccount").val(data.userAccount);
 					$("#userName").val(data.userName);
 					$("#nickName").val(data.nickName);
@@ -126,7 +129,6 @@ body{
 					} else {
 						$(".imgUserPhoto").attr("src", "data:image/jpeg;base64," + data.userImg);
 					}
-
 				}
 			})
 		}
@@ -139,28 +141,37 @@ body{
         var regUserAccount = new RegExp(/^[a-zA-Z0-9]{6,18}$/);
         var regUserPwd = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z\d].{6,12}$/);
         var regMail = new RegExp(/\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+/);
-        var errorOriPwd = 1, errorNickName =1, errorPwd = 0, errorMail = 1;
+		var errorOriPwd = 0, errorNickName =0, errorPwd = 0, errorMail = 0;
+		
 
-
-        $("#oriPwd").blur(function(){
-            $("#checkOriPwd img").css("visibility","visible");
-            if(regUserAccount.test($(this).val())){
-                $("#checkOriPwd img").attr("src","img/Right.png");
-                errorOriPwd = 0;
-            }else{
-                $("#checkOriPwd img").attr("src","img/Wrong.png");
-                errorOriPwd = 1;
-            }
-        });
         $("#nickName").blur(function(){
-            $("#checkNickName img").css("visibility","visible");
-            if($(this).val().trim().length>0){
-                $("#checkNickName img").attr("src","img/Right.png");
-                errorNickName = 0;
-            }else{
-                $("#checkNickName img").attr("src","img/Wrong.png");
-                errorNickName = 1;
-            }
+            let ajaxFlag = true;
+        $("#checkNickName img").css("visibility", "visible");
+        if (ajaxFlag && $(this).val().length>0) {
+            ajaxFlag = false;
+            console.log("thisvalue = " + $(this).val());
+            $.ajax({
+                url: "http://localhost:8080/GameShop/isNickNameExist",
+                type: "GET",
+                data : {"nickName":$(this).val()},
+                dataType:"json",
+                success: function(data){
+                    if(data && $("#nickName").val()!=nickName){
+                        alert("此暱稱已存在");
+                        $("#checkNickName img").attr("src", "img/Wrong.png");
+                        errorAcc = 1;
+                    }else{
+                        $("#checkNickName img").attr("src", "img/Right.png");
+                        errorAcc = 0;
+                    }
+                },error: function(){
+                    console.log("連線失敗");
+                }
+            }).done(ajaxFlag = true);
+        } else {
+            $("#checkNickName img").attr("src", "img/Wrong.png");
+            errorNickName = 1;
+        }
         });
         $("#userPwd").blur(function(){
             $("#checkPwd img").css("visibility","visible");
@@ -181,14 +192,34 @@ body{
             }
         });
         $("#mail").blur(function(){
-            $("#checkMail img").css("visibility","visible");
-            if(regMail.test($(this).val())){
-                $("#checkMail img").attr("src","img/Right.png");
-                errorMail = 0;
-            }else{
-                $("#checkMail img").attr("src","img/Wrong.png");
-                errorMail = 1;
-            }
+            let ajaxFlag = true;
+        $("#checkMail img").css("visibility", "visible");
+        if (regMail.test($(this).val())) {
+            ajaxFlag = false;
+            console.log("thisvalue = " + $(this).val());
+            $.ajax({
+                url: "http://localhost:8080/GameShop/isMailExist",
+                type: "GET",
+                data : {"mail":$(this).val()},
+                dataType:"json",
+                success: function(data){
+                    console.log(data);
+                    if(data && $("#mail").val()!=mail){
+                        alert("此信箱已存在");
+                        $("#checkMail img").attr("src", "img/Wrong.png");
+                        errorAcc = 1;
+                    }else{
+                        $("#checkMail img").attr("src", "img/Right.png");
+                        errorAcc = 0;
+                    }
+                },error: function(){
+                    console.log("連線失敗");
+                }
+            }).done(ajaxFlag = true);
+        } else {
+            $("#checkMail img").attr("src", "img/Wrong.png");
+            errorMail = 1;
+        }
         });
 
 
@@ -221,6 +252,8 @@ body{
 						}
 
 					})
+				}else{
+					$(".message").text("資料不正確，請再次確認").css("color", "red");
 				}
 
 			})

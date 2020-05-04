@@ -55,49 +55,59 @@ select * from ProfileDetail
 go
 
 --====================================辰安的product=======================================--
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'DARK SOULS: REMASTERED','有一天，燃起了第一團火。 重新體驗話題性、代表性十足的經典遊戲。 經過畫質提升，將以驚豔的60fps形式呈現，做好重返羅德蘭的準備吧。 黑暗靈魂 Remastered包含遊戲本體，以及DLC《Artorias of the Abyss》。 ','1000','動作',
+'2020-03-02','2020-04-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale1.jpg', Single_Blob)as gamepic
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Terraria','Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! ','800','角色扮演',
+'2020-03-12','2020-05-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale2.jpg', Single_Blob)as gamepic
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Resident Evil3','不管逃到哪裡也會被追至絕路。 拉昆市發生突如其來的生物災害，更為巨大的威脅被投入至這個逐漸崩潰的城鎮中…… 多重的危機、九死一生的驚險動作和重新建構的逃生劇，一一超乎你的預想。 你能逃離這片絕望嗎？ 同時收錄《Resident Evil Resistance》。','1790','恐怖',
+'2020-03-20','2020-07-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale3.jpg', Single_Blob)as gamepic
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Age of Empires II: Definitive Edition','有史以來最受歡迎的戰略遊戲之一迎來 20 週年，為此我們推出了《Age of Empires II: Definitive Edition》。本作擁有驚人的 4K 超高畫質，全面重置的新原聲音樂，以及內含 3 個新戰役和 4 個新文明的全新內容：《最後的可汗》。 ','600','策略',
+'2020-03-12','2020-07-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale4.jpg', Single_Blob)as gamepic
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Monster Hunter','新的生命之地。狩獵, 就是本能! 在最新作「Monster Hunter: World」中, 玩家可以體驗終極的狩獵生活, 活用新建構的世界中各種各樣的地形 與生態環境享受狩獵的驚喜與興奮。','1800','角色扮演',
+'2020-04-12','2020-07-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale5.jpg', Single_Blob)as gamepic
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Sekiro: Shadows Die Twice','在由開發商FromSoftware（Dark Souls系列的製作單位）的全新歷險中開拓你的復仇之路。 勇猛復仇，挽回榮譽，巧妙殺敵。 ','1033','動作',
+'2020-04-12','2020-07-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale6.jpg', Single_Blob)as gamepic
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'For The King','For The King是一款結合桌遊和 roguelike 類型元素的跨越領域戰略型 RPG 遊戲。可以在線和單機進行單人或多人合作的遊戲體驗。','318','策略',
+'2020-04-12','2020-08-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale7.jpg', Single_Blob)as gamepic
 go
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Mount & Blade II: Bannerlord','The horns sound, the ravens gather. An empire is torn by civil war. Beyond its borders, new kingdoms rise. Gird on your sword, don your armour, summon your followers and ride forth to 
   win glory on the battlefields of Calradia. Establish your hegemony and create a new world out of the ashes of the old.','1399','策略',
+'2020-04-12','2020-08-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale8.jpg', Single_Blob)as gamepic
 go
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'The Witcher 3: Wild Hunt','當戰火在北方領域延燒，傑洛特將接下終其一生最重大的委託：追尋可以撼動世界的武器，預言之子的下落。','868','角色扮演',
+'2020-04-12','2020-08-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale9.jpg', Single_Blob)as gamepic
 go
 
-INSERT INTO Product(productName,intro,price,tag, productImage)
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'Divinity: Original Sin 2','The eagerly anticipated sequel to the award-winning RPG. Gather your party. Master deep, tactical combat. Join up to 3 other players - but know that only one of you will have the chance 
   to become a God.','1038','角色扮演',
+'2020-05-12','2020-09-30',
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale10.jpg', Single_Blob)as gamepic
 go
 
@@ -129,8 +139,10 @@ Create Table OrderDetail(
    Foreign Key (productId) References Product(productId),
 )
 go
+
 select * from OrderDetail
 go
+
 Create Table Comment(
    comId int identity(1,1),
    userId int,
