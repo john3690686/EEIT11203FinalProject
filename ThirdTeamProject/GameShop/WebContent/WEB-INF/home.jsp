@@ -7,7 +7,6 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GameGuild~Enjoy your gameLife here~</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- css for phone -->
     <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
@@ -16,6 +15,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/gameshop.js"></script>
+	<title>GameGuild~Enjoy your gameLife here~</title>
 	
 <style>
  

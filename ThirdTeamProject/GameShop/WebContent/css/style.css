@@ -612,7 +612,7 @@ fieldset{
 }
 .infobutton {
   width:120px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: #14396A;
   font-size: 16px;
@@ -628,7 +628,7 @@ fieldset{
 }
 
 .wishbutton{   
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: rgb(71, 70, 16);
   font-size: 16px;
@@ -644,7 +644,7 @@ fieldset{
 }
 .cartbutton{
   width:120px;
-  font-family: ��嚙踐�縣��嚙踝蕭;
+  font-family: Microsoft JhengHei;
   font-weight: bold;
   color: #6A2217;
   font-size: 16px;
@@ -829,7 +829,7 @@ transition: background-color .3s;
    text-shadow: #918888 1px 1px 0px;
    color: #000000;
    font-size: 16px;
-   font-family: '��嚙踐�縣��嚙踝蕭';
+   font-family: Microsoft JhengHei;
    text-decoration: none;
    font-weight: bold;
 }
