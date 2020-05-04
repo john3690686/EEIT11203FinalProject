@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="css/jquery-ui.theme.min.css" /> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/gameshop.js"></script>
-<title>EVENT</title>
+<title>最新消息</title>
 
 <style type="text/css">
 
@@ -53,7 +53,7 @@ body{
 <!--Main-->
 <div class="bgevent">
 	<div class="titledec">
-        <div class="titletext">活動資訊</div>
+        <div class="titletext">最新消息</div>
     </div>
 
 		<fieldset>

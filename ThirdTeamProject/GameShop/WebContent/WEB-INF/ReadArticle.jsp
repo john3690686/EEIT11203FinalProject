@@ -28,29 +28,6 @@ p{
 	font-weight:bold;
 }
 
-/* .articlePage{ 
-	margin: auto;
-	width: 80%; 
-	border-style : solid;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ADADAD;
-}
-	 */
-/* textarea{
-	margin-left:20px;
-	width: 80%; 
-} */
-/* .remess{
-	font-size:13px;
- 	margin-top:10px; 
-	margin-left:50px;
-	padding:5px;
-	background-color:#FFEEDD;
-	width: 75%;
-}
- */
-
 </style>
 </head>
 

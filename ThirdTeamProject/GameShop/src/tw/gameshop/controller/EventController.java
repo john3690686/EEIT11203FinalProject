@@ -1,10 +1,15 @@
 package tw.gameshop.controller;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jdt.internal.compiler.util.Sorting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import tw.gameshop.user.model.Game_EventService;
 import tw.gameshop.user.model.Product;
+import tw.gameshop.user.model.ProductService;
 import tw.gameshop.user.model.Comment;
 import tw.gameshop.user.model.Game_Event;
 
@@ -32,10 +38,12 @@ import tw.gameshop.user.model.Game_Event;
 public class EventController {
 
 	private Game_EventService eventService;
+	private ProductService pService;
 
 	@Autowired
-	public EventController(Game_EventService eventService) {
+	public EventController(Game_EventService eventService, ProductService pService) {
 		this.eventService = eventService;
+		this.pService = pService;
 	}
 	
 	@RequestMapping(path = "/processHomePage",method = RequestMethod.GET)
@@ -123,20 +131,41 @@ public class EventController {
 	
 	// use id to find event and show it
 		@RequestMapping(path="/searchEvent{urlname}", method=RequestMethod.GET)
-		public String findEventById(@ModelAttribute("searchGo")Game_Event myEvent, 
+		public String findEventById(@ModelAttribute("searchGo2")Game_Event myEvent, 
 		@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
 					
 				urlName = String.valueOf(myEvent.getEventId());
+				Game_Event findEvent = eventService.queryEvent(myEvent.getEventId());
 				
 				model.addAttribute("eventId", myEvent.getEventId());
-				model.addAttribute("eventName", myEvent.getEventName());
-				model.addAttribute("eventContent", myEvent.getContent());
-				model.addAttribute("sDate", myEvent.getStartDate());
-				model.addAttribute("eDate", myEvent.getEndDate());
+				model.addAttribute("productId", findEvent.getProductId());
+				model.addAttribute("eventName", findEvent.getEventName());
+				model.addAttribute("eventContent", findEvent.getContent());
+				model.addAttribute("sDate", findEvent.getStartDate());
+				model.addAttribute("eDate", findEvent.getEndDate());
+				
+				Product findProduct = pService.queryById(myEvent.getEventId());
+				model.addAttribute("productName", findProduct.getProductName());
 				
 				return "showEventResult";
 }	
-	
+	// show event pic
+		@RequestMapping(path="/eventImage", method=RequestMethod.GET) 
+		public void processAction(@RequestParam("eventId") String eventId, HttpServletResponse response, Model model) throws IOException {
+
+			int neoEventId = Integer.parseInt(eventId);
+			Game_Event myEvent = eventService.queryEvent(neoEventId);
+			response.setContentType("image/png");
+			ServletOutputStream os = response.getOutputStream();
+			byte[] image = myEvent.getEventImage();
+			InputStream ISimage = new ByteArrayInputStream(image);
+			byte[] bytes = new byte[8192];
+			int len = 0;
+			while ((len  = ISimage.read(bytes)) != -1) {
+				os.write(bytes, 0, len);
+			}
+		}
+		
 	@RequestMapping(path = "/updateEvent",method = RequestMethod.POST)
 	public String updateEvent(@RequestParam("productId1")int productId,@RequestParam("startDate1")String startDate, 
 			@RequestParam("eventName1")String eventName,@RequestParam("content1")String content,

@@ -13,7 +13,7 @@
 
 <style type="text/css">
 body{
-	font-family:微軟正黑體;
+	font-family:Microsoft JhengHei;
 	background:url(img/shopbg.jpg) no-repeat;
 	background-attachment: fixed;
 }
@@ -59,8 +59,8 @@ body{
     </tr>
     <!--#3 BUY & WISH button-->
     <tr>
-    	<td><input type="button" class="buythis" value="BUY"></td>
-    	<td><input type="button" class="wishthis" value="WISH"></td>
+    	<td><input type="button" class="buythis" value="加入購物車"></td>
+    	<td><input type="button" class="wishthis" value="加入願望清單"></td>
     </tr>
 
     <!--#4 Create Comment-->
@@ -85,7 +85,12 @@ body{
     	<%@include file="showComment.jsp" %>
    		</td>
     </tr>
-
+    
+    <tr>
+    	<td colspan="2">
+    	<a href="Shop"><input type="button" class="morebutton" value="回到商店首頁"></a>
+	</tr>
+	
 </table>
 
 </div>
