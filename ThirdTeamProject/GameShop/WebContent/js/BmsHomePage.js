@@ -44,7 +44,13 @@ $(window).on('load', function () {
             txt += "</tr>"
         }
         $("#productDiv").show().siblings().hide()
-        $("#productDiv").find("tbody#productList").html(txt)
+        
+        if($("#insProduct").text()!="新增產品"){
+        	$("#iPDiv").hide()
+        	$("#productListTable").show()
+        	$("ul.pagination").show()
+        }
+        $("#productDiv").find("tbody#productList").html(txt).show()
 
         //對修改/刪除的按鈕新增事件 (刪除)
         $(".upl,.del").on("click", function () {
@@ -138,12 +144,14 @@ $(window).on('load', function () {
     
     //新增/修改商品中的送出按鈕
     $("input#sendProductBean").on("click", function() {
+    	alert($("select[name=tagList]").val())
+    	alert(parseInt($("select[name=tagList]").val())+8)
     	var formdata = new FormData();
     	formdata.append("id" , $("input[name=pId]").val())
     	formdata.append("pName" , $("input[name=pName]").val())
     	formdata.append("price" , $("input[name=price]").val())
     	formdata.append("intro" , $("input[name=price]").val())
-    	formdata.append("tag" , tagList($("input[name=tagList]").val()+8))
+    	formdata.append("tag" , tagList[parseInt($("select[name=tagList]").val())+8])
     	formdata.append("uplTime" , $("input[name=uplTime]").val())
     	formdata.append("dwlTime" , $("input[name=dwlTime]").val())
     	formdata.append("file" , $("input#pfile").get(0).files[0])
@@ -528,7 +536,15 @@ var tagList = [
     "AVG",// "冒險",
     "ETC",// "休閒",
     "SPG",// "運動",
-    "Horror"// "恐怖" 
+    "Horror",// "恐怖" 
+    "策略",
+    "角色扮演",
+    "射擊",
+    "模擬",
+    "冒險",
+    "休閒",
+    "運動",
+    "恐怖"
 ]
 
 //產品狀態表

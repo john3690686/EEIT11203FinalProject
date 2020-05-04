@@ -80,7 +80,7 @@ public class BmsController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "/bms/productJsonView", method = RequestMethod.GET)
+	@RequestMapping(path = {"/bms/productJsonView", "/productJsonView"}, method = RequestMethod.GET)
 	public List<Product> SelectProductAllJson() throws SQLException {
 		return pService.queryAll();
 	}
