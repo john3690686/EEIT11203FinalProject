@@ -12,10 +12,19 @@
 <link rel="shortcut icon" href="img/favicon.ico"/>
 
 <title>購買紀錄</title>
+<style>
+body{
+	font-family:微軟正黑體;
+	background:url(img/skytower.jpg) no-repeat;
+	background-size: cover;
+}
+
+</style>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-
+<table id="t1"></table>
 <script type="text/javascript">
 window.onload = function(){
 	$.ajax({
@@ -24,34 +33,40 @@ window.onload = function(){
 		dataType:"json",
 		success:function(data){
 			console.log(data);
-			console.log(data[0][0].payResult);
 			var record;
 			var payStatus;
 			for (var i=0;i<data.length;i++){
-				var d = new Date(data[i][0].buyDate).toLocaleDateString();
-				var date = "<h2>"+d+"</h2>";
-				var thead = "<table>";
+				var date = new Date(data[i][0].buyDate).toLocaleDateString();
 				var table="";
+				var d1 = "<td>"+date+"</td>"
 				var totalPrice=0;
+				var thead = "<tr><td>";
 				for(var j=0;j<data[i].length;j++){
-				var tr = "<tr><td>"+(j+1)+"</td><td>"+data[i][j].productName+"</td><td>"+data[i][j].price+"</td></tr>";
-				table +=tr;
+				var trName = "<p>"+data[i][j].productName+" "+data[i][j].price;
+				var br = "<br>";
+				table +=trName+br;
+				console.log(table);
 				var p = data[i][j].price;
 				totalPrice += p; 
 				}
-				var total = "<tr><td></td><td>總計</td><td>"+totalPrice+"</td>";
+				var ttail = "</td>";
+				var total = "<td>"+totalPrice+"</td>";
 				if(data[i][0].payResult=='Y'){
 					payStatus="<td><input type='button' id='payY' value='已結帳'></td></tr>";
 					}else{
-						payStatus="<td><input type='button' id='payN' value='去結帳'></td></tr>";
+						payStatus="<td><input type='button' id='payN' value='去結帳' onclick='goPay("+data[i][0].orderId+")'></td></tr>";
 						}
-				var ttail = "</table>";
-				record =date+thead+table+total+payStatus+ttail; 
-			$("body").append(record);
+				record = thead+table+ttail+total+d1+payStatus;
+				console.log(record);
+			$("#t1").append(record);
 				}
 			}
 		})
 };
+
+function goPay(orderId){
+	window.location.href="PayOrder?orderId="+orderId;
+}
 </script>
 </body>
 </html>
