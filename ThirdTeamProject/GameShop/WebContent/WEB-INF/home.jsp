@@ -24,9 +24,6 @@ body{
 	/* background:url(img/SkyTower2.jpg) no-repeat; */
 } 
 
-
-
-
 </style>
 </head>
 
