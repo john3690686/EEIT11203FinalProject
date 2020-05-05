@@ -64,7 +64,7 @@ body{
 			<hr>
 			<label>詳細資訊</label><br />
 			<label style="width:60px">性別:</label>
-			<input type="radio" class="gender" name="gender" value="m" checked="checked">
+			<input type="radio" class="gender" name="gender" value="m">
 			<label class="gender">男</label>
 			<input type="radio" class="gender" name="gender" value="f">
 			<label class="gender">女</label>
@@ -76,9 +76,10 @@ body{
 			<label for="phone">電話:</label><input type="text" id="phone" name="phone"><br /><br />
 			<button class="registerconfirm">確認</button><input class="cancel_btn" type="button" value="取消">
 		</form>
+		<div class="message"></div>
 	</fieldset>
 </div>
-	<div class="message"></div>
+	
 	<a href="index.html"><input type="button" class="morebutton" style="margin-top:50px;" value="回到首頁"></a>
 	
 	<!--footer-->
@@ -124,6 +125,13 @@ body{
 					$("#birthday").val(data.birthday);
 					$("#address").val(data.address);
 					$("#phone").val(data.phone);
+					if(data.gender == "m"){
+						$("input.gender").eq(0).attr("checked","checked");
+					}else if(data.gender == "f"){
+						$("input.gender").eq(1).attr("checked","checked");
+					}else{
+						$("input.gender").eq(2).attr("checked","checked");
+					}
 					if (data.userImg == null || data.userImg == 0) {  
 						$(".imgUserPhoto").attr("src", "img/defaultUserImg.jpg");
 					} else {

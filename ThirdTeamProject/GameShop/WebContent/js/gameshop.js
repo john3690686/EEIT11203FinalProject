@@ -98,6 +98,7 @@ $(document).ready(function () {
                         errorAcc = 1;
                     }else{
                         $("#checkAccount img").attr("src", "img/Right.png");
+                        
                         errorAcc = 0;
                     }
                 },error: function(){
@@ -126,10 +127,10 @@ $(document).ready(function () {
                     if(data){
                         alert("此暱稱已存在");
                         $("#checkNickName img").attr("src", "img/Wrong.png");
-                        errorAcc = 1;
+                        errorNickName = 1;
                     }else{
                         $("#checkNickName img").attr("src", "img/Right.png");
-                        errorAcc = 0;
+                        errorNickName = 0;
                     }
                 },error: function(){
                     console.log("連線失敗");
@@ -174,10 +175,10 @@ $(document).ready(function () {
                     if(data){
                         alert("此信箱已存在");
                         $("#checkMail img").attr("src", "img/Wrong.png");
-                        errorAcc = 1;
+                        errorMail = 1;
                     }else{
                         $("#checkMail img").attr("src", "img/Right.png");
-                        errorAcc = 0;
+                        errorMail = 0;
                     }
                 },error: function(){
                     console.log("連線失敗");
@@ -192,6 +193,7 @@ $(document).ready(function () {
     //confirm
     $(".registerconfirm").click(function (e) {
         e.preventDefault();
+        console.log(errorAcc+","+errorNickName+","+errorPwd+","+errorMail)
         if (errorAcc == 0 && errorNickName == 0 && errorPwd == 0 && errorMail == 0) {
             var form = $(".registerForm form")[0];
             var formdata = new FormData(form);

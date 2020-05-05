@@ -8,6 +8,8 @@ $(window).on('load', function () {
             eventView()
         }
     })
+    
+//    alert((new Date()).format("yyyy/MM/ddThh:mm:ss"))
 
     // Menu 點擊活動後呼叫之函數
     function eventView() {
@@ -23,8 +25,8 @@ $(window).on('load', function () {
 		$.getJSON(urlStr, function( jdata ){
              productList = jdata;
              productView();
-         })
-     }
+        })
+    }
 
     // Menu點擊商品後呼叫之函數
     // 將Json物件[Product]轉成表格並顯示
@@ -39,6 +41,7 @@ $(window).on('load', function () {
             txt += "<td class='pStatus'>" + pStatus[saleStatus+3] + "</td>"
             txt += "<td>" + productList[i].productId + "</td>"
             txt += "<td>" + productList[i].productName + "</td>"
+            txt += "<td>" + productList[i].tag + "</td>"
             txt += "<td>" + productList[i].price + "</td>"
             txt += "<td>" + productList[i].uploadTime + "</td>"
             txt += "<td>" + productList[i].downloadTime + "</td>"
@@ -88,7 +91,11 @@ $(window).on('load', function () {
                 $("#iPDiv").find("input[type=text][name=tag]").val(p.tag)
                 $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag)-8)
                 $("#iPDiv").find("textarea[name=intro]").val(p.intro)
-                $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
+                if(p.productImage != null){
+                	$("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
+                }else{
+                	$("#iPDiv").find("img#Preview").attr("src", imgDefault)
+            	}
                 $("#iPDiv").find("input[type=date][name=uplTime]").val(left(p.uploadTime,10))
                 $("#iPDiv").find("input[type=date][name=dwlTime]").val(left(p.downloadTime,10))
                 // 現在的時間已經超過上架時間(即為已經開始販售之商品)不可再修改上架時間
@@ -117,8 +124,10 @@ $(window).on('load', function () {
             if(!productEdit){
                 $("#insProduct").text("放棄" + actionName)
                 $("#iPDiv").find("input[type=text],input[type=Date]").val("")
+                $("#iPDiv").find("input[type=Date]").val((new Date()).format("yyyy/MM/dd"))
                 $("#iPDiv").find("textarea").val("")
                 $("#iPDiv").find("img").attr("src", imgDefault)
+                $("#iPDiv").find("input[type=file]").val("")
                 $("#iPDiv").show()
                 // $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled',
 				// false)
@@ -145,6 +154,7 @@ $(window).on('load', function () {
             $("#iPDiv").find("img#Preview").attr("src", imgDefault)
             $("#iPDiv").find("select[name=tagList]").val(0)
         }
+        $("#iPDiv").find("input[type=file]").val("")
     })
     
     // 新增/修改商品中的送出按鈕
@@ -256,9 +266,11 @@ $(window).on('load', function () {
             $(this).closest("li.page").addClass("current").siblings().removeClass("current")
             turningPPage($(this).text())
         })
-
+        
         // 讓一開始都在第一頁
-        turningPPage(1)
+        $("li.page>a").eq(0).click()
+
+
     }
 // ------------------------------------------ 以下為活動的 JS -------------------------------------------------
 //活動標籤跳選

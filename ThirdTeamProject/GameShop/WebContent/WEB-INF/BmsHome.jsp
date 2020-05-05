@@ -24,7 +24,7 @@
         <div class="header">
             <h1>GameGuild's 後臺管理系統</h1>
             <div class="logout">
-	        	<a href="Logout">登出</a>
+	        	<a href="Logout"><b>登&nbsp;出</b></a>
 	        </div>
         </div>
         
@@ -41,9 +41,10 @@
                 <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
                 
                 <div id="productDiv" class="section" hidden>
-                    <button id="insProduct" class="button">新增產品</button>
-                    <button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
-
+                    <div id="productListMenu" class="productListMenu">
+	                    <button id="insProduct" class="button">新增產品</button>
+	                    <button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
+					</div>
                     <div id="iPDiv" hidden>
                         <form action="xxxController" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="pId">
@@ -98,6 +99,7 @@
                                 <td>產品狀態</td>
                                 <td>產品編號</td>
                                 <td>產品名稱</td>
+                                <td>分類</td>
                                 <td>價格</td>
                                 <td>上架時間</td>
                                 <td>下架時間</td>
