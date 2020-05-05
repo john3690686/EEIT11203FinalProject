@@ -167,6 +167,7 @@ Create Table Wish(
    Foreign Key (productId) References Product(productId),
 )
 go
+
 select * from Wish
 go
 
@@ -253,7 +254,7 @@ select '1','《黑暗靈魂 Remastered》將於 5 月 11 日至 5 月 12 日舉�
 '台灣萬代南夢宮娛樂今（2）日宣布，FROMSOFTWARE Inc .開發，預定於 2018 年 5 月 24 日正式發售的動作角色扮演遊戲《黑暗靈魂 Remastered》PlayStation 4／Xbox One 版將會舉行網路伺服器功能公開測試，藉由本次大規模的網路壓力測試以驗證連線系統機能，提升正式發售時的連線遊玩品質。',
 '2018-05-11','2018-05-24',
 BulkColumn from Openrowset( Bulk N'E:\01.jpg', Single_Blob)as gamepic
-
+go
 
 
 

@@ -92,6 +92,10 @@ public class ArticleDAO {
 			json.put("articleTitle", li.getArticleTitle());
 			json.put("articleAbstract", li.getArticleAbstract());
 			json.put("articleContent", li.getArticleContent());
+			
+			String nickname = querynickname(userId);
+			json.put("nickname", nickname);
+			
 			json.put("articleThumbnail", li.getArticleThumbnail());
 			json.put("postDatetime", li.getPostDatetime());
 			json.put("updateDatetime", li.getUpdateDatetime());
@@ -100,7 +104,6 @@ public class ArticleDAO {
 
 		String jsonstr = jsonAr.toString();
 		String json = jsonstr.replaceAll(":null,", ":\"null\",");
-		System.out.println(json);
 		return json;
 	}
 
