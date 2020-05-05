@@ -126,7 +126,7 @@ p{
 					txt += "<div class = 'readArticle'>";
 					txt += "<div class='title'>"+books[i].articleTitle;
 					txt += "</div>";
-					txt += "<div class='authoranddate'> 作者: ${sessionScope.nickname} | 發表時間: " + books[i].postDatetime;
+					txt += "<div class='authoranddate'> 作者: "+ books[i].nickname +" | 發表時間: " + books[i].postDatetime;
 					txt += "<form id='deleteArticle' action='deleteArticle' method='POST' style='float:right;'></form>";				
 					txt += "<form id='editorArticle' action='gotoUpdataPage' method='POST' style='float:right;'></form></div>";	
 					txt += "<hr/>";  // 加一條裝飾分隔線
