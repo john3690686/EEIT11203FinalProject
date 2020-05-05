@@ -236,9 +236,25 @@ body{
         </div>
     </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 
+//topButton & wish
+var needLogin = function(){
+    if($(".loginz").val() == "Login"){
+        alert("請先登入");
+    }
+}
+$(".wishlist").click(needLogin);
+
+$(".topbutton").hide();
+var winHeight = $(window).height();
+$(window).scroll(function(){
+    if($(window).scrollTop() >= winHeight){
+        $(".topbutton").show();
+    }else{
+        $(".topbutton").hide();
+    }
+})
 // 背景圖片效果
 (function () {
     const canvas2 = document.querySelector('.bg-canvas');

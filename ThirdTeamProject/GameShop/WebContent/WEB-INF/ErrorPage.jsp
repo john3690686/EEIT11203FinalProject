@@ -7,6 +7,6 @@
 </head>
 <body>
 <h1>${errorMessage}</h1>
-<h1><a href="index.html">回到首頁</a></h1>
+<h1><a href="http://localhost:8080/GameShop/index.html">回到首頁</a></h1>
 </body>
 </html>
