@@ -16,7 +16,7 @@
 <style>
 body{
 	font-family: Microsoft JhengHei;
-	background:url(img/skytower.jpg) no-repeat;
+	background:url(img/wishbg.jpg) no-repeat;
 	background-size: cover;
 }
 
@@ -47,7 +47,9 @@ body{
 
 	<br/><br/>
 	<table class="wishList">
-	<tr><td colspan="4"><H1><span style="color:rgb(106, 241, 241)">${nickName}</span> 的願望清單</H1></td></tr>
+		<tr>
+		<td colspan="4"><H1><span style="color:rgb(106, 241, 241)">${nickName}</span> 的願望清單</H1></td>
+		</tr>
 		
 		<c:forEach var="wish" items="${wish}" varStatus="pk">
 		<tr>
@@ -64,6 +66,8 @@ body{
 		</tr>
 		</c:forEach>
 	</table>
+	
+	<a href="Shop"><input type="button" class="morebutton" value="回到商店"></a>
 
 </div>
 

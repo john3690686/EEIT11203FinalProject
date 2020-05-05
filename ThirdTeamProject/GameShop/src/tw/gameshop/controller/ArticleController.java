@@ -5,9 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
+//import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+//import org.hibernate.query.Query;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tw.gameshop.user.model.ArticleMessageService;
 import tw.gameshop.user.model.ArticleService;
-import tw.gameshop.user.model.P_Profile;
+//import tw.gameshop.user.model.P_Profile;
 import tw.gameshop.user.model.ReplyMessageService;
 
 @Controller
@@ -39,7 +39,7 @@ public class ArticleController {
 	private String userAccount;
 	private String nickname;
 
-	private SessionFactory sessionFactory;
+//	private SessionFactory sessionFactory;
 
 
 	public ArticleController() {
@@ -49,7 +49,7 @@ public class ArticleController {
 	public ArticleController(
 			@Qualifier(value = "sessionFactory") SessionFactory sessionFactory,
 			ArticleService aService, ArticleMessageService artMesService, ReplyMessageService rmService) {
-		this.sessionFactory = sessionFactory;
+//		this.sessionFactory = sessionFactory;
 		this.aService = aService;
 		this.artMesService = artMesService;
 		this.rmService = rmService;
@@ -72,8 +72,6 @@ public class ArticleController {
 		
 		session.setAttribute("nickname", nickname);
 		
-		System.out.println("=============>userId is: "+userId);
-		System.out.println("=============>nickname is: "+nickname);
 //		===================================
 		
         //熱門文章排行

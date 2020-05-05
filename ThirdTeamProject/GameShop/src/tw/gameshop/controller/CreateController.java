@@ -37,14 +37,14 @@ public class CreateController {
 		this.comment = comment;
 	}
 
-	// 新增評論, 完成後連接到顯示評論的網頁
+	// add comments
 	@ResponseBody
 	@RequestMapping(path = "/commentgo", method = { RequestMethod.GET, RequestMethod.POST })
 	public String createCom(@RequestParam("id") String id, @RequestParam("comments") String scomment, ModelMap model) {
 
 		int productid = Integer.parseInt(id);
 		int userId = (int) model.getAttribute("userId");
-		// 接session內的userId
+
 		comment.setUserId(userId);
 		comment.setProductId(productid);
 		comment.setComment(scomment);
@@ -56,23 +56,23 @@ public class CreateController {
 
 		cService.insertData(comment);
 
-		return "新增成功!";
+		return "hi";
 	}
 
-	// 修改評論
+	// update comment
 	@ResponseBody
 	@RequestMapping(path = "/updateComment", method = RequestMethod.POST)
 	public String UpdateCom(@RequestParam("showComId") String id, @RequestParam("comments") String newComments,
 			ModelMap model) {
 		int comId = Integer.parseInt(id);
 		int userId = (int) model.getAttribute("userId");
-		// 接session內的userId
+
 		comment.setUserId(userId);
 		cService.updateData(comId, newComments);
 		return "update!";
 	}
 
-	// 刪除指定id評論
+	// delete comment
 	@ResponseBody
 	@RequestMapping(path = "/deleteCom", method = RequestMethod.GET)
 	public String deleteCom(@RequestParam("id") String id, ModelMap model) {
@@ -80,14 +80,13 @@ public class CreateController {
 		int comId = Integer.parseInt(id);
 		int userId = (int) model.getAttribute("userId");
 
-		// 接session內的userId
 		comment.setUserId(userId);
 		cService.deleteData(comId);
 
 		return "deleted!";
 	}
 
-	// 查詢所有評論
+	// nickname
 	@ResponseBody
 	@RequestMapping(path = "/searchCom2", method = { RequestMethod.GET, RequestMethod.POST })
 	public List<ComandPro> searchNickname(@RequestParam("id") String id) {

@@ -40,7 +40,7 @@ public class ShowShopController {
 		this.cService = cService;
 	}
 	
-	// 商品主頁
+	// for main shop
 	@RequestMapping(path="/Shop", method=RequestMethod.GET)
 	public String shopIndex(Model model) {
 		model.addAttribute("searchGo", new Product());
@@ -51,16 +51,11 @@ public class ShowShopController {
 		return "Shop";
 	}
 	
-	// 以遊戲名稱搜尋產品
+	// for single search
 	@RequestMapping(path="/searchGame{urlname}", method=RequestMethod.GET)
 	public String findGameByName(@ModelAttribute("searchGo")Product myProduct, 
 	@PathVariable("urlname")String urlName, BindingResult result, ModelMap model) throws IOException{
-		
-//		if(result.hasErrors()) {
-//		System.out.println("error");
-//		return "Shop";										// 回到商店主頁
-//	}
-		
+				
 		String mygame= myProduct.getProductName();
 		Product findResult = pService.queryByName(mygame);
 		
@@ -82,7 +77,7 @@ public class ShowShopController {
 			return "searchResult";
 			
 		}else {	
-			return "Shop";          // 搜尋空白或失敗會回到商店主頁
+			return "Shop";
 		}
 }
 	
@@ -101,14 +96,14 @@ public class ShowShopController {
 		}
 	}
 	
-	// 搜尋所有商品
+	// for show all product in page
 	@ResponseBody
 	@RequestMapping(path = "/JsonProducts.controller", method = RequestMethod.GET)
 	public List<Product> processActionTest() {
 		return pService.queryAll();
 	}
 	
-	// 回傳資料庫內的遊戲名稱(快速完成用)
+	// for autocomplete
 	@ResponseBody
 	@RequestMapping(path = "/showProductName", method = RequestMethod.GET)
 	public List<String> showProductName(@RequestParam("jsondata")String key){

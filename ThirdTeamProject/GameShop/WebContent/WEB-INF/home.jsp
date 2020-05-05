@@ -114,7 +114,7 @@ body{
                         	
                         <label for="nickName">暱稱:</label><input type="text" id="nickName" name="nickName" placeholder="評論區顯示名稱">
                         <div class="check" id="checkNickName"><img src=""><span></span></div><br />
-                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="包含大小寫及數字的6~12位密碼">
+                        <label for="userPwd">密碼:</label><input type="password" id="userPwd" name="userPwd" placeholder="包含大小寫及數字6~12位">
                         <div class="check" id="checkPwd"><img src=""></div><br />
                         <label for="recheckPwd">確認密碼:</label><input type="password" id="recheckPwd" name="recheckPwd" placeholder="再次輸入密碼">
                         <div class="check" id="recheckPwd"><img src=""></div><br />	
@@ -127,7 +127,7 @@ body{
                         <input type="radio" class="gender" name="gender" value="m" checked="checked"><label class="gender">男</label>
                         <input type="radio" class="gender" name="gender" value="f"><label class="gender">女</label>
                         <input type="radio" class="gender" name="gender" value="o"><label style="width:50px">其他</label><br />
-                        <label for="birthday">生日:</label><input type="date" id="birthday" name="birthday"><br />
+                        <label for="birthday">生日:</label><input type="date" id="birthday" name="birthday" style="width:170px"><br />
                         <label for="address">地址:</label><input type="text" id="address" name="address"><br />
                         <label for="phone">聯絡電話:</label><input type="text" id="phone" name="phone"><br />
 
@@ -231,7 +231,7 @@ body{
 <!--footer-->
     <footer style="margin-top:50px;">
         <div class="foot">
-            <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
+            <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production<a href="bmsLoginPage"><img src="img/Info_icon.png"></a></H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
         </div>
     </footer>

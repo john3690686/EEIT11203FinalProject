@@ -5,13 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GameGuild~Enjoy your gameLife here~</title>
 <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
+	rel="stylesheet">
 <!-- css for phone -->
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <!-- favicon -->
 <link rel="shortcut icon" href="img/favicon.ico"/>
-<title>My Article Page</title>
+<title>我的創作</title>
 
 <style type="text/css">
 
@@ -101,7 +102,7 @@ body{
 					txt += "<div><img class='articleImg' id='articleImg_"+i+"' alt='圖片失效'></div>";
 					txt += "<div class = 'article'>";
 					txt += "<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"'><div class='title'>" + books[i].articleTitle+ "</div></a>";
-					txt += "<div class='authoranddate'> 作者: " + books[i].userId + " | " + books[i].postDatetime + "</div>";
+					txt += "<div class='authoranddate'> 作者: " + books[i].nickname + " | " + books[i].postDatetime + "</div>";
 
 					txt += "<div class='abstract'>"+books[i].articleAbstract + "....(<a href='/GameShop/processReadArticle?articleID="+ books[i].articleID +"' >繼續閱讀</a>)</div>";
 					txt += "</div></div>";

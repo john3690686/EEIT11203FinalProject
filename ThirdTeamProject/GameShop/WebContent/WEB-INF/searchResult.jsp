@@ -5,13 +5,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
+	rel="stylesheet">
 <!-- css for phone -->
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <!-- favicon -->
 <link rel="shortcut icon" href="img/favicon.ico"/>
+<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/gameshop.js"></script>
 <title>GameShop</title>
+=======
+<title>瀏覽 ${productName}主頁面</title>
+>>>>>>> dbc606e591fb78b3f4d430c4f13fedd344a6d903
 
 <style type="text/css">
 body{
@@ -90,7 +96,7 @@ body{
     
     <tr>
     	<td colspan="2">
-    	<a href="Shop"><input type="button" class="morebutton" value="回到商店首頁"></a>
+    	<p><a href="Shop"><input type="button" class="morebutton" value="回到商店"></a></p>
 	</tr>
 	
 </table>
@@ -127,8 +133,12 @@ window.onload = function(){
 
 			if (data.length!=0){
 				for(i=0; i<data.length; i++){
+
+				var neoTime = data[i].postDatetime.slice(0,-2);
+
 				var row = "<tr><td class='useridtag'>"+data[i].nickName+"</td><td class='com' id='newcom'>"+data[i].comment+"</td><td>"
-				+data[i].postDatetime+"</td><td class='comId' hidden>" + data[i].comId +"</td>";
+				+neoTime+"</td><td class='comId' hidden>" + data[i].comId +"</td>";
+
 				if(data[i].userId==${userId}){
 					edit = "<td><input type='button' id='updateCom' value='編輯'>  <input type='button' id='deleteCom' value='刪除'></td>";
 					row += edit;

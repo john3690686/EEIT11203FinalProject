@@ -1,46 +1,77 @@
+/*  CSS 英文字形 Shadows Into Light 
+font-family: 'Shadows Into Light', cursive;
+font-family: 'Press Start 2P', cursive;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Shadows+Into+Light&display=swap');
+
+@font-face {
+  font-family: bmsDefaultFontStyle;
+  unicode-range: U+4E00-9FFF; /* Unicode  */
+  src: local(Microsoft JhengHei); /* 先找 Helvetica ，沒有的話用 Arial */
+}
+
+*{
+	font-family: bmsDefaultFontStyle, Arial;
+}
+
+body {
+	background-image:url('../img/BmsBGI.jpg');
+	background-repeat: repeat;
+	background-color: #CDCD9A;
+}
+
+h1 {
+    font-family: bmsDefaultFontStyle, 'Press Start 2P', cursive;
+}
+
 .bms > .main {
     /* width: 72%; */
+    padding-left: 30px;
     margin: 0 auto;
     float: left;
 }
 
 .bms > .header {
     height: 100px;
-    background-color: aquamarine;
+    background-color: rgb(255, 160, 66, 0.5);
+    border-bottom: 2px solid #444;
+    margin-bottom: 20px;
     text-align: center;
     padding-top: 30px;
 /*     position: fixed; */
 }
-
-.bms > .nav > ul {
+.bms > #asideLeft {
     width: 100%;
-    height: 80px;
+    height: 780px;
+}
+.bms > #asideLeft > ul {
+    width: 100%;
+    height: 700px;
     margin: 0;
     list-style-type: none;
     overflow: auto;
     padding: 0;
 }
 
-.bms > .nav > ul > li {
-    background-color: beige;
-    width: 33.33%;
-    height: 100%;
-    float: left;
-    border-radius: 5px;
+.bms > #asideLeft > ul > li {
+    background-color: rgba(215, 231, 73, 0.7);
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
     margin: 0;
 }
 
-.bms > .nav a {
+.bms > #asideLeft a {
     height: 100%;
-    line-height: 80px;
+    
     display: block;
     text-align: center;
 }
 
-.bms > .nav a:link {
+.bms > #asideLeft a:link {
     text-decoration:none;
 }
-.bms > .nav a:hover {
+.bms > #asideLeft a:hover {
     background-color:	#0080FF	;
     color:	#ffffff;
     border-radius:5px;
@@ -53,8 +84,6 @@
     left: 0;
     height: 100vh;
     /* z-index: 999; */
-    background: #7386D5;
-    color: #fff;
     transition: all 0.3s;
 }
 
@@ -72,25 +101,24 @@
 }
 
 .logout {
-	position: fixed;
-    z-index: 99;
-    right: 2em;
+    /* position: fixed; */
+    position: absolute;
+    z-index: 9999;
+    right: 20px;
     top: 3em;
+    height: 4em;
     width: 5em;
-    height: 3em;
-    padding:0;
-    border:0;
     box-shadow:0 0 0 2px #dfdfdf;
     border-radius:4px;
 }
 
-.logout>a{
+.logout > a{
 	width: 100%;
 	height: 100%;
-	line-height: 5em;
+	line-height: 4em;
 	margin: 0;
 	display:inline-block;
-	background-color: #0080c0;
+	background-color:rgb(187, 94, 0, 0.6);
 }
 
 .logout>a:link{
@@ -107,8 +135,61 @@
     display: none;
 }
 
+#productDiv button {
+    margin-bottom: 30px;
+    margin-right: 10px;
+    background-color: #5FCEC0;
+}
 
-/* ----------------- Test product page css ---------------------   */
+/* ----------------- Product Table CSS ------------------------*/
+table#productListTable {
+    /* height: 300px; */
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: rgb(172, 214, 255, 0.4);
+}
+
+table#productListTable tr, td {
+    line-height: 50px;
+    /* max-height: 50px; */
+    height: 50px;
+}
+
+table#productListTable thead tr {
+    background-color: rgb(70, 163, 255, 0.4);
+}
+
+table#productListTable tbody tr {
+    background-color: rgb(132, 193, 255, 0.4);
+}
+
+table#productListTable button{
+    border-radius: 5px;
+    width: 59px;
+    height: 37px;
+    margin: 1px;
+    background-color: rgb(95, 206, 192, 0.5);
+}
+
+table#productListTable td {
+    text-align: center;
+    padding: 2px;
+    width: 75px;
+}
+
+table#productListTable td:nth-child(3) {
+    width: 300px;
+}
+
+table#productListTable td:nth-child(5), td:nth-child(6) {
+    width: 190px;
+}
+
+table#productListTable td:nth-child(7), td:nth-child(8) {
+    width: 70px;
+}
+
+/* ----------------- Test product page css ---------------------*/
 
 ul.pagination{
     cursor:default;

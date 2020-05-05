@@ -10,13 +10,7 @@
 <body>
 
 <div class="createCommentArea">
-
-<!-- <form:form action="commentgo?id=${productId}" method="post" modelAttribute="comments">
-	<span class="useridtag">UserID:${UserId}</span><br><br>
-	<form:textarea cols="50" rows="5" path="Comment"/>
-	<form:button value="Send" >Submit</form:button>
-	</form:form>
- -->	
+	
 	<span class="useridtag">暱稱: ${nickName}</span><br><br>
 	<textarea cols="50" rows="5" id="commentHere" required="required"></textarea>
 	<input type="button" value="發表評論" id="sendComment">

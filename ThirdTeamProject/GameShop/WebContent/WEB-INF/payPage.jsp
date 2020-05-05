@@ -15,9 +15,10 @@
 <style type="text/css">
 body{
 	font-family: Microsoft JhengHei;
-	background:url(img/skytower.jpg) no-repeat;
-	background-size: cover;
+	background:url(img/wishbg.jpg) no-repeat;
+	background-attachment: fixed;
 }
+
 
 </style>
 </head>
@@ -48,10 +49,11 @@ body{
 <br/><br/>
 	<table class="cartList">
 	  <tr>
-		<td colspan="4">
+		<td colspan="2">
 		<H1><span style="color:rgb(106, 241, 241)">${nickName}</span> 的購物車
 		<img src="img/Info_icon.png" title="結帳後會取得遊戲數位版序號，請您務必妥善保存"></H1>
 		</td>
+		<td colspan="2" style="text-align:right"><a href="toOrderRecord"><input type="button" class="morebutton" value="查詢歷史訂單"></a></td>
 	  </tr>
 	  
 	  <c:forEach var="p" items="${cart}">
@@ -73,6 +75,8 @@ body{
 	    <td><input id="pay" type="button" value="結帳"></td>
 	  </tr>  
 	</table>
+	
+	<a href="Shop"><input type="button" class="morebutton" value="回到商店"></a>
 
 </div>
 

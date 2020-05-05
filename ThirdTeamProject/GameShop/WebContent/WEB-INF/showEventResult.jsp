@@ -12,34 +12,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/gameshop.js"></script>
 <title>活動頁面</title>
+<title>${eventName}</title>
 
 <style type="text/css">
 body{
 	font-family:Microsoft JhengHei;
 	background:url(img/eventbg.jpg) no-repeat;
 	background-attachment: fixed;
-}
-.bgevent{
-	position: relative;
-	width:100%;
-	height:200%;
-	top:0;
-    left:0;
-    right:0;
-}
-.shopthis{
-    text-shadow: 1px 1px 1px rgb(243, 200, 200);
-    font-family: Microsoft JhengHei;
-	font-weight:bold;
-	font-size: 20px;
-    background: -webkit-linear-gradient( rgb(141, 191, 248), rgb(70, 154, 223));
-    box-shadow: 2px 2px 2px rgb(74, 88, 104);
-    border-radius: 10px 10px 10px 10px;
-    width:200px;
-    height:50px;
-}
-.shopthis:hover{
-	filter: saturate(3);
 }
 .showProduct td{
 	padding:20px;

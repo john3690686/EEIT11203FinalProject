@@ -13,10 +13,17 @@
 
 <title>購買紀錄</title>
 <style>
-	body{
+
+body{
 	font-family: Microsoft JhengHei;
-	background:url(img/skytower.jpg) no-repeat;
-	background-size: cover;
+	background:url(img/wishbg.jpg) no-repeat;
+	background-attachment: fixed;
+}
+.recordInfo td{
+	text-align:center;
+	background:rgb(0, 0, 0, 0.8);
+	padding:10px;
+}
 	
 	
 </style>
@@ -42,12 +49,21 @@
         <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
 		<a href="#"><input type="button" class="topbutton"></a>
 		
+<!-- show history record -->		
+		<table id="showOrderDetail" class="wishList">
+			<tr>
+			<td colspan="4"><H1><span style="color:rgb(106, 241, 241)">${nickName}</span> 的訂單紀錄</H1></td>
+			</tr>
+			<tr class="recordInfo">
+			<td>商品</td>
+			<td>總計</td>
+			<td>購買日期</td>
+			<td>狀態</td>
+			</tr>
 		
-<table id="showOrderDetail" class="wishList">
-<tr><td colspan="4"><H1>訂單紀錄</H1></td></tr>
+		</table>
 
-</table>
-
+	<p><a href="Shop"><input type="button" class="morebutton" value="回到商店"></a></p>
 
 <!--footer-->
 	<footer>
@@ -76,7 +92,7 @@ window.onload = function(){
 				var totalPrice=0;
 				var thead = "<tr><td>";
 				for(var j=0;j<data[i].length;j++){
-				var trName = "<p>"+data[i][j].productName+" "+data[i][j].price;
+				var trName = "<p style='text-align:left;padding-left:25px'>"+data[i][j].productName;
 				var br = "<br>";
 				table +=trName+br;
 				console.log(table);
@@ -84,7 +100,7 @@ window.onload = function(){
 				totalPrice += p; 
 				}
 				var ttail = "</td>";
-				var total = "<td>"+totalPrice+"</td>";
+				var total = "<td>$<span id='total'>"+totalPrice+"</span></td>";
 				if(data[i][0].payResult=='Y'){
 					payStatus="<td><input type='button' id='payY' value='已結帳'></td></tr>";
 					}else{
