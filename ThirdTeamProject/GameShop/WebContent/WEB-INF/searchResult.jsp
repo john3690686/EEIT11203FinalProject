@@ -11,7 +11,13 @@
 <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
 <!-- favicon -->
 <link rel="shortcut icon" href="img/favicon.ico"/>
+<<<<<<< HEAD
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/gameshop.js"></script>
+<title>GameShop</title>
+=======
 <title>瀏覽 ${productName}主頁面</title>
+>>>>>>> dbc606e591fb78b3f4d430c4f13fedd344a6d903
 
 <style type="text/css">
 body{
