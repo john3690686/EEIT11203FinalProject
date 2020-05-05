@@ -21,8 +21,18 @@
  
 body{
 	font-family: Microsoft JhengHei;
-	/* background:url(img/SkyTower2.jpg) no-repeat; */
 } 
+
+.video{
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 3;
+}
 
 </style>
 </head>
@@ -51,11 +61,14 @@ body{
 <div>
 
 <!--Trailer & Title-->
-<div class="video">
-     <p class="subtitle">
+<!-- <div class="video"> -->
+<p class="subtitle">
         Enjoy<br>Your<br>GameLife<br>
      </p>
-</div>
+<video class="video" muted="muted" preload="none" loop="loop" data-resize="true" autoplay>
+     <source type="video/mp4" src="https://i.imgur.com/GtIhKkJ.mp4">
+</video>     
+<!-- </div> -->
 
 <!--Login & Register#1-->
      <div class="loginArea">
@@ -66,9 +79,9 @@ body{
 <!--Background Effect-->
 <div class="bg">
     <div><img src="img/SkyTower2.jpg" style="width: 100%; height:2500px">
-       <video class="bg-video" loop muted autoplay>
+<!--        <video class="bg-video" loop muted autoplay>
 	   <source src="https://cxc421.github.io/draw-lots/static/media/smoke.9c21ff18.mp4" type="video/mp4">
-	   </video>
+	   </video> -->
      </div>
          <canvas class="bg-canvas"></canvas>
 </div>
@@ -142,7 +155,7 @@ body{
         </div>
 
 <!--Top Event Area-->
-        <div class="titledec" style="margin-top:900px;">
+        <div class="titledec" style="margin-top:950px;">
         	<div class="titletext">最新消息</div>
         </div>
  
@@ -180,12 +193,14 @@ body{
         	<div class="titletext">熱門遊戲</div>
         </div>
 
-		<fieldset>
+	   <fieldset>
 			<figure>
+			
 				<!--輪播已修改完畢(接商品頁面)-->
-				<a id="mainUrl" href="https://store.steampowered.com/">
+				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" style="margin-left:450px" width="460px" height="215px"/>
+				<a id="mainUrl" href="">
 				<canvas id="myCanvas" width="460" height="215">
-                <img id="mainImg1" src="img/sale1.jpg" style="display: none" alt=""/>
+                <img id="mainImg1" src="img/sale1.jpg" style="display: block" alt=""/>
                 <img id="mainImg2" src="img/sale2.jpg" style="display: none" alt=""/>
                 <img id="mainImg3" src="img/sale3.jpg" style="display: none" alt=""/>
                 <img id="mainImg4" src="img/sale4.jpg" style="display: none" alt=""/>
@@ -229,9 +244,9 @@ body{
 </div>          
 
 <!--footer-->
-    <footer style="margin-top:50px;">
+    <footer>
         <div class="foot">
-            <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production</H2>
+            <H2>©COPYRIGHT 2020 EEIT112 GameGuild Production<a href="bmsLoginPage"><img src="img/Info_icon.png"></a></H2>
             <H6>All copyrights and trademarks are the property of their respective owners.</H6>
         </div>
     </footer>
@@ -239,130 +254,151 @@ body{
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 
-// 背景圖片效果
-(function () {
-    const canvas2 = document.querySelector('.bg-canvas');
-    const ctx2 = canvas2.getContext('2d');
-    const video = document.querySelector('.bg-video');
+//  圖片預先載入
+	window.onload = function() {
+	setTimeout(function() {
+	// XHR to request CSS
+	xhr = new XMLHttpRequest();
+	xhr.open('GET', 'css/style.css');
+	xhr.send('');
+	}, 1000);
+	};
 
-    video.addEventListener('play', draw);
-
-    function draw() {
-        canvas2.width = canvas2.clientWidth;
-        canvas2.height = canvas2.clientHeight;
-        if (video.paused || video.ended) return false;
-        ctx2.drawImage(video, 0, 0, canvas2.width, canvas2.height);
-
-        requestAnimationFrame(draw);
-    }
-})();
-    
+	window.setTimeout(defaultImg,2500);	
+	function defaultImg(){
+	document.getElementById("defaultmainImg").style.display="none";
+	}
+	
 //  商品輪播圖片
-        var nowAD = 0;
-        var maxAD = 5;
-        var intervalAD;
-        var intervalTime = 3000;
-        var myCanvas;
-        var ctx;
-        var preImg;
-        var timeouts = [];
-        var backFlag = false;
-        var tempAD = maxAD;
-        document.addEventListener("DOMContentLoaded", init);
+    var nowAD = 0;
+    var maxAD = 5;
+    var intervalAD;
+    var adStatus = true;
+    var intervalTime = 2500;
+    var myCanvas;
+    var ctx;
+    var preImg;
+    var timeouts = [];
+    var backFlag = false;
+    var tempAD = maxAD;
+    
+    document.addEventListener("DOMContentLoaded", init);
+    
+    function init() {
 
-        function init() {
-            genereteChangeBtn();
-            for (let i = 1; i <= maxAD; i++) {
-                document.getElementById("ad" + i).addEventListener("click", changebtn);
-                document.getElementById("myCanvas").addEventListener("mouseover", pause);
-                document.getElementById("myCanvas").addEventListener("mouseout", keepgo);
-            }
-
-            myCanvas = document.getElementById("myCanvas");
-            ctx = myCanvas.getContext("2d");
-            preImg = document.getElementById("mainImg1");
-            intervalAD = setInterval(cycleAD, intervalTime);
+    	myCanvas = document.getElementById("myCanvas");
+        ctx = myCanvas.getContext("2d");
+        preImg = document.getElementById("mainImg1");
+        intervalAD = setInterval(cycleAD, intervalTime);
+        
+		genereteChangeBtn();
+        
+        for (let i = 1; i <= maxAD; i++) {
+            document.getElementById("ad" + i).addEventListener("click", changebtn);
+            myCanvas.addEventListener("mouseover", pause);
+            myCanvas.addEventListener("mouseout", keepgo);
         }
-        function genereteChangeBtn() {
-            let html = "";
-            for (let i = 1; i <= maxAD; i++) {
-                html = html + "<img id='ad" + i + "'src='img/chimg.png'>";
-            }
-            document.getElementById("chimg").innerHTML = html;
+        
+    }
+    function genereteChangeBtn() {
+        let html = "";
+        for (let i = 1; i <= maxAD; i++) {
+            html = html + "<img id='ad" + i + "'src='img/chimg.png'>";
         }
-        function cycleAD() {
-            while (timeouts.length != 0) {
-                let i = timeouts.length - 1;
-                clearTimeout(timeouts[i]);
-                timeouts.pop();
-            }
-            preImg = document.getElementById("mainImg" + tempAD);
-            nextAD();
-            if (tempAD == 1 && nowAD == maxAD) {
-                backFlag = true;
-            } else if (tempAD == maxAD && nowAD == 1) {
-                backFlag = false;
-            } else if (tempAD > nowAD) {
-                backFlag = true;
-            }
-// 可導向網頁的圖片連結(之後再接網頁內的商品)		
-			var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
-		 	document.getElementById("mainUrl").href = "http://localhost:8080/GameShop/searchGame?productName="+ db[(nowAD-1)];
-
-            let nowImg = document.getElementById("mainImg" + nowAD);
-            for (let x = 0; x <= 460; x++) {
-                let x1;
-                let x2;
-                if (backFlag) {
-                    x1 = 0 + x;
-                    x2 = x - 460;
-                } else {
-                    x1 = 0 - x;
-                    x2 = 460 - x;
-                }
-                timeouts.push(setTimeout(function () {
-                    ctx.drawImage(preImg, x1, 0, 460, 215);
-                    ctx.drawImage(nowImg, x2, 0, 460, 215);
-                }, x));
-            }
+        document.getElementById("chimg").innerHTML = html;
+    }
+    function cycleAD() {
+        while (timeouts.length != 0) {
+            let i = timeouts.length - 1;
+            clearTimeout(timeouts[i]);
+            timeouts.pop();
+        }
+        preImg = document.getElementById("mainImg" + tempAD);
+        nextAD();
+        if (tempAD == 1 && nowAD == maxAD) {
+            backFlag = true;
+        } else if (tempAD == maxAD && nowAD == 1) {
             backFlag = false;
-            tempAD = nowAD;
+        } else if (tempAD > nowAD) {
+            backFlag = true;
         }
-        function nextAD() {
-            nowAD += 1;
-            if (nowAD > maxAD) {
-                nowAD = 1;
+//可導向網頁的圖片連結(之後再接網頁內的商品)		
+		var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
+	 	document.getElementById("mainUrl").href = "searchGame?productName="+ db[(nowAD-1)];
+
+        let nowImg = document.getElementById("mainImg" + nowAD);
+        for (let x = 0; x <= 460; x++) {
+            let x1;
+            let x2;
+            if (backFlag) {
+                x1 = 0 + x;
+                x2 = x - 460;
+            } else {
+                x1 = 0 - x;
+                x2 = 460 - x;
             }
-            for (let i = 1; i <= maxAD; i++) {
-                if (i == nowAD) {
-                    document.getElementById("ad" + i).style.filter = "none";
-                } else {
-                    document.getElementById("ad" + i).style.filter = "grayscale(100)";
-                }
+            timeouts.push(setTimeout(function () {
+                ctx.drawImage(preImg, x1, 0, 460, 215);
+                ctx.drawImage(nowImg, x2, 0, 460, 215);
+            }, x));
+        }
+        backFlag = false;
+        tempAD = nowAD;
+    }
+    function nextAD() {
+        nowAD += 1;
+        if (nowAD > maxAD) {
+            nowAD = 1;
+        }
+        for (let i = 1; i <= maxAD; i++) {
+            if (i == nowAD) {
+                document.getElementById("ad" + i).style.filter = "none";
+            } else {
+                document.getElementById("ad" + i).style.filter = "grayscale(100)";
             }
         }
-        function pause() {
+    }
+    function pause() {
+        clearInterval(intervalAD);
+    }
+    function keepgo() {
+        intervalAD = setInterval(cycleAD, intervalTime);
+    }
+
+    function changebtn() {
+        if (this.id.charAt(2) == 1) {
+            nowAD = maxAD;
+        } else {
+            nowAD = this.id.charAt(2) - 1;
+        }
+        changeAD();
+    }
+    function changeAD() {
+        cycleAD();
+        if (adStatus) {
             clearInterval(intervalAD);
-        }
-        function keepgo() {
             intervalAD = setInterval(cycleAD, intervalTime);
         }
+    }
+	
+// 背景圖片效果
+        (function () {
+            const canvas2 = document.querySelector('.bg-canvas');
+            const ctx2 = canvas2.getContext('2d');
+            const video = document.querySelector('.bg-video');
 
-        function changebtn() {
-            if (this.id.charAt(2) == 1) {
-                nowAD = maxAD;
-            } else {
-                nowAD = this.id.charAt(2) - 1;
+            video.addEventListener('play', draw);
+
+            function draw() {
+                canvas2.width = canvas2.clientWidth;
+                canvas2.height = canvas2.clientHeight;
+                if (video.paused || video.ended) return false;
+                ctx2.drawImage(video, 0, 0, canvas2.width, canvas2.height);
+
+                requestAnimationFrame(draw);
             }
-            changeAD();
-        }
-        function changeAD() {
-            cycleAD();
-            if (adStatus) {
-                clearInterval(intervalAD);
-                intervalAD = setInterval(cycleAD, intervalTime);
-            }
-        }
+        })();
+        
 </script>
 
 </body>

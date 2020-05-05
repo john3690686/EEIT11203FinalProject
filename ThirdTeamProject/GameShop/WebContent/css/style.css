@@ -135,7 +135,7 @@ body{
 .loginForm,
 .registerForm{
     position: relative;
-    z-index: 99;
+    z-index: 9999;
 }
 .loginForm, .registerForm{
 	margin-left:0;
@@ -358,11 +358,8 @@ body{
     opacity: 0.2;
 }
 .video{
-    background: url(../img/trailer.gif);
-    background-size: cover;
     position: absolute;
     width: 100%;
-    height: 100%;
     top: 50px;
     left: 0;
     right: 0;
