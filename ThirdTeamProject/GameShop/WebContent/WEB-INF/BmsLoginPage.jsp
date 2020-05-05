@@ -7,9 +7,23 @@
 <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 <link rel="stylesheet" href="css/BmsHomePage.css">
 <style type="text/css">
+
+	table tr {
+		line-height: 70px;
+		height: 70px;
+	}
+
 	input[type=submit], input[type=reset], input[type=button] {
 		margin:0 0.325em;
 	}
+	
+	input[type=text], input[type=password] {
+		margin: 0;
+		margin-bottom: 15px;
+		height: 33px;
+		width: 240px;
+	}
+	
 	.login {
 		font-size: 20pt;
 	    background-color: rgb(172, 214, 255, 0.4);
@@ -17,17 +31,22 @@
 		margin: 0 auto;
 	}
 	.response {
-		height: 0px;
-		max-height: 20px; 
+		height: 52px;
+		max-height: 30px; 
 	}
+
 	.errMsg {
+		text-align: center;
+		height: 52px;
 		font-style: italic;	
 		color: red;
-		font-size: 14px;
+		font-size: 16px;
 	}
 	
-	.login td:nth-child(1) {
-		text-align: right;
+	.login tr:nth-child(1) td:nth-child(1), .login tr:nth-child(2) td:nth-child(1){
+		text-align:justify;
+		text-justify:distribute-all-lines;
+		text-align-last:justify;
 		width: 150px;	
 	}
 	

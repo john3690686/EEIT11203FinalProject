@@ -167,12 +167,12 @@ public class EventController {
 	@ResponseBody
 	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
 			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
-			@RequestParam("endDate1") String endDate, @RequestParam("eventImage1") MultipartFile eventImage,
+			@RequestParam("endDate1") String endDate, @RequestParam(value = "eventImage1", required = false) MultipartFile eventImage,
 			@RequestParam("eventId1") Integer eventId) throws IOException {
 
 		System.out.println("updateEvent_ControllerStart");
 		// System.out.println(content.substring(1));
-		System.out.println("eventImage:" + eventImage);
+		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
 		System.out.println("eventImage.getBytes:" + eventImage.getBytes());
 
 		Game_Event gEvent = new Game_Event();
@@ -181,7 +181,7 @@ public class EventController {
 		gEvent.setProductId(productId);
 		gEvent.setContent(content.substring(1));
 		gEvent.setEventName(eventName);
-		if (eventImage != null) {
+		if (eventImage != null && !eventImage.isEmpty()) {
 			gEvent.setEventImage(eventImage.getBytes());
 		}
 		eventService.upDateEvent(eventId, gEvent);

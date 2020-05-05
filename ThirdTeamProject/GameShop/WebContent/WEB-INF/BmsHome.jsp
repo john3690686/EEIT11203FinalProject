@@ -16,7 +16,7 @@
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
 	<!-- 活動用的 UI js END -->
-    <title>Back-Manager-System_HomePage</title>
+	
 </head>
 
 <body>
@@ -41,9 +41,10 @@
                 <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
                 
                 <div id="productDiv" class="section" hidden>
-                    <button id="insProduct" class="button">新增產品</button>
-                    <button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
-
+                    <div id="productListMenu" class="productListMenu">
+	                    <button id="insProduct" class="button">新增產品</button>
+	                    <button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
+					</div>
                     <div id="iPDiv" hidden>
                         <form action="xxxController" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="pId">
@@ -98,6 +99,7 @@
                                 <td>產品狀態</td>
                                 <td>產品編號</td>
                                 <td>產品名稱</td>
+                                <td>分類</td>
                                 <td>價格</td>
                                 <td>上架時間</td>
                                 <td>下架時間</td>
@@ -114,23 +116,26 @@
                 </div>
 
                 <div id="eventDiv" class="section" hidden>
-
+					<button id="qurEvent" class="productListView button">查詢活動</button>
 					<button id="insEvent" class="button">新增活動</button>
-           			<button id="qurEvent" class="productListView button">查詢活動</button>
-
+					<label id="selectButton">
+					<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
+					<button id="search">查詢</button>
+					<button id="searchAllData">查詢全部活動</button>
+					</label>
+           			
+					
 					<!-- 第一個標籤 -->
-							<div id="tab0" class="tabs-panel" style="display: block;" >
+							<div id="tab0" class="" style="display: block;" >
 								<h2>新增活動</h2>
 								<form action="addEvent" method="post" enctype="multipart/form-data">
 									<table>
 										<tr>
 											<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
-										</tr>
-										<tr>
 											<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
 										</tr>
 										<tr>
-											<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" /><img id="preview_Image" src="#" />
+											<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" /><img id="preview_Image" src="#" style='width:200px;hight:150px;'/>
 											</td>
 										</tr>
 										<tr>
@@ -151,16 +156,26 @@
 							</div>
 				
 							<!-- 第二個標籤 -->
-							<div id="tab1" class="tabs-panel" style="width:1000px">
+							<div id="tab1" class="" style="width:1000px">								
 								<div>
-									<table>
-										<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
-										<button id="search">查詢</button>
-										<button id="searchAllData">查詢全部活動</button>						
+									<table >
+										<thead >
+											<tr>
+												<th>活動編號</th>
+												<th>產品編號</th>
+												<th>活動照片</th>
+												<th>活動名稱</th>
+												<th>活動內文</th>
+												<th>開始日期</th>
+												<th>結束日期</th>
+												<th colspan='2'>設定</th>
+											</tr>
+										</thead>
+										
+										<tbody id="queryAllEvent">
+										</tbody>
 									</table>
-				
-									<table id="queryAllEvent">
-									</table>
+									<ul class="pagination"></ul>									
 								</div>
 							</div>
 				
@@ -178,7 +193,7 @@
 												<td>活動結束時間 : <input type="date" id="endDate1" name="endDate1"></td>
 											</tr>
 											<tr>
-												<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img  name="eventImage2" alt="" src="" >	</td>
+												<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img id="preview_Image2" name="eventImage2" alt="" src="" style='width:200px;hight:150px;'>	</td>
 											</tr>
 											<tr>
 												<td>產品編號 <input type="text" name="productId1"></td>
@@ -196,7 +211,7 @@
 									</table>																																																																																													
 								</form>																								
 							</div>
-											
+										
 						</div>
 					</div>
 				</div>
