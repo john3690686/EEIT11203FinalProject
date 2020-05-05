@@ -253,7 +253,7 @@ public class ECPayController {
 			obj.setTradeDesc("test Description");
 			obj.setItemName(ItemName);
 			obj.setClientBackURL(Url+ "/index.html");
-			obj.setReturnURL(Url+ "/confirmPay");
+			obj.setReturnURL("http://blackcat.ap.ngrok.io/GameShop/confirmPay");
 			obj.setNeedExtraPaidInfo("N");
 			System.out.println("[DEBUG][ECPayController] Payment Type is:" + obj.getChoosePayment());
 			String form = all.aioCheckOut(obj, null);

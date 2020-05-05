@@ -126,11 +126,11 @@ body{
 					$("#address").val(data.address);
 					$("#phone").val(data.phone);
 					if(data.gender == "m"){
-						$(".gender").eq(0).attr("checked");
+						$("input.gender").eq(0).attr("checked","checked");
 					}else if(data.gender == "f"){
-						$(".gender").eq(1).attr("checked");
+						$("input.gender").eq(1).attr("checked","checked");
 					}else{
-						$(".gender").eq(2).attr("checked");
+						$("input.gender").eq(2).attr("checked","checked");
 					}
 					if (data.userImg == null || data.userImg == 0) {  
 						$(".imgUserPhoto").attr("src", "img/defaultUserImg.jpg");
