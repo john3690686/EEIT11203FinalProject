@@ -24,7 +24,7 @@
         <div class="header">
             <h1>GameGuild's 後臺管理系統</h1>
             <div class="logout">
-	        	<a href="Logout">登出</a>
+	        	<a href="Logout"><b>登&nbsp;出</b></a>
 	        </div>
         </div>
         

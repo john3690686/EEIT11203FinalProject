@@ -4,6 +4,16 @@ font-family: 'Press Start 2P', cursive;
 */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Shadows+Into+Light&display=swap');
 
+@font-face {
+  font-family: bmsDefaultFontStyle;
+  unicode-range: U+4E00-9FFF; /* Unicode  */
+  src: local(Microsoft JhengHei); /* 先找 Helvetica ，沒有的話用 Arial */
+}
+
+*{
+	font-family: bmsDefaultFontStyle, Arial;
+}
+
 body {
 	background-image:url('../img/BmsBGI.jpg');
 	background-repeat: repeat;
@@ -11,7 +21,7 @@ body {
 }
 
 h1 {
-    font-family: 'Press Start 2P', cursive;
+    font-family: bmsDefaultFontStyle, 'Press Start 2P', cursive;
 }
 
 .bms > .main {
@@ -168,11 +178,11 @@ table#productListTable td {
 }
 
 table#productListTable td:nth-child(3) {
-    width: 180px;
+    width: 300px;
 }
 
 table#productListTable td:nth-child(5), td:nth-child(6) {
-    width: 90px;
+    width: 190px;
 }
 
 table#productListTable td:nth-child(7), td:nth-child(8) {
