@@ -126,7 +126,8 @@ body{
 		var nowAD = 0;
 		var maxAD = 5;
 		var intervalAD;
-		var intervalTime = 3000;
+		var adStatus = true;
+	    var intervalTime = 2500;
 		var myCanvas;
 		var ctx;
 		var preImg;
