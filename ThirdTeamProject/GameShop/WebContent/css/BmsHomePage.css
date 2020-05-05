@@ -25,8 +25,7 @@ h1 {
 }
 
 .bms > .main {
-    /* width: 72%; */
-    padding-left: 30px;
+    width: 1662px; 
     margin: 0 auto;
     float: left;
 }
@@ -40,7 +39,13 @@ h1 {
     padding-top: 30px;
 /*     position: fixed; */
 }
+
+.bms .article {
+	margin: 0 auto;
+}
+
 .bms > #asideLeft {
+	margin: 0 auto;
     width: 100%;
     height: 780px;
 }
@@ -63,7 +68,6 @@ h1 {
 
 .bms > #asideLeft a {
     height: 100%;
-    
     display: block;
     text-align: center;
 }
@@ -85,6 +89,13 @@ h1 {
     height: 100vh;
     /* z-index: 999; */
     transition: all 0.3s;
+}
+.productListMenu {
+	width: 1156px;
+	margin-left: 253px;
+}
+.productListView, #iPDiv table {
+	margin: 0 auto;
 }
 
 .bms .expired, .notyet {
@@ -118,7 +129,7 @@ h1 {
 	line-height: 4em;
 	margin: 0;
 	display:inline-block;
-	background-color:rgb(187, 94, 0, 0.6);
+	background-color: rgb(187, 94, 0, 0.6);
 }
 
 .logout>a:link{
@@ -138,6 +149,7 @@ h1 {
 #productDiv button {
     margin-bottom: 30px;
     margin-right: 10px;
+    font-size: 14pt !important;
     background-color: #5FCEC0;
 }
 
@@ -178,15 +190,15 @@ table#productListTable td {
 }
 
 table#productListTable td:nth-child(3) {
-    width: 300px;
+    width: 300px !important;
 }
 
-table#productListTable td:nth-child(5), td:nth-child(6) {
-    width: 190px;
+table#productListTable td:nth-child(6), td:nth-child(7) {
+    width: 190px !important;
 }
 
-table#productListTable td:nth-child(7), td:nth-child(8) {
-    width: 70px;
+table#productListTable td:nth-child(8), td:nth-child(9) {
+    width: 70px !important;
 }
 
 /* ----------------- Test product page css ---------------------*/
@@ -223,12 +235,14 @@ ul.pagination .page a{
     text-align:center;
     border-radius:4px;
     color:#444;
-    background:#fff;
+    background-color: rgb(95, 206, 192, 0.4);
     border:solid 2px rgb(160, 150, 150)
 }
 ul.pagination .page a:hover{
-    color:#5FCEC0;
-    border-color:#5FCEC0
+    /*color:#5FCEC0;*/
+    color: #0;
+    background-color: rgb(95, 206, 192, 0.6);
+    border-color: #5FCEC0
 }
 
 .button {
@@ -259,6 +273,7 @@ ul.pagination .page a:hover{
 
 .button:hover {
     color:#5FCEC0;
+    color: #0;
     box-shadow:0 0 0 2px #5FCEC0
 }
 
