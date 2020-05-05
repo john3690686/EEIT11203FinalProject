@@ -195,7 +195,9 @@ body{
 
 	   <fieldset>
 			<figure>
+			
 				<!--輪播已修改完畢(接商品頁面)-->
+				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" style="margin-left:450px" width="460px" height="215px"/>
 				<a id="mainUrl" href="">
 				<canvas id="myCanvas" width="460" height="215">
                 <img id="mainImg1" src="img/sale1.jpg" style="display: block" alt=""/>
@@ -261,6 +263,11 @@ body{
 	xhr.send('');
 	}, 1000);
 	};
+
+	window.setTimeout(defaultImg,2500);	
+	function defaultImg(){
+	document.getElementById("defaultmainImg").style.display="none";
+	}
 	
 //  商品輪播圖片
     var nowAD = 0;
@@ -317,7 +324,7 @@ body{
         }
 //可導向網頁的圖片連結(之後再接網頁內的商品)		
 		var db = ['DARK SOULS: REMASTERED','Terraria','Resident Evil3','Age of Empires II: Definitive Edition','Monster Hunter'];
-	 	document.getElementById("mainUrl").href = "http://localhost:8080/GameShop/searchGame?productName="+ db[(nowAD-1)];
+	 	document.getElementById("mainUrl").href = "searchGame?productName="+ db[(nowAD-1)];
 
         let nowImg = document.getElementById("mainImg" + nowAD);
         for (let x = 0; x <= 460; x++) {
