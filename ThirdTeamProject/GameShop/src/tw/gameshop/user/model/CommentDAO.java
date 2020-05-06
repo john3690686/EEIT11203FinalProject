@@ -27,6 +27,14 @@ public class CommentDAO {
 		session.save(cData);
 		return cData;
 	}
+	
+	public List<Comment> QueryAll(){
+		Session session = sessionFactory.getCurrentSession();
+		String hqlstr = "from Comment";
+		Query<Comment> query = session.createQuery(hqlstr, Comment.class);
+		List<Comment> list = query.list();
+		return list;
+	}
 
 	public List<Comment> QueryAllByProductId(int productId) { // �H�ӫ~id�j�M�Ӱӫ~�Ҧ�����
 
@@ -38,6 +46,25 @@ public class CommentDAO {
 
 		return list;
 	}
+	
+	public Comment updateReply(int comId, String Reply) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Comment> query = session.createQuery("from Comment where comId =?0", Comment.class);
+		
+		query.setParameter(0, comId);
+		
+		List<Comment> comList = query.list();
+		Comment result = comList.get(0);
+		result.setReply(Reply);
+		//update date
+		Date date = new Date();
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date2 = sdFormat.format(date);
+		result.setReplyDatetime(date2);
+		session.save(result);
+		
+		return result;
+}
 
 	// 以comid, user id 查詢並修改評論內容
 	public Comment updateData(int comId, String newComments) {

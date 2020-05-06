@@ -26,8 +26,16 @@ public class CommentService {
 		return commentDao.insertData(cData);
 	}
 	
+	public List<Comment> QueryAll() { // �H�ӫ~id�d�߸Ӱӫ~�Ҧ�����
+		return commentDao.QueryAll();
+	}
+	
 	public List<Comment> QueryAllByProductId(int productId) { // �H�ӫ~id�d�߸Ӱӫ~�Ҧ�����
 		return commentDao.QueryAllByProductId(productId);
+	}
+	
+	public Comment updateReply(int comId, String Reply) {
+		return commentDao.updateReply(comId, Reply);
 	}
 	
 	// 以comId 和 userId 修改評論

@@ -1,6 +1,11 @@
 package tw.gameshop.user.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -26,8 +31,25 @@ public class OrderDetailDAO {
 		return list;
 	}
 	
-	public List queryAllOrderDetail() {
+	/**
+	 * @author kunhung
+	 * @apiNote Bms OrderDetail Chart Dao
+	 * @return List<Map<Object, Object>>
+	 */
+	public List<Map<Object, Object>> queryAllOrderDetail() {
 		String hqlStr = "Select productId, count(productId) as n from OrderDetail group by productId Order by n";
-		return sessionFactory.getCurrentSession().createQuery(hqlStr).list();
+		List list = sessionFactory.getCurrentSession().createQuery(hqlStr).list();
+		
+		List<Map<Object, Object>> resultList = new ArrayList<Map<Object, Object>>();
+		
+		Iterator iter = list.iterator();
+		while( iter.hasNext() ) {
+			Map<Object, Object> r = new HashMap<Object, Object>();
+			Object[] obj = (Object[])iter.next();
+			r.put("productId", obj[0]);
+			r.put("NumOfSales", obj[1]);
+			resultList.add(r);
+		}
+		return resultList;
 	}
 }

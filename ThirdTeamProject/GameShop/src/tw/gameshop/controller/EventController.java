@@ -26,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import tw.gameshop.user.model.Game_EventService;
 import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductService;
+import tw.gameshop.user.model.Comment;
+import tw.gameshop.user.model.CommentService;
 import tw.gameshop.user.model.Game_Event;
 
 @Controller
@@ -33,11 +35,13 @@ public class EventController {
 
 	private Game_EventService eventService;
 	private ProductService pService;
+	private CommentService comService;
 
 	@Autowired
-	public EventController(Game_EventService eventService, ProductService pService) {
+	public EventController(Game_EventService eventService, ProductService pService, CommentService comService) {
 		this.eventService = eventService;
 		this.pService = pService;
+		this.comService = comService;
 	}
 
 
@@ -67,32 +71,7 @@ public class EventController {
 
 	}
 	
-	@RequestMapping(path = "/bms/updateEvent", method = RequestMethod.POST)
-	@ResponseBody
-	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
-			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
-			@RequestParam("endDate1") String endDate, @RequestParam(value = "eventImage1", required = false) MultipartFile eventImage,
-			@RequestParam("eventId1") Integer eventId) throws IOException {
 
-		System.out.println("updateEvent_ControllerStart");
-		
-		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
-		Game_Event upevent = eventService.queryEvent(eventId);				
-		upevent.setStartDate(startDate);
-		upevent.setEndDate(endDate);
-		upevent.setProductId(productId);
-		upevent.setContent(content.substring(1));
-		upevent.setEventName(eventName);
-		if (eventImage.isEmpty()) {
-			byte[] oldimage = eventService.queryEvent(eventId).getEventImage();		
-			upevent.setEventImage(oldimage);
-		}else {
-			upevent.setEventImage(eventImage.getBytes());
-		}
-		eventService.upDateEvent(eventId, upevent);
-
-		return "ok";
-	}
 
 	@ResponseBody
 	@RequestMapping(path = { "/queryAllEvent", "/bms/queryAllEvent" }, method = RequestMethod.GET)
@@ -175,6 +154,60 @@ public class EventController {
 		}
 	}
 
+	@RequestMapping(path = "/bms/updateEvent", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
+			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
+			@RequestParam("endDate1") String endDate, @RequestParam(value = "eventImage1", required = false) MultipartFile eventImage,
+			@RequestParam("eventId1") Integer eventId) throws IOException {
+
+		System.out.println("updateEvent_ControllerStart");
+		// System.out.println(content.substring(1));
+		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
+        Game_Event upevent = eventService.queryEvent(eventId);
+        upevent.setStartDate(startDate);
+        upevent.setEndDate(endDate);
+        upevent.setProductId(productId);
+        upevent.setContent(content.substring(1));
+        upevent.setEventName(eventName);
+        if (eventImage.isEmpty()) {
+            byte[] oldimage = eventService.queryEvent(eventId).getEventImage();
+            upevent.setEventImage(oldimage);
+        }else {
+            upevent.setEventImage(eventImage.getBytes());
+        }
+        eventService.upDateEvent(eventId, upevent);
+
+		return "ok";
+	}
 	
+	@ResponseBody
+	@RequestMapping("/bmscomment")
+	public List<Comment> showComment() {
+		List<Comment> result = comService.QueryAll();
+		return result;
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "test";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/reply")
+	public boolean processReply(
+			@RequestParam(value = "comId")int comId,
+			@RequestParam(value = "reply")String Reply) {
+		System.out.println("doreply"+comId+";"+Reply);
+		try {
+			comService.updateReply(comId, Reply);
+			return true;
+		}catch(Exception e) {
+			System.out.println("Reply Error");
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 
 }
