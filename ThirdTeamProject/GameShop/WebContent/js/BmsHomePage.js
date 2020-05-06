@@ -95,8 +95,7 @@ $(window).on('load', function () {
                 $("#iPDiv").find("input[name=pId]").val(p.productId)
                 $("#iPDiv").find("input[type=text][name=pName]").val(p.productName)
                 $("#iPDiv").find("input[type=text][name=price]").val(p.price)
-                $("#iPDiv").find("input[type=text][name=tag]").val(p.tag)
-                $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag)-8)
+                $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag))
                 $("#iPDiv").find("textarea[name=intro]").val(p.intro)
                 if(p.productImage != null){
                 	$("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
@@ -151,7 +150,7 @@ $(window).on('load', function () {
             $("#iPDiv").find("input[type=hidden][name=pId]").val(p.productId)
             $("#iPDiv").find("input[type=text][name=pName]").val(p.productName)
             $("#iPDiv").find("input[type=text][name=price]").val(p.price)
-            $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag)-8)
+            $("#iPDiv").find("select[name=tagList]").val(tagList.indexOf(p.tag))
             $("#iPDiv").find("textarea[name=intro]").val(p.intro)
             $("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
             $("#iPDiv").find("input[type=date][name=uplTime]").val(p.uploadTime.format("yyyy/MM/dd"))
@@ -171,8 +170,8 @@ $(window).on('load', function () {
     	formdata.append("id" , id)
     	formdata.append("pName" , $("input[name=pName]").val())
     	formdata.append("price" , $("input[name=price]").val())
-    	formdata.append("intro" , $("input[name=price]").val())
-    	formdata.append("tag" , tagList[parseInt($("select[name=tagList]").val())+8])
+    	formdata.append("intro" , $("input[name=intro]").val())
+    	formdata.append("tag" , tagList[parseInt($("select[name=tagList]").val())])
     	formdata.append("uplTime" , $("input[name=uplTime]").val())
     	formdata.append("dwlTime" , $("input[name=dwlTime]").val())
     	formdata.append("file" , $("input#pfile").get(0).files[0])
@@ -186,10 +185,10 @@ $(window).on('load', function () {
 		    contentType: false,
 		    processData: false,
 		    success: function(data){
-				alert("您已成功" + (id!=null?"修改":"新增") + "了一筆資料")
+				alert("您已成功" + (id!=null?"新增":"修改") + "了一筆資料")
 			},
 			error: function(data){
-				alert("新增時發生了技術性的失誤！")
+				alert((id!=null?"新增":"修改") + "時發生了技術性的失誤！")
 			}
 		}).done(function() {
 			getProductList()
@@ -220,7 +219,7 @@ $(window).on('load', function () {
     })
 
     // 顯示/隱藏目前沒有再販售的商品
-    $("#hideProductNotSales").on("click", function() { alert("hoho")
+    $("#hideProductNotSales").on("click", function() {
         if($(".expired,.notyet").hasClass("hideClass")){
             $(".expired,.notyet").removeClass("hideClass")
             $(this).text("只顯示正在販售的商品")
@@ -230,6 +229,16 @@ $(window).on('load', function () {
         }
         createProductPageNum()
     })
+    
+    //一鍵輸入產品新增
+	$("input#oneKeyinInsert").on("click", function(){
+		$("#iPDiv").find("input[type=text][name=pName]").val("NBA 2K20")
+	    $("#iPDiv").find("input[type=text][name=price]").val(1790)
+	    $("#iPDiv").find("select[name=tagList]").val(tagListIndexOf("運動"))
+	    $("#iPDiv").find("textarea[name=intro]").val("《NBA 2K》系列持續進化，現已不單是個籃球模擬遊戲。《NBA 2K20》不僅提供最為出色的畫面與遊戲表現，也帶來各種創新的遊戲模式，以及無與倫比的球員操控與自訂體驗，2K遊戲開發部門不斷重新定義運動遊戲的可能性。此外，身臨其境的開放世界「街區」也讓《NBA 2K20》成為集合所有玩家與籃球員，一同開創未來籃球文化的平台。")
+	    $("#iPDiv").find("input[type=date][name=uplTime]").val((new Date()).format("yyyy-MM-dd"))
+	    $("#iPDiv").find("input[type=date][name=dwlTime]").val((parseInt((new Date()).format("yyyy")) + 1) + (new Date()).format("-MM-dd"))
+	})
 
     // 判斷新增/修改狀態有沒有進行動作(方便關掉視窗時提醒放棄修改)
     $("#iPDiv").find("input,textarea").on("change", function() {
@@ -279,7 +288,7 @@ $(window).on('load', function () {
         $("#productDiv li.page>a").eq(0).click()
     }
 // ------------------------------------------ 以下為活動的 JS -------------------------------------------------
-//活動標籤跳選
+    //活動標籤跳選
     $("#insEvent").click(function(){
     	$("#tab2").hide();
     	$("#tab1").hide();
@@ -352,7 +361,7 @@ $(window).on('load', function () {
 				txt += "<td>"+ response[i].endDate;
 				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';				
 				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
-				txt += "<tr class='content' hidden><td id='"+id+"' colspan='9'>"+response[i].content+"</td></tr>"
+				txt += "<tr class='content' hidden><td colspan='3'></td><td id='"+id+"' colspan='4'>"+response[i].content+"</td><td colspan='2'></td></tr>"
 						
 			}
 			$('#queryAllEvent').html(txt);
@@ -386,7 +395,7 @@ $(window).on('load', function () {
 					txt += "<td>"+ response[i].endDate;
 					txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';									
 					txt += '<td><button type="button" class="btn btn-danger" class="eventDel" id="delete">刪除</button>';
-					txt += "<tr class='content' hidden><td id='"+id+"' colspan='9'>"+response[i].content+"</td></tr>";
+					txt += "<tr class='content' hidden><td colspan='3'></td><td id='"+id+"' colspan='4'>"+response[i].content+"</td><td colspan='2'></td></tr>";
 					console.log('searchAllData:OK');
 				}
 				$('#queryAllEvent').html(txt);	
@@ -567,7 +576,7 @@ $(window).on('load', function () {
 				txt += "<td>"+ response.endDate;
 				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';						
 				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';	
-				txt += "<tr class='content' hidden><td  colspan='9'>"+response.content+"</td></tr>";
+				txt += "<tr class='content' hidden><td colspan='3'></td><td colspan='4'>"+response.content+"</td><td colspan='2'></td></tr>";
 				$('#queryAllEvent').html(txt);	
 				$("button.contentButton").on("click",function(){
 					console.log('content');
@@ -744,6 +753,7 @@ $(window).on('load', function () {
 	})
 	
 	$("#ShowOrderChartBtn").on("click", function(){
+		chartTitle.title = "產品銷售比例"
 		console.log(productList)
 		console.log(orderStat)
 		
@@ -763,6 +773,46 @@ $(window).on('load', function () {
 		}
 		
 		CreateChart( data );
+	})
+	
+	$("#ShowPTagChartBtn").on("click", function(){
+		chartTitle.title = "類別銷售比例"
+		//將各個分類初始化
+		let tagArray = [];
+		for(let i=0;i<9;i++){
+			let obj = {
+					"name": tagList[i],
+					"y": 0
+			}
+			tagArray.push(obj)
+		}console.log(tagArray)
+		//求總銷售數量
+		let sum = 0;
+		for(let i=0;i<orderStat.length;i++){
+			sum += parseInt(orderStat[i].NumOfSales)
+		}
+		//數出各分類的數量
+		for(let i=0;i<orderStat.length;i++){
+			let tagName = findProductById(parseInt(orderStat[i].productId)).tag
+			console.log("i:" + i)
+			console.log("tagName:" + tagName)
+			for(let j=0;j<tagArray.length;j++){
+				console.log(tagArray[j].name + "=" + tagName)
+				if( tagArray[j].name == tagName ){
+					console.log("true")
+					tagArray[j].y += ((parseInt(orderStat[i].NumOfSales)*100)/sum);
+				}
+			}
+		}
+		//清掉y=0的項目
+		for(let i=tagArray.length-1;i>=0;i--){
+			if( tagArray[i].y == 0 ){
+				tagArray.splice(i, 1);
+			}
+		}
+		
+		
+		CreateChart( tagArray );
 	})
 
 	
@@ -823,9 +873,7 @@ function CreateChart( data ) {
 	        plotShadow: false,
 	        type: 'pie'
 	    },
-	    title: {
-	        text: "產品銷售比例"
-	    },
+	    title: chartTitle,
 	    tooltip: {
 	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
 	    },
@@ -854,7 +902,7 @@ function CreateChart( data ) {
 
 var productList;
 var imgDefault = "../img/BmsDefualtImg.jpg"
-var chartTitle = "產品銷售比例"
+var chartTitle = { text: "產品銷售比例" }
 var productEdit = false
 var pPerPageNum = 5
 var pAllPage = 0
@@ -864,14 +912,16 @@ var orderStat;
 // 遊戲分類中英文對照參考
 // https://blog.xuite.net/foreveriori/game/33551587-%E9%81%8A%E6%88%B2%E9%A1%9E%E5%9E%8B%E8%8B%B1%E6%96%87%E5%90%8D%E8%A9%9E%E8%A7%A3%E9%87%8B
 var tagList = [
-    "RTS",// "策略",
-    "RPG",// "角色扮演",
-    "STG",// "射擊",
-    "Action",// "模擬",
-    "AVG",// "冒險",
-    "ETC",// "休閒",
-    "SPG",// "運動",
-    "Horror",// "恐怖"
+//	"Action",//"動作",
+//	"RTS",// "策略",
+//    "RPG",// "角色扮演",
+//    "STG",// "射擊",
+//    "SLG",// "模擬",
+//    "AVG",// "冒險",
+//    "ETC",// "休閒",
+//    "SPG",// "運動",
+//    "Horror",// "恐怖"
+    "動作",
     "策略",
     "角色扮演",
     "射擊",
@@ -900,6 +950,7 @@ function tagListIndexOf(str) {
         }
     }
 }
+
 
 
 

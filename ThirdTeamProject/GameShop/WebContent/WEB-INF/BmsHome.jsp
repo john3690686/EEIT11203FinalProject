@@ -18,58 +18,56 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
 	<!-- 活動用的 UI js END -->
 <style>
-	#replyDiv table {
-    /* height: 300px; */
-    margin-bottom: 20px;
-    border-collapse: collapse;
-    background-color: rgb(172, 214, 255, 0.4);
-}
+/* 	#replyDiv table { */
+/*     margin-bottom: 20px; */
+/*     border-collapse: collapse; */
+/*     background-color: rgb(172, 214, 255, 0.4); */
+/* } */
 
-#replyDiv  tr, td {
-    line-height: 50px;
-    /* max-height: 50px; */
-    height: 50px;
-}
-#replyDiv thead tr {
-    background-color: rgb(70, 163, 255, 0.4);
-}
+/* #replyDiv  tr, td { */
+/*     line-height: 50px; */
+/*     height: 50px; */
+/* } */
+/* #replyDiv thead tr { */
+/*     background-color: rgb(70, 163, 255, 0.4); */
+/* } */
 
-#replyDiv tbody tr {
-    background-color: rgb(132, 193, 255, 0.4);
-}
+/* #replyDiv tbody tr { */
+/*     background-color: rgb(132, 193, 255, 0.4); */
+/* } */
 
-#replyDiv button{
-    border-radius: 5px;
-    width: 59px;
-    height: 37px;
-    margin: 1px;
-    background-color: rgb(95, 206, 192, 0.5);
-}
+/* #replyDiv button{ */
+/*     border-radius: 5px; */
+/*     width: 59px; */
+/*     height: 37px; */
+/*     margin: 1px; */
+/*     background-color: rgb(95, 206, 192, 0.5); */
+/* } */
 
-#replyDiv td {
-    text-align: center;
-    padding: 2px;
-    width: 75px;
-}
+/* #replyDiv td { */
+/*     text-align: center; */
+/*     padding: 2px; */
+/*     width: 75px; */
+/* } */
 
-#replyDiv td:nth-child(1) {
-    width: 70px !important;
-}
-#replyDiv td:nth-child(2) {
-    width: 400px !important;
-}
-#replyDiv td:nth-child(3) {
-    width: 100px !important;
-}
-#replyDiv td:nth-child(4), td:nth-child(7) {
-    width: 200px !important;
-}
-#replyDiv td:nth-child(5) {
-    width: 100px !important;
-}
-#replyDiv td:nth-child(6), td:nth-child(7) {
-    width: 350px !important;
-}
+/* #replyDiv td:nth-child(1) { */
+/*     width: 70px !important; */
+/* } */
+/* #replyDiv td:nth-child(2) { */
+/*     width: 400px !important; */
+/* } */
+/* #replyDiv td:nth-child(3) { */
+/*     width: 100px !important; */
+/* } */
+/* #replyDiv td:nth-child(4), td:nth-child(7) { */
+/*     width: 200px !important; */
+/* } */
+/* #replyDiv td:nth-child(5) { */
+/*     width: 100px !important; */
+/* } */
+/* #replyDiv td:nth-child(6), td:nth-child(7) { */
+/*     width: 350px !important; */
+/* } */
 
 
 </style>
@@ -98,9 +96,9 @@
                 <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
 
                 <div id="ChartDiv" class="section" hidden>
-                	<div id="productListMenu" class="productListMenu">
-	                    <button id="ShowOrderChartBtn" class="button">新增產品</button>
-	                    <button id="-------------TODO-----------------" class="productListView button">只顯示架上商品</button>
+                	<div id="productListMenu" class="sectionMenu">
+	                    <button id="ShowOrderChartBtn" class="button">產品銷售比例</button>
+	                    <button id="ShowPTagChartBtn" class="productListView button">類別銷售比例</button>
 					</div>
                 	<figure class="highcharts-figure">
 					    <div id="container"></div>
@@ -116,7 +114,7 @@
                 </div>
                 
                 <div id="productDiv" class="section" hidden>
-                    <div id="productListMenu" class="productListMenu">
+                    <div id="productListMenu" class="sectionMenu">
 	                    <button id="insProduct" class="button">新增產品</button>
 	                    <button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
 					</div>
@@ -134,17 +132,18 @@
 								<tr>
 									<td>遊戲名稱</td>
 									<td><input type="text" name="pName"></td>
-									<td>分類</td>
-									<td>
+									<td rowspan="2">分類</td>
+									<td rowspan="2">
 										<select name="tagList">
-											<option value="0">策略</option>
-											<option value="1">角色扮演</option>
-											<option value="2">射擊</option>
-											<option value="3">模擬</option>
-											<option value="4">冒險</option>
-											<option value="5">休閒</option>
-											<option value="6">運動</option>
-											<option value="7">恐怖</option>
+											<option value="0">動作</option>
+											<option value="1">策略</option>
+											<option value="2">角色扮演</option>
+											<option value="3">射擊</option>
+											<option value="4">模擬</option>
+											<option value="5">冒險</option>
+											<option value="6">休閒</option>
+											<option value="7">運動</option>
+											<option value="8">恐怖</option>
 										</select>
 									</td>
 								</tr>
@@ -164,16 +163,18 @@
 									<td><input type="date" name="dwlTime" id="dwlTime"></td>
 								</tr>
 								<tr>
-									<td>
+									<td colspan="2">
 										<input type="button" id="sendProductBean" value="確定送出" /></td>
-									<td>
+									<td colspan="2">
 										<input type="button" id="resetProductBean" value="重設" /></td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<input type="button" id="oneKeyinInsert" value="一鍵輸入"></td>
 								</tr>
 							</table>
 						</form>
-
 					</div>
-
 					<table id="productListTable" class="productListView">
 						<thead>
 							<tr>
@@ -191,32 +192,35 @@
 						<tbody id="productList">
 						</tbody>
 					</table>
-
 					<ul class="pagination"></ul>
-
 				</div>
 
-
                 <div id="eventDiv" class="section" hidden>
-                	<button id="insEvent" class="button">新增活動</button>
-					<button id="qurEvent" class="productListView button">查詢活動</button>					
-
-					<label id="selectButton">
-						<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
-						<button id="search">查詢</button>
-						<button id="searchAllData">查詢全部活動</button>
-					</label>
+                	<div id="eventMenu" class="sectionMenu">
+	                	<button id="insEvent" class="button">新增活動</button>
+						<button id="qurEvent" class="productListView button">查詢活動</button>					
+						<label id="selectButton">
+							<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
+							<button id="search">查詢</button>
+							<button id="searchAllData">查詢全部活動</button>
+						</label>
+					</div>
 					<!-- 第一個標籤 -->
 					<div id="tab0" class="" style="display: block;" >
-						<h2>新增活動</h2>
-						<form id="newEvent"  name="newEvent" method="POST" enctype="multipart/form-data">															
+						<form id="newEvent"  name="newEvent" method="POST" enctype="multipart/form-data">	
 							<table id="insertEvent">
+								<thead>
+									<tr>
+										<td colspan="4"><h2>新增活動</h2></td>
+									</tr>
+								</thead>
 								<tr>
 									<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
 									<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
 								</tr>
 								<tr>
-									<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" /><img id="preview_Image" src="#" style='width:200px;hight:150px;'/>
+									<td>活動圖檔:&nbsp;<input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" style="width: 227px" />
+									</td><td rowspan="3"><img id="preview_Image" src="#" style='width:200px;hight:150px;'/>
 									</td>
 								</tr>
 								<tr>
@@ -226,10 +230,11 @@
 									<td>活動標題 : <input type="text" name="eventName"></td>
 								</tr>
 								<tr>
-									<td>活動內文 : <textarea id="editor" name="content"></textarea></td>
+									<td colspan="2">活動內文 : <textarea id="editor" name="content"></textarea></td>
 								</tr> 
 								<tr>
-									<td><input type="button" id="add"  value="新增活動"/>
+									<td colspan="2">
+										<input type="button" id="add"  value="新增活動"/>
 										<input type="submit" value="新增" id="add" />
 										<input type="reset"  id="clear" value="清除" id="reset" />
 										<input type="button" value="Demo" id="demobutton"/>
@@ -241,17 +246,17 @@
 					<!-- 第二個標籤 -->
 					<div id="tab1" class="" style="width:1000px">								
 						<div>
-							<table >
+							<table id="eventListTable">
 								<thead >
 									<tr>
-										<th>活動編號</th>
-										<th>產品編號</th>
-										<th>活動照片</th>
-										<th>活動名稱</th>
-										<th>活動內文</th>
-										<th>開始日期</th>
-										<th>結束日期</th>
-										<th colspan='2'>設定</th>
+										<td>活動編號</td>
+										<td>產品編號</td>
+										<td>活動照片</td>
+										<td>活動名稱</td>
+										<td>活動內文</td>
+										<td>開始日期</td>
+										<td>結束日期</td>
+										<td colspan='2'>設定</td>
 									</tr>
 								</thead>
 								
@@ -297,8 +302,8 @@
 					</div>
 					</div>
 						
-					<div id="replyDiv">
-						<table id="replyTable" class="productListView">
+					<div id="replyDiv" hidden>
+						<table id="replyTable">
 							<thead>
 								<tr>
 									<td>遊戲編號</td>

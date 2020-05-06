@@ -72,6 +72,11 @@ $(document).ready(function () {
         errorAcc = 0; errorNickName = 0; errorPwd = 0; errorMail = 0;
     })
 
+    $("#loginfill").click(function(){
+        $("#loginAccount").val("account");
+        $("#loginPwd").val("Passw0rd");
+    })
+
     //check data right
     var regUserAccount = new RegExp(/^[a-zA-Z0-9]{6,18}$/);
     var regUserPwd = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z\d].{6,12}$/);
