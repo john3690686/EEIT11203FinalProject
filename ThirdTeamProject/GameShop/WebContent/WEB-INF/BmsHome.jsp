@@ -4,10 +4,11 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../css/BmsHomePage.css">
-	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
-	<script src="../js/BmsHomePage.js"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/BmsHomePage.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="../js/BmsHomePage.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- 活動用的 UI js -->
 	<!-- 	<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
@@ -84,21 +85,40 @@
 		</div>
 
 		<div id="asideLeft">
-			<ul>
-				<li id="product" class="bmsmenu"><a href="#">商品</a></li>
-				<li id="event" class="bmsmenu"><a href="#">活動</a></li>
+            <ul>
+                <li id="product" class="bmsmenu"><a href="#">商品</a></li>
+                <li id="event" class="bmsmenu"><a href="#">活動</a></li>
+				<li id="chart" class="bmsmenu"><a href="#">圖表</a></li>
 				<li id="other" class="bmsmenu"><a href="#">預留</a></li>
-			</ul>
-		</div>
+            </ul>
+        </div>
 
-		<div class="main">
-			<div id="article" class="article">
-				<div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
+        <div class="main">
+            <div id="article" class="article">
+                <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
 
-				<div id="productDiv" class="section" hidden>
-					<div id="productListMenu" class="productListMenu">
-						<button id="insProduct" class="button">新增產品</button>
-						<button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
+                <div id="ChartDiv" class="section" hidden>
+                	<div id="productListMenu" class="productListMenu">
+	                    <button id="ShowOrderChartBtn" class="button">新增產品</button>
+	                    <button id="-------------TODO-----------------" class="productListView button">只顯示架上商品</button>
+					</div>
+                	<figure class="highcharts-figure">
+					    <div id="container"></div>
+					    <p class="highcharts-description">
+					        Pie charts are very popular for showing a compact overview of a
+					        composition or comparison. While they can be harder to read than
+					        column charts, they remain a popular choice for small datasets.
+					    </p>
+					</figure>
+					<table>
+						
+					</table>
+                </div>
+                
+                <div id="productDiv" class="section" hidden>
+                    <div id="productListMenu" class="productListMenu">
+	                    <button id="insProduct" class="button"><div>新增產品</div></button>
+	                    <button id="hideProductNotSales" class="productListView button"><div>只顯示架上商品</div></button>
 					</div>
 					<div id="iPDiv" hidden>
 						<form action="xxxController" method="post" enctype="multipart/form-data">

@@ -3,14 +3,18 @@ $(window).on('load', function () {
     $(".bmsmenu").on("click", function () {
         let menuSelect = $(this).attr("id")
         if (menuSelect == "product") {
+<<<<<<< HEAD
 			
             getProductList("productJsonView")
+=======
+            getProductList()
+>>>>>>> 1bccf4e9fe50be30bee23c35756d913c194c14bf
         } else if (menuSelect == "event") {
             eventView()
+        } else if (menuSelect == "chart") {
+        	chartView()
         }
     })
-    
-//    alert((new Date()).format("yyyy/MM/ddThh:mm:ss"))
 
     // Menu 點擊活動後呼叫之函數
     function eventView() {
@@ -21,14 +25,19 @@ $(window).on('load', function () {
         
         createEventPagesNum();
     }
-
+    
+    function chartView() {
+    	$("#ChartDiv").show().siblings().hide()
+    	$("#ShowOrderChartBtn").click()
+    }
+    
 	// Menu 點擊商品後呼叫之函數
-	function getProductList(urlStr){
-		$.getJSON(urlStr, function( jdata ){
+	function getProductList(){
+		$.getJSON("productJsonView", function( jdata ){
              productList = jdata;
              productView();
         })
-    }
+    }getProductList()
 
     // Menu點擊商品後呼叫之函數
     // 將Json物件[Product]轉成表格並顯示
@@ -163,7 +172,8 @@ $(window).on('load', function () {
     // 新增/修改商品中的送出按鈕
     $("input#sendProductBean").on("click", function() {
     	var formdata = new FormData();
-    	formdata.append("id" , $("input[name=pId]").val())
+    	let id = $("input[name=pId]").val()
+    	formdata.append("id" , id)
     	formdata.append("pName" , $("input[name=pName]").val())
     	formdata.append("price" , $("input[name=price]").val())
     	formdata.append("intro" , $("input[name=price]").val())
@@ -181,13 +191,13 @@ $(window).on('load', function () {
 		    contentType: false,
 		    processData: false,
 		    success: function(data){
-				alert("您已成功新增了一筆資料")
+				alert("您已成功" + (id!=null?"修改":"新增") + "了一筆資料")
 			},
 			error: function(data){
 				alert("新增時發生了技術性的失誤！")
 			}
 		}).done(function() {
-			getProductList("productJsonView")
+			getProductList()
 		})
     })
 
@@ -215,7 +225,7 @@ $(window).on('load', function () {
     })
 
     // 顯示/隱藏目前沒有再販售的商品
-    $("#hideProductNotSales").on("click", function() {
+    $("#hideProductNotSales").on("click", function() { alert("hoho")
         if($(".expired,.notyet").hasClass("hideClass")){
             $(".expired,.notyet").removeClass("hideClass")
             $(this).text("只顯示正在販售的商品")
@@ -239,7 +249,7 @@ $(window).on('load', function () {
             txt += "<li class='page'><a href='#'>" + (i + 1) + "</a></li>"
         }
         txt += "<li><a href='#' class='button special'>Next</a></li>"
-        $("ul.pagination").html(txt)
+        $("#productDiv ul.pagination").html(txt)
 
         // 此為翻頁的事件(翻到第幾頁)
         function turningPPage(page) {
@@ -252,28 +262,26 @@ $(window).on('load', function () {
 
         
         // 點擊上/下頁的動作
-        $("a.button.special").on("click", function() {
+        $("#productDiv a.button.special").on("click", function() {
             let page = parseInt($("li.page.current>a").text())
             actionName = $(this).text()
             if( page > 1 && actionName == "Previous" ){
-				$("li.page").eq(page-2).addClass("current").siblings().removeClass("current")
+				$("#productDiv li.page").eq(page-2).addClass("current").siblings().removeClass("current")
                 turningPPage(page-1)
             }else if( page < pAllPage && actionName == "Next" ){
-				$("li.page").eq(page).addClass("current").siblings().removeClass("current")
+				$("#productDiv li.page").eq(page).addClass("current").siblings().removeClass("current")
                 turningPPage(page+1)
             }
         })
 
         // 點擊頁碼後的動作
-        $("li.page>a").on("click", function() {
+        $("#productDiv li.page>a").on("click", function() {
             $(this).closest("li.page").addClass("current").siblings().removeClass("current")
             turningPPage($(this).text())
         })
         
         // 讓一開始都在第一頁
-        $("li.page>a").eq(0).click()
-
-
+        $("#productDiv li.page>a").eq(0).click()
     }
 // ------------------------------------------ 以下為活動的 JS -------------------------------------------------
 //活動標籤跳選
@@ -555,6 +563,37 @@ $(window).on('load', function () {
 		reloadAllEvent()
 		createEventPagesNum()
 	});
+	
+	// ----------------------------------------------- Chart -------------------------------------------------
+
+	// 抓訂單清單的各產品的購買次數
+    $.getJSON("OrderDetailStat", function( jdata ){
+		orderStat = jdata;
+	})
+	
+	$("#ShowOrderChartBtn").on("click", function(){
+		console.log(productList)
+		console.log(orderStat)
+		
+		let sum = 0;
+		for(let i=0;i<orderStat.length;i++){
+			sum += parseInt(orderStat[i].NumOfSales)
+		}
+		console.log("sum = " + sum )
+		
+		let data = [];
+		for(let i=0;i<orderStat.length;i++){
+			let obj = {
+					"name": findProductById(parseInt(orderStat[i].productId)).productName,
+					"y": ((parseInt(orderStat[i].NumOfSales)*100)/sum)
+				}
+			data.push(obj)
+		}
+		
+		CreateChart( data );
+	})
+	
+	
 })
 
 
@@ -662,12 +701,53 @@ Date.prototype.format = function(fmt){
     return fmt;
 }
 
+// 圖表的 JS 套件 提供的方法 
+// 修改為 傳 資料 Array> Object > key: name, y->(%)
+function CreateChart( data ) {
+	Highcharts.chart('container', {
+	    chart: {
+	        plotBackgroundColor: null,
+	        plotBorderWidth: null,
+	        plotShadow: false,
+	        type: 'pie'
+	    },
+	    title: {
+	        text: "產品銷售比例"
+	    },
+	    tooltip: {
+	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	    },
+	    accessibility: {
+	        point: {
+	            valueSuffix: '%'
+	        }
+	    },
+	    plotOptions: {
+	        pie: {
+	            allowPointSelect: true,
+	            cursor: 'pointer',
+	            dataLabels: {
+	                enabled: true,
+	                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+	            }
+	        }
+	    },
+	    series: [{
+	        name: 'Brands',
+	        colorByPoint: true,
+	        data: data
+	    }]
+	});
+}
+
 var productList;
 var imgDefault = "../img/BmsDefualtImg.jpg"
+var chartTitle = "產品銷售比例"
 var productEdit = false
 var pPerPageNum = 5
 var pAllPage = 0
 var pPage = 0
+var orderStat;
 
 // 遊戲分類中英文對照參考
 // https://blog.xuite.net/foreveriori/game/33551587-%E9%81%8A%E6%88%B2%E9%A1%9E%E5%9E%8B%E8%8B%B1%E6%96%87%E5%90%8D%E8%A9%9E%E8%A7%A3%E9%87%8B

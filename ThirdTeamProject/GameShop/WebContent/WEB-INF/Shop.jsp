@@ -101,18 +101,12 @@
 		</fieldset>
 
 		<hr>
-
+		
+		<!--Search Game Area-->
 		<table class="productTable">
 			<tr class=searchArea>
-
-				<!--Search Game Area-->
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-
 				<form:form action="searchGame" method="get" modelAttribute="searchGo">
-					<td><img src="img/searchicon2.png" style="filter: contrast(100%);">
+					<td colspan="5"><img src="img/searchicon2.png" style="filter: contrast(100%);">
 						<form:input path="productName" id="queryname" />
 						<form:button value="Send">搜尋</form:button>
 					</td>

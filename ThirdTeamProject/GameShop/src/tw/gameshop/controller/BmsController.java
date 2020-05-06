@@ -3,6 +3,7 @@ package tw.gameshop.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -97,7 +101,7 @@ public class BmsController {
 										@RequestParam("dwlTime") Date dwlTime ){
 		Product p = new Product( pName, price, intro, tag, uplTime, dwlTime);
 		
-		if( !mf.isEmpty() ) {
+		if( mf != null && !mf.isEmpty()  ) {
 			try {
 				p.setProductImage(mf.getBytes());
 			} catch (IOException e) {
@@ -126,11 +130,19 @@ public class BmsController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "/tryOrderDetail", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<?> showOrderAll() {
-		
-		List<?> list = oDao.queryAllOrderDetail();
+	@RequestMapping(path = "/bms/OrderDetailStat", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<Object,Object>> showOrderAll() {
+		List<Map<Object,Object>> list = oDao.queryAllOrderDetail();
 		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping(path = "/tryReqObjReturnJson")
+	public ArrayList<Product> TestCharts(@RequestBody ArrayList<Product> dataSamp) {
+		//List list = (List)data;
+		
+		
+		return dataSamp;
 	}
 
 }
