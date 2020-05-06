@@ -70,8 +70,7 @@ body{
 footer{
 	 margin-top:50px;
      top:0px;
- }
-
+}
 /*event area*/
 .event{
 	position: relative;
@@ -84,5 +83,7 @@ footer{
 #defaultmainImg{
 	margin-left:0;
 }
-
+.searchArea{
+	width:100%;
+}
 

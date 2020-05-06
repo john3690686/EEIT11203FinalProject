@@ -21,14 +21,6 @@ body{
 	background-size: cover;
 }
 
-.message{
-	font-size: 20px;
-	font-weight: bold;
-	margin: auto;
-	text-align: center;
-	background-color:yellow;
-}
-
 </style>
 </head>
 
