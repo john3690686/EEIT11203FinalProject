@@ -182,7 +182,7 @@ public class ECPayController {
 			ItemList += i + ". " + productService.getProductNameById(details.getProductId()) + "#";
 			i++;
 		}
-		ItemList = ItemList.substring(0, ItemList.length()-1);
+		ItemList = ItemList.substring(0, ItemList.length()-1).replace("&", "");
 		Date buyDate = orderBean.getBuyDatetime();
 
 		System.out.println("[DEBUG][ECPayController] ItemList is: " + ItemList);
@@ -202,7 +202,7 @@ public class ECPayController {
 	
 	@PostMapping("confirmPay")
 	@ResponseBody
-	public int confirmPay(@RequestParam("MerchantTradeNo") String MerchantTradeNo, @RequestParam("RtnCode") int RtnCode, HttpServletRequest request) {
+	public String confirmPay(@RequestParam("MerchantTradeNo") String MerchantTradeNo, @RequestParam("RtnCode") int RtnCode, HttpServletRequest request) {
 		System.out.println("[DEBUG][ECPayController] Controller received message from ECPay Server!!");
 		System.out.println("[DEBUG][ECPayController] Accquired MerchantTradeNo: " + MerchantTradeNo);
 		System.out.println("[DEBUG][ECPayController] Accquired RtnCode: " + RtnCode);
@@ -238,7 +238,7 @@ public class ECPayController {
 		sendPayResultMail(RtnCode, itemList, mailTo, myList, dateString, serverLocation);
 		
 		// Return "I've heard you" to ECPay server(required by ECPay).
-		return 1;
+		return "1";
 	}
 	
 	public String generateECPayCreditCardPayForm(String TradeNo, Date BuyDate, String ItemName, String ReturnURL, int TotalAmount, String Url) {
@@ -290,7 +290,7 @@ public class ECPayController {
 				text.append(success.replace("[::DATE::]", buyDate));
 				for(ModelForEmailAfterPay myList:modelList) {
 					text.append(
-							gameList.replace("[::Name::]", myList.getName()).replace("[::img::]", (serverLocation+"/img/"+myList.getName()+".jpg")).replace("[::ProductKey::]", myList.getKey()));
+							gameList.replace("[::Name::]", myList.getName()).replace("[::img::]", ("http://blackcat.ap.ngrok.io/GameShop/img/"+myList.getName().replace(":", "").replace(" ", "")+".jpg")).replace("[::ProductKey::]", myList.getKey()));
 				}
 				text.append(End);
 			}else {
@@ -299,7 +299,7 @@ public class ECPayController {
 				text.append(fail.replace("[::DATE::]", buyDate));
 				for(ModelForEmailAfterPay myList:modelList) {
 					text.append(
-							failGameList.replace("[::Name::]", myList.getName()).replace("[::img::]", (serverLocation+"/img/"+myList.getName()+".jpg")));
+							failGameList.replace("[::Name::]", myList.getName()).replace("[::img::]", ("http://blackcat.ap.ngrok.io/GameShop/img/"+myList.getName().replace(":", "").replace(" ", "")+".jpg")));
 				}
 				text.append(End);
 			}
