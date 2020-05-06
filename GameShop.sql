@@ -54,7 +54,7 @@ go
 select * from ProfileDetail
 go
 
---====================================辰安的product=======================================--
+--====================================正式使用的product，目前總產品22個，5/8販售中的有17個=======================================--
 INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
 select 'DARK SOULS: REMASTERED','有一天，燃起了第一團火。 重新體驗話題性、代表性十足的經典遊戲。 經過畫質提升，將以驚豔的60fps形式呈現，做好重返羅德蘭的準備吧。 黑暗靈魂 Remastered包含遊戲本體，以及DLC《Artorias of the Abyss》。 ','1000','動作',
 '2020-03-02','2020-04-30',
@@ -111,8 +111,76 @@ select 'Divinity: Original Sin 2','The eagerly anticipated sequel to the award-w
 BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale10.jpg', Single_Blob)as gamepic
 go
 
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'Dead by Daylight','《Dead by Daylight》是一款多人（4對1）恐怖遊戲，由一名玩家扮殘暴殺手，其餘的四名玩家則扮演逃生者。逃生者試圖從殺手的魔爪下逃亡，避免被他捉住、折磨及殺死。',' 468','恐怖',
+'2020-05-03','2020-05-30',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale11.jpg', Single_Blob)as gamepic
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'DOOM Eternal','地獄大軍已入侵地球。加入精彩刺激的單人戰役，化身毀滅戰士征服各次元的惡魔，阻止人類迎向最終滅絕。 唯一能嚇阻他們的……就是你。 ','1799','射擊',
+'2020-03-12','2020-06-30',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale12.jpg', Single_Blob)as gamepic
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'WWE 2K20','誠邀各位玩家在10月22日登上《WWE 2K20》中的擂台。各位最愛的WWE超級巨星、傳奇巨星、名人堂成員及NXT的最佳選手都將齊聚盛典，共慶《WWE 2K》系列重獲新生！《WWE 2K20》將帶來遊戲體驗上的重大革新、更為流暢的控制操作，以及更趣味橫生、極富創意的豐富內容。','1790','運動',
+'2020-05-15','2020-06-30',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale13.jpg', Single_Blob)as gamepic
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'Euro Truck Simulator 2','Travel across Europe as king of the road, a trucker who delivers important cargo across impressive distances! With dozens of cities to explore, your endurance, skill and speed will all be pushed to their limits. ','468','模擬',
+'2020-04-12','2020-05-09',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale14.jpg', Single_Blob)as gamepic
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'Farming Simulator 19','百萬銷量的品牌將以全新圖形引擎燃爆回歸，讓人上癮的遊戲玩法以及身臨其境的視效，邀請玩家體驗有史以來最大型的農耕模擬遊戲！','690','模擬',
+'2020-04-30','2020-05-30',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale15.jpg', Single_Blob)as gamepic
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'Green Hell','《Green Hell》是悶熱的亞馬遜雨林中上演的一場求生奮鬥。掙扎求生的玩家將面臨耐力的極限挑戰，因為孤獨感不只對身體，更會對心靈構成重大考驗。 ','378','模擬',
+'2020-03-12','2020-04-15',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale16.jpg', Single_Blob)as gamepic
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'The Complex','After a major bio-weapon attack on London, two scientists find themselves in a locked-down laboratory with time, and air, running out. The Complex is an interactive sci-fi thriller movie  where your decisions lead to one of eight suspenseful endings.','238','冒險',
+'2020-05-12','2020-06-12',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale17.jpg', Single_Blob)as gamepic
+go
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'Sentinels of Freedom','Prepare for a story-driven campaign within the Sentinel Comics universe as you join forces with an ever-growing team of heroes to face a wide variety of villains. What seems like a  typical bank heist reveals itself to be just the beginning of a much more sinister plan! ','378','冒險',
+'2020-03-06','2020-05-15',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale18.jpg', Single_Blob)as gamepic
+go
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'Circle Empires Rivals','In this fast-paced multiplayer RTS, you and your friends will take control of your own tiny kingdoms and conquer a world made of circles. Each one is overflowing with enemies to fight, monsters to hunt and loot to hoard – but watch out... Friends can quickly become rivals!','268','休閒',
+'2020-05-01','2020-08-30',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale19.jpg', Single_Blob)as gamepic
+go
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'DJMAX RESPECT V','DJMAX RESPECT V is the latest installment from the creators of the critically acclaimed rhythm game franchise ‘DJMAX.’ Experience tracks from popular artists such as Marshmello, Porter  Robinson, and Yukika, exclusive Full HD Music Videos, online multiplayer, new game modes, and more!','698','休閒',
+'2020-05-08','2020-09-30',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale20.jpg', Single_Blob)as gamepic
+go
+
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'NBA 2K20','2K continues to redefine what’s possible in sports gaming with NBA 2K20, featuring best in class graphics & gameplay, ground breaking game modes, and unparalleled player control and  customization.','1790','運動',
+'2020-05-03','2020-06-05',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale21.jpg', Single_Blob)as gamepic
+go
+INSERT INTO Product(productName,intro,price,tag, uploadTime, downloadTime, productImage)
+select 'F1 2019','F1 2019官方電玩遊戲，挑戰你加入Codemasters史上最野心勃勃的F1R遊戲，極速狂飆，擊敗對手。當季所有官方隊伍、車手與21座賽車場在F1R 2019中齊聚一堂。今年更將迎來F2?，玩家可在2018賽季中一較高下。','858','運動',
+'2020-04-03','2020-06-05',
+BulkColumn from Openrowset( Bulk N'C:\DataSource\teamproject\img\sale22.jpg', Single_Blob)as gamepic
+go
+
 select * from Product
 go
+
+--=============查詢5/8上架中的產品================--
+select * from Product where '2020-05-08' Between uploadTime and downloadTime
 
 Create Table Orders(
    orderId int identity(1,1),
@@ -139,7 +207,7 @@ Create Table OrderDetail(
    Foreign Key (productId) References Product(productId),
 )
 go
-
+select * from Orders
 select * from OrderDetail
 go
 
