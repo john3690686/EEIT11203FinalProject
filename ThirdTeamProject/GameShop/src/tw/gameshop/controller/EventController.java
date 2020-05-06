@@ -40,26 +40,9 @@ public class EventController {
 		this.pService = pService;
 	}
 
-	@RequestMapping(path = { "/processHomePage", "/bms/processHomePage" }, method = RequestMethod.GET)
-	public String home() {
-		return "home";
-	}
 
-	@RequestMapping(path = { "/processShowEvent", "/bms/processShowEvent" }, method = RequestMethod.GET)
-	public String Event() {
-		return "ShowEvent";
-	}
-
-	@RequestMapping(path = { "/processEvent", "/bms/processEvent" }, method = RequestMethod.GET)
-	public String goTestTabs() {
-		return "EventPage";
-	}
-
-	@RequestMapping(path = { "/processEvent2", "/bms/processEvent2" }, method = RequestMethod.GET)
-	public String goTestTabs2() {
-		return "EventPage2";
-	}
-
+	
+	@ResponseBody
 	@RequestMapping(path = { "/addEvent", "/bms/addEvent" }, method = RequestMethod.POST)
 	public String addEvent(@RequestParam("product_Id") Integer productId, @RequestParam("startDate") String startDate,
 			@RequestParam("eventName") String eventName, @RequestParam("content") String content,
@@ -79,7 +62,36 @@ public class EventController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "BmsHome";
+		//return "redirect:/bms/home";
+		return "OK";
+
+	}
+	
+	@RequestMapping(path = "/bms/updateEvent", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
+			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
+			@RequestParam("endDate1") String endDate, @RequestParam(value = "eventImage1", required = false) MultipartFile eventImage,
+			@RequestParam("eventId1") Integer eventId) throws IOException {
+
+		System.out.println("updateEvent_ControllerStart");
+		
+		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
+		Game_Event upevent = eventService.queryEvent(eventId);				
+		upevent.setStartDate(startDate);
+		upevent.setEndDate(endDate);
+		upevent.setProductId(productId);
+		upevent.setContent(content.substring(1));
+		upevent.setEventName(eventName);
+		if (eventImage.isEmpty()) {
+			byte[] oldimage = eventService.queryEvent(eventId).getEventImage();		
+			upevent.setEventImage(oldimage);
+		}else {
+			upevent.setEventImage(eventImage.getBytes());
+		}
+		eventService.upDateEvent(eventId, upevent);
+
+		return "ok";
 	}
 
 	@ResponseBody
@@ -92,7 +104,7 @@ public class EventController {
 
 	@ResponseBody
 	@RequestMapping(path = { "/deleteEvent", "/bms/deleteEvent" }, method = RequestMethod.POST)
-	public String deleteEvent(int eventId) {
+	public String deleteEvent(@RequestParam("eventId")int eventId) {
 
 		try {
 			eventService.deleteEvent(eventId);
@@ -163,30 +175,6 @@ public class EventController {
 		}
 	}
 
-	@RequestMapping(path = "/bms/updateEvent", method = RequestMethod.POST)
-	@ResponseBody
-	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
-			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
-			@RequestParam("endDate1") String endDate, @RequestParam(value = "eventImage1", required = false) MultipartFile eventImage,
-			@RequestParam("eventId1") Integer eventId) throws IOException {
-
-		System.out.println("updateEvent_ControllerStart");
-		// System.out.println(content.substring(1));
-		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
-		System.out.println("eventImage.getBytes:" + eventImage.getBytes());
-
-		Game_Event gEvent = new Game_Event();
-		gEvent.setStartDate(startDate);
-		gEvent.setEndDate(endDate);
-		gEvent.setProductId(productId);
-		gEvent.setContent(content.substring(1));
-		gEvent.setEventName(eventName);
-		if (eventImage != null && !eventImage.isEmpty()) {
-			gEvent.setEventImage(eventImage.getBytes());
-		}
-		eventService.upDateEvent(eventId, gEvent);
-
-		return "ok";
-	}
+	
 
 }

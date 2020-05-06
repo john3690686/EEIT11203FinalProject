@@ -116,8 +116,8 @@
                 </div>
 
                 <div id="eventDiv" class="section" hidden>
-					<button id="qurEvent" class="productListView button">查詢活動</button>
-					<button id="insEvent" class="button">新增活動</button>
+                	<button id="insEvent" class="button">新增活動</button>
+					<button id="qurEvent" class="productListView button">查詢活動</button>					
 					<label id="selectButton">
 					<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
 					<button id="search">查詢</button>
@@ -128,8 +128,8 @@
 					<!-- 第一個標籤 -->
 							<div id="tab0" class="" style="display: block;" >
 								<h2>新增活動</h2>
-								<form action="addEvent" method="post" enctype="multipart/form-data">
-									<table>
+								<form id="newEvent"  name="newEvent" method="POST" enctype="multipart/form-data">															
+									<table id="insertEvent">
 										<tr>
 											<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
 											<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
@@ -148,7 +148,11 @@
 											<td>活動內文 : <textarea id="editor" name="content"></textarea></td>
 										</tr> 
 										<tr>
-											<td><input type="submit" value="新增" id="add" /><input type="reset" value="清除" id="reset" /></td>							
+											<td><input type="button" id="add"  value="新增活動"/>
+<!-- 												<input type="submit" value="新增" id="add" /> -->
+												<input type="reset"  id="clear" value="清除" id="reset" />
+												<input type="button" value="Demo" id="demobutton"/>
+											</td>							
 																	
 										</tr>
 									</table>
@@ -205,8 +209,10 @@
 												<td>活動內文 : <textarea id="editor2" name="content1"></textarea></td>
 											</tr>
 											<tr>
-												<td><button type="button" id="SaveButton" class="btn btn-success"data-dismiss="modal">Save</button>
-											   <button type="button" class="btn btn-danger"data-dismiss="modal">Close</button></td>
+												<td><button type="button" id="SaveButton" >Save</button>
+											   		<button type="button" id="closebtn">close</button>
+											   		<button type="button" id="demo2">demo2</button>
+											   </td>
 											</tr> 																							
 									</table>																																																																																													
 								</form>																								

@@ -288,7 +288,7 @@ $(window).on('load', function () {
     	$("#selectButton").show();
     	createEventPagesNum();
     })
-	
+	//新增CKEditor
     var editorcontent;
 	var responseEditorcontent;
 	ClassicEditor
@@ -307,7 +307,7 @@ $(window).on('load', function () {
 			console.error(error);
 		});
 	
-	// 修改
+	// 修改CKEditor
 	ClassicEditor
 	.create(document.querySelector('#editor2'), {
 		toolbar: ['bold', 'italic', 'link',
@@ -324,7 +324,7 @@ $(window).on('load', function () {
 	});
 	
 	
-	// ShowQueryAllEvent
+	//一開始載入所執行的函數
 	function reloadAllEvent(){
 		console.log('QueryAll:run');
 	$.ajax({
@@ -351,17 +351,16 @@ $(window).on('load', function () {
 			}
 			$('#queryAllEvent').html(txt);
 
-			$("button.contentButton").on("click",function(){
-				console.log('content');
+			$("button.contentButton").on("click",function(){			
 				$(this).closest("tr").next().toggle();
 		    })
 		    createEventPagesNum();
-			console.log('ShowQueryAllEvent:OK');
+			
 		}
 	});
 	}
 	
-	// searchAllData
+	// 查詢全部資料按鈕
 	$(document).on('click', '#searchAllData', function() {
 		$.ajax({
 			url : "queryAllEvent",
@@ -370,7 +369,7 @@ $(window).on('load', function () {
 			success : function(response) {
 				console.log('queryResopnse',response);								
 				var txt = "";
-				for (let i = 0; i < response.length; i++) {
+				for (let i = response.length-1; i >= 0; i--) {
 					var id = response[i].eventId;
 					txt += "<tr><td>"+ response[i].eventId;
 					txt += "<td>"+ response[i].productId;
@@ -380,27 +379,86 @@ $(window).on('load', function () {
 					txt += "<td>"+ response[i].startDate;
 					txt += "<td>"+ response[i].endDate;
 					txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';									
-					txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
+					txt += '<td><button type="button" class="btn btn-danger" class="eventDel" id="delete">刪除</button>';
 					txt += "<tr class='content' hidden><td id='"+id+"' colspan='9'>"+response[i].content+"</td></tr>";
 					console.log('searchAllData:OK');
 				}
 				$('#queryAllEvent').html(txt);	
-				//
+				
 				$("button.contentButton").on("click",function(){
 					console.log('content');
-			       // $(this).closest("tr").next("tr.content").removeClass("hideClass")//.css("background-color","red")
+			       
 					$(this).closest("tr").next().toggle();
 			    })
+			    
+				createEventPagesNum();
+				
 			}
 		});
 	})
 	
-	var eventId = null;					
-	// addEvent
+	var eventId = null;	
+	
+	
+	// addEvent	
 	$(document).on('click', '#add', function() {
+		var myForm = document.getElementById('newEvent');
+		var formData = new FormData(myForm);
+		var insertImage =$('#imageUpload').get(0).files[0];
+		
+		formData.append("eventImage",insertImage);								
+		formData.append("content",editorcontent.getData());			
+		
+			$.ajax({
+				url : "addEvent",
+				processData : false,
+				contentType : false,
+				type : "POST",
+				data : formData,
+				success : function(response) {
+					alert("新增成功");										
+					$("#tab1").show();
+					$("#tab0").hide();
+					$("#tab0").find("input[type=file]").val("");
+					// location.reload();
+					reloadAllEvent();
+					createEventPagesNum();
+					//清空欄位
+					$("#tab0").find("input[type=date]").val("");
+					$("#tab0").find("input[type=date]").val("");
+					$("#tab0").find("input[type=file]").val("");
+					$("#tab0").find("input[type=text]").val("");
+					$("#tab0").find("img").attr("src","");
+					editorcontent.setData("");
+				},
+			});				
+		});
+	// addEvent 底下清出按鈕
+	$(document).on('click', '#clear', function() {
+		editorcontent.setData("");
+		$("#tab0").find("img").attr("src","");
+	})
+	// addEvent Demo button
+	$("#demobutton").click(function(){
+		$('input[name="startDate"]').val("2020-05-08");
+		$('input[name="endDate"]').val("2020-05-09");								
+		$('input[name="product_Id"]').val("1");
+		$('input[name="eventName"]').val("《黑暗靈魂 3》死亡不是處罰 反倒是種象徵成長的獎勵");
+		editorcontent.setData("《黑暗靈魂 3（DARK SOULS III）》是黑暗奇幻風格的動作角色扮演遊戲《黑暗靈魂（DARK SOULS）》系列最終作，玩家跟前作一樣在遊戲中扮演無法死去的不死人，為了將古代薪王帶回傳火祭祀場延續火焰照亮世界，不想因為薪王拋棄王位讓柴火燒完而成為空無一物乾柴，不死人們啟程前往尋找薪王們的下落，經歷無數的挫折與死亡之後，死後復活繼續挑戰不死詛咒的使命感將會侵蝕你的內心，讓你無法自拔。極具挑戰性又不會困難到無法通關的遊戲難度和令人回味無窮的世界觀故事背景，一直以來都是靈魂系列最吸引人的地方，《黑暗靈魂 3》時間點發生在一二代之後，主線劇情環繞在四名薪王身上，深淵監視者、噬神的艾爾德利奇、巨人尤姆、以及洛斯里克雙王子，眼尖的玩家應該馬上就能猜到其中兩名薪王是怎樣的身分吧？");
+			
+	})
+	
+	//updateEvent Demo button
+	$("#demo2").click(function(){
 		alert("新增成功");
-	});
-	// 選擇圖檔立即顯現
+		$('input[name="startDate1"]').val("2020-06-01");
+		$('input[name="endDate1"]').val("2020-06-30");								
+		$('input[name="productId1"]').val("1");
+		$('input[name="eventName1"]').val("《黑暗靈魂 3》死亡不是處罰 反倒是種象徵成長的獎勵");
+		responseEditorcontent.setData("《黑暗靈魂 3（DARK SOULS III）》是黑暗奇幻風格的動作角色扮演遊戲《黑暗靈魂（DARK SOULS）》系列最終作，玩家跟前作一樣在遊戲中扮演無法死去的不死人，為了將古代薪王帶回傳火祭祀場延續火焰照亮世界，不想因為薪王拋棄王位讓柴火燒完而成為空無一物乾柴，不死人們啟程前往尋找薪王們的下落，經歷無數的挫折與死亡之後，死後復活繼續挑戰不死詛咒的使命感將會侵蝕你的內心，讓你無法自拔。極具挑戰性又不會困難到無法通關的遊戲難度和令人回味無窮的世界觀故事背景，一直以來都是靈魂系列最吸引人的地方，《黑暗靈魂 3》時間點發生在一二代之後，主線劇情環繞在四名薪王身上，深淵監視者、噬神的艾爾德利奇、巨人尤姆、以及洛斯里克雙王子，眼尖的玩家應該馬上就能猜到其中兩名薪王是怎樣的身分吧？");
+			
+	})
+	// 新增活動時  圖立即顯現
 	$("#imageUpload").change(function(){
 		var file = $('#imageUpload')[0].files[0];
 		var reader = new FileReader;
@@ -412,7 +470,7 @@ $(window).on('load', function () {
 	$("#preview_Image").click(function(){
 		$("#imageUpload").click();
 	});
-	//
+	//修改活動時   立即
 	$("#imageUpdate").change(function(){
 		var file = $('#imageUpdate')[0].files[0];
 		var reader = new FileReader;
@@ -426,8 +484,8 @@ $(window).on('load', function () {
 	});
 
 	// deleteEvent
-	$(document).on('click', '#delete', function() {
-		var checkstr = confirm("確定是否刪除該活動?");
+	$(document).on("click", "#delete", function() {
+		var checkstr = confirm("刪除該活動?");
 		if (checkstr == true) {
 			var $tr = $(this).parents("tr");
 			eventId = $tr.find("td").eq(0).text(); // 抓取id值
@@ -436,14 +494,17 @@ $(window).on('load', function () {
 
 			$.ajax({
 				url : "deleteEvent",
-				dataType : "json",
+				//dataType : "json",
 				type : "POST",
-				data : {
-					eventId : eventId
-				},
+				data : {"eventId": eventId},
 				success : function(response) {
-					console.log(response);
-				},
+					console.log("AAA");		
+				}
+			}).done(function (){
+				console.log("bbb");
+				reloadAllEvent();
+				createEventPagesNum();				
+					
 			});
 			alert("刪除成功");
 		} else {
@@ -451,7 +512,7 @@ $(window).on('load', function () {
 		}
 	});
 
-	// queryUpdateData
+	// 按下修改按鈕時 將需要修改的資料找出
 	$(document).on('click', '#queryUpdateData', function() {
 		var $tr = $(this).parents("tr");
 		eventId = $tr.find("td").eq(0).text(); // 抓取id值
@@ -478,7 +539,7 @@ $(window).on('load', function () {
 			},
 		});		
 	});				
-	// searchButton
+	// searchButton 搜尋單筆資料
 	$(document).on('click', '#search', function() {
 		console.log("searchButton:1");
 		console.log("searchcontent:",$("#se1").val());	
@@ -506,10 +567,7 @@ $(window).on('load', function () {
 					console.log('content');
 					$(this).closest("tr").next().toggle();
 			    })
-//			    $(".thistr").on("click",function(){
-//					console.log('content');
-//					$(this).closest("tr").next().toggle();
-//			    })
+			    
 			},
 		});				
 	});
@@ -521,7 +579,7 @@ $(window).on('load', function () {
 		var formData = new FormData(myForm);
 		
 		var updateImage =$('#imageUpdate').get(0).files[0];			
-// console.log('content:'+responseEditorcontent.getData());
+
 		console.log(updateImage);
 		console.log("eventId1:",eventId);
 		if(updateImage != undefined){				
@@ -545,13 +603,20 @@ $(window).on('load', function () {
 					$("#tab2").hide();
 					// location.reload();
 					reloadAllEvent();
+					
+					$("#tab2").find("input[type=file]").val("");
 				},
 			});				
 		});
+	
+	
 	$(document).ready(function(){
 		reloadAllEvent()
 		createEventPagesNum()
 	});
+	
+	
+	
 })
 
 
@@ -564,7 +629,7 @@ $(window).on('load', function () {
 	function createEventPagesNum(){
 		var allDatalen = $("#tab1 tr:not(.content)").length;
 		console.log('ePage',$("#tab1 tr:not(.content)").length);
-		eAllPage = Math.ceil( (allDatalen) / ePerPageNum )
+		eAllPage = Math.ceil( ((allDatalen)-1) / ePerPageNum )
 		let txt = "<li><a href='#' class='button special'>Previous</a></li>" //上一頁
 		for(let i=0;i<eAllPage;i++){
 	        txt += "<li class='page'><a href='#'>" + (i + 1) + "</a></li>"	//頁碼數
@@ -610,7 +675,13 @@ $(window).on('load', function () {
             $("#tab1 li.page").eq(0).find("a").click()
             
 	}    
-//jquery test
+//修改 放棄 button
+	$(document).on('click', '#closebtn', function() {
+		
+		$("#tab1").show();
+		$("#tab2").hide();
+		
+	})
 	
 
 // ---------------------------------------------------- End Document.ready -----------------------------------------------
