@@ -206,127 +206,117 @@
 						<button id="search">查詢</button>
 						<button id="searchAllData">查詢全部活動</button>
 					</label>
-
-
 					<!-- 第一個標籤 -->
-							<div id="tab0" class="" style="display: block;" >
-								<h2>新增活動</h2>
-								<form id="newEvent"  name="newEvent" method="POST" enctype="multipart/form-data">															
-									<table id="insertEvent">
-										<tr>
-											<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
-											<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
-										</tr>
-										<tr>
-											<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" /><img id="preview_Image" src="#" style='width:200px;hight:150px;'/>
-											</td>
-										</tr>
-										<tr>
-											<td>產品編號 : <input type="text" name="product_Id"></td>
-										</tr>
-										<tr>
-											<td>活動標題 : <input type="text" name="eventName"></td>
-										</tr>
-										<tr>
-											<td>活動內文 : <textarea id="editor" name="content"></textarea></td>
-										</tr> 
-										<tr>
-											<td><input type="button" id="add"  value="新增活動"/>
-<!-- 												<input type="submit" value="新增" id="add" /> -->
-												<input type="reset"  id="clear" value="清除" id="reset" />
-												<input type="button" value="Demo" id="demobutton"/>
-											</td>							
-																	
-										</tr>
-									</table>
-								</form>
-							</div>
-				
-							<!-- 第二個標籤 -->
-							<div id="tab1" class="" style="width:1000px">								
-								<div>
-									<table >
-										<thead >
-											<tr>
-												<th>活動編號</th>
-												<th>產品編號</th>
-												<th>活動照片</th>
-												<th>活動名稱</th>
-												<th>活動內文</th>
-												<th>開始日期</th>
-												<th>結束日期</th>
-												<th colspan='2'>設定</th>
-											</tr>
-										</thead>
-										
-										<tbody id="queryAllEvent">
-										</tbody>
-									</table>
-									<ul class="pagination"></ul>									
-								</div>
-							</div>
-				
-				       		<!-- 第三個標籤 -->
-							<div id="tab2" class="container" hidden>
-								<form id="updateForm" name="updateForm"  method="POST" enctype="multipart/form-data" >													
-									<table id="updateEvent">
-											<tr>
-												<td name="eventId1" id="eventId1"></td>
-											</tr>
-											<tr>
-												<td>活動起始時間 : <input type="date" id="startDate1" name="startDate1"></td>
-											</tr>
-											<tr>
-												<td>活動結束時間 : <input type="date" id="endDate1" name="endDate1"></td>
-											</tr>
-											<tr>
-												<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img id="preview_Image2" name="eventImage2" alt="" src="" style='width:200px;hight:150px;'>	</td>
-											</tr>
-											<tr>
-												<td>產品編號 <input type="text" name="productId1"></td>
-											</tr>
-											<tr>
-												<td>活動標題 : <input type="text" name="eventName1"></td>
-											</tr>									
-											<tr>
-												<td>活動內文 : <textarea id="editor2" name="content1"></textarea></td>
-											</tr>
-											<tr>
-												<td><button type="button" id="SaveButton" >Save</button>
-											   		<button type="button" id="closebtn">close</button>
-											   		<button type="button" id="demo2">demo2</button>
-											   </td>
-											</tr> 																							
-									</table>																																																																																													
-								</form>																								
-							</div>
-										
-
+					<div id="tab0" class="" style="display: block;" >
+						<h2>新增活動</h2>
+						<form id="newEvent"  name="newEvent" method="POST" enctype="multipart/form-data">															
+							<table id="insertEvent">
+								<tr>
+									<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
+									<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
+								</tr>
+								<tr>
+									<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" /><img id="preview_Image" src="#" style='width:200px;hight:150px;'/>
+									</td>
+								</tr>
+								<tr>
+									<td>產品編號 : <input type="text" name="product_Id"></td>
+								</tr>
+								<tr>
+									<td>活動標題 : <input type="text" name="eventName"></td>
+								</tr>
+								<tr>
+									<td>活動內文 : <textarea id="editor" name="content"></textarea></td>
+								</tr> 
+								<tr>
+									<td><input type="button" id="add"  value="新增活動"/>
+										<input type="submit" value="新增" id="add" />
+										<input type="reset"  id="clear" value="清除" id="reset" />
+										<input type="button" value="Demo" id="demobutton"/>
+									</td>							
+								</tr>
+							</table>
+						</form>
+					</div>
+					<!-- 第二個標籤 -->
+					<div id="tab1" class="" style="width:1000px">								
+						<div>
+							<table >
+								<thead >
+									<tr>
+										<th>活動編號</th>
+										<th>產品編號</th>
+										<th>活動照片</th>
+										<th>活動名稱</th>
+										<th>活動內文</th>
+										<th>開始日期</th>
+										<th>結束日期</th>
+										<th colspan='2'>設定</th>
+									</tr>
+								</thead>
+								
+								<tbody id="queryAllEvent">
+								</tbody>
+							</table>
+							<ul class="pagination"></ul>									
 						</div>
 					</div>
-
-
-				</div>
-				<div id="replyDiv">
-					<table id="replyTable" class="productListView">
-						<thead>
-							<tr>
-								<td>遊戲編號</td>
-								<td>玩家評論</td>
-								<td>評論時間</td>
-								<td>回覆內容</td>
-								<td>回覆時間</td>
-								<td>編輯回覆</td>
-							</tr>
-						</thead>
-						<tbody id="replyList">
-						</tbody>
-					</table>
+		       		<!-- 第三個標籤 -->
+					<div id="tab2" class="container" hidden>
+						<form id="updateForm" name="updateForm"  method="POST" enctype="multipart/form-data" >													
+							<table id="updateEvent">
+								<tr>
+									<td name="eventId1" id="eventId1"></td>
+								</tr>
+								<tr>
+									<td>活動起始時間 : <input type="date" id="startDate1" name="startDate1"></td>
+								</tr>
+								<tr>
+									<td>活動結束時間 : <input type="date" id="endDate1" name="endDate1"></td>
+								</tr>
+								<tr>
+									<td>活動圖檔 : <input type="file" id="imageUpdate" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img id="preview_Image2" name="eventImage2" alt="" src="" style='width:200px;hight:150px;'>	</td>
+								</tr>
+								<tr>
+									<td>產品編號 <input type="text" name="productId1"></td>
+								</tr>
+								<tr>
+									<td>活動標題 : <input type="text" name="eventName1"></td>
+								</tr>									
+								<tr>
+									<td>活動內文 : <textarea id="editor2" name="content1"></textarea></td>
+								</tr>
+								<tr>
+									<td><button type="button" id="SaveButton" >Save</button>
+								   		<button type="button" id="closebtn">close</button>
+								   		<button type="button" id="demo2">demo2</button>
+								   </td>
+								</tr> 																							
+							</table>																																																																																													
+						</form>																								
+					</div>
+					</div>
+						
+					<div id="replyDiv">
+						<table id="replyTable" class="productListView">
+							<thead>
+								<tr>
+									<td>遊戲編號</td>
+									<td>玩家評論</td>
+									<td>評論時間</td>
+									<td>回覆內容</td>
+									<td>回覆時間</td>
+									<td>編輯回覆</td>
+								</tr>
+							</thead>
+							<tbody id="replyList">
+							</tbody>
+						</table>
+					</div>
+					
 				</div>
 			</div>
 		</div>
-	</div>
-
 
 </body>
 
