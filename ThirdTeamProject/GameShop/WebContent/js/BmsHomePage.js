@@ -3,6 +3,7 @@ $(window).on('load', function () {
     $(".bmsmenu").on("click", function () {
         let menuSelect = $(this).attr("id")
         if (menuSelect == "product") {
+			
             getProductList("productJsonView")
         } else if (menuSelect == "event") {
             eventView()
@@ -14,7 +15,8 @@ $(window).on('load', function () {
     // Menu 點擊活動後呼叫之函數
     function eventView() {
         $("#eventDiv").show().siblings().hide()
-        $("#tab1").show();
+		$("#tab1").show();
+		$("#reply").hide();
         $("#tab0").hide();
         
         createEventPagesNum();
@@ -49,7 +51,8 @@ $(window).on('load', function () {
             txt += "<td><button class='del'>刪除</button></td>"
             txt += "</tr>"
         }
-        $("#productDiv").show().siblings().hide()
+		$("#productDiv").show().siblings().hide()
+		$("#reply").hide();
         
         if($("#insProduct").text()!="新增產品"){
         	productEdit = false

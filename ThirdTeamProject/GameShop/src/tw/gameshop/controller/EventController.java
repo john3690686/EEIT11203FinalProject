@@ -26,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import tw.gameshop.user.model.Game_EventService;
 import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductService;
+import tw.gameshop.user.model.Comment;
+import tw.gameshop.user.model.CommentService;
 import tw.gameshop.user.model.Game_Event;
 
 @Controller
@@ -33,11 +35,13 @@ public class EventController {
 
 	private Game_EventService eventService;
 	private ProductService pService;
+	private CommentService comService;
 
 	@Autowired
-	public EventController(Game_EventService eventService, ProductService pService) {
+	public EventController(Game_EventService eventService, ProductService pService, CommentService comService) {
 		this.eventService = eventService;
 		this.pService = pService;
+		this.comService = comService;
 	}
 
 	@RequestMapping(path = { "/processHomePage", "/bms/processHomePage" }, method = RequestMethod.GET)
@@ -187,6 +191,35 @@ public class EventController {
 		eventService.upDateEvent(eventId, gEvent);
 
 		return "ok";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/bmscomment")
+	public List<Comment> showComment() {
+		List<Comment> result = comService.QueryAll();
+		return result;
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "test";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/reply")
+	public boolean processReply(
+			@RequestParam(value = "comId")int comId,
+			@RequestParam(value = "reply")String Reply) {
+		System.out.println("doreply"+comId+";"+Reply);
+		try {
+			comService.updateReply(comId, Reply);
+			return true;
+		}catch(Exception e) {
+			System.out.println("Reply Error");
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }
