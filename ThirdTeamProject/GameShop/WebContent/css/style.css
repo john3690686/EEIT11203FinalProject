@@ -236,7 +236,7 @@ body{
 
 .imgUserPhoto{
     position: relative;
-    z-index: 9999;
+    z-index: 999;
     cursor: pointer; 
 	width:100px; 
 	height:100px ;
