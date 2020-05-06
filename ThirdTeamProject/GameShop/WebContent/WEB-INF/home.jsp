@@ -90,6 +90,7 @@
                        <!-- 登入頁加入新申請帳號 -->
                         <input type="button" class="registerbutton" id="register2" value="申請新帳號">
                         <p><a href="forget_password">忘記密碼?</a></p>
+                        <button id="loginfill">填入</button>
                 </fieldset>
             </div>
             
