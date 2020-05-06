@@ -18,27 +18,27 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
 	<!-- 活動用的 UI js END -->
 <style>
-	#reply {
+	#replyDiv table {
     /* height: 300px; */
     margin-bottom: 20px;
     border-collapse: collapse;
     background-color: rgb(172, 214, 255, 0.4);
 }
 
-#reply  tr, td {
+#replyDiv  tr, td {
     line-height: 50px;
     /* max-height: 50px; */
     height: 50px;
 }
-#reply thead tr {
+#replyDiv thead tr {
     background-color: rgb(70, 163, 255, 0.4);
 }
 
-#reply tbody tr {
+#replyDiv tbody tr {
     background-color: rgb(132, 193, 255, 0.4);
 }
 
-#reply button{
+#replyDiv button{
     border-radius: 5px;
     width: 59px;
     height: 37px;
@@ -46,28 +46,28 @@
     background-color: rgb(95, 206, 192, 0.5);
 }
 
-#reply td {
+#replyDiv td {
     text-align: center;
     padding: 2px;
     width: 75px;
 }
 
-#reply td:nth-child(1) {
+#replyDiv td:nth-child(1) {
     width: 70px !important;
 }
-#reply td:nth-child(2) {
+#replyDiv td:nth-child(2) {
     width: 400px !important;
 }
-#reply td:nth-child(3) {
+#replyDiv td:nth-child(3) {
     width: 100px !important;
 }
-#reply td:nth-child(4), td:nth-child(7) {
+#replyDiv td:nth-child(4), td:nth-child(7) {
     width: 200px !important;
 }
-#reply td:nth-child(5) {
+#replyDiv td:nth-child(5) {
     width: 100px !important;
 }
-#reply td:nth-child(6), td:nth-child(7) {
+#replyDiv td:nth-child(6), td:nth-child(7) {
     width: 350px !important;
 }
 
@@ -89,7 +89,7 @@
                 <li id="product" class="bmsmenu"><a href="#">商品</a></li>
                 <li id="event" class="bmsmenu"><a href="#">活動</a></li>
 				<li id="chart" class="bmsmenu"><a href="#">圖表</a></li>
-				<li id="other" class="bmsmenu"><a href="#">預留</a></li>
+				<li id="reply" class="bmsmenu"><a href="#">評論</a></li>
             </ul>
         </div>
 
@@ -117,8 +117,8 @@
                 
                 <div id="productDiv" class="section" hidden>
                     <div id="productListMenu" class="productListMenu">
-	                    <button id="insProduct" class="button"><div>新增產品</div></button>
-	                    <button id="hideProductNotSales" class="productListView button"><div>只顯示架上商品</div></button>
+	                    <button id="insProduct" class="button">新增產品</button>
+	                    <button id="hideProductNotSales" class="productListView button">只顯示架上商品</button>
 					</div>
 					<div id="iPDiv" hidden>
 						<form action="xxxController" method="post" enctype="multipart/form-data">
@@ -301,76 +301,25 @@
 					</div>
 
 				</div>
+				<div id="replyDiv">
+					<table id="replyTable" class="productListView">
+						<thead>
+							<tr>
+								<td>遊戲編號</td>
+								<td>玩家評論</td>
+								<td>評論時間</td>
+								<td>回覆內容</td>
+								<td>回覆時間</td>
+								<td>編輯回覆</td>
+							</tr>
+						</thead>
+						<tbody id="replyList">
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- comment -->
-	<table id="reply" class="productListView">
-		<thead>
-			<tr>
-				<td>遊戲編號</td>
-				<td>玩家評論</td>
-				<td>評論時間</td>
-				<td>回覆內容</td>
-				<td>回覆時間</td>
-				<td>編輯回覆</td>
-			</tr>
-		</thead>
-		<tbody id="replyList">
-		</tbody>
-	</table>
-	<script>
-
-		$(document).ready(function () {
-			var totalList = 0;
-			$("#reply").hide();
-			$("#other").click(function () {
-				$("#eventDiv").hide();
-				$("#productDiv").hide();
-				$("#reply").show();
-				var txt = "";
-				$.ajax({
-					url: "http://localhost:8080/GameShop/bmscomment",
-					type: "GET",
-					dataType: "json",
-					success: function (data) {
-						totalList = data.length;
-						for (let i = 0; i < data.length; i++) {
-							txt += '<tr><td>' + data[i].productId + '</td><td>' + data[i].comment + '</td><td>' + data[i].postDatetime + '</td><td id="replycontent' + i+ '">' + data[i].reply + '</td><td>' + data[i].replyDatetime + '</td><td><input id="reply' + i + '" type="text" name="reply"></input><input id="comId' + i + '" type="text" name="comId" hidden="hidden" value="' + data[i].comId + '"></input><button id="btn' + i + '">回覆</button></td></tr>';
-						}
-						$("#replyList").html(txt);
-					}, error: function () {
-						console.log("連線失敗");
-					}
-				}).done(function () {
-					for (let i = 0; i < totalList; i++) {
-						$("#btn" + i).click(function () {
-							console.log("comId:" + $("#comId" + i).val());
-							$.ajax({
-								url: "http://localhost:8080/GameShop/reply",
-								type: "GET",
-								dataType: "json",
-								data: {
-									comId: $("#comId" + i).val(),
-									reply: $("#reply" + i).val()
-								},
-								success: function (data) {
-									if (data) {
-										alert("success");
-										$("#replycontent"+i).text($("#reply" + i).val());
-									} else {
-										alert("fail");
-									}
-								}, error: function () {
-									console.log("連線失敗");
-								}
-							})
-						})
-					}
-				})
-			})
-		});
-	</script>
 
 
 </body>

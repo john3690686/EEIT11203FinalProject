@@ -3,16 +3,13 @@ $(window).on('load', function () {
     $(".bmsmenu").on("click", function () {
         let menuSelect = $(this).attr("id")
         if (menuSelect == "product") {
-<<<<<<< HEAD
-			
-            getProductList("productJsonView")
-=======
             getProductList()
->>>>>>> 1bccf4e9fe50be30bee23c35756d913c194c14bf
         } else if (menuSelect == "event") {
             eventView()
         } else if (menuSelect == "chart") {
         	chartView()
+        } else if (menuSelect == "reply") {
+        	replyView()
         }
     })
 
@@ -20,8 +17,7 @@ $(window).on('load', function () {
     function eventView() {
         $("#eventDiv").show().siblings().hide()
 		$("#tab1").show();
-		$("#reply").hide();
-        $("#tab0").hide();
+		$("#tab0").hide();
         
         createEventPagesNum();
     }
@@ -61,7 +57,6 @@ $(window).on('load', function () {
             txt += "</tr>"
         }
 		$("#productDiv").show().siblings().hide()
-		$("#reply").hide();
         
         if($("#insProduct").text()!="新增產品"){
         	productEdit = false
@@ -619,6 +614,53 @@ $(window).on('load', function () {
             $("#tab1 li.page").eq(0).find("a").click()
             
 	}   
+	
+	// ----------------------------------------------- reply -------------------------------------------------
+	
+	function replyView() {
+		$("#replyDiv").show().siblings().hide()
+		var totalList = 0;
+		var txt = "";
+		$.ajax({
+			url: "http://localhost:8080/GameShop/bmscomment",
+			type: "GET",
+			dataType: "json",
+			success: function (data) {
+				totalList = data.length;
+				for (let i = 0; i < data.length; i++) {
+					txt += '<tr><td>' + data[i].productId + '</td><td>' + data[i].comment + '</td><td>' + data[i].postDatetime + '</td><td id="replycontent' + i+ '">' + data[i].reply + '</td><td>' + data[i].replyDatetime + '</td><td><input id="reply' + i + '" type="text" name="reply"></input><input id="comId' + i + '" type="text" name="comId" hidden="hidden" value="' + data[i].comId + '"></input><button id="btn' + i + '">回覆</button></td></tr>';
+				}
+				$("#replyList").html(txt);
+			}, error: function () {
+				console.log("連線失敗");
+			}
+		}).done(function () {
+			for (let i = 0; i < totalList; i++) {
+				$("#btn" + i).click(function () {
+					console.log("comId:" + $("#comId" + i).val());
+					$.ajax({
+						url: "http://localhost:8080/GameShop/reply",
+						type: "GET",
+						dataType: "json",
+						data: {
+							comId: $("#comId" + i).val(),
+							reply: $("#reply" + i).val()
+						},
+						success: function (data) {
+							if (data) {
+								alert("success");
+								$("#replycontent"+i).text($("#reply" + i).val());
+							} else {
+								alert("fail");
+							}
+						}, error: function () {
+							console.log("連線失敗");
+						}
+					})
+				})
+			}
+		})
+	}
 	
 	// ----------------------------------------------- Chart -------------------------------------------------
 
