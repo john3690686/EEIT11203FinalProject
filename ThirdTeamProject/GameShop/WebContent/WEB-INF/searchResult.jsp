@@ -111,6 +111,23 @@ body{
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+	//topButton & wish
+var needLogin = function(){
+    if($(".loginz").val() == "Login"){
+        alert("請先登入");
+    }
+}
+$(".wishlist").click(needLogin);
+
+$(".topbutton").hide();
+var winHeight = $(window).height();
+$(window).scroll(function(){
+    if($(window).scrollTop() >= winHeight){
+        $(".topbutton").show();
+    }else{
+        $(".topbutton").hide();
+    }
+})
 //新增評論
 
 window.onload = function(){

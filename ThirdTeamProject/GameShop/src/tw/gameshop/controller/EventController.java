@@ -167,24 +167,25 @@ public class EventController {
 	@ResponseBody
 	public String updateEvent(@RequestParam("productId1") int productId, @RequestParam("startDate1") String startDate,
 			@RequestParam("eventName1") String eventName, @RequestParam("content1") String content,
-			@RequestParam("endDate1") String endDate, @RequestParam("eventImage1") MultipartFile eventImage,
+			@RequestParam("endDate1") String endDate, @RequestParam(value = "eventImage1", required = false) MultipartFile eventImage,
 			@RequestParam("eventId1") Integer eventId) throws IOException {
 
 		System.out.println("updateEvent_ControllerStart");
 		// System.out.println(content.substring(1));
-		System.out.println("eventImage:" + eventImage);
-		System.out.println("eventImage.getBytes:" + eventImage.getBytes());
-
-		Game_Event gEvent = new Game_Event();
-		gEvent.setStartDate(startDate);
-		gEvent.setEndDate(endDate);
-		gEvent.setProductId(productId);
-		gEvent.setContent(content.substring(1));
-		gEvent.setEventName(eventName);
-		if (eventImage != null) {
-			gEvent.setEventImage(eventImage.getBytes());
-		}
-		eventService.upDateEvent(eventId, gEvent);
+		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
+        Game_Event upevent = eventService.queryEvent(eventId);
+        upevent.setStartDate(startDate);
+        upevent.setEndDate(endDate);
+        upevent.setProductId(productId);
+        upevent.setContent(content.substring(1));
+        upevent.setEventName(eventName);
+        if (eventImage.isEmpty()) {
+            byte[] oldimage = eventService.queryEvent(eventId).getEventImage();
+            upevent.setEventImage(oldimage);
+        }else {
+            upevent.setEventImage(eventImage.getBytes());
+        }
+        eventService.upDateEvent(eventId, upevent);
 
 		return "ok";
 	}

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -79,19 +78,21 @@ body{
         <div class="titletext">最新消息</div>
     </div>
 
-		<fieldset>
+		<fieldset class="cyclePic">
 			<figure>
 				<!--輪播接活動頁面-->
-				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" style="margin-left:450px" width="460px" height="215px"/>
-				<a id="mainUrl" href="">
+				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" width="460px" height="215px"/>
+				<a id="mainUrl" href="" style="text-decoration:none;">
 				<canvas id="myCanvas" width="460" height="215">  
-                <img id="mainImg1" src="img/05.jpg" style="display: none" alt=""/>
-                <img id="mainImg2" src="img/03.jpg" style="display: none" alt=""/>
-                <img id="mainImg3" src="img/07.jpg" style="display: none" alt=""/>
-                <img id="mainImg4" src="img/08.jpg" style="display: none" alt=""/>
-                <img id="mainImg5" src="img/06.jpg" style="display: none" alt=""/>
+                <img id="mainImg1" src="img/05.jpg" style="display: none" alt="">
+                <img id="mainImg2" src="img/03.jpg" style="display: none" alt="">
+                <img id="mainImg3" src="img/07.jpg" style="display: none" alt="">
+                <img id="mainImg4" src="img/08.jpg" style="display: none" alt="">
+                <img id="mainImg5" src="img/06.jpg" style="display: none" alt="">
                 </canvas>
-				</a>
+				
+				<div id="eventimginfo"></div></a> 
+				
 				<div id="chimg"></div>
 			</figure>
 		</fieldset>
@@ -128,11 +129,14 @@ body{
 	document.getElementById("defaultmainImg").style.display="none";
 	}
 
-		//Sales輪播圖片
+	// 輪播圖片
 
+		var nowTitle = 0;
 		var nowAD = 0;
 		var maxAD = 5;
 		var intervalAD;
+		var intervalTitle;
+		
 		var adStatus = true;
 	    var intervalTime = 2500;
 		var myCanvas;
@@ -141,10 +145,13 @@ body{
 		var timeouts = [];
 		var backFlag = false;
 		var tempAD = maxAD;
+		
 		document.addEventListener("DOMContentLoaded", init);
-
+		
 		function init() {
 			genereteChangeBtn();
+			titleChange();
+			
 			for (let i = 1; i <= maxAD; i++) {
 				document.getElementById("ad" + i).addEventListener("click",
 						changebtn);
@@ -152,13 +159,40 @@ body{
 						"mouseover", pause);
 				document.getElementById("myCanvas").addEventListener(
 						"mouseout", keepgo);
+				document.getElementById("eventimginfo").addEventListener(
+						"mouseover", pause);
+				document.getElementById("eventimginfo").addEventListener(
+						"mouseout", keepgo);
 			}
-
 			myCanvas = document.getElementById("myCanvas");
 			ctx = myCanvas.getContext("2d");
 			preImg = document.getElementById("mainImg1");
 			intervalAD = setInterval(cycleAD, intervalTime);
-		}
+}
+		// 輪播活動標題		
+		function titleChange(){
+
+			var q = ['', '《惡靈古堡 3 重製版》上市頭 5 天全球出貨突破 200 萬套 下載版佔比近半', 
+				'戰略 RPG《為了國王 For The King》PS4、Switch 中文版即將發售', '戰爭策略名作《騎馬與砍殺2：霸主》2020年3月登上Steam',
+				"2019 Steam大獎揭曉《隻狼》獲年度遊戲獎", "《魔物獵人》更新擊殺排行榜"]; 
+
+				function quoteChange (target, quotes) { 
+		    		if (!quotes || !target) { 
+		     		return false; 
+		     		
+		    	}else {		
+		      		nowTitle = tempAD;
+		      		console.log(tempAD);
+				
+		      		text = 'textContent' in document ? 'textContent' : 'innerText' 
+			     	target[text] = quotes[nowTitle];
+		    }
+		  } 
+				intervalTitle = setInterval(function(){
+					quoteChange(document.getElementById('eventimginfo'), q);
+				}, intervalTime); 
+		}	
+
 		function genereteChangeBtn() {
 			let html = "";
 			for (let i = 1; i <= maxAD; i++) {
@@ -220,8 +254,10 @@ body{
 		}
 		function pause() {
 			clearInterval(intervalAD);
+			clearInterval(intervalTitle);	
 		}
 		function keepgo() {
+			titleChange();
 			intervalAD = setInterval(cycleAD, intervalTime);
 		}
 

@@ -14,6 +14,10 @@ $(window).on('load', function () {
     // Menu 點擊活動後呼叫之函數
     function eventView() {
         $("#eventDiv").show().siblings().hide()
+        $("#tab1").show();
+        $("#tab0").hide();
+        
+        createEventPagesNum();
     }
     
     function chartView() {
@@ -249,6 +253,7 @@ $(window).on('load', function () {
             }
         }
 
+        
         // 點擊上/下頁的動作
         $("#productDiv a.button.special").on("click", function() {
             let page = parseInt($("li.page.current>a").text())
@@ -272,25 +277,20 @@ $(window).on('load', function () {
         $("#productDiv li.page>a").eq(0).click()
     }
 // ------------------------------------------ 以下為活動的 JS -------------------------------------------------
-// $("#tabs-nav a").click(function() {
-// $("#tabs-nav a").removeClass("tabs-menu-active");
-// $(this).addClass("tabs-menu-active");
-// $(".tabs-panel").hide();
-// var tab_id = $(this).attr("href");
-// $(tab_id).show("blind");
-// return false;
-// });
+//活動標籤跳選
     $("#insEvent").click(function(){
     	$("#tab2").hide();
     	$("#tab1").hide();
     	$("#tab0").show();
+    	$("#selectButton").hide();
     });
     
     $("#qurEvent").click(function(){
     	$("#tab2").hide();
     	$("#tab0").hide();
     	$("#tab1").show();
-    	
+    	$("#selectButton").show();
+    	createEventPagesNum();
     })
 	
     var editorcontent;
@@ -338,24 +338,31 @@ $(window).on('load', function () {
 		success : function(response) {
 			console.log('queryResopnse', response);
 			// console.log('QueryAll:2');
-			var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
-			for (let i = 0; i < response.length; i++) {
+			var txt = "";
+			for (let i = response.length-1; i >= 0; i--) {
 				var id = response[i].eventId;
 				txt += "<tr><td>"+ response[i].eventId;
 				txt += "<td>"+ response[i].productId;
-				txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "' >"
+				txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "' style='width:200px;hight:150px;'>";
 				txt += "<td>"+ response[i].eventName;
-				// txt += "<td><button type='button' class='btn btn-danger'
-				// id=''>內文</button>";
-				txt += "<td>"+ response[i].content;
+				txt += "<td><button class='contentButton' type='button' >內文</button>";		
 				txt += "<td>"+ response[i].startDate;
 				txt += "<td>"+ response[i].endDate;
-				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';
-				
+				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';				
 				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
+				txt += "<tr class='content' hidden><td id='"+id+"' colspan='9'>"+response[i].content+"</td></tr>"
 						
 			}
 			$('#queryAllEvent').html(txt);
+<<<<<<< HEAD
+=======
+
+			$("button.contentButton").on("click",function(){
+				console.log('content');
+				$(this).closest("tr").next().toggle();
+		    })
+		    createEventPagesNum();
+>>>>>>> c2808e7b7be2b9c2e2310bec3b360f7832f1998d
 			console.log('ShowQueryAllEvent:OK');
 		}
 	});
@@ -369,23 +376,28 @@ $(window).on('load', function () {
 			type : "GET",
 			success : function(response) {
 				console.log('queryResopnse',response);								
-				var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
+				var txt = "";
 				for (let i = 0; i < response.length; i++) {
 					var id = response[i].eventId;
 					txt += "<tr><td>"+ response[i].eventId;
 					txt += "<td>"+ response[i].productId;
-					txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "'>"
+					txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "' style='width:200px;hight:150px;'>";
 					txt += "<td>"+ response[i].eventName;
-					// txt += "<td><button type='button' class='btn btn-danger'
-					// id=''>內文</button>";
-					txt += "<td>"+ response[i].content;
+					txt += "<td><button class='contentButton' type='button' >內文</button>";
 					txt += "<td>"+ response[i].startDate;
 					txt += "<td>"+ response[i].endDate;
 					txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';									
 					txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
+					txt += "<tr class='content' hidden><td id='"+id+"' colspan='9'>"+response[i].content+"</td></tr>";
 					console.log('searchAllData:OK');
 				}
-				$('#queryAllEvent').html(txt);								
+				$('#queryAllEvent').html(txt);	
+				//
+				$("button.contentButton").on("click",function(){
+					console.log('content');
+			       // $(this).closest("tr").next("tr.content").removeClass("hideClass")//.css("background-color","red")
+					$(this).closest("tr").next().toggle();
+			    })
 			}
 		});
 	})
@@ -406,6 +418,18 @@ $(window).on('load', function () {
 	});
 	$("#preview_Image").click(function(){
 		$("#imageUpload").click();
+	});
+	//
+	$("#imageUpdate").change(function(){
+		var file = $('#imageUpdate')[0].files[0];
+		var reader = new FileReader;
+		reader.onload = function(e) {
+			$('#preview_Image2').attr('src', e.target.result);
+		};
+		reader.readAsDataURL(file);
+	});
+	$("#preview_Image2").click(function(){
+		$("#imageUpdate").click();
 	});
 
 	// deleteEvent
@@ -473,17 +497,26 @@ $(window).on('load', function () {
 			data : {eventId : eventId},
 			success : function(response) {
 				console.log(response);	
-				var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
-				txt += "<tr><td>"+ response.eventId;
+				var txt = "";
+				txt += "<tr class='thistr'><td>"+ response.eventId;
 				txt += "<td>"+ response.productId;
-				txt += "<td><img src='data:image/jpeg;base64," + response.eventImage + "'>"
+				txt += "<td><img src='data:image/jpeg;base64," + response.eventImage + "' style='width:200px;hight:150px;'>";
 				txt += "<td>"+ response.eventName;
-				txt += "<td>"+ response.content;
+				txt += "<td><button class='contentButton' type='button' >內文</button>";			
 				txt += "<td>"+ response.startDate;
 				txt += "<td>"+ response.endDate;
 				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';						
-				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
-				$('#queryAllEvent').html(txt);						 
+				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';	
+				txt += "<tr class='content' hidden><td  colspan='9'>"+response.content+"</td></tr>";
+				$('#queryAllEvent').html(txt);	
+				$("button.contentButton").on("click",function(){
+					console.log('content');
+					$(this).closest("tr").next().toggle();
+			    })
+//			    $(".thistr").on("click",function(){
+//					console.log('content');
+//					$(this).closest("tr").next().toggle();
+//			    })
 			},
 		});				
 	});
@@ -524,6 +557,7 @@ $(window).on('load', function () {
 		});
 	$(document).ready(function(){
 		reloadAllEvent()
+		createEventPagesNum()
 	});
 	
 	// ----------------------------------------------- Chart -------------------------------------------------
@@ -557,6 +591,66 @@ $(window).on('load', function () {
 	
 	
 })
+
+
+//-----活動頁面
+ 	// 產生活動的頁碼
+	var ePerPageNum = 4;	//一頁幾筆
+	var eAllPage=1;
+	//var page = $("li.page>a").val();
+
+	function createEventPagesNum(){
+		var allDatalen = $("#tab1 tr:not(.content)").length;
+		console.log('ePage',$("#tab1 tr:not(.content)").length);
+		eAllPage = Math.ceil( (allDatalen) / ePerPageNum )
+		let txt = "<li><a href='#' class='button special'>Previous</a></li>" //上一頁
+		for(let i=0;i<eAllPage;i++){
+	        txt += "<li class='page'><a href='#'>" + (i + 1) + "</a></li>"	//頁碼數
+	    }	
+		txt += "<li><a href='#' class='button special'>Next</a></li>"	//下一頁
+	    $("#tab1 ul.pagination").html(txt)	
+	
+	
+
+        // 此為翻頁的事件(翻到第幾頁)
+        function turningEPage(page) {
+			console.log('page',page);
+            trLen = $("#queryAllEvent tr:not(.content)").length
+            $("#queryAllEvent tr").hide()
+            for(let i=(page-1)*ePerPageNum;i<page*ePerPageNum;i++){
+                $("#queryAllEvent tr:not(.content)").eq(i).show()
+            }
+        }
+
+     
+            // 點擊上/下頁的動作
+            $("#tab1 a.button.special").on("click", function() {
+            	console.log('thispage',parseInt($("#tab1 li.page.current>a").text()))
+                let page = parseInt($("#tab1 li.page.current>a").text())
+                actionName = $(this).text()
+                if( page > 1 && actionName == "Previous" ){
+    				$("#tab1 li.page").eq(page-2).addClass("current").siblings().removeClass("current")
+                    turningEPage(page-1)
+                }else if( page < eAllPage && actionName == "Next" ){
+    				$("#tab1 li.page").eq(page).addClass("current").siblings().removeClass("current")
+                    turningEPage(page+1)
+                }
+            })
+
+            // 點擊頁碼後的動作
+            $("#tab1 li.page>a").on("click", function() {
+                $(this).closest("li.page").addClass("current").siblings().removeClass("current")
+                turningEPage($(this).text())
+            })
+
+            // 讓一開始都在第一頁
+            //turningEPage(1)
+            $("#tab1 li.page").eq(0).find("a").click()
+            
+	}    
+//jquery test
+	
+
 // ---------------------------------------------------- End Document.ready -----------------------------------------------
 
 

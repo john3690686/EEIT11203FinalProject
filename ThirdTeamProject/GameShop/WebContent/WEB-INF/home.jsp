@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <!-- css for phone -->
-    <link rel="stylesheet" media="screen and  (max-width: 700px)" href="css/style700.css" />
+    <link rel="stylesheet" media="screen and  (max-width: 800px)" href="css/style700.css" />
     <!-- favicon -->
     <link rel="shortcut icon" href="img/favicon.ico"/>
 	<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
@@ -18,26 +18,11 @@
 	<title>GameGuild~Enjoy your gameLife here~</title>
 	
 <style>
- 
-body{
-	font-family: Microsoft JhengHei;
-} 
-
-.video{
-    position: absolute;
-    width: 100%;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 3;
-}
 
 </style>
 </head>
 
-<body>
+<body class="mainBody">
 
 <!--Navigator-->
     <nav>
@@ -77,15 +62,15 @@ body{
      </div>
 
 <!--Background Effect-->
-<div class="bg">
-    <div><img src="img/SkyTower2.jpg" style="width: 100%; height:2500px">
-<!--        <video class="bg-video" loop muted autoplay>
+<%-- <div class="bg">
+     <div><img src="img/SkyTower2.jpg" style="width: 100%; height:2500px">
+        <video class="bg-video" loop muted autoplay>
 	   <source src="https://cxc421.github.io/draw-lots/static/media/smoke.9c21ff18.mp4" type="video/mp4">
-	   </video> -->
+	   </video>
      </div>
-         <canvas class="bg-canvas"></canvas>
+          <canvas class="bg-canvas"></canvas>
 </div>
-
+ --%>
 <!-- login form -->
         <div class="loginDiv">
             <div class="loginForm">
@@ -155,7 +140,7 @@ body{
         </div>
 
 <!--Top Event Area-->
-        <div class="titledec" style="margin-top:950px;">
+        <div class="titledec2">
         	<div class="titletext">最新消息</div>
         </div>
  
@@ -197,7 +182,7 @@ body{
 			<figure>
 			
 				<!--輪播已修改完畢(接商品頁面)-->
-				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" style="margin-left:450px" width="460px" height="215px"/>
+				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" width="460px" height="215px"/>
 				<a id="mainUrl" href="">
 				<canvas id="myCanvas" width="460" height="215">
                 <img id="mainImg1" src="img/sale1.jpg" style="display: block" alt=""/>
@@ -220,19 +205,19 @@ body{
             <div class="event">
                 <table>
                     <tr>
-                        <td colspan="2"><a href="processReadArticle?articleID=5">《最後生還者》表示不歡迎仇恨同性戀之玩家</a></td>
+                        <td colspan="2"><a href="processReadArticle?articleID=5">以立體書為美術主題，結合多種玩法的獨立遊戲</a></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><a href="processReadArticle?articleID=4">微軟首度揭露新一代 Xbox Series X</a></td>
+                        <td colspan="2"><a href="processReadArticle?articleID=4">《企鵝公路》追尋吧！未知的企鵝道</a></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><a href="processReadArticle?articleID=3">在家裡自導自演一場 B 級恐怖片吧</a></td>
+                        <td colspan="2"><a href="processReadArticle?articleID=3">【手工篆刻】沖田總司</a></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><a href="processReadArticle?articleID=2">《Apex 英雄》賽季 5「時來運轉」</a></td>
+                        <td colspan="2"><a href="processReadArticle?articleID=2">遊戲開箱《時空幻境 宵星傳奇 Remaster》</a></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><a href="processReadArticle?articleID=1">夏季遊戲節 SGF</a></td>
+                        <td colspan="2"><a href="processReadArticle?articleID=1">顛覆傳統的三部曲完結篇──《哥吉拉：噬星者》</a></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center;">
@@ -251,8 +236,25 @@ body{
         </div>
     </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+
+//topButton & wish
+var needLogin = function(){
+    if($(".loginz").val() == "Login"){
+        alert("請先登入");
+    }
+}
+$(".wishlist").click(needLogin);
+
+$(".topbutton").hide();
+var winHeight = $(window).height();
+$(window).scroll(function(){
+    if($(window).scrollTop() >= winHeight){
+        $(".topbutton").show();
+    }else{
+        $(".topbutton").hide();
+    }
+})
 
 //  圖片預先載入
 	window.onload = function() {
