@@ -28,10 +28,10 @@ public class ChatroomController {
 	@RequestMapping(path = "/Chatroom", method = RequestMethod.GET)
 	public String checkSession(HttpSession session) {
 		try {
-			if (session.getAttribute("chatName") != null && session != null) {
-				return "Chatroom";
-			}else if (session.getAttribute("nickName") != null && session != null) {
+			if (session.getAttribute("nickName") != null && session != null) {
 				session.setAttribute("chatName", session.getAttribute("nickName"));
+				return "Chatroom";
+			}else if (session.getAttribute("chatName") != null && session != null) {
 				return "Chatroom";
 			}else {
 				return "chatroom-portal";

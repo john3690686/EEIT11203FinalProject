@@ -21,13 +21,36 @@ body{
 	background-size: cover;
 }
 
+.message{
+	font-size: 20px;
+	font-weight: bold;
+	margin: auto;
+	text-align: center;
+	background-color:yellow;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- top -->
-	<a href="#"><input type="button" class="topbutton"></a>
+<!--Navigator-->
+    <nav>
+        <ul class="ul1">
+            <li><a href="index.html">HOME</a>
+            <li><a href="Event">NEWS</a>
+            <li><a id="navShop" href="Shop">SHOP</a>
+            <li><a href="processArticle">BLOG</a>
+            <li><a href="Chatroom">CHAT</a>
+            <li id="hello"><a href="myProfile">會員中心</a>
+        </ul>
+        <a href="#"><input type="button" class="loginz" value="${login_btn}" /></a>	
+    </nav>
+
+<!--Wishlist & Shopping cart &top-->
+        <a href="showWish.controller"><input type="button" class="wishlist" title="願望清單"></a>
+        <a href="prePay.controller"><input type="button" class="shoppingcart" title="購物車"></a>
+		<a href="#"><input type="button" class="topbutton"></a>
 	
 <!-- main -->
 	<div class="titledec">
@@ -74,7 +97,7 @@ body{
 			<label for="birthday">生日:</label><input type="text" id="birthday" name="birthday"><br />
 			<label for="address">地址:</label><input type="text" id="address" name="address"><br />
 			<label for="phone">電話:</label><input type="text" id="phone" name="phone"><br /><br />
-			<button class="registerconfirm">確認</button><input class="cancel_btn" type="button" value="取消">
+			<button class="registerconfirm">儲存</button><input class="cancel_btn" type="button" value="取消">
 		</form>
 		<div class="message"></div>
 	</fieldset>
@@ -245,10 +268,10 @@ body{
 						processData: false,
 						success: function (data) {
 							if (data.length == 0 || data === "undefined" || data == null) {
-								$(".message").text("資料不正確，修改失敗").css("color", "red");
+								$(".message").text("資料不正確，修改失敗!").css("color", "red");
 							} else {
 								console.log(data)
-								$(".message").text("修改成功").css("color", "green");
+								$(".message").text("修改成功!").css("color", "green");
 							}
 						}
 						, done: function (data) {
