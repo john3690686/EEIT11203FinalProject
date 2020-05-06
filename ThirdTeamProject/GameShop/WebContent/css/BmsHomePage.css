@@ -146,11 +146,26 @@ h1 {
     display: none;
 }
 
+#productListMenu > button {
+	padding: 0;
+}
+
+.button > div {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(172, 214, 255, 0.4) !important;
+}
+
+.button > div:hover {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(70, 163, 255, 0.7) !important;
+}
+
 #productDiv button {
     margin-bottom: 30px;
     margin-right: 10px;
     font-size: 14pt !important;
-    background-color: #5FCEC0;
 }
 
 /* ----------------- Product Table CSS ------------------------*/
