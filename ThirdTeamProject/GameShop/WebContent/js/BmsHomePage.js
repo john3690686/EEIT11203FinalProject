@@ -354,15 +354,12 @@ $(window).on('load', function () {
 						
 			}
 			$('#queryAllEvent').html(txt);
-<<<<<<< HEAD
-=======
 
 			$("button.contentButton").on("click",function(){
 				console.log('content');
 				$(this).closest("tr").next().toggle();
 		    })
 		    createEventPagesNum();
->>>>>>> c2808e7b7be2b9c2e2310bec3b360f7832f1998d
 			console.log('ShowQueryAllEvent:OK');
 		}
 	});
@@ -560,39 +557,6 @@ $(window).on('load', function () {
 		createEventPagesNum()
 	});
 	
-	// ----------------------------------------------- Chart -------------------------------------------------
-
-	// 抓訂單清單的各產品的購買次數
-    $.getJSON("OrderDetailStat", function( jdata ){
-		orderStat = jdata;
-	})
-	
-	$("#ShowOrderChartBtn").on("click", function(){
-		console.log(productList)
-		console.log(orderStat)
-		
-		let sum = 0;
-		for(let i=0;i<orderStat.length;i++){
-			sum += parseInt(orderStat[i].NumOfSales)
-		}
-		console.log("sum = " + sum )
-		
-		let data = [];
-		for(let i=0;i<orderStat.length;i++){
-			let obj = {
-					"name": findProductById(parseInt(orderStat[i].productId)).productName,
-					"y": ((parseInt(orderStat[i].NumOfSales)*100)/sum)
-				}
-			data.push(obj)
-		}
-		
-		CreateChart( data );
-	})
-	
-	
-})
-
-
 //-----活動頁面
  	// 產生活動的頁碼
 	var ePerPageNum = 4;	//一頁幾筆
@@ -647,11 +611,40 @@ $(window).on('load', function () {
             //turningEPage(1)
             $("#tab1 li.page").eq(0).find("a").click()
             
-	}    
-//jquery test
+	}   
+	
+	// ----------------------------------------------- Chart -------------------------------------------------
+
+	// 抓訂單清單的各產品的購買次數
+    $.getJSON("OrderDetailStat", function( jdata ){
+		orderStat = jdata;
+	})
+	
+	$("#ShowOrderChartBtn").on("click", function(){
+		console.log(productList)
+		console.log(orderStat)
+		
+		let sum = 0;
+		for(let i=0;i<orderStat.length;i++){
+			sum += parseInt(orderStat[i].NumOfSales)
+		}
+		console.log("sum = " + sum )
+		
+		let data = [];
+		for(let i=0;i<orderStat.length;i++){
+			let obj = {
+					"name": findProductById(parseInt(orderStat[i].productId)).productName,
+					"y": ((parseInt(orderStat[i].NumOfSales)*100)/sum)
+				}
+			data.push(obj)
+		}
+		
+		CreateChart( data );
+	})
+
 	
 
-// ---------------------------------------------------- End Document.ready -----------------------------------------------
+})// ---------------------------------------------------- End Document.ready -----------------------------------------------
 
 
 // 取字串左邊 num 位出來
