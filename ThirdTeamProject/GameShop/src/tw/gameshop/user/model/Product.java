@@ -48,11 +48,11 @@ public class Product implements Serializable {
 	@Column(name = "productImage") // ���~�Ϥ�
 	private byte[] productImage;
 
-	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name = "uploadTime") // �W�[�ɶ�(��x����)
 	private Date uploadTime;
 
-	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	@Column(name = "downloadTime") // �U�[�ɶ�(��x����)
 	private Date downloadTime;
 
