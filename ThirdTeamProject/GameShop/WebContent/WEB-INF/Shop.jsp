@@ -86,7 +86,7 @@
 		<fieldset>
 			<figure>
 				<!--輪播已修改完畢(接商品頁面)-->
-				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" style="margin-left:450px" width="460px" height="215px"/>				
+				<img id="defaultmainImg" src="https://i.pinimg.com/originals/09/4a/6e/094a6ec8f9f452846d4c0c6e845c5b10.gif" width="460px" height="215px"/>				
 				<a id="mainUrl" href="">
 					<canvas id="myCanvas" width="460" height="215">
 						<img id="mainImg1" src="img/sale1.jpg" style="display: none" alt="" />
