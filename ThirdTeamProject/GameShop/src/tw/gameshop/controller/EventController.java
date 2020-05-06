@@ -173,18 +173,19 @@ public class EventController {
 		System.out.println("updateEvent_ControllerStart");
 		// System.out.println(content.substring(1));
 		if(eventImage!=null)System.out.println("eventImage:" + eventImage.getBytes().length);
-		System.out.println("eventImage.getBytes:" + eventImage.getBytes());
-
-		Game_Event gEvent = new Game_Event();
-		gEvent.setStartDate(startDate);
-		gEvent.setEndDate(endDate);
-		gEvent.setProductId(productId);
-		gEvent.setContent(content.substring(1));
-		gEvent.setEventName(eventName);
-		if (eventImage != null && !eventImage.isEmpty()) {
-			gEvent.setEventImage(eventImage.getBytes());
-		}
-		eventService.upDateEvent(eventId, gEvent);
+        Game_Event upevent = eventService.queryEvent(eventId);
+        upevent.setStartDate(startDate);
+        upevent.setEndDate(endDate);
+        upevent.setProductId(productId);
+        upevent.setContent(content.substring(1));
+        upevent.setEventName(eventName);
+        if (eventImage.isEmpty()) {
+            byte[] oldimage = eventService.queryEvent(eventId).getEventImage();
+            upevent.setEventImage(oldimage);
+        }else {
+            upevent.setEventImage(eventImage.getBytes());
+        }
+        eventService.upDateEvent(eventId, upevent);
 
 		return "ok";
 	}
