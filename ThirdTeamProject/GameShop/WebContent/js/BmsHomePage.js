@@ -170,7 +170,7 @@ $(window).on('load', function () {
     	formdata.append("id" , id)
     	formdata.append("pName" , $("input[name=pName]").val())
     	formdata.append("price" , $("input[name=price]").val())
-    	formdata.append("intro" , $("input[name=price]").val())
+    	formdata.append("intro" , $("input[name=intro]").val())
     	formdata.append("tag" , tagList[parseInt($("select[name=tagList]").val())])
     	formdata.append("uplTime" , $("input[name=uplTime]").val())
     	formdata.append("dwlTime" , $("input[name=dwlTime]").val())
@@ -233,7 +233,7 @@ $(window).on('load', function () {
     //一鍵輸入產品新增
 	$("input#oneKeyinInsert").on("click", function(){
 		$("#iPDiv").find("input[type=text][name=pName]").val("NBA 2K20")
-	    $("#iPDiv").find("input[type=text][name=price]").val(1,790)
+	    $("#iPDiv").find("input[type=text][name=price]").val(1790)
 	    $("#iPDiv").find("select[name=tagList]").val(tagListIndexOf("運動"))
 	    $("#iPDiv").find("textarea[name=intro]").val("《NBA 2K》系列持續進化，現已不單是個籃球模擬遊戲。《NBA 2K20》不僅提供最為出色的畫面與遊戲表現，也帶來各種創新的遊戲模式，以及無與倫比的球員操控與自訂體驗，2K遊戲開發部門不斷重新定義運動遊戲的可能性。此外，身臨其境的開放世界「街區」也讓《NBA 2K20》成為集合所有玩家與籃球員，一同開創未來籃球文化的平台。")
 	    $("#iPDiv").find("input[type=date][name=uplTime]").val((new Date()).format("yyyy-MM-dd"))
@@ -361,7 +361,7 @@ $(window).on('load', function () {
 				txt += "<td>"+ response[i].endDate;
 				txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';				
 				txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
-				txt += "<tr class='content' hidden><td id='"+id+"' colspan='9'>"+response[i].content+"</td></tr>"
+				txt += "<tr class='content' hidden><td colspan='3'></td><td id='"+id+"' colspan='4'>"+response[i].content+"</td><td colspan='2'></td></tr>"
 						
 			}
 			$('#queryAllEvent').html(txt);
