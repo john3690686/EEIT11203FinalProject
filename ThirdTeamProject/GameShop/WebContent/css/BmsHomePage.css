@@ -203,6 +203,10 @@ table td {
     width: 75px;
 }
 
+tbody tr:hover {
+	background-color: rgb(101, 178, 255, 0.4);
+}
+
 table#productListTable td:nth-child(3) {
     width: 300px !important;
 }
@@ -330,6 +334,10 @@ table#eventListTable .content {
 	text-align: left
 }
 
+tr.content > td:nth-child(2) {
+	background-color: rgb(255, 255, 119, 0.4);
+}
+
 a.tabs-menu {
 	display: inline-block;
 	background-color: #1b91ab;
@@ -377,3 +385,22 @@ a.tabs-menu.tabs-menu-active {
   width: 700px;
 }
 
+/* ------------------------  */
+#messageDiv {
+	position: absolute;
+	margin-left: -230px;
+	margin-top: -338px;
+	top: 50%;
+	left: 50%;
+}
+
+#messageContext {
+	padding: 20px;
+	background-color: #66FFFF;
+}
+
+#messageDiv table {
+	margin: 0 auto;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}

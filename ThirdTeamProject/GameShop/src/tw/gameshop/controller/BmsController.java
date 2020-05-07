@@ -32,6 +32,7 @@ import tw.gameshop.user.model.OrderDetailDAO;
 import tw.gameshop.user.model.Product;
 import tw.gameshop.user.model.ProductDAO;
 import tw.gameshop.user.model.ProductService;
+import tw.gameshop.user.model.WishDAO;
 
 @Controller
 @PropertySource("classpath:/bmsAccountInfo.properties")
@@ -39,6 +40,7 @@ public class BmsController {
 
 	private ProductService pService;
 	private OrderDetailDAO oDao;
+	private WishDAO wDao;
 
 	public BmsController() {
 		super();
@@ -48,9 +50,10 @@ public class BmsController {
     Environment env;
 
 	@Autowired
-	public BmsController(ProductService pService, OrderDetailDAO oDao) {
+	public BmsController(ProductService pService, OrderDetailDAO oDao, WishDAO wDao) {
 		this.pService = pService;
 		this.oDao = oDao;
+		this.wDao = wDao;
 	}
 
 	@RequestMapping(path = "/bms/home", method = RequestMethod.GET)
@@ -137,12 +140,10 @@ public class BmsController {
 	}
 	
 	@ResponseBody
-	@PostMapping(path = "/tryReqObjReturnJson")
-	public ArrayList<Product> TestCharts(@RequestBody ArrayList<Product> dataSamp) {
-		//List list = (List)data;
-		
-		
-		return dataSamp;
+	@RequestMapping(path = "/bms/WishListChart", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<Object, Object>> TestCharts() {
+		List<Map<Object,Object>> list = wDao.queryAllWish();
+		return list;
 	}
 
 }

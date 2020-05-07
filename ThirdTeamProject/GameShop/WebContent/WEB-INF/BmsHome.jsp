@@ -93,19 +93,31 @@
 
         <div class="main">
             <div id="article" class="article">
-                <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
+                <div id="messageDiv" hidden>
+                	<div id="messageContext">
+                		<table>
+                			<tr><td colspan="2"><img id="msgImg"></td></tr>
+                			<tr><td>產品編號</td><td></td></tr>
+                			<tr><td>產品名稱</td><td></td></tr>
+                			<tr><td>類別</td><td></td></tr>
+                			<tr><td>價格</td><td></td></tr>
+                			<tr><td>上架日期</td><td></td></tr>
+                			<tr><td>下架日期</td><td></td></tr>
+                			<tr><td rowspan="2" colspan="2">遊戲描述</td></tr>
+                		</table>
+                	</div>
+                </div>
 
                 <div id="ChartDiv" class="section" hidden>
                 	<div id="productListMenu" class="sectionMenu">
 	                    <button id="ShowOrderChartBtn" class="button">產品銷售比例</button>
-	                    <button id="ShowPTagChartBtn" class="productListView button">類別銷售比例</button>
+	                    <button id="ShowPTagChartBtn" class="button">類別銷售比例</button>
+	                    <button id="ShowWishChartBtn" class="button">願望占比</button>
 					</div>
                 	<figure class="highcharts-figure">
 					    <div id="container"></div>
 					    <p class="highcharts-description">
-					        Pie charts are very popular for showing a compact overview of a
-					        composition or comparison. While they can be harder to read than
-					        column charts, they remain a popular choice for small datasets.
+					        
 					    </p>
 					</figure>
 					<table>
@@ -125,9 +137,9 @@
 								<!-- 	test id -->
 								<tr>
 									<td>遊戲封面</td>
-									<td colspan="4">
+									<td colspan="3">
 										<img id="Preview" src="../img/BmsDefualtImg.jpg">
-										<input id="pfile" type="file" name="file" hidden></td>
+										<input id="pfile" type="file" name="file" accept=".png, .jpg, .jpeg" hidden></td>
 								</tr>
 								<tr>
 									<td>遊戲名稱</td>
@@ -153,7 +165,7 @@
 								</tr>
 								<tr>
 									<td>描述</td>
-									<td colspan="4">
+									<td colspan="3">
 										<textarea name="intro" cols="50" rows="5" placeholder="輸入遊戲的描述"></textarea></td>
 								</tr>
 								<tr>
@@ -235,7 +247,6 @@
 								<tr>
 									<td colspan="2">
 										<input type="button" id="add"  value="新增活動"/>
-										<input type="submit" value="新增" id="add" />
 										<input type="reset"  id="clear" value="清除" id="reset" />
 										<input type="button" value="Demo" id="demobutton"/>
 									</td>							
@@ -294,7 +305,6 @@
 								<tr>
 									<td><button type="button" id="SaveButton" >Save</button>
 								   		<button type="button" id="closebtn">close</button>
-								   		<button type="button" id="demo2">demo2</button>
 								   </td>
 								</tr> 																							
 							</table>																																																																																													

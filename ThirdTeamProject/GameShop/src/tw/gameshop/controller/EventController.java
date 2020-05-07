@@ -54,7 +54,7 @@ public class EventController {
 		try {
 			if (eventService.queryAllEvent() != null) {
 				Game_Event event = new Game_Event();
-				event.setContent(content);
+				event.setContent(content.substring(1));
 				event.setEventName(eventName);
 				event.setProductId(productId);
 				event.setStartDate(startDate);

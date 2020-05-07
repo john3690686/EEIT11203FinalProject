@@ -18,7 +18,7 @@ $(window).on('load', function () {
         $("#eventDiv").show().siblings().hide()
 		$("#tab1").show();
 		$("#tab0").hide();
-        
+        $("#tab2").hide();
         createEventPagesNum();
     }
     
@@ -86,9 +86,7 @@ $(window).on('load', function () {
                 }
             }
             if ($(this).hasClass("upl")) {
-            	console.log(productList)
                 let p = findProductById(id);
-                console.log(p)
                 $(".productListView,.pagination").hide()
                 $("#iPDiv").show()
                 $("#insProduct").text("放棄修改")
@@ -114,6 +112,32 @@ $(window).on('load', function () {
         })
         createProductPageNum()
     }
+    
+    $( document ).on( "click", function( event ) {
+    	
+    	
+    	let listItem = ["", "productId", "productName", "tag", "price", "uploadTime", "downloadTime", "intro"]
+    	let id = parseInt($( event.target ).closest("#productList tr").find("td").eq(1).html());
+    	let p = findProductById(id);
+    	
+    	if( !isNaN(id) ) {
+	    	if(p.productImage != null){
+	        	$("#msgImg").attr("src", "data:image/jpeg;base64," + p.productImage)
+	        }else{
+	        	$("#msgImg").attr("src", imgDefault)
+	    	}
+	    	msg = $("#messageContext").find("tr")
+	    	for(let i=1;i<7;i++) {
+	    		console.log(p[ ( listItem[i] ) ])
+	    		msg.eq(i).find("td").eq(1).html( p[ ( listItem[i] ) ] )
+//	    		msg.eq(i).find("td").eq(1).css("background-color", "red")
+	    	}
+	    	msg.eq(7).find("td").eq(0).html( p[ ( listItem[8] ) ] )
+	    	$("#messageDiv").show()
+    	} else {
+    		$("#messageDiv").hide()
+    	}
+    });
 
     // 點擊新增產品按鈕的事件->若有進行修改按下取消按鈕 跳出詢問放棄的視窗 是則隱藏視窗 並清空資料
     $("#insProduct").click( function () {
@@ -132,7 +156,11 @@ $(window).on('load', function () {
                 $("#iPDiv").find("input[type=text],input[type=Date]").val("")
                 $("#iPDiv").find("input[type=Date]").val((new Date()).format("yyyy/MM/dd"))
                 $("#iPDiv").find("textarea").val("")
-                $("#iPDiv").find("img").attr("src", imgDefault)
+                if(p.productImage != null){
+                	$("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
+                }else{
+                	$("#iPDiv").find("img#Preview").attr("src", imgDefault)
+            	}
                 $("#iPDiv").find("input[type=file]").val("")
                 $("#iPDiv").show()
                 // $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled',
@@ -267,8 +295,10 @@ $(window).on('load', function () {
         
         // 點擊上/下頁的動作
         $("#productDiv a.button.special").on("click", function() {
-            let page = parseInt($("li.page.current>a").text())
+            let page = parseInt($("#productDiv li.page.current>a").text())
             actionName = $(this).text()
+            console.log("page: " + page)
+            console.log("actionName: " + actionName)
             if( page > 1 && actionName == "Previous" ){
 				$("#productDiv li.page").eq(page-2).addClass("current").siblings().removeClass("current")
                 turningPPage(page-1)
@@ -315,7 +345,6 @@ $(window).on('load', function () {
 			placeholder: '請輸入文章...',
 		})
 		.then(editor => {
-			console.log(editor);
 			editorcontent = editor;
 		})
 		.catch(error => {
@@ -331,7 +360,6 @@ $(window).on('load', function () {
 			'|', 'outdent', 'indent']
 	})
 	.then(editor => {
-		console.log(editor);
 		responseEditorcontent = editor;
 	})
 	.catch(error => {
@@ -341,14 +369,11 @@ $(window).on('load', function () {
 	
 	//一開始載入所執行的函數
 	function reloadAllEvent(){
-		console.log('QueryAll:run');
 	$.ajax({
 		url : "queryAllEvent",
 		dataType : "json",
 		type : "GET",
 		success : function(response) {
-			console.log('queryResopnse', response);
-			// console.log('QueryAll:2');
 			var txt = "";
 			for (let i = response.length-1; i >= 0; i--) {
 				var id = response[i].eventId;
@@ -382,7 +407,6 @@ $(window).on('load', function () {
 			dataType : "json",
 			type : "GET",
 			success : function(response) {
-				console.log('queryResopnse',response);								
 				var txt = "";
 				for (let i = response.length-1; i >= 0; i--) {
 					var id = response[i].eventId;
@@ -396,13 +420,10 @@ $(window).on('load', function () {
 					txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="queryUpdateData">修改</button>';									
 					txt += '<td><button type="button" class="btn btn-danger" class="eventDel" id="delete">刪除</button>';
 					txt += "<tr class='content' hidden><td colspan='3'></td><td id='"+id+"' colspan='4'>"+response[i].content+"</td><td colspan='2'></td></tr>";
-					console.log('searchAllData:OK');
 				}
 				$('#queryAllEvent').html(txt);	
 				
 				$("button.contentButton").on("click",function(){
-					console.log('content');
-			       
 					$(this).closest("tr").next().toggle();
 			    })
 			    
@@ -504,7 +525,6 @@ $(window).on('load', function () {
 		if (checkstr == true) {
 			var $tr = $(this).parents("tr");
 			eventId = $tr.find("td").eq(0).text(); // 抓取id值
-			console.log('eventId=' + eventId);
 			$(this).parents("tr").remove(); // 刪除整個欄位
 
 			$.ajax({
@@ -513,10 +533,8 @@ $(window).on('load', function () {
 				type : "POST",
 				data : {"eventId": eventId},
 				success : function(response) {
-					console.log("AAA");		
 				}
 			}).done(function (){
-				console.log("bbb");
 				reloadAllEvent();
 				createEventPagesNum();				
 					
@@ -531,7 +549,6 @@ $(window).on('load', function () {
 	$(document).on('click', '#queryUpdateData', function() {
 		var $tr = $(this).parents("tr");
 		eventId = $tr.find("td").eq(0).text(); // 抓取id值
-		console.log('eventId=' + eventId);
 		$("#tab0").hide();
 		$("#tab1").hide();
 		$("#tab2").show();
@@ -541,7 +558,6 @@ $(window).on('load', function () {
 			type : "GET",
 			data : {eventId : eventId},
 			success : function(response) {
-				console.log(response);	
 				var txt = "活動編號 : "+response.eventId;
 				$('input[name="startDate1"]').val(response.startDate);
 				$('input[name="endDate1"]').val(response.endDate);								
@@ -556,8 +572,6 @@ $(window).on('load', function () {
 	});				
 	// searchButton 搜尋單筆資料
 	$(document).on('click', '#search', function() {
-		console.log("searchButton:1");
-		console.log("searchcontent:",$("#se1").val());	
 		eventId = $("#se1").val();
 		$.ajax({
 			url : "queryEvent",
@@ -565,7 +579,6 @@ $(window).on('load', function () {
 			type : "GET",
 			data : {eventId : eventId},
 			success : function(response) {
-				console.log(response);	
 				var txt = "";
 				txt += "<tr class='thistr'><td>"+ response.eventId;
 				txt += "<td>"+ response.productId;
@@ -579,7 +592,6 @@ $(window).on('load', function () {
 				txt += "<tr class='content' hidden><td colspan='3'></td><td colspan='4'>"+response.content+"</td><td colspan='2'></td></tr>";
 				$('#queryAllEvent').html(txt);	
 				$("button.contentButton").on("click",function(){
-					console.log('content');
 					$(this).closest("tr").next().toggle();
 			    })
 			    
@@ -595,8 +607,6 @@ $(window).on('load', function () {
 		
 		var updateImage =$('#imageUpdate').get(0).files[0];			
 
-		console.log(updateImage);
-		console.log("eventId1:",eventId);
 		if(updateImage != undefined){				
 			formData.append("eventImage1","null");						
 		}
@@ -611,8 +621,6 @@ $(window).on('load', function () {
 				type : "POST",
 				data : formData,
 				success : function(response) {
-					// console.log(response);
-					console.log("Save ok");	
 					alert("修改成功");	
 					$("#tab1").show();
 					$("#tab2").hide();
@@ -641,7 +649,6 @@ $(window).on('load', function () {
 
 	function createEventPagesNum(){
 		var allDatalen = $("#tab1 tr:not(.content)").length;
-		console.log('ePage',$("#tab1 tr:not(.content)").length);
 		eAllPage = Math.ceil( ((allDatalen)-1) / ePerPageNum )
 		let txt = "<li><a href='#' class='button special'>Previous</a></li>" //上一頁
 		for(let i=0;i<eAllPage;i++){
@@ -654,7 +661,6 @@ $(window).on('load', function () {
 
         // 此為翻頁的事件(翻到第幾頁)
         function turningEPage(page) {
-			console.log('page',page);
             trLen = $("#queryAllEvent tr:not(.content)").length
             $("#queryAllEvent tr").hide()
             for(let i=(page-1)*ePerPageNum;i<page*ePerPageNum;i++){
@@ -665,7 +671,6 @@ $(window).on('load', function () {
      
             // 點擊上/下頁的動作
             $("#tab1 a.button.special").on("click", function() {
-            	console.log('thispage',parseInt($("#tab1 li.page.current>a").text()))
                 let page = parseInt($("#tab1 li.page.current>a").text())
                 actionName = $(this).text()
                 if( page > 1 && actionName == "Previous" ){
@@ -720,7 +725,6 @@ $(window).on('load', function () {
 		}).done(function () {
 			for (let i = 0; i < totalList; i++) {
 				$("#btn" + i).click(function () {
-					console.log("comId:" + $("#comId" + i).val());
 					$.ajax({
 						url: "http://localhost:8080/GameShop/reply",
 						type: "GET",
@@ -752,16 +756,17 @@ $(window).on('load', function () {
 		orderStat = jdata;
 	})
 	
+	$.getJSON("WishListChart", function( jdata ){
+		wishList = jdata;
+	})
+	
 	$("#ShowOrderChartBtn").on("click", function(){
-		chartTitle.title = "產品銷售比例"
-		console.log(productList)
-		console.log(orderStat)
-		
+		chartTitle.text = "產品銷售比例"
+
 		let sum = 0;
 		for(let i=0;i<orderStat.length;i++){
 			sum += parseInt(orderStat[i].NumOfSales)
 		}
-		console.log("sum = " + sum )
 		
 		let data = [];
 		for(let i=0;i<orderStat.length;i++){
@@ -776,7 +781,7 @@ $(window).on('load', function () {
 	})
 	
 	$("#ShowPTagChartBtn").on("click", function(){
-		chartTitle.title = "類別銷售比例"
+		chartTitle.text = "類別銷售比例"
 		//將各個分類初始化
 		let tagArray = [];
 		for(let i=0;i<9;i++){
@@ -785,7 +790,7 @@ $(window).on('load', function () {
 					"y": 0
 			}
 			tagArray.push(obj)
-		}console.log(tagArray)
+		}
 		//求總銷售數量
 		let sum = 0;
 		for(let i=0;i<orderStat.length;i++){
@@ -794,12 +799,8 @@ $(window).on('load', function () {
 		//數出各分類的數量
 		for(let i=0;i<orderStat.length;i++){
 			let tagName = findProductById(parseInt(orderStat[i].productId)).tag
-			console.log("i:" + i)
-			console.log("tagName:" + tagName)
 			for(let j=0;j<tagArray.length;j++){
-				console.log(tagArray[j].name + "=" + tagName)
 				if( tagArray[j].name == tagName ){
-					console.log("true")
 					tagArray[j].y += ((parseInt(orderStat[i].NumOfSales)*100)/sum);
 				}
 			}
@@ -813,6 +814,26 @@ $(window).on('load', function () {
 		
 		
 		CreateChart( tagArray );
+	})
+	
+	$("#ShowWishChartBtn").on("click", function(){
+		chartTitle.text = "產品願望占比"
+		
+		let sum = 0;
+		for(let i=0;i<wishList.length;i++){
+			sum += parseInt(wishList[i].NumOfWish)
+		}
+		
+		let data = [];
+		for(let i=0;i<wishList.length;i++){
+			let obj = {
+					"name": findProductById(parseInt(wishList[i].productId)).productName,
+					"y": ((parseInt(wishList[i].NumOfWish)*100)/sum)
+				}
+			data.push(obj)
+		}
+		
+		CreateChart( data );
 	})
 
 	
@@ -907,6 +928,7 @@ var productEdit = false
 var pPerPageNum = 5
 var pAllPage = 0
 var pPage = 0
+var wishList;
 var orderStat;
 
 // 遊戲分類中英文對照參考

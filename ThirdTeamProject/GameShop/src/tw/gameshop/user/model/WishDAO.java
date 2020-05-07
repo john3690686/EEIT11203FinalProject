@@ -1,7 +1,11 @@
 package tw.gameshop.user.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -89,6 +93,28 @@ public class WishDAO {
 			userList.add(wish.getUserId());
 		}
 		return userList;
+	}
+	
+	/**
+	 * @author kunhung
+	 * @apiNote Bms Wish Chart Dao
+	 * @return List<Map<Object, Object>>
+	 */
+	public List<Map<Object, Object>> queryAllWish() {
+		String hqlStr = "Select productId, count(productId) as n from Wish Where accomplish not in('d') group by productId Order by n";
+		List list = sessionFactory.getCurrentSession().createQuery(hqlStr).list();
+		
+		List<Map<Object, Object>> resultList = new ArrayList<Map<Object, Object>>();
+		
+		Iterator iter = list.iterator();
+		while( iter.hasNext() ) {
+			Map<Object, Object> r = new HashMap<Object, Object>();
+			Object[] obj = (Object[])iter.next();
+			r.put("productId", obj[0]);
+			r.put("NumOfWish", obj[1]);
+			resultList.add(r);
+		}
+		return resultList;
 	}
 
 }
