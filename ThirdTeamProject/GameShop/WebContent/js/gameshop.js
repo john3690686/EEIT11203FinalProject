@@ -65,11 +65,16 @@ $(document).ready(function () {
         $("#nickName").val("jim");
         $("#userPwd").val("Passw0rd");
         $("#recheckPwd").val("Passw0rd");
-        $("#mail").val("j.t.hung1988@gmail.com");
+        $("#mail").val("eeit11203@gmail.com");
         $("#birthday").val("2020-03-03");
         $("#address").val("addr");
         $("#phone").val("0987141242");
         errorAcc = 0; errorNickName = 0; errorPwd = 0; errorMail = 0;
+        setTimeout(docheckAccount,100);
+        setTimeout(docheckNickName,200);
+        setTimeout(docheckUserPwd,300);
+        setTimeout(dockeckReCheckPwd,400);
+        setTimeout(docheckMail,500);
     })
 
     $("#loginfill").click(function(){
@@ -82,18 +87,17 @@ $(document).ready(function () {
     var regUserPwd = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z\d].{6,12}$/);
     var regMail = new RegExp(/\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+/);
     var errorAcc = 1, errorNickName = 1, errorPwd = 1, errorMail = 1;
-
-
-    $("#userAccount").blur(function () {
+    var docheckAccount = function(){
+        let userAccount = $("#userAccount").val();
         let ajaxFlag = true;
         $("#checkAccount img").css("visibility", "visible");
-        if (regUserAccount.test($(this).val()) && ajaxFlag) {
+        if (regUserAccount.test(userAccount) && ajaxFlag) {
             ajaxFlag = false;
-            console.log("thisvalue = " + $(this).val());
+            console.log("thisvalue = " + userAccount);
             $.ajax({
                 url: "http://localhost:8080/GameShop/isAccountExist",
                 type: "GET",
-                data : {"userAccount":$(this).val()},
+                data : {"userAccount":userAccount},
                 dataType:"json",
                 success: function(data){
                     console.log(data);
@@ -115,17 +119,19 @@ $(document).ready(function () {
             $("#checkAccount img").attr("src", "img/Wrong.png");
             errorAcc = 1;
         }
-    });
-    $("#nickName").blur(function () {
+    }
+
+    var docheckNickName = function(){
+        let nickName = $("#nickName").val();
         let ajaxFlag = true;
         $("#checkNickName img").css("visibility", "visible");
-        if (ajaxFlag && $(this).val().length>0) {
+        if (ajaxFlag && nickName.length>0) {
             ajaxFlag = false;
-            console.log("thisvalue = " + $(this).val());
+            console.log("thisvalue = " + nickName);
             $.ajax({
                 url: "http://localhost:8080/GameShop/isNickNameExist",
                 type: "GET",
-                data : {"nickName":$(this).val()},
+                data : {"nickName":nickName},
                 dataType:"json",
                 success: function(data){
                     console.log(data);
@@ -145,35 +151,37 @@ $(document).ready(function () {
             $("#checkNickName img").attr("src", "img/Wrong.png");
             errorNickName = 1;
         }
-    });
-    $("#userPwd").blur(function () {
+    }
+    var docheckUserPwd = function () {
         $("#checkPwd img").css("visibility", "visible");
-        if (regUserPwd.test($(this).val())) {
+        if (regUserPwd.test($("#userPwd").val())) {
             $("#checkPwd img").attr("src", "img/Right.png");
             errorPwd = 0;
         } else {
             $("#checkPwd img").attr("src", "img/Wrong.png");
             errorPwd = 1;
         }
-    });
-    $("#recheckPwd").blur(function () {
+    }
+
+    var dockeckReCheckPwd = function () {
         $("#recheckPwd img").css("visibility", "visible");
-        if ($(this).val().length > 0 && $(this).val() == $("#userPwd").val()) {
+        if ($("#recheckPwd").val().length > 0 && $("#recheckPwd").val() == $("#userPwd").val()) {
             $("#recheckPwd img").attr("src", "img/Right.png");
         } else {
             $("#recheckPwd img").attr("src", "img/Wrong.png");
         }
-    });
-    $("#mail").blur(function () {
+    }
+    var docheckMail = function () {
+        let mail = $("#mail").val();
         let ajaxFlag = true;
         $("#checkMail img").css("visibility", "visible");
-        if (regMail.test($(this).val())) {
+        if (regMail.test(mail)) {
             ajaxFlag = false;
-            console.log("thisvalue = " + $(this).val());
+            console.log("thisvalue = " + mail);
             $.ajax({
                 url: "http://localhost:8080/GameShop/isMailExist",
                 type: "GET",
-                data : {"mail":$(this).val()},
+                data : {"mail":mail},
                 dataType:"json",
                 success: function(data){
                     console.log(data);
@@ -193,7 +201,12 @@ $(document).ready(function () {
             $("#checkMail img").attr("src", "img/Wrong.png");
             errorMail = 1;
         }
-    });
+    }
+    $("#userAccount").blur(docheckAccount);
+    $("#nickName").blur(docheckNickName);
+    $("#userPwd").blur(docheckUserPwd);
+    $("#recheckPwd").blur(dockeckReCheckPwd);
+    $("#mail").blur(docheckMail);
 
     //confirm
     $(".registerconfirm").click(function (e) {
