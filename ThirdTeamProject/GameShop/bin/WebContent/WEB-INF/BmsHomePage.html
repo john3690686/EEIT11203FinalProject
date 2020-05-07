@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="BmsHomePage.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="BmsHomePage.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back-Manager-System_HomePage</title>
+</head>
+
+<body>
+    <div class="bms">
+        <div class="header">
+            <h1>GameGuild's 後臺管理系統</h1>
+        </div>
+
+        <div id="asideLeft">
+            <ul>
+                <li id="product" class="bmsmenu"><a href="#">商品</a></li>
+                <li id="event" class="bmsmenu"><a href="#">活動</a></li>
+                <li id="other" class="bmsmenu"><a href="#">預留</a></li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <div id="article" class="article">
+                <div id="mainDiv">Welcome Back-Manager-System_HomePage</div>
+                
+                <div id="productDiv" class="section" hidden>
+                    <button id="insProduct">新增產品</button>
+                    <button id="hideProductNotSales" class="productListView">隱藏位在架上商品</button>
+
+                    <div id="iPDiv" hidden>
+                        <form action="xxxController" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="pId">
+                            <table>
+                            <!-- 	test id -->
+                                <tr>
+                                    <td>遊戲封面</td>
+                                    <td colspan="4">
+                                        <img id="Preview" src="../img/BmsDefualtImg.jpg">
+                                        <input id="pfile" type="file" name="file" hidden></td>
+                                </tr><tr>
+                                    <td>遊戲名稱</td>
+                                    <td><input type="text" name="pName"></td>
+                                    <td>分類</td>
+                                    <td>
+                                        <select name="tagList">
+                                            <option value="0">策略</option>
+                                            <option value="1">角色扮演</option>
+                                            <option value="2">射擊</option>
+                                            <option value="3">模擬</option>
+                                            <option value="4">冒險</option>
+                                            <option value="5">休閒</option>
+                                            <option value="6">運動</option>
+                                            <option value="7">恐怖</option>
+                                        </select>
+                                </td></tr><tr>
+                                    <td>價格</td>
+                                    <td><input type="text" name="price"></td>
+                                </tr><tr>
+                                    <td>描述</td>
+                                    <td colspan="4">
+                                        <textarea name="intro" cols="50" rows="5" placeholder="輸入遊戲的描述"></textarea></td>
+                                </tr><tr>
+                                    <td>上架時間</td>
+                                    <td><input type="date" name="uplTime" id="uplTime"></td>
+                                    <td>下架時間</td>
+                                    <td><input type="date" name="dwlTime" id="dwlTime"></td>
+                                </tr><tr>
+                                    <td>
+                                        <input type="button" id="sendProductBean" value="確定送出"/></td>
+                                    <td>
+                                        <input type="button" id="resetProductBean" value="重設"/></td>
+                                </tr>
+                            </table> 
+                        </form>
+                       
+                    </div>
+
+                    <table id="productListTable" class="productListView">
+                        <thead>
+                            <tr>
+                                <td>產品狀態</td>
+                                <td>產品編號</td>
+                                <td>產品名稱</td>
+                                <td>價格</td>
+                                <td>上架時間</td>
+                                <td>下架時間</td>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                        </tbody>
+                    </table>
+
+                    <ul class="pagination"></ul>
+
+                </div>
+
+                <div id="eventDiv" class="section" hidden></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

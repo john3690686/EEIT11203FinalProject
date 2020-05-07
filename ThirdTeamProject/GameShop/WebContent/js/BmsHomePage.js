@@ -114,13 +114,12 @@ $(window).on('load', function () {
     }
     
     $( document ).on( "click", function( event ) {
-    	
-    	
     	let listItem = ["", "productId", "productName", "tag", "price", "uploadTime", "downloadTime", "intro"]
     	let id = parseInt($( event.target ).closest("#productList tr").find("td").eq(1).html());
+    	let tdIndex = $( event.target ).closest("td").parents("tr").find("td").index($( event.target ).closest("td") );
     	let p = findProductById(id);
     	
-    	if( !isNaN(id) ) {
+    	if( !isNaN(id) && tdIndex < 7 ) {
 	    	if(p.productImage != null){
 	        	$("#msgImg").attr("src", "data:image/jpeg;base64," + p.productImage)
 	        }else{

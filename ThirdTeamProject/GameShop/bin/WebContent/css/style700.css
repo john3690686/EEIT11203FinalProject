@@ -1,0 +1,89 @@
+body{
+    margin:0;
+    padding:0;
+    text-align: center;
+    background: -webkit-linear-gradient( #3C3C3C, rgb(19, 18, 18)) ;
+}
+
+/*navigator*/
+.ul1{
+    width: 100%;
+	height: 15%;
+}
+.ul1 li{
+	padding:20px;
+  	background-size: 25vw;
+}
+.ul1 li a {
+    font-size: 2.5vh;
+	padding:0;
+}
+.ul1 li:hover {
+	background-size: 25vw;	
+}
+
+/*login button*/
+.loginz{
+	border:none;
+	width:80px;
+	height:80px;
+    font-size: 2vh;
+    padding: 0;
+	top:200px;
+	background:url(../img/login700.png) no-repeat;
+}
+.loginz:hover{
+	border:none;
+	width:80px;
+	height:80px;
+    font-size: 2vh;
+    padding: 0;
+	top:200px;
+	background:url(../img/login700.png) no-repeat;
+	filter:saturate(3);
+}
+
+.loginForm{
+	height:50%;
+	display: none;
+}
+.registerForm{
+	height:100%;
+	display: none;
+}
+
+.loginArea{
+    top:300px;
+}
+
+/*Main Theme*/
+.subtitle{
+    font-size: vw;
+    top:100px;
+}
+.mainBody{
+	background-position:center;
+	background-attachment: fixed;
+}
+
+/*footer*/
+footer{
+	 margin-top:50px;
+     top:0px;
+}
+/*event area*/
+.event{
+	position: relative;
+    width: 70%;
+}
+.titledec2{
+	margin-top:300px;
+}
+/*sale area*/
+#defaultmainImg{
+	margin-left:0;
+}
+.searchArea{
+	width:100%;
+}
+

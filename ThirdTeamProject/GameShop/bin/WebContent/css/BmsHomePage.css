@@ -1,0 +1,406 @@
+/*  CSS 英文字形 Shadows Into Light 
+font-family: 'Shadows Into Light', cursive;
+font-family: 'Press Start 2P', cursive;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Shadows+Into+Light&display=swap');
+
+@font-face {
+  font-family: bmsDefaultFontStyle;
+  unicode-range: U+4E00-9FFF; /* Unicode  */
+  src: local(Microsoft JhengHei); /* 先找 Helvetica ，沒有的話用 Arial */
+}
+
+*{
+	font-family: bmsDefaultFontStyle, Arial;
+}
+
+body {
+	background-image:url('../img/BmsBGI.jpg');
+	background-repeat: repeat;
+	background-color: #CDCD9A;
+}
+
+h1 {
+    font-family: bmsDefaultFontStyle, 'Press Start 2P', cursive;
+}
+
+.bms > .main {
+    width: 1662px; 
+    margin: 0 auto;
+    float: left;
+}
+
+.bms > .header {
+    height: 100px;
+    background-color: rgb(255, 160, 66, 0.5);
+    border-bottom: 2px solid #444;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-top: 30px;
+/*     position: fixed; */
+}
+
+.bms .article {
+	margin: 0 auto;
+}
+
+.bms > #asideLeft {
+	margin: 0 auto;
+    width: 100%;
+    height: 780px;
+}
+.bms > #asideLeft > ul {
+    width: 100%;
+    height: 700px;
+    margin: 0;
+    list-style-type: none;
+    overflow: auto;
+    padding: 0;
+}
+
+.bms > #asideLeft > ul > li {
+    background-color: rgba(215, 231, 73, 0.7);
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+}
+
+.bms > #asideLeft a {
+    height: 100%;
+    display: block;
+    text-align: center;
+}
+
+.bms > #asideLeft a:link {
+    text-decoration:none;
+}
+.bms > #asideLeft a:hover {
+    background-color:	#0080FF	;
+    color:	#ffffff;
+    border-radius:5px;
+}
+
+.bms #asideLeft {
+    width: 180px;
+    float: left;/* position: fixed; */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    /* z-index: 999; */
+    transition: all 0.3s;
+}
+.sectionMenu {
+	width: 1156px;
+	height: 100px;
+	margin-left: 253px;
+}
+
+.bms .expired, .notyet {
+    background-color: rgb(213, 115, 169, 0.4);
+}
+
+.bms .expired > .pStatus,
+.bms .notyet > .pStatus{
+    color: red;
+}
+
+.bms .valid > .pStatus {
+    color: green;
+}
+
+.logout {
+    /* position: fixed; */
+    position: absolute;
+    z-index: 9999;
+    right: 20px;
+    top: 3em;
+    height: 4em;
+    width: 5em;
+    box-shadow:0 0 0 2px #dfdfdf;
+    border-radius:4px;
+}
+
+.logout > a{
+	width: 100%;
+	height: 100%;
+	line-height: 4em;
+	margin: 0;
+	display:inline-block;
+	background-color: rgb(187, 94, 0, 0.6);
+}
+
+.logout>a:link{
+	text-decoration:none;
+}
+
+.logout>a:hover{
+	background-color: #0080FF;
+    color:	#ffffff;
+    border-radius:5px;
+}
+
+.hideClass {
+    display: none;
+}
+
+sectionMenu > button {
+	
+}
+
+/* .button > div { */
+/* 	width: 100%; */
+/* 	height: 100%; */
+/* 	background-color: rgb(172, 214, 255, 0.4) !important; */
+/* } */
+
+/* .button > div:hover { */
+/* 	width: 100%; */
+/* 	height: 100%; */
+/* 	background-color: rgb(70, 163, 255, 0.7) !important; */
+/* } */
+
+.sectionMenu > button {
+	padding: 0;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    font-size: 14pt !important;
+}
+
+/* ----------------- Table CSS ------------------------*/
+table {
+	margin: 0 auto;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: rgb(172, 214, 255, 0.4);
+}
+
+table tr, td {
+    line-height: 50px;
+    /* max-height: 50px; */
+    height: 50px;
+}
+
+table thead tr {
+    background-color: rgb(70, 163, 255, 0.4);
+}
+
+table tbody tr {
+    background-color: rgb(132, 193, 255, 0.4);
+}
+
+table button{
+    border-radius: 5px;
+    width: 59px;
+    height: 37px;
+    margin: 1px;
+    background-color: rgb(95, 206, 192, 0.5);
+}
+
+table td {
+    text-align: center;
+    padding: 2px;
+    width: 75px;
+}
+
+tbody tr:hover {
+	background-color: rgb(101, 178, 255, 0.4);
+}
+
+table#productListTable td:nth-child(3) {
+    width: 300px !important;
+}
+
+table#productListTable td:nth-child(6), td:nth-child(7) {
+    width: 190px !important;
+}
+
+table#productListTable td:nth-child(8), td:nth-child(9) {
+    width: 70px !important;
+}
+
+/* ----------------- Test product page css ---------------------*/
+
+ul.pagination{
+    cursor:default;
+    margin:0;
+    text-align:center
+}
+ul.pagination li{
+    display:inline-block;
+    margin:0 0.325em
+}
+ul.pagination .button{
+    width:10em;
+    padding:0
+}
+ul.pagination .page.current a{
+    color:#ff6098;
+    border-color:#ff6098
+}
+ul.pagination .page a{
+    -moz-transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    -webkit-transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    -ms-transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    transition:color .2s ease-in-out,border-color .2s ease-in-out,background .2s ease-in-out;
+    display:inline-block;
+    text-transform:uppercase;
+    font-size:0.9em;
+    font-weight:700;
+    letter-spacing:.125em;
+    line-height:3em;
+    width:3em;
+    text-align:center;
+    border-radius:4px;
+    color:#444;
+    background-color: rgb(95, 206, 192, 0.4);
+    border:solid 2px rgb(160, 150, 150)
+}
+ul.pagination .page a:hover{
+    /*color:#5FCEC0;*/
+    color: #0;
+    background-color: rgb(95, 206, 192, 0.6);
+    border-color: #5FCEC0
+}
+
+.button {
+    -moz-transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    -webkit-transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    -ms-transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    transition:color .2s ease-in-out,box-shadow .2s ease-in-out,background .2s ease-in-out,opacity .2s ease-in-out;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    display:inline-block;
+    text-transform:uppercase;
+    font-size:0.75em !important;
+    font-weight:700;
+    letter-spacing:.125em;
+    line-height:3.75em;
+    height:3.75em;
+    padding:0 2.25em;
+    border:0;
+    box-shadow:0 0 0 2px #dfdfdf;
+    border-radius:4px;
+    color:#444;
+    text-align:center;
+    background:none;
+    cursor:pointer
+}
+
+.button:hover {
+    color:#5FCEC0;
+    color: #0;
+    box-shadow:0 0 0 2px #5FCEC0
+}
+
+.button.special {
+	background:#5FCEC0;
+	color:#fff;
+	box-shadow:0 0 0 2px #5FCEC0
+}
+.button.special:hover {
+	background:#3bbfaf;
+	box-shadow:0 0 0 2px #3bbfaf
+}
+
+/* ----------------------------   以下為活動的CSS ------------------------ ------ */
+
+#eventDiv > div {
+	margin: 0 auto;
+}
+
+table#eventListTable td:nth-child(4) {
+	width: 400px;
+}
+
+table#eventListTable td:nth-child(1), td:nth-child(2) {
+	width: 80px;
+}
+
+table#eventListTable td:nth-child(6), td:nth-child(7) {
+	width: 160px;
+}
+
+table#eventListTable .content {
+	padding-left: 40%;
+}
+
+#tabs-nav {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	text-align: left
+}
+
+tr.content > td:nth-child(2) {
+	background-color: rgb(255, 255, 119, 0.4);
+}
+
+a.tabs-menu {
+	display: inline-block;
+	background-color: #1b91ab;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+	padding: 5px 10px;
+	text-shadow: 1px 1px 0px #1b91ab;
+	font-weight: bold;
+	text-decoration: none;
+	border: solid 1px #1b91ab;
+	border-bottom: 0;
+	border-radius: 3px 3px 0 0;
+}
+
+a.tabs-menu.tabs-menu-active {
+	background-color: #fff;
+	text-shadow: 1px 1px 0px #ffffff;
+	border: solid 1px #1b91ab;
+	color: #6b6b6b;
+	border-bottom: 0;
+}
+
+.tabs-container {
+	border: solid 1px #1b91ab;
+	margin-top: -1px;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.tabs-panel {
+	display: none;
+	min-height: 400px;
+	overflow: auto;
+	padding: 10px;
+	max-height: 600px;
+}
+#jquery-tabs img{
+	width:200px;
+	height:100px;
+
+}
+.ck-editor__editable{
+  height: 200px;
+  width: 700px;
+}
+
+/* ------------------------  */
+#messageDiv {
+	position: absolute;
+	margin-left: -230px;
+	margin-top: -338px;
+	top: 50%;
+	left: 50%;
+}
+
+#messageContext {
+	padding: 20px;
+	background-color: #66FFFF;
+}
+
+#messageDiv table {
+	margin: 0 auto;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}

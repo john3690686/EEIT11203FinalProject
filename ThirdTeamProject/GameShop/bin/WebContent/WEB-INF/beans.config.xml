@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:annotation-config />
+	<context:component-scan	base-package="tw.gameshop"/>
+	
+	<mvc:annotation-driven/>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<mvc:resources location="/WEB-INF/resources/images/" mapping="/images/**"/>
+
+	<bean id="SQLserverJndiDataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"
+			value="java:comp/env/connectSqlServerJdbc/GameShop"></property>
+	</bean>
+	<bean id="sessionFactory" destroy-method="destroy" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="SQLserverJndiDataSource" />
+		<property name="packagesToScan" value="tw.gameshop.user.model"></property>
+		<property name="hibernateProperties">
+		   <props>
+		     <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+		     <!-- 
+		     <prop key="hibernate.show_sql">true</prop>
+		     <prop key="hibernate.format_sql">true</prop>
+		      -->
+		     <prop key="hibernate.current_session_context_class">thread</prop>
+		   </props>
+		</property>
+	</bean>	
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	    <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" /> 
+		<property name="port" value="587" /> 
+		<property name="username" value="eeit11203@gmail.com" /> 
+		<property name="password" value="P@ssW0rd" /> 
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<task:scheduled-tasks>
+	  <task:scheduled ref="EventNotification" method="processAction" cron="0 30 14 * * ?"/>
+	</task:scheduled-tasks>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">   
+	</bean>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
