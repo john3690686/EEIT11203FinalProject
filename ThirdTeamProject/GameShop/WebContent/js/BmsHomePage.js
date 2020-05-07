@@ -113,7 +113,7 @@ $(window).on('load', function () {
         createProductPageNum()
     }
     
-    $( document ).on( "click", function( event ) {
+    $("#productDiv").on( "click", function( event ) {
     	let listItem = ["", "productId", "productName", "tag", "price", "uploadTime", "downloadTime", "intro"]
     	let id = parseInt($( event.target ).closest("#productList tr").find("td").eq(1).html());
     	let tdIndex = $( event.target ).closest("td").parents("tr").find("td").index($( event.target ).closest("td") );
@@ -155,12 +155,8 @@ $(window).on('load', function () {
                 $("#iPDiv").find("input[type=text],input[type=Date]").val("")
                 $("#iPDiv").find("input[type=Date]").val((new Date()).format("yyyy/MM/dd"))
                 $("#iPDiv").find("textarea").val("")
-                if(p.productImage != null){
-                	$("#iPDiv").find("img#Preview").attr("src", "data:image/jpeg;base64," + p.productImage)
-                }else{
-                	$("#iPDiv").find("img#Preview").attr("src", imgDefault)
-            	}
-                $("#iPDiv").find("input[type=file]").val("")
+                $("#iPDiv").find("img#Preview").attr("src", imgDefault)
+            	$("#iPDiv").find("input[type=file]").val("")
                 $("#iPDiv").show()
                 // $("#iPDiv").find("input[type=date][name=uplTime]").attr('disabled',
 				// false)
