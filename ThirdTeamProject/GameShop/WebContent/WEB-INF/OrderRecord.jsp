@@ -24,7 +24,18 @@ body{
 	background:rgb(0, 0, 0, 0.8);
 	padding:10px;
 }
-	
+#payY{
+  width:100px;
+  font-family: Microsoft JhengHei;
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+  text-shadow: 1px 1px 0px rgb(222, 170, 127);
+  box-shadow: 1px 1px 1px #293136;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px inset #A33B37; 
+}	
 	
 </style>
 
