@@ -943,7 +943,7 @@ transition: background-color .3s;
 	font-size:25px;
 }
 
-#pay, #payN{
+#pay, #payN, #payY{
   width:100px;
   font-family: Microsoft JhengHei;
   font-weight: bold;
@@ -956,6 +956,10 @@ transition: background-color .3s;
   border: 2px inset #A33B37;
   background: -webkit-linear-gradient( rgb(248, 205, 141), rgb(223, 131, 70));
 }
+#payY{
+  background: -webkit-linear-gradient( rgb(248, 141, 141), rgb(223, 70, 70));
+}
+
 #pay:hover {
   width:100px;
   background: -webkit-linear-gradient( rgb(252, 156, 78),rgb(221, 193, 152));
