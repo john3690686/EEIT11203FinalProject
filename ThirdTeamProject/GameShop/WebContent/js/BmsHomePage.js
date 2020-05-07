@@ -170,7 +170,7 @@ $(window).on('load', function () {
     	formdata.append("id" , id)
     	formdata.append("pName" , $("input[name=pName]").val())
     	formdata.append("price" , $("input[name=price]").val())
-    	formdata.append("intro" , $("input[name=intro]").val())
+    	formdata.append("intro" , $("textarea[name=intro]").val())
     	formdata.append("tag" , tagList[parseInt($("select[name=tagList]").val())])
     	formdata.append("uplTime" , $("input[name=uplTime]").val())
     	formdata.append("dwlTime" , $("input[name=dwlTime]").val())
